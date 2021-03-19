@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
+using System.Collections.Generic;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkManager.html
@@ -9,6 +10,43 @@ using Mirror;
 
 public class CustomNetworkManager : NetworkManager
 {
+    private const string PLAYER_ID_PREFIX = "Player_";
+    private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
+    private static string localPlayerId;
+    public static bool localPlayerInitialized { get; private set; }
+
+    public static void RegisterPlayer(uint netId, GameObject go)
+    {
+        string id = PLAYER_ID_PREFIX + netId;
+        players.Add(id, go);
+        go.transform.name = id;
+    }
+
+    public static void SetLocalPlayer(uint netId)
+    {
+        localPlayerInitialized = true;
+        localPlayerId = PLAYER_ID_PREFIX + netId;
+    }
+
+    public static GameObject GetLocalPlayer()
+    {
+        if (players.ContainsKey(localPlayerId))
+            return players[localPlayerId];
+        return null;
+    }
+
+    public static void UnregisterPlayer(uint netId)
+    {
+        string id = PLAYER_ID_PREFIX + netId;
+        players.Remove(id);
+    }
+
+    public static GameObject GetPlayerByNetId (uint netId)
+    {
+        string id = PLAYER_ID_PREFIX + netId;
+        return players[id];
+    }
+
     #region Unity Callbacks
 
     public override void OnValidate()
