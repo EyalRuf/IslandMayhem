@@ -7,6 +7,8 @@ public class LocalPlayerInput : MonoBehaviour
     public Vector3 moveInput = Vector3.zero;
     public bool jumpInput = false;
     public bool jumpInputDown = false;
+    public bool pickupInputDown = false;
+    public bool interactInputDown = false;
 
     // Update is called once per frame
     void Update()
@@ -21,5 +23,7 @@ public class LocalPlayerInput : MonoBehaviour
         moveInput = new Vector3(hor, 0, ver);
         jumpInput = Input.GetKey(KeyCode.Space);
         jumpInputDown = Input.GetKeyDown(KeyCode.Space);
+        pickupInputDown = Input.GetKeyDown(KeyCode.E);
+        interactInputDown = Input.GetKeyDown(KeyCode.Return);
     }
 }
