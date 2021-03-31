@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using Mirror;
 using System.Collections.Generic;
+using Steamworks;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkManager.html
@@ -47,6 +48,41 @@ public class CustomNetworkManager : NetworkManager
         return players[id];
     }
 
+    #region Matchmaking
+
+    protected Callback<LobbyMatchList_t> Callback_lobbyList;
+
+    public void JoinRandomMatch()
+    {
+        Callback_lobbyList = Callback<LobbyMatchList_t>.Create(OnGetLobbiesList);
+
+        SteamAPICall_t try_getList = SteamMatchmaking.RequestLobbyList();
+    }
+
+    private void OnGetLobbiesList(LobbyMatchList_t result) //result of requestlobbylist
+    {
+        List<CSteamID> lobbyIDS = new List<CSteamID>();
+
+        for (int i = 0; i < result.m_nLobbiesMatching; i++)
+        {
+            CSteamID lobbyID = SteamMatchmaking.GetLobbyByIndex(i);
+            lobbyIDS.Add(lobbyID);
+        }
+
+        //if no rooms were found create one instead
+        if(lobbyIDS.Count > 0)
+        {
+            networkAddress = lobbyIDS[Random.Range(0, lobbyIDS.Count)].ToString();
+            StartClient();
+        }
+        else
+        {
+            StartServer();
+        }
+    }
+
+    #endregion
+
     #region Unity Callbacks
 
     public override void OnValidate()
@@ -70,6 +106,8 @@ public class CustomNetworkManager : NetworkManager
     public override void Start()
     {
         base.Start();
+        SteamAPI.Init();
+        SteamFriends.SetRichPresence("status", "In Menu");
     }
 
     /// <summary>
@@ -77,6 +115,7 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     public override void LateUpdate()
     {
+        SteamAPI.RunCallbacks();
         base.LateUpdate();
     }
 
@@ -264,7 +303,10 @@ public class CustomNetworkManager : NetworkManager
     /// <summary>
     /// This is invoked when the client is started.
     /// </summary>
-    public override void OnStartClient() { }
+    public override void OnStartClient() 
+    {
+        SteamFriends.SetRichPresence("status", "In Game");
+    }
 
     /// <summary>
     /// This is called when a host is stopped.
@@ -279,7 +321,10 @@ public class CustomNetworkManager : NetworkManager
     /// <summary>
     /// This is called when a client is stopped.
     /// </summary>
-    public override void OnStopClient() { }
+    public override void OnStopClient() 
+    {
+        SteamFriends.SetRichPresence("status", "In Menu");
+    }
 
     #endregion
 }
