@@ -77,7 +77,7 @@ public class CustomNetworkManager : NetworkManager
         }
         else
         {
-            StartServer();
+            StartHost();
         }
     }
 
@@ -306,6 +306,7 @@ public class CustomNetworkManager : NetworkManager
     public override void OnStartClient() 
     {
         SteamFriends.SetRichPresence("status", "In Game");
+        SteamFriends.SetRichPresence("room", networkAddress);
     }
 
     /// <summary>
@@ -324,6 +325,7 @@ public class CustomNetworkManager : NetworkManager
     public override void OnStopClient() 
     {
         SteamFriends.SetRichPresence("status", "In Menu");
+        SteamFriends.SetRichPresence("room", "");
     }
 
     #endregion
