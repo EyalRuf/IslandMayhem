@@ -740,12 +740,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7.5
-  isGrounded: 0
+  isGrounded: 1
   groundCheck: {fileID: 8297925719936001042}
-  groundCheckRadius: 0.001
+  groundCheckRadius: 0.25
   groundCheckMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1559
   jumpForce: 8
   fallMultiplier: 2.5
   lowJumpMultiplier: 0.75

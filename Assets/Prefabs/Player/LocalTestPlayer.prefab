@@ -335,6 +335,7 @@ MonoBehaviour:
   jumpInput: 0
   jumpInputDown: 0
   pickupInputDown: 0
+  interactInputDown: 0
 --- !u!114 &771301310806685621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +354,7 @@ MonoBehaviour:
   groundCheckRadius: 0.01
   groundCheckMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1559
   jumpForce: 8
   fallMultiplier: 2.5
   lowJumpMultiplier: 0.75

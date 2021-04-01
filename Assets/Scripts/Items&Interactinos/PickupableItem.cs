@@ -34,11 +34,11 @@ public class PickupableItem : NetworkBehaviour
         transform.parent = newParent;
         transform.localPosition = newOrientation.localPosition;
         transform.localRotation = newOrientation.localRotation;
-        transform.localScale = newOrientation.localScale;
 
         outline.enabled = false;
         isBeingHeld = true;
         rb.isKinematic = true;
+        col.enabled = false;
     }
 
     public void Drop ()
@@ -46,6 +46,7 @@ public class PickupableItem : NetworkBehaviour
         transform.parent = originalParent;
         isBeingHeld = false;
         rb.isKinematic = false;
+        col.enabled = true;
     }
 
     public void Outline(bool flag)
