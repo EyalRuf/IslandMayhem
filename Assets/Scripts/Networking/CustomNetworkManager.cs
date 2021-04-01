@@ -292,11 +292,7 @@ public class CustomNetworkManager : NetworkManager
     /// This is invoked when a host is started.
     /// <para>StartHost has multiple signatures, but they all cause this hook to be called.</para>
     /// </summary>
-    public override void OnStartHost() 
-    {
-        SteamFriends.SetRichPresence("status", "In Game");
-        SteamFriends.SetRichPresence("room", SteamUser.GetSteamID().ToString());
-    }
+    public override void OnStartHost() { }
 
     /// <summary>
     /// This is invoked when a server is started - including when a host is started.
@@ -310,7 +306,16 @@ public class CustomNetworkManager : NetworkManager
     public override void OnStartClient() 
     {
         SteamFriends.SetRichPresence("status", "In Game");
-        SteamFriends.SetRichPresence("room", networkAddress);
+
+        if(mode == NetworkManagerMode.Host)
+        {
+            SteamFriends.SetRichPresence("room", SteamUser.GetSteamID().ToString());
+        }
+        else
+        {
+            SteamFriends.SetRichPresence("room", networkAddress);
+            Debug.Log(networkAddress);
+        }
     }
 
     /// <summary>

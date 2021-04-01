@@ -84,6 +84,7 @@ public class CustomNetworkManagerHUD : MonoBehaviour
                 {
                     if (GUILayout.Button("Host (Server + Client)"))
                     {
+                        manager.networkAddress = SteamUser.GetSteamID().ToString();
                         manager.StartHost();
                     }
                 }
@@ -141,7 +142,6 @@ public class CustomNetworkManagerHUD : MonoBehaviour
                         if (GUILayout.Button("Join " + friend.Value))
                         {
                             manager.networkAddress = SteamFriends.GetFriendRichPresence(SteamFriends.GetFriendByIndex(friend.Key, EFriendFlags.k_EFriendFlagAll), "room");
-                            Debug.Log(manager.networkAddress);
                             manager.StartClient();
                         }
                     }
