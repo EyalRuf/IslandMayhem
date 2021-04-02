@@ -109,6 +109,21 @@ public class PlayerPickup : NetworkBehaviour
         heldItem = null;
     }
 
+    public void DestroyItem()
+    {
+        CmdDestroyItem(heldItem);
+        heldItem = null;
+    }
+
+    [Command]
+    void CmdDestroyItem(PickupableItem item)
+    {
+        if(item != null)
+        {
+            NetworkServer.Destroy(item.gameObject);
+        }
+    }
+
     [ClientRpc]
     public void RpcDrop()
     {

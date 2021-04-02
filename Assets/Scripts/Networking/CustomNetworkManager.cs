@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using Mirror;
 using System.Collections.Generic;
 using Steamworks;
+using System.Linq;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkManager.html
@@ -48,38 +49,7 @@ public class CustomNetworkManager : NetworkManager
         return players[id];
     }
 
-    #region Matchmaking
-
-    protected Callback<LobbyMatchList_t> Callback_lobbyList;
-
-    public void JoinRandomMatch()
-    {
-        Callback_lobbyList = Callback<LobbyMatchList_t>.Create(OnGetLobbiesList);
-
-        SteamAPICall_t try_getList = SteamMatchmaking.RequestLobbyList();
-    }
-
-    private void OnGetLobbiesList(LobbyMatchList_t result) //result of requestlobbylist
-    {
-        List<CSteamID> lobbyIDS = new List<CSteamID>();
-
-        for (int i = 0; i < result.m_nLobbiesMatching; i++)
-        {
-            CSteamID lobbyID = SteamMatchmaking.GetLobbyByIndex(i);
-            lobbyIDS.Add(lobbyID);
-        }
-
-        //if no rooms were found create one instead
-        if(lobbyIDS.Count > 0)
-        {
-            networkAddress = lobbyIDS[Random.Range(0, lobbyIDS.Count)].ToString();
-            StartClient();
-        }
-        else
-        {
-            StartHost();
-        }
-    }
+    #region Matchmaking and Steamworks
 
     #endregion
 
@@ -314,7 +284,6 @@ public class CustomNetworkManager : NetworkManager
         else
         {
             SteamFriends.SetRichPresence("room", networkAddress);
-            Debug.Log(networkAddress);
         }
     }
 
