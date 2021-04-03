@@ -109,11 +109,6 @@ public class CustomNetworkManagerHUD : MonoBehaviour
                     if (GUILayout.Button("Server Only")) manager.StartServer();
                 }
 
-                if (GUILayout.Button("Join Random Match"))
-                {
-                    customManager.JoinRandomMatch();
-                }
-
                 if (GUILayout.Button("Join Friends"))
                 {
                     joiningFriends = true;

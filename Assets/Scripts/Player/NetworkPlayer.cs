@@ -8,6 +8,8 @@ public class NetworkPlayer : NetworkBehaviour
 {
     [Header("Network")]
     public bool isConnectedThroughSteam;
+    [SyncVar]
+    public string userName;
 
     [Header("References")]
     public Camera playerCamera;
@@ -24,13 +26,22 @@ public class NetworkPlayer : NetworkBehaviour
             {
                 b.enabled = false;
             }
-        } else
+
+            //assign the localplayer's camera
+            playerCamera = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>().playerCamera;
+        } 
+        else
         {
             if (isConnectedThroughSteam)
             {
-                nameTag.text = SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID());
+                userName = SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID());
             }
         }
+    }
+
+    private void Update()
+    {
+        nameTag.text = userName;
     }
 
     private void LateUpdate()

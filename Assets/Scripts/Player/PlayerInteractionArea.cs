@@ -25,7 +25,7 @@ public class PlayerInteractionArea : NetworkBehaviour
             if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 3f, interactionAreaLayerMask))
             {
                 InteractionArea area = hitInfo.collider.GetComponent<InteractionArea>();
-                if (area.canBeInteractedWith)
+                if (area.canBeInteractedWith && !area.beingInteractedWith)
                     CmdInteractWithArea(netId, area.netId);
             }
         }
