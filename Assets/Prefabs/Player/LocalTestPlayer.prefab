@@ -85,7 +85,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771301310219115563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.25, z: 0}
+  m_LocalPosition: {x: 0, y: -0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 771301310806685619}
@@ -351,13 +351,14 @@ MonoBehaviour:
   speed: 7.5
   isGrounded: 0
   groundCheck: {fileID: 771301310219115562}
-  groundCheckRadius: 0.01
+  groundCheckDistance: 0.25
   groundCheckMask:
     serializedVersion: 2
     m_Bits: 1559
   jumpForce: 8
   fallMultiplier: 2.5
   lowJumpMultiplier: 0.75
+  jumpCD: 0.25
 --- !u!114 &5895253536983959961
 MonoBehaviour:
   m_ObjectHideFlags: 0
