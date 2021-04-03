@@ -702,6 +702,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   isConnectedThroughSteam: 0
+  userName: 
   playerCamera: {fileID: 8297925720197497098}
   disableForNotLocal:
   - {fileID: 8297925720422174604}
@@ -749,7 +750,7 @@ MonoBehaviour:
   jumpForce: 8
   fallMultiplier: 2.5
   lowJumpMultiplier: 0.75
-  jumpCD: 0.25
+  jumpCD: 0.5
 --- !u!114 &7389572517088170773
 MonoBehaviour:
   m_ObjectHideFlags: 0
