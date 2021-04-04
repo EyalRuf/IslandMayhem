@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Mirror;
 using Steamworks;
 
@@ -32,6 +33,7 @@ public class CustomNetworkManagerHUD : MonoBehaviour
 
     private bool joiningFriends;
     private Dictionary<int, string> friendsInGame = new Dictionary<int, string>();
+    private string targetScene;
 
     void Awake()
     {
@@ -180,6 +182,15 @@ public class CustomNetworkManagerHUD : MonoBehaviour
             {
                 manager.StopHost();
             }
+
+            // Client + IP
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Switch Scene"))
+            {
+                NetworkManager.singleton.ServerChangeScene(targetScene);
+            }
+            targetScene = GUILayout.TextField(targetScene);
+            GUILayout.EndHorizontal();
         }
         // stop client if client-only
         else if (NetworkClient.isConnected)
