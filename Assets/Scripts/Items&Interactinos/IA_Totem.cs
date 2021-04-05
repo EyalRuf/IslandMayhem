@@ -5,7 +5,7 @@ using Mirror;
 
 public class IA_Totem : InteractionArea
 {
-    [SyncVar]
+    [Header("Totem"), SyncVar]
     public int currentVisualStage;
     public bool maxVisualStageReached;
     public GameObject[] visuals;
