@@ -30,6 +30,11 @@ public class CustomNetworkManager : NetworkManager
         localPlayerId = PLAYER_ID_PREFIX + netId;
     }
 
+    public static List<GameObject> GetAllPlayers() 
+    {
+        return CustomNetworkManager.players.Values.ToList();
+    }
+
     public static GameObject GetLocalPlayer()
     {
         if (players.ContainsKey(localPlayerId))
