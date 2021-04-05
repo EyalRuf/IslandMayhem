@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class MinigameManagerTotems : MinigameManager
 {
-    [Header("MinigameManagerTotems")]
-    public List<IA_Totem> totems;
+    //[Header("MinigameManagerTotems")]
+    //public List<IA_Totem> totems;
 
     // Use this for initialization
     protected override void Start()
