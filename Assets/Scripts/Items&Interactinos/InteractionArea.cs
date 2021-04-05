@@ -13,6 +13,8 @@ public class InteractionArea : NetworkBehaviour
     public bool isDisabledAfterInteraction;
     public float interactionDuration;
 
+    public int restrictedToTeam = -1;
+
     public virtual IEnumerator Interact (Action onEndInteraction)
     {
         this.OnStartInteraction();

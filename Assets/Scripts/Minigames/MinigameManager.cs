@@ -31,7 +31,8 @@ public class MinigameManager : MonoBehaviour
             if (!gameStarted)
             {
                 // Starting the game
-                if (!startingGame && CustomNetworkManager.singleton.numPlayers >= numberOfPlayersNeededToStart)
+                // Has to come from customnetworkmanager
+                if (!startingGame && CustomNetworkManager.GetAllPlayers().Count >= numberOfPlayersNeededToStart && numberOfPlayersNeededToStart > 0)
                 {
                     startingGame = true;
                     CalculateAndAssignTeams();
@@ -51,20 +52,29 @@ public class MinigameManager : MonoBehaviour
     protected virtual void CalculateAndAssignTeams()
     {
         teams = new List<Team>();
-        players = new List<GameObject>(CustomNetworkManager.GetAllPlayers());
+        List<GameObject> players = new List<GameObject>(CustomNetworkManager.GetAllPlayers());
         players.Sort(new RandomizeComparer());
 
-        int amountOfPlayersPerTeam = players.Count / numberOfTeams;
+        //for editor
+        this.players = players;
 
+        //add teams
         for (var teamIndex = 0; teamIndex < numberOfTeams; teamIndex++)
         {
             Team t = new Team(teamIndex);
-            for (var playerIndex = 0; playerIndex < amountOfPlayersPerTeam; playerIndex++)
-            {
-                GameObject currPlayer = players[(teamIndex * amountOfPlayersPerTeam) + playerIndex];
-                t.playersInTeam.Add(currPlayer);
-            }
             teams.Add(t);
+        }
+
+        //spread players over teams
+        int team = 0;
+        while (players.Count > 0)
+        {
+            //dequeue
+            GameObject player = players[0];
+            players.RemoveAt(0);
+
+            teams[team].playersInTeam.Add(player);
+            team = Mathf.RoundToInt(Mathf.Repeat(++team, teams.Count));
         }
 
         StartGame();
@@ -78,6 +88,19 @@ public class MinigameManager : MonoBehaviour
     protected virtual void EndGame()
     {
         gameOver = true;
+    }
+
+    public int GetTeamIndexByPlayer(GameObject player)
+    {
+        for(int t = 0; t < teams.Count; t++)
+        {
+            if (teams[t].IsInTeam(player))
+            {
+                return t;
+            }
+        }
+
+        return -1;
     }
 }
 

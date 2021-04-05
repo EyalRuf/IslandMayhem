@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Team
 {
     public int teamNumber;
@@ -11,5 +12,10 @@ public class Team
     {
         teamNumber = number;
         playersInTeam = new List<GameObject>();
+    }
+
+    public bool IsInTeam(GameObject player)
+    {
+        return playersInTeam.Contains(player);
     }
 }
