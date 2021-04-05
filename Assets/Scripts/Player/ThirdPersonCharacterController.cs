@@ -12,13 +12,13 @@ public class ThirdPersonCharacterController : MonoBehaviour
     public float speed;
     public bool isGrounded;
     public Transform groundCheck;
-    public float groundCheckRadius;
+    public float groundCheckDistance;
     public LayerMask groundCheckMask;
     public float jumpForce;
     public float fallMultiplier;
     public float lowJumpMultiplier;
+    public float jumpCD;
     private bool applyJump;
-    private float jumpCD = 0.15f;
     private bool jumpCDFlag;
 
     private void Awake()
@@ -29,7 +29,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, groundCheckMask).Length > 0;
+        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundCheckDistance, groundCheckMask);
         if (isGrounded && lpInput.jumpInput && !jumpCDFlag)
         {
             applyJump = true;
