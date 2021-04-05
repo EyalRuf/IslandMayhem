@@ -357,7 +357,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8297925719936001043}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.85, z: 0}
+  m_LocalPosition: {x: 0, y: -1.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8297925720422174603}
@@ -608,7 +608,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8297925720422174642}
-  m_Material: {fileID: 13400000, guid: f3e4f1e0f83674b4eb56e04102c13e1a, type: 2}
+  m_Material: {fileID: 13400000, guid: cf291c228a03d5d48bceeb1a804190f5, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -743,14 +743,15 @@ MonoBehaviour:
   speed: 7.5
   isGrounded: 0
   groundCheck: {fileID: 8297925719936001042}
-  groundCheckDistance: 0.25
+  groundCheckDistance: 0
   groundCheckMask:
     serializedVersion: 2
-    m_Bits: 1559
+    m_Bits: 4294967295
   jumpForce: 8
   fallMultiplier: 2.5
   lowJumpMultiplier: 0.75
-  jumpCD: 0.5
+  jumpCD: 0
+  groundedDrag: 10
 --- !u!114 &7389572517088170773
 MonoBehaviour:
   m_ObjectHideFlags: 0

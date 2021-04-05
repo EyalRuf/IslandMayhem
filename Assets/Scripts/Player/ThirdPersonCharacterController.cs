@@ -18,6 +18,10 @@ public class ThirdPersonCharacterController : MonoBehaviour
     public float fallMultiplier;
     public float lowJumpMultiplier;
     public float jumpCD;
+
+    [Header("Misc")]
+    public float groundedDrag;
+
     private bool applyJump;
     private bool jumpCDFlag;
 
@@ -56,6 +60,13 @@ public class ThirdPersonCharacterController : MonoBehaviour
         else if (rb.velocity.y > 0 && !lpInput.jumpInput)
         {
             rb.velocity += Vector3.up * Physics2D.gravity.y * lowJumpMultiplier * Time.deltaTime;
+        }
+
+        //if we're grounded, apply drag horizontally.
+        if (isGrounded)
+        {
+            Vector3 newVelocity = rb.velocity * (1 - groundedDrag * Time.fixedDeltaTime);
+            rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
         }
     }
 

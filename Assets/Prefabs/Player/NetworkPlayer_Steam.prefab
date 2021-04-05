@@ -639,7 +639,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8297925720422174642}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: cf291c228a03d5d48bceeb1a804190f5, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -782,6 +782,7 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 0.75
   jumpCD: 0.5
+  groundedDrag: 10
 --- !u!114 &7020920123134806745
 MonoBehaviour:
   m_ObjectHideFlags: 0
