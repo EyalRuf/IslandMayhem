@@ -42,7 +42,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.transform.Translate((lpInput.moveInput * speed * Time.deltaTime), Space.Self);
+        rb.transform.Translate((lpInput.moveInput * speed * Time.fixedDeltaTime), Space.Self);
 
         if (applyJump)
         {
@@ -55,11 +55,11 @@ public class ThirdPersonCharacterController : MonoBehaviour
         // Applying additional falling physics
         if (rb.velocity.y < 0)
         {
-            rb.velocity += Vector3.up * Physics2D.gravity.y * fallMultiplier * Time.deltaTime;
+            rb.velocity += Vector3.up * Physics2D.gravity.y * fallMultiplier * Time.fixedDeltaTime;
         }
         else if (rb.velocity.y > 0 && !lpInput.jumpInput)
         {
-            rb.velocity += Vector3.up * Physics2D.gravity.y * lowJumpMultiplier * Time.deltaTime;
+            rb.velocity += Vector3.up * Physics2D.gravity.y * lowJumpMultiplier * Time.fixedDeltaTime;
         }
 
         //if we're grounded, apply drag horizontally.

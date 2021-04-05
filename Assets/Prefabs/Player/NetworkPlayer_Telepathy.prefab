@@ -743,14 +743,14 @@ MonoBehaviour:
   speed: 7.5
   isGrounded: 0
   groundCheck: {fileID: 8297925719936001042}
-  groundCheckDistance: 0
+  groundCheckDistance: 0.25
   groundCheckMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1591
   jumpForce: 8
   fallMultiplier: 2.5
   lowJumpMultiplier: 0.75
-  jumpCD: 0
+  jumpCD: 0.05
   groundedDrag: 10
 --- !u!114 &7389572517088170773
 MonoBehaviour:

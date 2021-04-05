@@ -781,7 +781,7 @@ MonoBehaviour:
   jumpForce: 8
   fallMultiplier: 2.5
   lowJumpMultiplier: 0.75
-  jumpCD: 0.5
+  jumpCD: 0.05
   groundedDrag: 10
 --- !u!114 &7020920123134806745
 MonoBehaviour:
