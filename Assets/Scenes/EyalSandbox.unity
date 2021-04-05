@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 48323111}
   - component: {fileID: 48323110}
   - component: {fileID: 48323109}
+  - component: {fileID: 48323112}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -247,6 +248,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 3396668420586916290, guid: 0cf4970e31faab444a2db73d9f905208, type: 3}
+  isSteam: 1
 --- !u!114 &48323111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,9 +261,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0601927586724224697cdf083a509d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customManager: {fileID: 48323110}
   showGUI: 1
   offsetX: 0
   offsetY: 0
+--- !u!114 &48323112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48323107}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  port: 7777
+  NoDelay: 1
+  SendTimeout: 5000
+  ReceiveTimeout: 5000
+  serverMaxMessageSize: 16384
+  serverMaxReceivesPerTick: 10000
+  serverSendQueueLimitPerConnection: 10000
+  serverReceiveQueueLimitPerConnection: 10000
+  clientMaxMessageSize: 16384
+  clientMaxReceivesPerTick: 1000
+  clientSendQueueLimit: 10000
+  clientReceiveQueueLimit: 10000
 --- !u!1 &70728778
 GameObject:
   m_ObjectHideFlags: 0

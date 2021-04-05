@@ -14,7 +14,7 @@ using Steamworks;
 public class CustomNetworkManagerHUD : MonoBehaviour
 {
     NetworkManager manager;
-    CustomNetworkManager customManager;
+    public CustomNetworkManager customManager;
 
     /// <summary>
     /// Whether to show the default control HUD at runtime.
@@ -86,7 +86,8 @@ public class CustomNetworkManagerHUD : MonoBehaviour
                 {
                     if (GUILayout.Button("Host (Server + Client)"))
                     {
-                        manager.networkAddress = SteamUser.GetSteamID().ToString();
+                        if (customManager.isSteam)
+                            manager.networkAddress = SteamUser.GetSteamID().ToString();
                         manager.StartHost();
                     }
                 }

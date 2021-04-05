@@ -16,6 +16,9 @@ public class CustomNetworkManager : NetworkManager
     private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     private static string localPlayerId;
     public static bool localPlayerInitialized { get; private set; }
+    
+    [Header("CustomManagerProperties")]
+    public bool isSteam;
 
     public static void RegisterPlayer(uint netId, GameObject go)
     {
