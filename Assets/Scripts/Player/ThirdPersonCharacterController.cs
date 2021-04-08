@@ -12,13 +12,17 @@ public class ThirdPersonCharacterController : MonoBehaviour
     public float speed;
     public bool isGrounded;
     public Transform groundCheck;
-    public float groundCheckRadius;
+    public float groundCheckDistance;
     public LayerMask groundCheckMask;
     public float jumpForce;
     public float fallMultiplier;
     public float lowJumpMultiplier;
+    public float jumpCD;
+
+    [Header("Misc")]
+    public float groundedDrag;
+
     private bool applyJump;
-    private float jumpCD = 0.15f;
     private bool jumpCDFlag;
 
     private void Awake()
@@ -29,7 +33,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, groundCheckMask).Length > 0;
+        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundCheckDistance, groundCheckMask);
         if (isGrounded && lpInput.jumpInput && !jumpCDFlag)
         {
             applyJump = true;
@@ -56,6 +60,13 @@ public class ThirdPersonCharacterController : MonoBehaviour
         else if (rb.velocity.y > 0 && !lpInput.jumpInput)
         {
             rb.velocity += Vector3.up * Physics2D.gravity.y * lowJumpMultiplier * Time.deltaTime;
+        }
+
+        //if we're grounded, apply drag horizontally.
+        if (isGrounded)
+        {
+            Vector3 newVelocity = rb.velocity * (1 - groundedDrag * Time.fixedDeltaTime);
+            rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
         }
     }
 

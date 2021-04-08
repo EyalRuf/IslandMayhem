@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerInteractionArea : NetworkBehaviour
 {
+    public int playerTeam = -1;
+
     [Header("InteractionArea")]
     public LayerMask interactionAreaLayerMask;
 
@@ -12,11 +14,18 @@ public class PlayerInteractionArea : NetworkBehaviour
     public LocalPlayerInput lpInput;
     public Behaviour[] disableWhileInteracting;
 
+    private MinigameManager minigameManager;
+
     // Update is called once per frame
     void Update()
     {
         if (!isLocalPlayer)
             return;
+
+        if(minigameManager == null)
+        {
+            minigameManager = FindObjectOfType<MinigameManager>();
+        }
 
         if (lpInput.interactInputDown)
         {
@@ -25,8 +34,15 @@ public class PlayerInteractionArea : NetworkBehaviour
             if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 3f, interactionAreaLayerMask))
             {
                 InteractionArea area = hitInfo.collider.GetComponent<InteractionArea>();
-                if (area.canBeInteractedWith)
-                    CmdInteractWithArea(netId, area.netId);
+                if (area.canBeInteractedWith && !area.beingInteractedWith)
+                {
+                    playerTeam = minigameManager.GetTeamIndexByPlayer(gameObject);
+
+                    if (area.restrictedToTeam >= 0 ? area.restrictedToTeam == playerTeam : true)
+                    {
+                        CmdInteractWithArea(netId, area.netId);
+                    }
+                }
             }
         }
     }
