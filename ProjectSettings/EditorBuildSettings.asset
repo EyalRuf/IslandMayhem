@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TwoTeamTest.unity
     guid: edd23ba48ea20894aa1f557077118732
+  - enabled: 1
+    path: Assets/Scenes/PelleSandbox.unity
+    guid: b860a781a7c728240a9c0d0daaff2db4
+  - enabled: 1
+    path: Assets/Scenes/IslandDemo.unity
+    guid: 71b48ac1f45d3e54a81b2c6f9c30e402
   m_configObjects: {}
