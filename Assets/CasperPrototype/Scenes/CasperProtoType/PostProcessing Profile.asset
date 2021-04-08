@@ -16,13 +16,13 @@ MonoBehaviour:
   m_AdvancedMode: 0
   shadows:
     m_OverrideState: 1
-    m_Value: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+    m_Value: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
   highlights:
     m_OverrideState: 1
-    m_Value: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
+    m_Value: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -249,7 +249,7 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   shadows:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {x: 1, y: 1, z: 1, w: 0}
   midtones:
     m_OverrideState: 1
