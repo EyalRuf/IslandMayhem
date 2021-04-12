@@ -34,7 +34,7 @@ public class NetworkPlayer : NetworkBehaviour
         {
             if (isConnectedThroughSteam)
             {
-                userName = SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID());
+                CmdSetUserName(SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()));
             }
         }
     }
@@ -65,5 +65,11 @@ public class NetworkPlayer : NetworkBehaviour
         base.OnStopClient();
 
         CustomNetworkManager.UnregisterPlayer(netId);
+    }
+
+    [Command]
+    public void CmdSetUserName(string userName)
+    {
+        this.userName = userName;
     }
 }

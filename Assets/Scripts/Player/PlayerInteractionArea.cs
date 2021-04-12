@@ -14,7 +14,7 @@ public class PlayerInteractionArea : NetworkBehaviour
     public LocalPlayerInput lpInput;
     public Behaviour[] disableWhileInteracting;
 
-    private MinigameManager minigameManager;
+    private MatchManager matchManager;
 
     // Update is called once per frame
     void Update()
@@ -22,9 +22,9 @@ public class PlayerInteractionArea : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        if(minigameManager == null)
+        if(matchManager == null)
         {
-            minigameManager = FindObjectOfType<MinigameManager>();
+            matchManager = FindObjectOfType<MatchManager>();
         }
 
         if (lpInput.interactInputDown)
@@ -36,7 +36,7 @@ public class PlayerInteractionArea : NetworkBehaviour
                 InteractionArea area = hitInfo.collider.GetComponent<InteractionArea>();
                 if (area.canBeInteractedWith && !area.beingInteractedWith)
                 {
-                    playerTeam = minigameManager.GetTeamIndexByPlayer(gameObject);
+                    playerTeam = matchManager.GetTeamIndexByPlayer(gameObject);
 
                     if (area.restrictedToTeam >= 0 ? area.restrictedToTeam == playerTeam : true)
                     {
