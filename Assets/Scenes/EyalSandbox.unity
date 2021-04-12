@@ -248,7 +248,6 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 3396668420586916290, guid: 0cf4970e31faab444a2db73d9f905208, type: 3}
-  _vivoxVoiceManager: {fileID: 1134227935}
   isSteam: 1
 --- !u!114 &48323111
 MonoBehaviour:
