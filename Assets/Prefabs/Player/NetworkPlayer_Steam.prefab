@@ -771,7 +771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8633bbe68bb73b1479cb8bc78ebf255a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7.5
+  speed: 15
   isGrounded: 0
   groundCheck: {fileID: 8297925719936001042}
   groundCheckDistance: 0.25
@@ -819,6 +819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  playerTeam: -1
   interactionAreaLayerMask:
     serializedVersion: 2
     m_Bits: 1024

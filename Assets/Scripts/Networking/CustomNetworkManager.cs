@@ -4,6 +4,8 @@ using Mirror;
 using System.Collections.Generic;
 using Steamworks;
 using System.Linq;
+using VivoxUnity;
+using System.Collections;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkManager.html
@@ -12,6 +14,8 @@ using System.Linq;
 
 public class CustomNetworkManager : NetworkManager
 {
+    //public VivoxVoiceManager _vivoxVoiceManager;
+
     private const string PLAYER_ID_PREFIX = "Player_";
     private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     private static string localPlayerId;
@@ -86,6 +90,13 @@ public class CustomNetworkManager : NetworkManager
         base.Start();
         SteamAPI.Init();
         SteamFriends.SetRichPresence("status", "In Menu");
+        StartCoroutine(VivoxLogin());
+    }
+
+    IEnumerator VivoxLogin ()
+    {
+        yield return new WaitForSeconds(3);
+        //_vivoxVoiceManager.Login(Time.deltaTime.ToString());
     }
 
     /// <summary>
@@ -232,6 +243,27 @@ public class CustomNetworkManager : NetworkManager
     public override void OnClientConnect(NetworkConnection conn)
     {
         base.OnClientConnect(conn);
+
+        //var lobbychannel = _vivoxVoiceManager.ActiveChannels.FirstOrDefault(ac => ac.Channel.Name == "A");
+        //if ((_vivoxVoiceManager && _vivoxVoiceManager.ActiveChannels.Count == 0)
+        //    || lobbychannel == null)
+        //{
+        //    _vivoxVoiceManager.JoinChannel("A", ChannelType.Positional, VivoxVoiceManager.ChatCapability.AudioOnly);
+        //}
+        //else
+        //{
+        //    if (lobbychannel.AudioState == ConnectionState.Disconnected)
+        //    {
+        //        // Ask for hosts since we're already in the channel and part added won't be triggered.
+
+        //        lobbychannel.BeginSetAudioConnected(true, true, ar =>
+        //        {
+        //            Debug.Log("Now transmitting into lobby channel");
+        //        });
+        //    }
+
+        //}
+
     }
 
     /// <summary>
