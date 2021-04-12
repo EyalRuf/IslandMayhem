@@ -16,13 +16,13 @@ MonoBehaviour:
   m_AdvancedMode: 0
   shadows:
     m_OverrideState: 1
-    m_Value: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+    m_Value: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
   highlights:
     m_OverrideState: 1
-    m_Value: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+    m_Value: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
@@ -89,11 +89,11 @@ MonoBehaviour:
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.91
+    m_Value: 0.5
     min: 0
   scatter:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 0.643
     min: 0
     max: 1
   clamp:
@@ -102,7 +102,7 @@ MonoBehaviour:
     min: 0
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0, g: 0.78302, b: 1, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
