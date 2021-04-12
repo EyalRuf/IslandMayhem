@@ -73,7 +73,7 @@ public class MinigameManager : MonoBehaviour
             GameObject player = players[0];
             players.RemoveAt(0);
 
-            teams[team].playersInTeam.Add(player);
+            teams[team].playersInTeam.Add(player.name);
             team = Mathf.RoundToInt(Mathf.Repeat(++team, teams.Count));
         }
 
@@ -102,11 +102,4 @@ public class MinigameManager : MonoBehaviour
 
         return -1;
     }
-}
-
-public class RandomizeComparer : IComparer<GameObject>
-{
-    private readonly System.Random _random = new System.Random();
-
-    public int Compare(GameObject x, GameObject y) => _random.Next(-1, 2);
 }
