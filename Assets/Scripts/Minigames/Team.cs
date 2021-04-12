@@ -6,16 +6,22 @@ using System.Collections.Generic;
 public class Team
 {
     public int teamNumber;
-    public List<GameObject> playersInTeam;
+    public List<string> playersInTeam;
+
+    public Team()
+    {
+        teamNumber = 0;
+        playersInTeam = new List<string>();
+    }
 
     public Team(int number)
     {
         teamNumber = number;
-        playersInTeam = new List<GameObject>();
+        playersInTeam = new List<string>();
     }
 
     public bool IsInTeam(GameObject player)
     {
-        return playersInTeam.Contains(player);
+        return playersInTeam.Contains(player.name);
     }
 }
