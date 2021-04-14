@@ -32,7 +32,7 @@ public class IA_Totem : InteractionArea
 
     public override void OnEndInteraction()
     {
-        PlayerPickup player = CustomNetworkManager.GetLocalPlayer().GetComponent<PlayerPickup>();
+        PlayerPickupAndThrow player = CustomNetworkManager.GetLocalPlayer().GetComponent<PlayerPickupAndThrow>();
         if (player.heldItem != null) //we can match this more specifically later on
         {
             player.DestroyItem();

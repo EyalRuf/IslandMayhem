@@ -17728,6 +17728,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 3396668420586916290, guid: 0cf4970e31faab444a2db73d9f905208, type: 3}
+  isSteam: 0
 --- !u!114 &455943078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17740,6 +17741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0601927586724224697cdf083a509d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customManager: {fileID: 0}
   showGUI: 1
   offsetX: 0
   offsetY: 0
