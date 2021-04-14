@@ -635,8 +635,8 @@ MonoBehaviour:
     m_Bits: 4294967295
   cameraColTransitionSpeed: 0.01
   isAiming: 0
-  cameraAimPos: {x: -0.85, y: 1, z: -2}
-  cameraAimRot: {x: 0.17364818, y: 0, z: 0, w: 0.9848077}
+  cameraAimPos: {x: -0.85, y: 0.25, z: -2}
+  cameraAimRot: {x: 0, y: 0, z: 0, w: 1}
   cameraTransitionDuration: 0.15
   aimFovAdjustment: -15
 --- !u!114 &8888557173115942757
@@ -1012,7 +1012,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   pickupCheckRadius: 1.25
-  throwForce: 200
+  throwForce: 150
   movementDirectionForceMultiplyer: 1.5
   throwTarget: {fileID: 8297925720464115938}
   cameraController: {fileID: 8297925720197497096}
@@ -1022,7 +1022,7 @@ MonoBehaviour:
   trajectoryLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  aimAdjustVec: {x: 1, y: 1.2, z: 1}
+  aimAdjustVec: {x: 1, y: 1.5, z: 1}
 --- !u!114 &3593138567035470615
 MonoBehaviour:
   m_ObjectHideFlags: 0
