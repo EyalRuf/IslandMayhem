@@ -875,11 +875,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  sampleRate: 22050
   voiceChatKey: 118
-  chunkSize: 512
-  minBufferSize: 22050
   previewVoice: 1
+  PacketBuffer: 0
+  Buffering: 1
+  sampleRate: 48000
+  chunkSize: 1024
 --- !u!82 &5296987309341545049
 AudioSource:
   m_ObjectHideFlags: 0
