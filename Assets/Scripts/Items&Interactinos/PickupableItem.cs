@@ -5,7 +5,7 @@ using Mirror;
 public class PickupableItem : NetworkBehaviour
 {
     [Header("References")]
-    [SerializeField] Rigidbody rb;
+    public Rigidbody rb;
     [SerializeField] Collider col;
     [SerializeField] Transform originalParent;
     public Outline outline;
