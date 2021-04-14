@@ -876,10 +876,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   voiceChatKey: 118
-  previewVoice: 1
+  previewVoice: 0
   PacketBuffer: 0
   Buffering: 1
-  sampleRate: 48000
+  sampleRate: 22050
   chunkSize: 1024
 --- !u!82 &5296987309341545049
 AudioSource:
@@ -901,8 +901,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 25
+  MinDistance: 10
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
