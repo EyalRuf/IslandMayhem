@@ -1,22 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Mirror;
 
 public class MatchManager : NetworkBehaviour
 {
-    [Header("General")]
+    [Header("MatchManager")]
     [SyncVar]
     public bool gameStarted;
-    private bool startingGame;
+    [HideInInspector]
+    public bool startingGame = false;
     [SyncVar]
     public bool gameOver;
+    [HideInInspector]
+    public bool endingGame = false;
     public int numberOfPlayersNeededToStart;
     public int numberOfTeams;
     public List<Team> teams;
 
-    private void Update()
+    protected virtual void Start()
+    {
+
+    }
+
+    protected virtual void Update()
     {
         if (!isServer) //server only
             return;
@@ -31,12 +38,14 @@ public class MatchManager : NetworkBehaviour
                 {
                     startingGame = true;
                     CalculateAndAssignTeams();
+                    RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(teams)));
+                    RpcStartGame(); //invoke sychronized start game sequence
                 }
             }
         }
     }
 
-    private void CalculateAndAssignTeams()
+    protected virtual void CalculateAndAssignTeams()
     {
         if (!isServer) //server only to be sure
             return;
@@ -59,23 +68,43 @@ public class MatchManager : NetworkBehaviour
             //dequeue
             GameObject player = players[0];
             players.RemoveAt(0);
-
+             
             teams[team].playersInTeam.Add(player.name);
             team = Mathf.RoundToInt(Mathf.Repeat(++team, teams.Count));
         }
-
-        RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(teams)));
-        StartGame();
     }
 
-    protected virtual void StartGame()
+    [ClientRpc]
+    protected virtual void RpcStartGame()
     {
-        gameStarted = true;
+        StartCoroutine(StartGame());
     }
 
-    protected virtual void EndGame()
+    protected virtual IEnumerator StartGame()
     {
-        gameOver = true;
+        //at the end start game
+        if (isServer)
+        {
+            gameStarted = true;
+        }
+
+        yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
+    }
+
+    [ClientRpc]
+    protected virtual void RpcEndGame()
+    {
+        StartCoroutine(EndGame());
+    }
+
+    protected virtual IEnumerator EndGame()
+    {
+        if (isServer)
+        {
+            gameOver = true;
+        }
+
+        yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
     }
 
     public int GetTeamIndexByPlayer(GameObject player)
