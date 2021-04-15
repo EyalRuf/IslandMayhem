@@ -83,7 +83,7 @@ public class VoiceChat : NetworkBehaviour
                     packet.Length = (int)BytesWritten;
                     packet.Data = DestBuffer;
 
-                    //CmdSendData(DestBuffer, BytesWritten);
+                    CmdSendData(packet);
 
                     if (previewVoice)
                     {
