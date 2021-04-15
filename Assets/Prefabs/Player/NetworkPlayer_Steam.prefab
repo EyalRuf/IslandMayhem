@@ -989,6 +989,8 @@ MonoBehaviour:
   lowJumpMultiplier: 0.75
   jumpCD: 0.05
   groundedDrag: 10
+  groundedMaterial: {fileID: 0}
+  airBorneMaterial: {fileID: 13400000, guid: f3e4f1e0f83674b4eb56e04102c13e1a, type: 2}
 --- !u!114 &7020920123134806745
 MonoBehaviour:
   m_ObjectHideFlags: 0
