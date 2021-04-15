@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1885,6 +1885,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 3396668420586916290, guid: 0cf4970e31faab444a2db73d9f905208, type: 3}
+  isSteam: 0
 --- !u!114 &1610016676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1897,6 +1898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0601927586724224697cdf083a509d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customManager: {fileID: 0}
   showGUI: 1
   offsetX: 0
   offsetY: 0
@@ -1948,7 +1950,7 @@ MonoBehaviour:
   startingGame: 0
   gameOver: 0
   endingGame: 0
-  numberOfPlayersNeededToStart: 1
+  numberOfPlayersNeededToStart: 2
   numberOfTeams: 2
   teams: []
   team0Totems: []

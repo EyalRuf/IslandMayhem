@@ -1066,7 +1066,7 @@ MonoBehaviour:
   PacketBuffer: 0
   Buffering: 1
   sampleRate: 22050
-  chunkSize: 1024
+  chunkSize: 512
 --- !u!82 &5296987309341545049
 AudioSource:
   m_ObjectHideFlags: 0
