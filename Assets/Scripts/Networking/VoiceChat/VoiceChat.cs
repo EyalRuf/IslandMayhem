@@ -221,13 +221,13 @@ public class VoiceChat : NetworkBehaviour
         {
             if (Vector3.Distance(transform.position, players[p].transform.position) < m_audioSource.maxDistance)
             {
-                RpcReceiveData(players[p].GetComponent<NetworkIdentity>().connectionToClient, message);
+                TargetReceiveData(players[p].GetComponent<NetworkIdentity>().connectionToClient, message);
             }
         }
     }
 
-    [ClientRpc(channel = 1)] //unreliable for speed
-    private void RpcReceiveData(NetworkConnection connection, byte[] message)
+    [TargetRpc(channel = 1)] //unreliable for speed
+    private void TargetReceiveData(NetworkConnection connection, byte[] message)
     {
         VoiceChatPacket serializedMessage = null;
 
