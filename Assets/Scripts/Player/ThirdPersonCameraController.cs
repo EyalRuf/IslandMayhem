@@ -15,6 +15,7 @@ public class ThirdPersonCameraController : MonoBehaviour
     public float cameraYClampMin, cameraYClampMax;
     private Vector3 targetRotationOffset;
     private float mouseX, mouseY;
+    private Vector3 currCameraLocalPos;
 
     [Header("Camera Collision")]
     public LayerMask cameraCollisionLayers;
@@ -67,16 +68,6 @@ public class ThirdPersonCameraController : MonoBehaviour
             targetTransform.rotation = Quaternion.Euler(mouseY + targetRotationOffset.x, mouseX + targetRotationOffset.y, 0 + targetRotationOffset.z);
         }
 
-        RaycastHit hit;
-        // Cast from player pos to player pos + all rotations that apply to camera object * it's original offset
-        if (Physics.Linecast(playerTransform.position, playerTransform.position + (playerTransform.localRotation * targetTransform.localRotation * cameraTransform.localPosition), out hit, cameraCollisionLayers))
-        {
-            cameraTransform.localPosition = new Vector3(cameraTransform.localPosition.x, cameraTransform.localPosition.y, -Vector3.Distance(playerTransform.position, hit.point));
-        } else if (!isAiming)
-        {
-            cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, initialCameraPos, cameraColTransitionSpeed);
-        }
-
         if (isInAimTransition)
         {
             AimCamera();
@@ -84,6 +75,18 @@ public class ThirdPersonCameraController : MonoBehaviour
         {
             cameraTransform.LookAt(targetTransform);
         }
+
+        RaycastHit hit;
+        // Cast from player pos to player pos + all rotations that apply to camera object * it's original offset
+        if (Physics.Linecast(playerTransform.position, playerTransform.position + (playerTransform.localRotation * targetTransform.localRotation * currCameraLocalPos), out hit, cameraCollisionLayers))
+        {
+            currCameraLocalPos = new Vector3(currCameraLocalPos.x, currCameraLocalPos.y, -Vector3.Distance(playerTransform.position, hit.point));
+        } else if(!isAiming)
+        {
+            currCameraLocalPos = Vector3.Lerp(cameraTransform.localPosition, initialCameraPos, cameraColTransitionSpeed);
+        }
+
+        cameraTransform.localPosition = currCameraLocalPos;
     }
 
     public void ToggleCameraAim(bool isAiming)
@@ -112,13 +115,13 @@ public class ThirdPersonCameraController : MonoBehaviour
         {
             if (Vector3.Distance(cameraTransform.localPosition, cameraAimPos) > 0.01f)
             {
-                cameraTransform.localPosition = Vector3.Lerp(cameraPosAtStartOfTransition, cameraAimPos, cameraTransitionTimer);
+                currCameraLocalPos = Vector3.Lerp(cameraPosAtStartOfTransition, cameraAimPos, cameraTransitionTimer);
                 cameraTransform.localRotation = Quaternion.Lerp(cameraRotAtStartOfTransition, cameraAimRot, cameraTransitionTimer);
                 camera.fieldOfView = Mathf.Lerp(fovAtStartOfTransition, initialFov + aimFovAdjustment, cameraTransitionTimer);
             }
             else
             {
-                cameraTransform.localPosition = cameraAimPos;
+                currCameraLocalPos = cameraAimPos;
                 cameraTransform.localRotation = cameraAimRot;
                 camera.fieldOfView = initialFov + aimFovAdjustment;
                 AimTransitionOver();
@@ -128,13 +131,13 @@ public class ThirdPersonCameraController : MonoBehaviour
         {
             if (Vector3.Distance(cameraTransform.localPosition, initialCameraPos) > 0.01f)
             {
-                cameraTransform.localPosition = Vector3.Lerp(cameraPosAtStartOfTransition, initialCameraPos, cameraTransitionTimer);
+                currCameraLocalPos = Vector3.Lerp(cameraPosAtStartOfTransition, initialCameraPos, cameraTransitionTimer);
                 cameraTransform.localRotation = Quaternion.Lerp(cameraRotAtStartOfTransition, initialCameraRot, cameraTransitionTimer);
                 camera.fieldOfView = Mathf.Lerp(fovAtStartOfTransition, initialFov, cameraTransitionTimer);
             }
             else
             {
-                cameraTransform.localPosition = initialCameraPos;
+                currCameraLocalPos = initialCameraPos;
                 cameraTransform.localRotation = initialCameraRot;
                 camera.fieldOfView = initialFov;
                 AimTransitionOver();
