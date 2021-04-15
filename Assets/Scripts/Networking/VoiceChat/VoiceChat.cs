@@ -83,7 +83,7 @@ public class VoiceChat : NetworkBehaviour
                     packet.Length = (int)BytesWritten;
                     packet.Data = DestBuffer;
 
-                    CmdSendData(packet);
+                    CmdSendData(NetworkTools.ObjectToData(packet));
 
                     if (previewVoice)
                     {
@@ -211,7 +211,7 @@ public class VoiceChat : NetworkBehaviour
     }
 
     [Command(channel = 1)] //unreliable for speed
-    private void CmdSendData(object message)
+    private void CmdSendData(byte[] message)
     {
         //get all players
         GameObject[] players = CustomNetworkManager.GetAllPlayers().Where(p => p != gameObject).ToArray();
@@ -221,15 +221,29 @@ public class VoiceChat : NetworkBehaviour
         {
             if (Vector3.Distance(transform.position, players[p].transform.position) < m_audioSource.maxDistance)
             {
-                TargetReceiveData(players[p].GetComponent<NetworkIdentity>().connectionToClient, message);
+                RpcReceiveData(players[p].GetComponent<NetworkIdentity>().connectionToClient, message);
             }
         }
     }
 
-    [TargetRpc(channel = 1)] //unreliable for speed
-    private void TargetReceiveData(NetworkConnection connection, object message)
+    [ClientRpc(channel = 1)] //unreliable for speed
+    private void RpcReceiveData(NetworkConnection connection, byte[] message)
     {
-        OnNewSample((VoiceChatPacket)message);
+        VoiceChatPacket serializedMessage = null;
+
+        try
+        {
+            serializedMessage = (VoiceChatPacket)NetworkTools.DataToObject(message);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError(ex.ToString());
+        }
+
+        if(serializedMessage != null)
+        {
+            OnNewSample(serializedMessage);
+        }
     }
 }
 
@@ -263,6 +277,40 @@ public class VoiceChatPacket
         else
         {
             return false;
+        }
+    }
+}
+
+public static class NetworkTools
+{
+    public static byte[] ObjectToData(object msg)
+    {
+        System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+        using (var ms = new System.IO.MemoryStream())
+        {
+            bf.Serialize(ms, (object)msg);
+            return ms.ToArray();
+        }
+    }
+
+    public static object DataToObject(byte[] data)
+    {
+        using (var memStream = new System.IO.MemoryStream())
+        {
+            var binForm = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            memStream.Write(data, 0, data.Length);
+            memStream.Seek(0, System.IO.SeekOrigin.Begin);
+            var obj = binForm.Deserialize(memStream);
+
+            try
+            {
+                return obj;
+            }
+            catch
+            {
+                Debug.LogWarning("Could not convert data to message.");
+                return null;
+            }
         }
     }
 }
