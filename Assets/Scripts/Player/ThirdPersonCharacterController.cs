@@ -32,10 +32,15 @@ public class ThirdPersonCharacterController : MonoBehaviour
 
     [Header("Misc")]
     public float groundedDrag;
+    public PhysicMaterial groundedMaterial;
+    public PhysicMaterial airBorneMaterial;
+
+    private Collider playerCollider;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<Collider>();
         lpInput = GetComponent<LocalPlayerInput>();
     }
 
@@ -83,7 +88,11 @@ public class ThirdPersonCharacterController : MonoBehaviour
             rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
         }
 
-        playerVelocity = (rb.position - playerLastPos) / Time.deltaTime;
+        //set physics material
+        playerCollider.material = isGrounded ? groundedMaterial : airBorneMaterial;
+
+
+    playerVelocity = (rb.position - playerLastPos) / Time.deltaTime;
         playerLastPos = rb.position;
         isMoving = playerVelocity != Vector3.zero;
     }
