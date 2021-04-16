@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0
-  clientAuthority: 1
+  clientAuthority: 0
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
@@ -88,6 +88,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4068001818122412447, guid: aeee8757bbd17694db425fa733e5cd96,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068001818122412447, guid: aeee8757bbd17694db425fa733e5cd96,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0.6776523
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068001818122412447, guid: aeee8757bbd17694db425fa733e5cd96,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068001818122412447, guid: aeee8757bbd17694db425fa733e5cd96,
+        type: 3}
+      propertyPath: outlineWidth
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8804460448785646294, guid: aeee8757bbd17694db425fa733e5cd96,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -147,6 +167,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pickupable_Network
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804460448785646298, guid: aeee8757bbd17694db425fa733e5cd96,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeee8757bbd17694db425fa733e5cd96, type: 3}
