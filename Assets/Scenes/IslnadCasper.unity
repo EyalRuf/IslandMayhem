@@ -24173,6 +24173,8 @@ GameObject:
   - component: {fileID: 455943078}
   - component: {fileID: 455943077}
   - component: {fileID: 455943076}
+  - component: {fileID: 455943081}
+  - component: {fileID: 455943080}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -24261,6 +24263,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &455943080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455943075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb3815496cd4954997ac67b9fa4606d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  gameStarted: 0
+  startingGame: 0
+  gameOver: 0
+  endingGame: 0
+  numberOfPlayersNeededToStart: 1
+  numberOfTeams: 2
+  teams: []
+  teamColors:
+  - {r: 1, g: 0.5, b: 0.5, a: 1}
+  - {r: 0.5, g: 0.5, b: 1, a: 1}
+  team0Totems: []
+  team0Won: 0
+  team1Totems: []
+  team1Won: 0
+--- !u!114 &455943081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455943075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 894956376
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &457643661
 GameObject:
   m_ObjectHideFlags: 0
