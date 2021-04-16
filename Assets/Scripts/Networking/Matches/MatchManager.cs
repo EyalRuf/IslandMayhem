@@ -17,6 +17,7 @@ public class MatchManager : NetworkBehaviour
     public int numberOfPlayersNeededToStart;
     public int numberOfTeams;
     public List<Team> teams;
+    public Color[] teamColors = { Color.red, Color.blue };
 
     protected virtual void Start()
     {
@@ -68,7 +69,11 @@ public class MatchManager : NetworkBehaviour
             //dequeue
             GameObject player = players[0];
             players.RemoveAt(0);
-             
+
+            //give team color
+            player.GetComponent<NetworkPlayer>().teamColor = teamColors[team];
+
+            //assign to team
             teams[team].playersInTeam.Add(player.name);
             team = Mathf.RoundToInt(Mathf.Repeat(++team, teams.Count));
         }
