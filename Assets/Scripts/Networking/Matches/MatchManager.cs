@@ -129,6 +129,8 @@ public class MatchManager : NetworkBehaviour
     public void RpcSyncTeamInfo(string jsonTeamInfo) //manual synchronisation through an Rpc is required because of syncvar limitations
     {
         teams = JsonUtility.FromJson<TeamInfo>(jsonTeamInfo).teams;
+
+        Debug.Log("BABABOOOEY");
     }
 }
 
