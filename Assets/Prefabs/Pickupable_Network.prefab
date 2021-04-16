@@ -148,6 +148,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pickupable_Network
       objectReference: {fileID: 0}
+    - target: {fileID: 8804460448785646299, guid: aeee8757bbd17694db425fa733e5cd96,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeee8757bbd17694db425fa733e5cd96, type: 3}
 --- !u!1 &3396668420586916290 stripped
