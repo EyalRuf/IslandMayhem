@@ -47,6 +47,9 @@ public class CustomNetworkManager : NetworkManager
 
     public static GameObject GetLocalPlayer()
     {
+        if (localPlayerId == null)
+            return null;
+
         if (players.ContainsKey(localPlayerId))
             return players[localPlayerId];
         return null;
