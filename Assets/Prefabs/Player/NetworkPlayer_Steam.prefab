@@ -714,10 +714,8 @@ GameObject:
   - component: {fileID: 8297925720197497097}
   - component: {fileID: 8297925720197497098}
   - component: {fileID: 8297925720197497099}
-  - component: {fileID: 8297925720197497096}
-  - component: {fileID: 8888557173115942757}
-  - component: {fileID: 7470999614350439292}
   - component: {fileID: 7527648289834016182}
+  - component: {fileID: 8297925720197497096}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: PlayerCamera
@@ -790,77 +788,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8297925720197497102}
   m_Enabled: 1
---- !u!114 &8297925720197497096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297925720197497102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b72bd49756ca4c247bfeb766e65df2e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lpInput: {fileID: 8297925720422174604}
-  camera: {fileID: 8297925720197497098}
-  targetTransform: {fileID: 8297925720464115938}
-  playerTransform: {fileID: 8297925720422174603}
-  cameraTransform: {fileID: 8297925720197497097}
-  cameraRotationSpeed: 3
-  playerRotationSpeed: 0.085
-  cameraYClampMin: -70
-  cameraYClampMax: 70
-  cameraCollisionLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  cameraColTransitionSpeed: 0.01
-  isAiming: 0
-  cameraAimPos: {x: -0.85, y: 0.25, z: -2}
-  cameraAimRot: {x: 0, y: 0, z: 0, w: 1}
-  cameraTransitionDuration: 0.15
-  aimFovAdjustment: -15
---- !u!114 &8888557173115942757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297925720197497102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d901ddf32d7c84ed4b0f84623ef3a7a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _intensity: 2
-  _radius: 0.25
-  _sampleCount: 3
-  _sampleCountValue: 24
-  _downsampling: 1
-  _occlusionSource: 1
-  _ambientOnly: 0
-  _aoShader: {fileID: 4800000, guid: 7541b5f18b1224a81927d8b1184b122b, type: 3}
-  _quadMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &7470999614350439292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297925720197497102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c8d76155f53cfc45b4f02922de468b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointOfFocus: {fileID: 8297925720422174603}
-  _focusDistance: 10
-  _fNumber: 1.4
-  _useCameraFov: 1
-  _focalLength: 0.175
-  _kernelSize: 2
-  _visualize: 0
-  _shader: {fileID: 4800000, guid: b99c58356816f7b46818fe7e788b2fa1, type: 3}
 --- !u!114 &7527648289834016182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -892,6 +819,36 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &8297925720197497096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297925720197497102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b72bd49756ca4c247bfeb766e65df2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lpInput: {fileID: 8297925720422174604}
+  camera: {fileID: 8297925720197497098}
+  targetTransform: {fileID: 8297925720464115938}
+  playerTransform: {fileID: 8297925720422174603}
+  cameraTransform: {fileID: 8297925720197497097}
+  cameraRotationSpeed: 3
+  playerRotationSpeed: 0.085
+  cameraYClampMin: -70
+  cameraYClampMax: 70
+  cameraCollisionLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  cameraColTransitionSpeed: 0.01
+  isAiming: 0
+  cameraAimPos: {x: -0.85, y: 0.25, z: -2}
+  cameraAimRot: {x: 0, y: 0, z: 0, w: 1}
+  cameraTransitionDuration: 0.15
+  aimFovAdjustment: -15
 --- !u!1 &8297925720422174642
 GameObject:
   m_ObjectHideFlags: 0
