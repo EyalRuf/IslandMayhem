@@ -20,11 +20,12 @@ public class CustomNetworkManager : NetworkManager
     private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     private static string localPlayerId;
     public static bool localPlayerInitialized { get; private set; }
-    
+
     [Header("CustomManagerProperties")]
     public bool isSteam;
 
-    private MatchManager matchManager;
+    [Header("References")]
+    public MatchManager matchManager;
 
     public static void RegisterPlayer(uint netId, GameObject go)
     {
@@ -93,8 +94,6 @@ public class CustomNetworkManager : NetworkManager
         SteamAPI.Init();
         SteamFriends.SetRichPresence("status", "In Menu");
         StartCoroutine(VivoxLogin());
-
-        matchManager = GetComponent<MatchManager>();
     }
 
     IEnumerator VivoxLogin ()
