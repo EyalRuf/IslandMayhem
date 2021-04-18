@@ -24,6 +24,8 @@ public class CustomNetworkManager : NetworkManager
     [Header("CustomManagerProperties")]
     public bool isSteam;
 
+    private MatchManager matchManager;
+
     public static void RegisterPlayer(uint netId, GameObject go)
     {
         string id = PLAYER_ID_PREFIX + netId;
@@ -91,6 +93,8 @@ public class CustomNetworkManager : NetworkManager
         SteamAPI.Init();
         SteamFriends.SetRichPresence("status", "In Menu");
         StartCoroutine(VivoxLogin());
+
+        matchManager = GetComponent<MatchManager>();
     }
 
     IEnumerator VivoxLogin ()
@@ -192,7 +196,9 @@ public class CustomNetworkManager : NetworkManager
     /// <para>Unity calls this on the Server when a Client connects to the Server. Use an override to tell the NetworkManager what to do when a client connects to the server.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerConnect(NetworkConnection conn) { }
+    public override void OnServerConnect(NetworkConnection conn) 
+    {
+    }
 
     /// <summary>
     /// Called on the server when a client is ready.
@@ -201,6 +207,9 @@ public class CustomNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerReady(NetworkConnection conn)
     {
+        //sync info when player is ready
+        matchManager.RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(matchManager.teams)));
+
         base.OnServerReady(conn);
     }
 
