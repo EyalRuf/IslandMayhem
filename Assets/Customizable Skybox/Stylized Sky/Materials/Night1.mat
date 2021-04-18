@@ -22,17 +22,17 @@ Material:
     m_Floats:
     - _HorizonLineContribution: 0.56
     - _HorizonLineExponent: 4.86
-    - _SkyGradientExponent: 2.5
+    - _SkyGradientExponent: 1.7
     - _SunDiscContribution: 1
-    - _SunDiscExponent: 250000
+    - _SunDiscExponent: 59.5
     - _SunDiscMultiplier: 200
     - _SunHaloContribution: 0.5
     - _SunHaloExponent: 50
     - _Title: 0
     - __dirty: 0
     m_Colors:
-    - _HorizonLineColor: {r: 1, g: 0.8150102, b: 0.64705884, a: 1}
-    - _SkyGradientBottom: {r: 0.28654844, g: 0.66930693, b: 0.7352941, a: 1}
-    - _SkyGradientTop: {r: 0.09411766, g: 0.11764707, b: 0.17254902, a: 1}
-    - _SunDiscColor: {r: 1, g: 0.2352941, b: 0.2352941, a: 1}
+    - _HorizonLineColor: {r: 1, g: 0.47777778, b: 0, a: 1}
+    - _SkyGradientBottom: {r: 0.5377358, g: 0.4440401, b: 0.38808292, a: 1}
+    - _SkyGradientTop: {r: 0.056692798, g: 0.36535582, b: 0.9245283, a: 1}
+    - _SunDiscColor: {r: 1, g: 0.4653294, b: 0, a: 1}
     - _SunHaloColor: {r: 0, g: 0, b: 0, a: 1}
