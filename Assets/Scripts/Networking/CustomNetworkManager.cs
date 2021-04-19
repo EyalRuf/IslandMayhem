@@ -20,9 +20,12 @@ public class CustomNetworkManager : NetworkManager
     private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
     private static string localPlayerId;
     public static bool localPlayerInitialized { get; private set; }
-    
+
     [Header("CustomManagerProperties")]
     public bool isSteam;
+
+    [Header("References")]
+    public MatchManager matchManager;
 
     public static void RegisterPlayer(uint netId, GameObject go)
     {
@@ -44,6 +47,9 @@ public class CustomNetworkManager : NetworkManager
 
     public static GameObject GetLocalPlayer()
     {
+        if (localPlayerId == null)
+            return null;
+
         if (players.ContainsKey(localPlayerId))
             return players[localPlayerId];
         return null;
@@ -192,7 +198,9 @@ public class CustomNetworkManager : NetworkManager
     /// <para>Unity calls this on the Server when a Client connects to the Server. Use an override to tell the NetworkManager what to do when a client connects to the server.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerConnect(NetworkConnection conn) { }
+    public override void OnServerConnect(NetworkConnection conn) 
+    {
+    }
 
     /// <summary>
     /// Called on the server when a client is ready.
@@ -201,6 +209,9 @@ public class CustomNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerReady(NetworkConnection conn)
     {
+        //sync info when player is ready
+        matchManager.RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(matchManager.teams)));
+
         base.OnServerReady(conn);
     }
 
