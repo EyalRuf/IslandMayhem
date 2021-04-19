@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Mirror;
 
 public class MatchManager : NetworkBehaviour
@@ -17,14 +18,32 @@ public class MatchManager : NetworkBehaviour
     public int numberOfPlayersNeededToStart;
     public int numberOfTeams;
     public List<Team> teams;
+    public Color[] teamColors = { Color.red, Color.blue };
+
+    [Header("Start game")]
+    public GameObject startGameArea;
+
+    [Header("UI")]
+    [SyncVar]
+    public string gameStatus;
+    public Text statusText;
 
     protected virtual void Start()
     {
+        if (!isServer) //server only
+            return;
 
+        gameStatus = "Waiting for players...";
     }
 
     protected virtual void Update()
     {
+        //dissapear if started
+        startGameArea.SetActive(!gameStarted);
+
+        //update status
+        statusText.text = gameStatus;
+
         if (!isServer) //server only
             return;
 
@@ -37,6 +56,7 @@ public class MatchManager : NetworkBehaviour
                 if (!startingGame && CustomNetworkManager.GetAllPlayers().Count >= numberOfPlayersNeededToStart && numberOfPlayersNeededToStart > 0)
                 {
                     startingGame = true;
+                    gameStatus = "Starting game.";
                     CalculateAndAssignTeams();
                     RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(teams)));
                     RpcStartGame(); //invoke sychronized start game sequence
@@ -68,7 +88,11 @@ public class MatchManager : NetworkBehaviour
             //dequeue
             GameObject player = players[0];
             players.RemoveAt(0);
-             
+
+            //give team color
+            player.GetComponent<NetworkPlayer>().teamColor = teamColors[team];
+
+            //assign to team
             teams[team].playersInTeam.Add(player.name);
             team = Mathf.RoundToInt(Mathf.Repeat(++team, teams.Count));
         }
@@ -86,6 +110,7 @@ public class MatchManager : NetworkBehaviour
         if (isServer)
         {
             gameStarted = true;
+            gameStatus = "";
         }
 
         yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
@@ -123,7 +148,10 @@ public class MatchManager : NetworkBehaviour
     [ClientRpc]
     public void RpcSyncTeamInfo(string jsonTeamInfo) //manual synchronisation through an Rpc is required because of syncvar limitations
     {
-        teams = JsonUtility.FromJson<TeamInfo>(jsonTeamInfo).teams;
+        if(teams.Count <= 0)
+        {
+            teams = JsonUtility.FromJson<TeamInfo>(jsonTeamInfo).teams;
+        }
     }
 }
 
