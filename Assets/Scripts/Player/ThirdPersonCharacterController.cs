@@ -5,18 +5,21 @@ using UnityEngine.UI;
 
 public class ThirdPersonCharacterController : MonoBehaviour
 {
-    private Rigidbody rb;
-    private LocalPlayerInput lpInput;
+    [Header("References")]
+    public Rigidbody rb;
+    public LocalPlayerInput lpInput;
+    public Collider playerCollider;
+    public PlayerAnimations playerAnims;
 
     [Header("Movement")]
     public bool isMoving;
     public float baseMoveSpeed;
-    private float currMoveSpeed;
     public bool isSprinting;
     public float sprintSpeedMultiplyer;
+    private float currMoveSpeed;
     private bool wasSprintingWhenJumped;
     private Vector3 playerLastPos;
-    public Vector3 playerVelocity;
+    public Vector3 playerVelocity { get; private set; }
 
     [Header("Jumping")]
     public bool isGrounded;
@@ -30,26 +33,21 @@ public class ThirdPersonCharacterController : MonoBehaviour
     private bool applyJump;
     private bool jumpCDFlag;
 
+    [Header("OtherCharacterActions")]
+    public bool isAiming;
+    public bool isLookingAround;
+
     [Header("Misc")]
     public float groundedDrag;
     public PhysicMaterial groundedMaterial;
     public PhysicMaterial airBorneMaterial;
 
-    private Collider playerCollider;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-        playerCollider = GetComponent<Collider>();
-        lpInput = GetComponent<LocalPlayerInput>();
-    }
-
     void Update()
     {
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundCheckDistance, groundCheckMask);
-
         isSprinting = ShouldApplySprint();
-        
+        isLookingAround = lpInput.lookAroundInput;
+
         if (isGrounded && lpInput.jumpInput && !jumpCDFlag)
         {
             applyJump = true;
@@ -65,10 +63,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
 
         if (applyJump)
         {
-            rb.velocity += Vector3.up * jumpForce;
-            applyJump = false;
-            jumpCDFlag = true;
-            StartCoroutine(JumpCDApplier());
+            Jump();
         }
 
         // Applying additional falling physics
@@ -91,34 +86,37 @@ public class ThirdPersonCharacterController : MonoBehaviour
         //set physics material
         playerCollider.material = isGrounded ? groundedMaterial : airBorneMaterial;
 
-
-    playerVelocity = (rb.position - playerLastPos) / Time.deltaTime;
+        playerVelocity = (rb.position - playerLastPos) / Time.deltaTime;
+        isMoving = (rb.position - playerLastPos).magnitude > 0.2f;
         playerLastPos = rb.position;
-        isMoving = playerVelocity != Vector3.zero;
+    }
+
+    void Jump()
+    {
+        playerAnims.JumpAnim();
+        rb.velocity += Vector3.up * jumpForce;
+        applyJump = false;
+        jumpCDFlag = true;
+        StartCoroutine(JumpCDApplier());
     }
 
     IEnumerator JumpCDApplier ()
     {
         yield return new WaitForSeconds(jumpCD);
         jumpCDFlag = false;
+        playerAnims.ResetJumpTrigger();
     }
 
     bool ShouldApplySprint()
     {
-        if (!isGrounded)
+        if (isGrounded)
         {
-            if (!wasSprintingWhenJumped)
-            {
-                return false;
-            } else
-            {
-                wasSprintingWhenJumped = lpInput.sprintInput;
-            }
+            wasSprintingWhenJumped = lpInput.sprintInput;
         }
 
         bool forwardMovementInput = lpInput.moveInput.z > 0;
 
         // Going Forward && not aiming && sprinting
-        return forwardMovementInput && !lpInput.aimInput && lpInput.sprintInput;
+        return wasSprintingWhenJumped && forwardMovementInput && !isAiming;
     }
 }
