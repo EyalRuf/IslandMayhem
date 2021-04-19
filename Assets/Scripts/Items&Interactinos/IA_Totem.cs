@@ -5,7 +5,9 @@ using Mirror;
 
 public class IA_Totem : InteractionArea
 {
-    [Header("Totem"), SyncVar]
+    [Header("Totem")]
+    public TotemPieceGroup group = TotemPieceGroup.Any;
+    [SyncVar]
     public int currentVisualStage;
     public bool maxVisualStageReached;
     public GameObject[] visuals;
@@ -33,10 +35,14 @@ public class IA_Totem : InteractionArea
     public override void OnEndInteraction()
     {
         PlayerPickupAndThrow player = CustomNetworkManager.GetLocalPlayer().GetComponent<PlayerPickupAndThrow>();
-        if (player.heldItem != null) //we can match this more specifically later on
+        TotemPiece piece = player.heldItem.GetComponent<TotemPiece>();
+        if (player.heldItem != null && piece != null) //we can match this more specifically later on
         {
-            player.DestroyItem();
-            currentVisualStage++;
+            if (group == TotemPieceGroup.Any || group == piece.group)
+            {
+                player.DestroyItem();
+                currentVisualStage++;
+            }
         }
 
         base.OnEndInteraction();

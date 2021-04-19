@@ -1093,7 +1093,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   pickupCheckRadius: 2.5
-  throwForce: 150
+  throwForce: 300
   movementDirectionForceMultiplyer: 1.5
   throwTarget: {fileID: 8297925720464115938}
   cameraController: {fileID: 8297925720197497096}
