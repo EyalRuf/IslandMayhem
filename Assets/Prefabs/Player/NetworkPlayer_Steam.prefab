@@ -180,8 +180,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 5, y: 0}
+  m_SizeDelta: {x: -10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8153048983767320089
 CanvasRenderer:
@@ -211,17 +211,17 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: c46df7f01ab99fb4b955c2f2939c73ba, type: 3}
     m_FontSize: 2
-    m_FontStyle: 0
-    m_BestFit: 0
+    m_FontStyle: 1
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Player Name
 --- !u!114 &1729916397504248639
@@ -467,7 +467,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 5}
+  m_SizeDelta: {x: 40, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1531515849184875884
 Canvas:
@@ -893,7 +893,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &8297925720422174597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1051,22 +1051,22 @@ MonoBehaviour:
   playerCollider: {fileID: 5146644707679106066}
   playerAnims: {fileID: 8396054065383248002}
   isMoving: 0
-  baseMoveSpeed: 20
+  baseMoveSpeed: 15
   isSprinting: 0
-  sprintSpeedMultiplyer: 1.75
+  sprintSpeedMultiplyer: 1.5
   isGrounded: 0
   groundCheck: {fileID: 8297925719936001042}
-  groundCheckDistance: 0.35
+  groundCheckDistance: 0.5
   groundCheckMask:
     serializedVersion: 2
     m_Bits: 1591
-  jumpForce: 15
+  jumpForce: 12.5
   fallMultiplier: 2.5
   lowJumpMultiplier: 0.75
   jumpCD: 0.1
   isAiming: 0
   isLookingAround: 0
-  groundedDrag: 10
+  groundedDrag: 5
   groundedMaterial: {fileID: 13400000, guid: cf291c228a03d5d48bceeb1a804190f5, type: 2}
   airBorneMaterial: {fileID: 13400000, guid: f3e4f1e0f83674b4eb56e04102c13e1a, type: 2}
 --- !u!114 &7020920123134806745
@@ -1303,7 +1303,7 @@ GameObject:
   - component: {fileID: 2874911753271564790}
   - component: {fileID: 1008796090472887632}
   m_Layer: 5
-  m_Name: Image
+  m_Name: VoiceIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1318,15 +1318,15 @@ RectTransform:
   m_GameObject: {fileID: 8347781255031174151}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5356907901212703321}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -15, y: 0}
+  m_SizeDelta: {x: -32, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2874911753271564790
 CanvasRenderer:
@@ -1355,7 +1355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 45eb30d5b1307bb49bd9bcebd72562d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e23ca9c1a5882604ba536b3cb8295603, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

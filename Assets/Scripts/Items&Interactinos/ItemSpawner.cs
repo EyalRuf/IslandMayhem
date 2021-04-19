@@ -10,7 +10,7 @@ public class ItemSpawner : NetworkBehaviour
     public Vector3 spawnRange;
     public Vector2Int minMaxSpawns;
 
-    private void Start()
+    public void Spawn()
     {
         if(transform.childCount > 0)
         {

@@ -59,7 +59,8 @@ public class ThirdPersonCharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.transform.Translate((lpInput.moveInput * currMoveSpeed * Time.fixedDeltaTime), Space.Self);
+        //move
+        rb.MovePosition(rb.position + rb.rotation * (lpInput.moveInput * currMoveSpeed * Time.fixedDeltaTime));
 
         if (applyJump)
         {
