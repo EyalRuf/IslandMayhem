@@ -462,11 +462,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72bd49756ca4c247bfeb766e65df2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 1.5
-  Target: {fileID: 8297925720464115938}
-  Player: {fileID: 8297925720422174603}
+  characterController: {fileID: 0}
+  camera: {fileID: 0}
+  targetTransform: {fileID: 0}
+  playerTransform: {fileID: 0}
+  cameraTransform: {fileID: 0}
+  cameraRotationSpeed: 0
+  playerRotationSpeed: 0
   cameraYClampMin: -45
   cameraYClampMax: 70
+  cameraCollisionLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  cameraColTransitionSpeed: 0
+  cameraAimPos: {x: 0, y: 0, z: 0}
+  cameraAimRot: {x: 0, y: 0, z: 0, w: 0}
+  cameraTransitionDuration: 0
+  aimFovAdjustment: 0
+  cameraYClampMinAim: 0
+  cameraYClampMaxAim: 0
 --- !u!114 &8888557173115942757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,6 +749,7 @@ MonoBehaviour:
   syncInterval: 0.1
   isConnectedThroughSteam: 0
   userName: 
+  teamColor: {r: 1, g: 1, b: 1, a: 1}
   playerCamera: {fileID: 8297925720197497098}
   disableForNotLocal:
   - {fileID: 8297925720422174604}
@@ -760,6 +775,12 @@ MonoBehaviour:
   jumpInputDown: 0
   pickupInputDown: 0
   interactInputDown: 0
+  sprintInput: 0
+  throwInputDown: 0
+  aimInputDown: 0
+  aimInput: 0
+  aimInputUp: 0
+  lookAroundInput: 0
 --- !u!114 &8297925720422174605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,7 +793,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8633bbe68bb73b1479cb8bc78ebf255a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7.5
+  rb: {fileID: 0}
+  lpInput: {fileID: 0}
+  playerCollider: {fileID: 0}
+  playerAnims: {fileID: 0}
+  isMoving: 0
+  baseMoveSpeed: 0
+  isSprinting: 0
+  sprintSpeedMultiplyer: 0
   isGrounded: 0
   groundCheck: {fileID: 8297925719936001042}
   groundCheckDistance: 0.25
@@ -783,7 +811,11 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 0.75
   jumpCD: 0.05
+  isAiming: 0
+  isLookingAround: 0
   groundedDrag: 10
+  groundedMaterial: {fileID: 0}
+  airBorneMaterial: {fileID: 0}
 --- !u!114 &7389572517088170773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,11 +833,24 @@ MonoBehaviour:
   itemHoldPos: {fileID: 1167848079526065645}
   itemHoldParent: {fileID: 3676781469901368260}
   lpInput: {fileID: 8297925720422174604}
+  playerController: {fileID: 0}
+  playerAnims: {fileID: 0}
   heldItem: {fileID: 0}
   pickableLayerMask:
     serializedVersion: 2
     m_Bits: 512
   pickupCheckRadius: 1.25
+  throwForce: 0
+  movementDirectionForceMultiplyer: 0
+  throwTarget: {fileID: 0}
+  cameraController: {fileID: 0}
+  lineRenderer: {fileID: 0}
+  lineMaxLength: 0
+  trajectoryPointDist: 0
+  trajectoryLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  aimAdjustVec: {x: 0, y: 0, z: 0}
 --- !u!114 &-7498169878055740779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -883,7 +928,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8974344796244667914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.5, z: 1.25}
+  m_LocalPosition: {x: -0, y: 0.5, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1167848079526065645}
