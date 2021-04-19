@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Mirror;
 using Steamworks;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class VoiceChat : NetworkBehaviour
@@ -25,6 +26,11 @@ public class VoiceChat : NetworkBehaviour
     public int sampleRate = 48000;
     [Range(512, 2048)]
     public uint chunkSize = 1024;
+
+    [Header("UI")]
+    public Image voiceUI;
+    public Sprite voiceOnIcon;
+    public Sprite voiceOffIcon;
 
     // the current position of the playhead in the AudioClip
     private int m_streamPosition = 0;
@@ -47,6 +53,9 @@ public class VoiceChat : NetworkBehaviour
 
     void Update()
     {
+        //do UI
+        voiceUI.sprite = (GetRMS() == 0) ? voiceOffIcon : voiceOnIcon;
+
         // if we're buffering, we're not anymore if we've gotten enough packets.
         if (Buffering)
         {
@@ -92,6 +101,18 @@ public class VoiceChat : NetworkBehaviour
                 }
             }
         }
+    }
+
+    private float GetRMS()
+    {
+        float[] samples = new float[4096];
+        m_audioSource.GetOutputData(samples, 0);
+        float sum = 0;
+        foreach (float f in samples)
+        {
+            sum += f * f;
+        }
+        return Mathf.Sqrt(sum / 4096);
     }
 
     void OnAudioRead(float[] data)

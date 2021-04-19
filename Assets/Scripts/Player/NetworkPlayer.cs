@@ -10,6 +10,8 @@ public class NetworkPlayer : NetworkBehaviour
     public bool isConnectedThroughSteam;
     [SyncVar]
     public string userName;
+    [SyncVar]
+    public Color teamColor = Color.white;
 
     [Header("References")]
     public Camera playerCamera;
@@ -42,6 +44,7 @@ public class NetworkPlayer : NetworkBehaviour
     private void Update()
     {
         nameTag.text = userName;
+        nameTag.color = teamColor;
     }
 
     private void LateUpdate()
