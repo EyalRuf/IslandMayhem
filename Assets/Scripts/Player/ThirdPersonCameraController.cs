@@ -5,7 +5,7 @@ using UnityEngine;
 public class ThirdPersonCameraController : MonoBehaviour
 {
     [Header("References")]
-    public LocalPlayerInput lpInput;
+    public ThirdPersonCharacterController characterController;
     public Camera camera;
     public Transform targetTransform, playerTransform, cameraTransform;
 
@@ -21,19 +21,18 @@ public class ThirdPersonCameraController : MonoBehaviour
     public LayerMask cameraCollisionLayers;
     public float cameraColTransitionSpeed;
     private Vector3 initialCameraPos;
-    private Quaternion initialCameraRot;
 
     [Header("Aiming")]
-    public bool isAiming;
-    private bool isInAimTransition;
+    private bool isAiming;
     public Vector3 cameraAimPos;
     public Quaternion cameraAimRot;
     public float cameraTransitionDuration;
+    public float aimFovAdjustment;
+    public float cameraYClampMinAim, cameraYClampMaxAim;
+    private bool isInAimTransition;
     private float cameraTransitionTimer;
     private bool cameraBackToOrigin;
     private Vector3 cameraPosAtStartOfTransition;
-    private Quaternion cameraRotAtStartOfTransition;
-    public float aimFovAdjustment;
     private float initialFov;
     private float fovAtStartOfTransition;
 
@@ -45,7 +44,6 @@ public class ThirdPersonCameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         initialCameraPos = cameraTransform.localPosition;
-        initialCameraRot = cameraTransform.localRotation;
         targetRotationOffset = targetTransform.localRotation.eulerAngles;
         initialFov = camera.fieldOfView;
         cameraBackToOrigin = true;
@@ -56,10 +54,9 @@ public class ThirdPersonCameraController : MonoBehaviour
     {
         mouseX += Input.GetAxis("Mouse X") * cameraRotationSpeed;
         mouseY -= Input.GetAxis("Mouse Y") * cameraRotationSpeed;
-        mouseY = Mathf.Clamp(mouseY, cameraYClampMin, cameraYClampMax);
+        mouseY = Mathf.Clamp(mouseY, isAiming ? cameraYClampMinAim : cameraYClampMin, isAiming ? cameraYClampMaxAim : cameraYClampMax);
 
-        // If movign or aiming -> cameraBackToOrigin is only true when you're no longer aiming and camera transition ended
-        if (lpInput.lookAroundInput && cameraBackToOrigin)
+        if (characterController.isLookingAround && cameraBackToOrigin)
         {
             targetTransform.rotation = Quaternion.Euler(mouseY + targetRotationOffset.x, mouseX, 0);
         } else
@@ -95,7 +92,6 @@ public class ThirdPersonCameraController : MonoBehaviour
         isInAimTransition = true;
         cameraTransitionTimer = 0;
         cameraPosAtStartOfTransition = cameraTransform.localPosition;
-        cameraRotAtStartOfTransition = cameraTransform.localRotation;
         fovAtStartOfTransition = camera.fieldOfView;
     }
 
@@ -113,40 +109,21 @@ public class ThirdPersonCameraController : MonoBehaviour
 
         if (isAiming)
         {
-            if (Vector3.Distance(cameraTransform.localPosition, cameraAimPos) > 0.01f)
-            {
-                currCameraLocalPos = Vector3.Lerp(cameraPosAtStartOfTransition, cameraAimPos, cameraTransitionTimer);
-                cameraTransform.localRotation = Quaternion.Lerp(cameraRotAtStartOfTransition, cameraAimRot, cameraTransitionTimer);
-                camera.fieldOfView = Mathf.Lerp(fovAtStartOfTransition, initialFov + aimFovAdjustment, cameraTransitionTimer);
-            }
-            else
-            {
-                currCameraLocalPos = cameraAimPos;
-                cameraTransform.localRotation = cameraAimRot;
-                camera.fieldOfView = initialFov + aimFovAdjustment;
-                AimTransitionOver();
-            }
+            currCameraLocalPos = Vector3.Lerp(cameraPosAtStartOfTransition, cameraAimPos, cameraTransitionTimer);
+            camera.fieldOfView = Mathf.Lerp(fovAtStartOfTransition, initialFov + aimFovAdjustment, cameraTransitionTimer);
         }
         else
         {
-            if (Vector3.Distance(cameraTransform.localPosition, initialCameraPos) > 0.01f)
-            {
-                currCameraLocalPos = Vector3.Lerp(cameraPosAtStartOfTransition, initialCameraPos, cameraTransitionTimer);
-                cameraTransform.localRotation = Quaternion.Lerp(cameraRotAtStartOfTransition, initialCameraRot, cameraTransitionTimer);
-                camera.fieldOfView = Mathf.Lerp(fovAtStartOfTransition, initialFov, cameraTransitionTimer);
-            }
-            else
-            {
-                currCameraLocalPos = initialCameraPos;
-                cameraTransform.localRotation = initialCameraRot;
-                camera.fieldOfView = initialFov;
-                AimTransitionOver();
-            }
+            currCameraLocalPos = Vector3.Lerp(cameraPosAtStartOfTransition, initialCameraPos, cameraTransitionTimer);
+            camera.fieldOfView = Mathf.Lerp(fovAtStartOfTransition, initialFov, cameraTransitionTimer);
         }
     }
 
     void AimTransitionOver ()
     {
+        currCameraLocalPos = isAiming ? cameraAimPos : initialCameraPos;
+        camera.fieldOfView = isAiming ? initialFov + aimFovAdjustment : initialFov;
+
         isInAimTransition = false;
         cameraBackToOrigin = !isAiming;
     }
