@@ -58,6 +58,8 @@ public class MatchManager : NetworkBehaviour
                     startingGame = true;
                     gameStatus = "Starting game.";
                     CalculateAndAssignTeams();
+
+                    //sync info
                     RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(teams)));
                     RpcStartGame(); //invoke sychronized start game sequence
                 }
@@ -111,6 +113,14 @@ public class MatchManager : NetworkBehaviour
         {
             gameStarted = true;
             gameStatus = "";
+
+            //spawn items
+            ItemSpawner[] spawners = FindObjectsOfType<ItemSpawner>();
+
+            foreach (ItemSpawner spawner in spawners)
+            {
+                spawner.Spawn();
+            }
         }
 
         yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
