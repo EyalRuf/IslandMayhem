@@ -81,6 +81,21 @@ public class TTTMatchManager : MatchManager
 
     protected override IEnumerator StartGame()
     {
+        //count down
+        yield return new WaitForSeconds(1f);
+        gameStatus = "3";
+
+        yield return new WaitForSeconds(1f);
+        gameStatus = "2";
+
+        yield return new WaitForSeconds(1f);
+        gameStatus = "1";
+
+        yield return new WaitForSeconds(1f);
+        gameStatus = "GO!";
+
+        yield return new WaitForSeconds(1f);
+
         //call base
         yield return StartCoroutine(base.StartGame());
 
@@ -91,7 +106,7 @@ public class TTTMatchManager : MatchManager
     [ClientRpc]
     protected override void RpcEndGame()
     {
-        //base.RpcStartGame(); DON'T CALL BASE. CUSTOM IMPlEMENTATION OF STARTGAME WON'T BE CALLED.
+        //base.RpcEndGame(); DON'T CALL BASE. CUSTOM IMPlEMENTATION OF STARTGAME WON'T BE CALLED.
 
         StartCoroutine(EndGame());
     }
