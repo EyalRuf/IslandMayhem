@@ -1022,6 +1022,8 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 3396668420586916290, guid: 0cf4970e31faab444a2db73d9f905208, type: 3}
+  - {fileID: 3192004044822027774, guid: 348699131c785ca4a8e61cdfae0ea7e0, type: 3}
+  - {fileID: 188268801859170097, guid: 14887700e46524543957cb3e19a9b0c6, type: 3}
   isSteam: 0
   matchManager: {fileID: 6379415000001608967}
 --- !u!114 &7476827082030000011
