@@ -69,6 +69,15 @@ public class CustomNetworkManager : NetworkManager
 
     #region Matchmaking and Steamworks
 
+    public void AllowJoin(bool allow)
+    {
+        if (isSteam)
+        {
+            //stop allowing players to join when match is done
+            SteamMatchmaking.SetLobbyJoinable((CSteamID)ulong.Parse(networkAddress), allow);
+        }
+    }
+
     #endregion
 
     #region Unity Callbacks
