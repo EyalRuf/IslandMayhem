@@ -7,10 +7,11 @@ public class ThirdPersonCharacterController : MonoBehaviour
 {
     [Header("References")]
     public Rigidbody rb;
-    public LocalPlayerInput lpInput;
     public Collider playerCollider;
-    public PlayerAnimations playerAnims;
     public Transform cameraTargetTransform;
+    public LocalPlayerInput lpInput;
+    public PlayerAnimations playerAnims;
+    public PlayerItemInteractions playerItems;
 
     [Header("Movement")]
     public bool isMoving;

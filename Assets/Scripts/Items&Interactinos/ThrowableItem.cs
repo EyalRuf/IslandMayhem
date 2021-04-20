@@ -16,11 +16,16 @@ public class ThrowableItem : PickupableItem
     public float trajectoryPointDist;
     private List<Vector3> linePoints = new List<Vector3>();
     public LayerMask trajectoryLayerMask;
-    public Vector3 aimAdjustVec;
+    public Vector3 aimMultiplyerVec;
+    public Vector3 aimAdditionVec;
 
     [Header("Misc")]
     private Vector3 currObjectVelocity;
     private Vector3 lastPosition;
+
+    void Start()
+    {
+    }
 
     // Update is called once per frame
     public override void Update()
@@ -53,6 +58,7 @@ public class ThrowableItem : PickupableItem
     public override void UseMain()
     {
         base.UseMain();
+        currUsingPlayer.playerAnims.ThrowAnim();
         Drop();
         rb.AddForce(CalcThrowVector());
     }
@@ -114,10 +120,10 @@ public class ThrowableItem : PickupableItem
         if (Mathf.Sign(dir.x) != Mathf.Sign(movement.x) && Mathf.Sign(dir.z) != Mathf.Sign(movement.z))
             movementMultiplyer *= 0.5f;
 
-        Vector3 adjustedThrowVec = new Vector3(throwTarget.forward.x * aimAdjustVec.x,
-            throwTarget.forward.y * aimAdjustVec.y,
-            throwTarget.forward.z * aimAdjustVec.z);
+        Vector3 adjustedThrowVec = new Vector3(throwTarget.forward.x * aimMultiplyerVec.x,
+            throwTarget.forward.y * aimMultiplyerVec.y,
+            throwTarget.forward.z * aimMultiplyerVec.z);
 
-        return (adjustedThrowVec * throwForce) + (currObjectVelocity * movementMultiplyer);
+        return (adjustedThrowVec * throwForce) + (currObjectVelocity * movementMultiplyer) + aimAdditionVec;
     }
 }

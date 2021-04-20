@@ -308,14 +308,15 @@ MonoBehaviour:
   isBeingHeld: 0
   outlineDistance: 1.25
   currUsingPlayer: {fileID: 0}
-  throwForce: 100
-  movementDirectionForceMultiplyer: 5
+  throwForce: 150
+  movementDirectionForceMultiplyer: 15
   throwTarget: {fileID: 0}
   drawTrajectory: 0
   lineRenderer: {fileID: 8401161832207245447}
-  lineMaxLength: 15
+  lineMaxLength: 30
   trajectoryPointDist: 0.5
   trajectoryLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  aimAdjustVec: {x: 1, y: 2, z: 1}
+  aimMultiplyerVec: {x: 1, y: 1.75, z: 1}
+  aimAdditionVec: {x: 0, y: 50, z: -25}
