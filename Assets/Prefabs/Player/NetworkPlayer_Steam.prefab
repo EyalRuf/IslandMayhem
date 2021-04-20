@@ -851,6 +851,7 @@ GameObject:
   - component: {fileID: 8396054065383248002}
   - component: {fileID: 5476229827282252325}
   - component: {fileID: 5296987309341545049}
+  - component: {fileID: 7223162290677117676}
   m_Layer: 8
   m_Name: NetworkPlayer_Steam
   m_TagString: Player
@@ -1029,10 +1030,10 @@ MonoBehaviour:
   pickupInputDown: 0
   interactInputDown: 0
   sprintInput: 0
-  throwInputDown: 0
-  aimInputDown: 0
-  aimInput: 0
-  aimInputUp: 0
+  itemMainUseDown: 0
+  itemSecondaryUsageDown: 0
+  itemSecondaryUsage: 0
+  itemSecondaryUsageUp: 0
   lookAroundInput: 0
 --- !u!114 &8297925720422174605
 MonoBehaviour:
@@ -1050,6 +1051,7 @@ MonoBehaviour:
   lpInput: {fileID: 8297925720422174604}
   playerCollider: {fileID: 5146644707679106066}
   playerAnims: {fileID: 8396054065383248002}
+  cameraTargetTransform: {fileID: 8297925720464115938}
   isMoving: 0
   baseMoveSpeed: 15
   isSprinting: 0
@@ -1093,17 +1095,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   pickupCheckRadius: 2.5
-  throwForce: 300
-  movementDirectionForceMultiplyer: 1.5
-  throwTarget: {fileID: 8297925720464115938}
   cameraController: {fileID: 8297925720197497096}
-  lineRenderer: {fileID: 1015575899964293741}
-  lineMaxLength: 25
-  trajectoryPointDist: 0.25
-  trajectoryLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  aimAdjustVec: {x: 1, y: 1.5, z: 1}
 --- !u!114 &3593138567035470615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1260,6 +1252,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7223162290677117676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297925720422174642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 253b173226f22b543b7c499ce9ca2534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cController: {fileID: 8297925720422174605}
+  wasHit: 0
+  untouchableDuration: 0
+  untouchableTimer: 0
 --- !u!1 &8297925720464115939
 GameObject:
   m_ObjectHideFlags: 0

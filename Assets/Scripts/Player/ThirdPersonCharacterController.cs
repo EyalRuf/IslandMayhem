@@ -10,6 +10,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
     public LocalPlayerInput lpInput;
     public Collider playerCollider;
     public PlayerAnimations playerAnims;
+    public Transform cameraTargetTransform;
 
     [Header("Movement")]
     public bool isMoving;
