@@ -41,10 +41,16 @@ public class IA_Totem : InteractionArea
             if (group == TotemPieceGroup.Any || group == piece.group)
             {
                 player.DestroyItem();
-                currentVisualStage++;
+                CmdBuildTotem();
             }
         }
 
         base.OnEndInteraction();
+    }
+
+    [Command]
+    public void CmdBuildTotem()
+    {
+        currentVisualStage++;
     }
 }
