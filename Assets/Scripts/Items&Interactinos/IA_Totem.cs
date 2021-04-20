@@ -5,10 +5,13 @@ using Mirror;
 
 public class IA_Totem : InteractionArea
 {
-    [Header("Totem"), SyncVar]
+    [Header("Totem")]
+    public TotemPieceGroup group = TotemPieceGroup.Any;
+    [SyncVar]
     public int currentVisualStage;
     public bool maxVisualStageReached;
     public GameObject[] visuals;
+    public GameObject smokePoof;
 
     private void Start()
     {
@@ -35,10 +38,32 @@ public class IA_Totem : InteractionArea
         PlayerPickupAndThrow player = CustomNetworkManager.GetLocalPlayer().GetComponent<PlayerPickupAndThrow>();
         if (player.heldItem != null) //we can match this more specifically later on
         {
-            player.DestroyItem();
-            currentVisualStage++;
+            TotemPiece piece = player.heldItem.GetComponent<TotemPiece>();
+
+            if (piece != null)
+            {
+                if (group == TotemPieceGroup.Any || group == piece.group)
+                {
+                    player.DestroyItem();
+                    CmdBuildTotem();
+                }
+            }
         }
 
         base.OnEndInteraction();
+    }
+
+    [Command]
+    public void CmdBuildTotem()
+    {
+        RpcBuildTotem(currentVisualStage);
+
+        currentVisualStage++;
+    }
+
+    [ClientRpc]
+    public void RpcBuildTotem(int stage)
+    {
+        Instantiate(smokePoof, visuals[stage].transform.position, Quaternion.identity);
     }
 }

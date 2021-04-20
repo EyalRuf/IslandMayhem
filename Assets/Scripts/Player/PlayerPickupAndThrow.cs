@@ -10,6 +10,7 @@ public class PlayerPickupAndThrow : NetworkBehaviour
     public Transform itemHoldParent;
     public LocalPlayerInput lpInput;
     public ThirdPersonCharacterController playerController;
+    public PlayerAnimations playerAnims;
 
     [Header("Pickup")]
     public PickupableItem heldItem = null;
@@ -183,12 +184,14 @@ public class PlayerPickupAndThrow : NetworkBehaviour
 
     void StartAiming()
     {
+        playerController.isAiming = true;
         cameraController.ToggleCameraAim(true);
         lineRenderer.enabled = true;
     }
 
     void StopAiming()
     {
+        playerController.isAiming = false;
         cameraController.ToggleCameraAim(false);
         lineRenderer.enabled = false;
     }
@@ -252,8 +255,8 @@ public class PlayerPickupAndThrow : NetworkBehaviour
 
     void ThrowItem()
     {
+        playerAnims.ThrowAnim();
         heldItem.Drop();
-
         heldItem.rb.AddForce(CalcThrowVector());
         heldItem = null;
     }

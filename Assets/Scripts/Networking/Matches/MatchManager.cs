@@ -28,12 +28,18 @@ public class MatchManager : NetworkBehaviour
     public string gameStatus;
     public Text statusText;
 
+    private CustomNetworkManager networkManager;
+
     protected virtual void Start()
     {
         if (!isServer) //server only
             return;
 
+        //set status
         gameStatus = "Waiting for players...";
+
+        //get network manager
+        networkManager = FindObjectOfType<CustomNetworkManager>();
     }
 
     protected virtual void Update()
@@ -56,8 +62,14 @@ public class MatchManager : NetworkBehaviour
                 if (!startingGame && CustomNetworkManager.GetAllPlayers().Count >= numberOfPlayersNeededToStart && numberOfPlayersNeededToStart > 0)
                 {
                     startingGame = true;
+
+                    //disallow joining
+                    networkManager.AllowJoin(false);
+
                     gameStatus = "Starting game.";
                     CalculateAndAssignTeams();
+
+                    //sync info
                     RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(teams)));
                     RpcStartGame(); //invoke sychronized start game sequence
                 }
@@ -111,6 +123,14 @@ public class MatchManager : NetworkBehaviour
         {
             gameStarted = true;
             gameStatus = "";
+
+            //spawn items
+            ItemSpawner[] spawners = FindObjectsOfType<ItemSpawner>();
+
+            foreach (ItemSpawner spawner in spawners)
+            {
+                spawner.Spawn();
+            }
         }
 
         yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
