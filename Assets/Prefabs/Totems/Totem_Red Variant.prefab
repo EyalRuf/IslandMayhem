@@ -100,12 +100,17 @@ PrefabInstance:
     - target: {fileID: 260569609851265648, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: m_Name
-      value: Totem_Red
+      value: Totem_Red Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7426883632020992095, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2675d02bcc569484897d27dae76fee58, type: 2}
+    - target: {fileID: 7986491753910188081, guid: 71027234dac2b0b44a1dc9b7da491359,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f688115496c13184db192eb6714b9488, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71027234dac2b0b44a1dc9b7da491359, type: 3}

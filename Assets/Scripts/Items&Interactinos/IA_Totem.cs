@@ -11,6 +11,7 @@ public class IA_Totem : InteractionArea
     public int currentVisualStage;
     public bool maxVisualStageReached;
     public GameObject[] visuals;
+    public GameObject smokePoof;
 
     private void Start()
     {
@@ -35,16 +36,34 @@ public class IA_Totem : InteractionArea
     public override void OnEndInteraction()
     {
         PlayerItemInteractions player = CustomNetworkManager.GetLocalPlayer().GetComponent<PlayerItemInteractions>();
-        TotemPiece piece = player.heldItem.GetComponent<TotemPiece>();
-        if (player.heldItem != null && piece != null) //we can match this more specifically later on
+        if (player.heldItem != null) //we can match this more specifically later on
         {
-            if (group == TotemPieceGroup.Any || group == piece.group)
+            TotemPiece piece = player.heldItem.GetComponent<TotemPiece>();
+
+            if (piece != null)
             {
-                player.DestroyItem();
-                currentVisualStage++;
+                if (group == TotemPieceGroup.Any || group == piece.group)
+                {
+                    player.DestroyItem();
+                    CmdBuildTotem();
+                }
             }
         }
 
         base.OnEndInteraction();
+    }
+
+    [Command]
+    public void CmdBuildTotem()
+    {
+        RpcBuildTotem(currentVisualStage);
+
+        currentVisualStage++;
+    }
+
+    [ClientRpc]
+    public void RpcBuildTotem(int stage)
+    {
+        Instantiate(smokePoof, visuals[stage].transform.position, Quaternion.identity);
     }
 }
