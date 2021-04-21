@@ -11,10 +11,9 @@ public class PlayerAnimations : MonoBehaviour
     private const string anim_param_b_walk = "isWalking";
     private const string anim_param_b_sprint = "isSprinting";
     private const string anim_param_b_holding_item = "isHoldingAnItem";
+    private const string anim_param_t_interacting = "isInteracting";
     private const string anim_param_t_jump = "jumpTrigger";
     private const string anim_param_t_throw = "throwTrigger";
-    private const string anim_param_t_start_interacting = "startInteractionTrigger";
-    private const string anim_param_t_stop_interacting = "stopInteractionTrigger";
 
     [Header("References")]
     public Animator animator;
@@ -65,23 +64,12 @@ public class PlayerAnimations : MonoBehaviour
 
     public void StartInteractingAnim ()
     {
-        animator.SetTrigger(anim_param_t_start_interacting);
-        StartCoroutine(ResetTriggerCR(ResetStartInteractionTrigger, 0.1f));
-    }
-
-    void ResetStartInteractionTrigger()
-    {
-        animator.ResetTrigger(anim_param_t_start_interacting);
+        animator.SetBool(anim_param_t_interacting, true);
     }
 
     public void StopInteractingAnim()
     {
-        animator.SetTrigger(anim_param_t_stop_interacting);
-        StartCoroutine(ResetTriggerCR(ResetStopInteractionTrigger, 0.1f));
+        animator.SetBool(anim_param_t_interacting, false);
     }
 
-    void ResetStopInteractionTrigger()
-    {
-        animator.ResetTrigger(anim_param_t_stop_interacting);
-    }
 }
