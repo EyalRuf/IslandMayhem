@@ -32,12 +32,12 @@ public class PickupableItem : NetworkBehaviour
         }
     }
 
-    public virtual void Pickup (PlayerItemInteractions player, Transform newParent, Transform newOrientation)
+    public virtual void Pickup (PlayerItemInteractions player)
     {
         currUsingPlayer = player;
-        transform.parent = newParent;
-        transform.localPosition = newOrientation.localPosition;
-        transform.localRotation = newOrientation.localRotation;
+        transform.parent = currUsingPlayer.itemHoldParent;
+        transform.localPosition = currUsingPlayer.itemHoldPos.localPosition;
+        transform.localRotation = currUsingPlayer.itemHoldPos.localRotation;
 
         outline.enabled = false;
         isBeingHeld = true;

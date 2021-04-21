@@ -49,9 +49,9 @@ public class ThrowableItem : PickupableItem
         }
     }
 
-    public override void Pickup(PlayerItemInteractions player, Transform newParent, Transform newOrientation)
+    public override void Pickup(PlayerItemInteractions player)
     {
-        base.Pickup(player, newParent, newOrientation);
+        base.Pickup(player);
         throwTarget = player.playerController.cameraTargetTransform;
     }
 

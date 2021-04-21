@@ -59,9 +59,6 @@ public class PlayerItemInteractions : NetworkBehaviour
                     CmdUseItem(netId, false);
                 }
             }
-
-            // EVERYTHING THAT HAS TO DO WITH AIM :point_up: NEED TO CHECK IF IT'S A THROWABLE ITEM FIRST OR PUT THIS SHIT IN A DIFFERENT CLASS
-            // BIG TODO :point_up:
         }
         else // Not Holding
         {
@@ -112,7 +109,7 @@ public class PlayerItemInteractions : NetworkBehaviour
     public void Pickup(PickupableItem pickupable)
     {
         heldItem = pickupable;
-        heldItem.Pickup(this, itemHoldParent, itemHoldPos);
+        heldItem.Pickup(this);
     }
 
     [ClientRpc]
