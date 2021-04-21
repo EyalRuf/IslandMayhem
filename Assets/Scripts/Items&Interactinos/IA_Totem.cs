@@ -53,7 +53,7 @@ public class IA_Totem : InteractionArea
         base.OnEndInteraction();
     }
 
-    [Command]
+    [Command(channel = 0, ignoreAuthority = true)]
     public void CmdBuildTotem()
     {
         RpcBuildTotem(currentVisualStage);
