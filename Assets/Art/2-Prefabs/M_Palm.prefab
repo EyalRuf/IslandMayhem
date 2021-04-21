@@ -111,7 +111,7 @@ MonoBehaviour:
   spawnableObjects:
   - {fileID: 5064946466480294782, guid: 7e48e88ff724ac342b57506c754a5999, type: 3}
   spawnRange: {x: 5, y: 0, z: 5}
-  minMaxSpawns: {x: 0, y: 1}
+  minMaxSpawns: {x: 0, y: 2}
 --- !u!1001 &8952304825277861337
 PrefabInstance:
   m_ObjectHideFlags: 0

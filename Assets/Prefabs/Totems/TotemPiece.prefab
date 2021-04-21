@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 3670982256461272364}
   - component: {fileID: 8118365949745100393}
   - component: {fileID: 3670982256461272367}
-  - component: {fileID: 1512510055005695447}
   - component: {fileID: 3046085029535955035}
   - component: {fileID: 5973992673313810473}
   - component: {fileID: 3670982256461272360}
@@ -154,24 +153,6 @@ MonoBehaviour:
   outline: {fileID: 8118365949745100393}
   isBeingHeld: 0
   outlineDistance: 1.25
---- !u!114 &1512510055005695447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3670982256461272366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0
-  clientAuthority: 0
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
 --- !u!114 &3046085029535955035
 MonoBehaviour:
   m_ObjectHideFlags: 0
