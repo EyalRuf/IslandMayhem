@@ -15,7 +15,10 @@ public class PickupableItem : NetworkBehaviour
     public bool isBeingHeld;
     public float outlineDistance;
 
-    void Update()
+    [Header("PlayerUsage")]
+    public PlayerItemInteractions currUsingPlayer;
+
+    public virtual void Update()
     {
         // Un-outlining item if local player is not close anymore or item is being held
         if (CustomNetworkManager.localPlayerInitialized)
@@ -29,11 +32,12 @@ public class PickupableItem : NetworkBehaviour
         }
     }
 
-    public void Pickup (Transform newParent, Transform newOrientation)
+    public virtual void Pickup (PlayerItemInteractions player)
     {
-        transform.parent = newParent;
-        transform.localPosition = newOrientation.localPosition;
-        transform.localRotation = newOrientation.localRotation;
+        currUsingPlayer = player;
+        transform.parent = currUsingPlayer.itemHoldParent;
+        transform.localPosition = currUsingPlayer.itemHoldPos.localPosition;
+        transform.localRotation = currUsingPlayer.itemHoldPos.localRotation;
 
         outline.enabled = false;
         isBeingHeld = true;
@@ -41,12 +45,22 @@ public class PickupableItem : NetworkBehaviour
         col.enabled = false;
     }
 
-    public void Drop ()
+    public virtual void Drop ()
     {
+        currUsingPlayer.heldItem = null;
+        currUsingPlayer = null;
         transform.parent = originalParent;
         isBeingHeld = false;
         rb.isKinematic = false;
         col.enabled = true;
+    }
+
+    public virtual void UseMain ()
+    {
+    }
+
+    public virtual void UseSecondary()
+    {
     }
 
     public void Outline(bool flag)

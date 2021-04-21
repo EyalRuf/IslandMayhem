@@ -10,10 +10,10 @@ public class LocalPlayerInput : MonoBehaviour
     public bool pickupInputDown = false;
     public bool interactInputDown = false;
     public bool sprintInput = false;
-    public bool throwInputDown = false;
-    public bool aimInputDown = false;
-    public bool aimInput = false;
-    public bool aimInputUp = false;
+    public bool itemMainUseDown = false;
+    public bool itemSecondaryUsageDown = false;
+    public bool itemSecondaryUsage = false;
+    public bool itemSecondaryUsageUp = false;
     public bool lookAroundInput = false;
 
     // Update is called once per frame
@@ -32,10 +32,10 @@ public class LocalPlayerInput : MonoBehaviour
         pickupInputDown = Input.GetKeyDown(KeyCode.E);
         interactInputDown = Input.GetKeyDown(KeyCode.Return);
         sprintInput = Input.GetKey(KeyCode.LeftShift);
-        throwInputDown = Input.GetKeyDown(KeyCode.Mouse0);
-        aimInputDown = Input.GetKeyDown(KeyCode.Mouse1);
-        aimInput = Input.GetKey(KeyCode.Mouse1);
-        aimInputUp = Input.GetKeyUp(KeyCode.Mouse1);
+        itemMainUseDown = Input.GetKeyDown(KeyCode.Mouse0);
+        itemSecondaryUsageDown = Input.GetKeyDown(KeyCode.Mouse1);
+        itemSecondaryUsage = Input.GetKey(KeyCode.Mouse1);
+        itemSecondaryUsageUp = Input.GetKeyUp(KeyCode.Mouse1);
         lookAroundInput = Input.GetKey(KeyCode.LeftAlt);
     }
 }

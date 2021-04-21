@@ -7,9 +7,10 @@ public class ThirdPersonCharacterController : MonoBehaviour
 {
     [Header("References")]
     public Rigidbody rb;
-    public LocalPlayerInput lpInput;
     public Collider playerCollider;
+    public LocalPlayerInput lpInput;
     public PlayerAnimations playerAnims;
+    public PlayerItemInteractions playerItems;
 
     [Header("Movement")]
     public bool isMoving;
@@ -105,7 +106,6 @@ public class ThirdPersonCharacterController : MonoBehaviour
     {
         yield return new WaitForSeconds(jumpCD);
         jumpCDFlag = false;
-        playerAnims.ResetJumpTrigger();
     }
 
     bool ShouldApplySprint()
