@@ -7,7 +7,7 @@ public class ThirdPersonCameraController : MonoBehaviour
     [Header("References")]
     public ThirdPersonCharacterController characterController;
     public Camera camera;
-    public Transform targetTransform, playerTransform, cameraTransform;
+    public Transform targetTransform, playerTransform;
 
     [Header("General")]
     public float cameraRotationSpeed;
@@ -21,6 +21,9 @@ public class ThirdPersonCameraController : MonoBehaviour
     public LayerMask cameraCollisionLayers;
     public float cameraColTransitionSpeed;
     private Vector3 initialCameraPos;
+    private Vector3 dollyDir;
+    public float minDistance = 5, maxDistance = 12;
+    private float smooth = 10;
 
     [Header("Aiming")]
     private bool isAiming;
@@ -28,6 +31,7 @@ public class ThirdPersonCameraController : MonoBehaviour
     public Quaternion cameraAimRot;
     public float cameraTransitionDuration;
     public float aimFovAdjustment;
+    public Transform cameraLooksAtThisWhileAiming;
     public float cameraYClampMinAim, cameraYClampMaxAim;
     private bool isInAimTransition;
     private float cameraTransitionTimer;
@@ -43,10 +47,11 @@ public class ThirdPersonCameraController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        initialCameraPos = cameraTransform.localPosition;
+        initialCameraPos = camera.transform.localPosition;
         targetRotationOffset = targetTransform.localRotation.eulerAngles;
         initialFov = camera.fieldOfView;
         cameraBackToOrigin = true;
+        dollyDir = camera.transform.localPosition.normalized;
     }
 
     // Update is called once per frame
@@ -55,6 +60,7 @@ public class ThirdPersonCameraController : MonoBehaviour
         mouseX += Input.GetAxis("Mouse X") * cameraRotationSpeed;
         mouseY -= Input.GetAxis("Mouse Y") * cameraRotationSpeed;
         mouseY = Mathf.Clamp(mouseY, isAiming ? cameraYClampMinAim : cameraYClampMin, isAiming ? cameraYClampMaxAim : cameraYClampMax);
+        currCameraLocalPos = camera.transform.localPosition;
 
         if (characterController.isLookingAround && cameraBackToOrigin)
         {
@@ -70,20 +76,24 @@ public class ThirdPersonCameraController : MonoBehaviour
             AimCamera();
         } else if (cameraBackToOrigin)
         {
-            cameraTransform.LookAt(targetTransform);
+            camera.transform.LookAt(targetTransform);
+        }
+        
+        if (!isAiming)
+        {
+            Vector3 desiredCameraPos = targetTransform.TransformPoint(dollyDir * maxDistance);
+            float distance = maxDistance;
+
+            RaycastHit hit;
+            if (Physics.Linecast(targetTransform.position, desiredCameraPos, out hit, cameraCollisionLayers))
+            {
+                distance = Mathf.Clamp(hit.distance, minDistance, maxDistance);
+            }
+            currCameraLocalPos = Vector3.Lerp(camera.transform.localPosition, dollyDir * distance, Time.deltaTime * smooth);
         }
 
-        RaycastHit hit;
-        // Cast from player pos to player pos + all rotations that apply to camera object * it's original offset
-        if (Physics.Linecast(playerTransform.position, playerTransform.position + (playerTransform.localRotation * targetTransform.localRotation * currCameraLocalPos), out hit, cameraCollisionLayers))
-        {
-            currCameraLocalPos = new Vector3(currCameraLocalPos.x, currCameraLocalPos.y, -Vector3.Distance(playerTransform.position, hit.point));
-        } else if(!isAiming)
-        {
-            currCameraLocalPos = Vector3.Lerp(cameraTransform.localPosition, initialCameraPos, cameraColTransitionSpeed);
-        }
-
-        cameraTransform.localPosition = currCameraLocalPos;
+        camera.transform.localPosition = currCameraLocalPos;
+        camera.transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void ToggleCameraAim(bool isAiming)
@@ -91,7 +101,7 @@ public class ThirdPersonCameraController : MonoBehaviour
         this.isAiming = isAiming;
         isInAimTransition = true;
         cameraTransitionTimer = 0;
-        cameraPosAtStartOfTransition = cameraTransform.localPosition;
+        cameraPosAtStartOfTransition = camera.transform.localPosition;
         fovAtStartOfTransition = camera.fieldOfView;
     }
 
@@ -111,11 +121,13 @@ public class ThirdPersonCameraController : MonoBehaviour
         {
             currCameraLocalPos = Vector3.Lerp(cameraPosAtStartOfTransition, cameraAimPos, cameraTransitionTimer);
             camera.fieldOfView = Mathf.Lerp(fovAtStartOfTransition, initialFov + aimFovAdjustment, cameraTransitionTimer);
+            camera.transform.LookAt(Vector3.Lerp(targetTransform.position, cameraLooksAtThisWhileAiming.position, cameraTransitionTimer));
         }
         else
         {
             currCameraLocalPos = Vector3.Lerp(cameraPosAtStartOfTransition, initialCameraPos, cameraTransitionTimer);
             camera.fieldOfView = Mathf.Lerp(fovAtStartOfTransition, initialFov, cameraTransitionTimer);
+            camera.transform.LookAt(Vector3.Lerp(cameraLooksAtThisWhileAiming.position, targetTransform.position, cameraTransitionTimer));
         }
     }
 
@@ -123,6 +135,7 @@ public class ThirdPersonCameraController : MonoBehaviour
     {
         currCameraLocalPos = isAiming ? cameraAimPos : initialCameraPos;
         camera.fieldOfView = isAiming ? initialFov + aimFovAdjustment : initialFov;
+        camera.transform.LookAt(isAiming ? cameraLooksAtThisWhileAiming.position : targetTransform.position);
 
         isInAimTransition = false;
         cameraBackToOrigin = !isAiming;
