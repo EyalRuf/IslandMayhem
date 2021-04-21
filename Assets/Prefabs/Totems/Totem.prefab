@@ -510,10 +510,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 260569609851265610}
-  - component: {fileID: 260569609851265614}
   - component: {fileID: 8130700854952717282}
-  - component: {fileID: 260569609851265615}
   - component: {fileID: 1048221122997660464}
+  - component: {fileID: 260569609851265614}
+  - component: {fileID: 260569609851265615}
   m_Layer: 10
   m_Name: Totem
   m_TagString: Untagged
@@ -538,22 +538,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &260569609851265614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 260569609851265648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!54 &8130700854952717282
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -570,6 +554,35 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1048221122997660464
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260569609851265648}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15, y: 4, z: 15}
+  m_Center: {x: 0, y: -1, z: 0}
+--- !u!114 &260569609851265614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260569609851265648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!114 &260569609851265615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,19 +613,6 @@ MonoBehaviour:
   - {fileID: 260569609620048352}
   smokePoof: {fileID: 5180771074779272262, guid: 28583a8a68aa29a44b2d47463ee5ebec,
     type: 3}
---- !u!65 &1048221122997660464
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 260569609851265648}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 15, y: 4, z: 15}
-  m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &3195213823174306690
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,8 +639,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3195213823174306690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 100, z: 0}
-  m_LocalScale: {x: 5, y: 100, z: 5}
+  m_LocalPosition: {x: 0, y: 150, z: 0}
+  m_LocalScale: {x: 5, y: 150, z: 5}
   m_Children: []
   m_Father: {fileID: 260569609851265610}
   m_RootOrder: 0

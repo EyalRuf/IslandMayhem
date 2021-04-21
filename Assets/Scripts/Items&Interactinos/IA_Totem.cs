@@ -35,7 +35,7 @@ public class IA_Totem : InteractionArea
 
     public override void OnEndInteraction()
     {
-        PlayerPickupAndThrow player = CustomNetworkManager.GetLocalPlayer().GetComponent<PlayerPickupAndThrow>();
+        PlayerItemInteractions player = CustomNetworkManager.GetLocalPlayer().GetComponent<PlayerItemInteractions>();
         if (player.heldItem != null) //we can match this more specifically later on
         {
             TotemPiece piece = player.heldItem.GetComponent<TotemPiece>();
@@ -53,7 +53,7 @@ public class IA_Totem : InteractionArea
         base.OnEndInteraction();
     }
 
-    [Command]
+    [Command(channel = 0, ignoreAuthority = true)]
     public void CmdBuildTotem()
     {
         RpcBuildTotem(currentVisualStage);

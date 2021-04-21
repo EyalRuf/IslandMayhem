@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPickupAndThrow : NetworkBehaviour
+public class PlayerItemInteractions : NetworkBehaviour
 {
     [Header("References")]
     public Transform itemHoldPos;
@@ -17,21 +17,8 @@ public class PlayerPickupAndThrow : NetworkBehaviour
     public LayerMask pickableLayerMask;
     public float pickupCheckRadius;
 
-    [Header("Throwing")]
-    public float throwForce;
-    public float movementDirectionForceMultiplyer;
-    public Transform throwTarget;
-
     [Header("Aiming")]
     public ThirdPersonCameraController cameraController;
-
-    [Header("Trajectory")]
-    public LineRenderer lineRenderer;
-    public int lineMaxLength;
-    public float trajectoryPointDist;
-    private List<Vector3> linePoints = new List<Vector3>();
-    public LayerMask trajectoryLayerMask;
-    public Vector3 aimAdjustVec;
 
     // Update is called once per frame
     void Update()
@@ -44,19 +31,33 @@ public class PlayerPickupAndThrow : NetworkBehaviour
             if (lpInput.pickupInputDown) // Put it down
             {
                 CmdDropItem(netId);
+                return;
             } 
-            else if (lpInput.throwInputDown)
-            {
-                StopAiming();
-                CmdThrowItem(netId);
-            }
 
-            if (lpInput.aimInputDown)
+            if (heldItem is ThrowableItem)
             {
-                StartAiming();
-            } else if (lpInput.aimInputUp)
+                if (lpInput.itemMainUseDown)
+                {
+                    StopAiming();
+                    CmdUseItem(netId, true);
+                }
+                if (lpInput.itemSecondaryUsageDown)
+                {
+                    StartAiming();
+                } else if (lpInput.itemSecondaryUsageUp)
+                {
+                    StopAiming();
+                }
+            } else
             {
-                StopAiming();
+                if (lpInput.itemMainUseDown)
+                {
+                    CmdUseItem(netId, true);
+                }
+                if (lpInput.itemSecondaryUsage)
+                {
+                    CmdUseItem(netId, false);
+                }
             }
         }
         else // Not Holding
@@ -103,17 +104,12 @@ public class PlayerPickupAndThrow : NetworkBehaviour
     {
         if (!isLocalPlayer)
             return;
-
-        if (heldItem != null && lpInput.aimInput)
-        {
-            DrawThrowTrajectory(heldItem);
-        }
     }
 
     public void Pickup(PickupableItem pickupable)
     {
         heldItem = pickupable;
-        heldItem.Pickup(itemHoldParent, itemHoldPos);
+        heldItem.Pickup(this);
     }
 
     [ClientRpc]
@@ -140,7 +136,7 @@ public class PlayerPickupAndThrow : NetworkBehaviour
     {
         GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
 
-        PlayerPickupAndThrow pp = player.GetComponent<PlayerPickupAndThrow>();
+        PlayerItemInteractions pp = player.GetComponent<PlayerItemInteractions>();
 
         pp.RpcPickup(objectNID);
     }
@@ -175,106 +171,47 @@ public class PlayerPickupAndThrow : NetworkBehaviour
     void CmdDropItem(uint playerNID)
     {
         GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
-        PlayerPickupAndThrow pp = player.GetComponent<PlayerPickupAndThrow>();
+        PlayerItemInteractions pp = player.GetComponent<PlayerItemInteractions>();
 
         pp.RpcDrop();
     }
-
-    #region Throwing
 
     void StartAiming()
     {
         playerController.isAiming = true;
         cameraController.ToggleCameraAim(true);
-        lineRenderer.enabled = true;
     }
 
     void StopAiming()
     {
         playerController.isAiming = false;
         cameraController.ToggleCameraAim(false);
-        lineRenderer.enabled = false;
     }
 
-    void DrawThrowTrajectory(PickupableItem item)
+    void UseItem(bool isItemMainUse)
     {
-        Vector3 throwVec = CalcThrowVector();
-        float objMass = item.rb.mass;
-        Vector3 startPoint = item.transform.position;
-
-        Vector3 throwVelocity = throwVec / objMass * Time.fixedDeltaTime;
-
-        linePoints.Clear();
-        linePoints.Add(startPoint);
-
-        Vector3 currentPosition = startPoint;
-        Vector3 currentVelocity = throwVelocity;
-
-        RaycastHit hit;
-        Ray ray = new Ray(currentPosition, currentVelocity.normalized);
-        while (!Physics.Raycast(ray, out hit, trajectoryPointDist) && Vector3.Distance(startPoint, currentPosition) < lineMaxLength)
+        //playerAnims.ThrowAnim();
+        if (isItemMainUse)
         {
-            // Time to travel distance of trajectoryVertDist
-            var t = trajectoryPointDist / currentVelocity.magnitude;
-            // Update position and velocity
-            currentVelocity = currentVelocity + t * Physics.gravity;
-
-            currentPosition = currentPosition + t * currentVelocity;
-            currentPosition = new Vector3(currentPosition.x, 
-                currentPosition.y - (0.5f * Physics.gravity.y * t * t), 
-                currentPosition.z);
-
-            linePoints.Add(currentPosition);
-            ray = new Ray(currentPosition, currentVelocity.normalized);
-        }
-
-        // If something was hit, add last point there
-        if (hit.transform)
+            heldItem.UseMain();
+        } else
         {
-            linePoints.Add(hit.point);
+            heldItem.UseSecondary();
         }
-
-        lineRenderer.positionCount = linePoints.Count;
-        lineRenderer.SetPositions(linePoints.ToArray());
-    }
-
-    Vector3 CalcThrowVector()
-    {
-        float movementMultiplyer = movementDirectionForceMultiplyer;
-        Vector3 dir = throwTarget.forward;
-        Vector3 movement = playerController.playerVelocity * 0.75f;
-        if (Mathf.Sign(dir.x) != Mathf.Sign(movement.x) && Mathf.Sign(dir.z) != Mathf.Sign(movement.z))
-            movementMultiplyer *= 0.5f;
-
-        Vector3 adjustedThrowVec = new Vector3(throwTarget.forward.x * aimAdjustVec.x, 
-            throwTarget.forward.y * aimAdjustVec.y, 
-            throwTarget.forward.z * aimAdjustVec.z);
-
-        return  (adjustedThrowVec * throwForce) + (playerController.playerVelocity * movementMultiplyer);
-    }
-
-    void ThrowItem()
-    {
-        playerAnims.ThrowAnim();
-        heldItem.Drop();
-        heldItem.rb.AddForce(CalcThrowVector());
-        heldItem = null;
     }
 
     [ClientRpc]
-    public void RpcThrow()
+    public void RpcUseItem(bool isItemMainUse)
     {
-        ThrowItem();
+        UseItem(isItemMainUse);
     }
 
     [Command]
-    void CmdThrowItem(uint playerNID)
+    void CmdUseItem(uint playerNID, bool isItemMainUse)
     {
         GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
-        PlayerPickupAndThrow pp = player.GetComponent<PlayerPickupAndThrow>();
+        PlayerItemInteractions pp = player.GetComponent<PlayerItemInteractions>();
 
-        pp.RpcThrow();
+        pp.RpcUseItem(isItemMainUse);
     }
-
-    #endregion
 }

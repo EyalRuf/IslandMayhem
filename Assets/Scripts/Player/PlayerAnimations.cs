@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,37 +10,66 @@ public class PlayerAnimations : MonoBehaviour
     private const string anim_param_b_falling = "isFalling";
     private const string anim_param_b_walk = "isWalking";
     private const string anim_param_b_sprint = "isSprinting";
-    private const string anim_param_b_aim = "isAiming";
+    private const string anim_param_b_holding_item = "isHoldingAnItem";
+    private const string anim_param_t_interacting = "isInteracting";
     private const string anim_param_t_jump = "jumpTrigger";
     private const string anim_param_t_throw = "throwTrigger";
 
     [Header("References")]
     public Animator animator;
-    public NetworkAnimator networkAnimator;
     public ThirdPersonCharacterController cController;
 
+    [Header("Etc")]
+    bool isThrowing;
+
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
         animator.SetBool(anim_param_b_grounded, cController.isGrounded);
         animator.SetBool(anim_param_b_falling, !cController.isGrounded && cController.playerVelocity.y < -0.25f);
         animator.SetBool(anim_param_b_walk, cController.isMoving);
         animator.SetBool(anim_param_b_sprint, cController.isSprinting);
-        animator.SetBool(anim_param_b_aim, cController.isAiming);
+        animator.SetBool(anim_param_b_holding_item, isThrowing || cController.playerItems.heldItem != null);
     }
 
-    public void JumpAnim()
+    IEnumerator ResetTriggerCR(Action resetTriggerFunc, float resetTimer)
     {
-        networkAnimator.SetTrigger(anim_param_t_jump);
+        yield return new WaitForSeconds(resetTimer);
+        resetTriggerFunc();
     }
 
-    public void ResetJumpTrigger()
+    public void JumpAnim ()
     {
-        networkAnimator.ResetTrigger(anim_param_t_jump);
+        animator.SetTrigger(anim_param_t_jump);
+        StartCoroutine(ResetTriggerCR(ResetJumpTrigger, 0.1f));
     }
 
-    public void ThrowAnim()
+    public void ResetJumpTrigger ()
     {
-        networkAnimator.SetTrigger(anim_param_t_throw);
+        animator.ResetTrigger(anim_param_t_jump);
     }
+
+    public void ThrowAnim ()
+    {
+        isThrowing = true;
+        animator.SetTrigger(anim_param_t_throw);
+        StartCoroutine(ResetTriggerCR(ResetThrowTrigger, 0.1f));
+    }
+
+    void ResetThrowTrigger ()
+    {
+        isThrowing = false;
+        animator.ResetTrigger(anim_param_t_throw);
+    }
+
+    public void StartInteractingAnim ()
+    {
+        animator.SetBool(anim_param_t_interacting, true);
+    }
+
+    public void StopInteractingAnim()
+    {
+        animator.SetBool(anim_param_t_interacting, false);
+    }
+
 }
