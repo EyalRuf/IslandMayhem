@@ -741,7 +741,6 @@ MonoBehaviour:
   camera: {fileID: 8297925720197497098}
   targetTransform: {fileID: 8297925720464115938}
   playerTransform: {fileID: 8297925720422174603}
-  cameraTransform: {fileID: 8297925720197497097}
   cameraRotationSpeed: 3
   playerRotationSpeed: 0.085
   cameraYClampMin: -70
@@ -750,10 +749,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1815
   cameraColTransitionSpeed: 0.06
+  minDistance: 5
+  maxDistance: 12
   cameraAimPos: {x: -2.25, y: -1, z: -4}
   cameraAimRot: {x: 0, y: 0, z: 0, w: 1}
   cameraTransitionDuration: 0.15
   aimFovAdjustment: -10
+  cameraLooksAtThisWhileAiming: {fileID: 0}
   cameraYClampMinAim: -60
   cameraYClampMaxAim: 15
 --- !u!114 &8888557173115942757
@@ -1029,10 +1031,10 @@ MonoBehaviour:
   pickupInputDown: 0
   interactInputDown: 0
   sprintInput: 0
-  throwInputDown: 0
-  aimInputDown: 0
-  aimInput: 0
-  aimInputUp: 0
+  itemMainUseDown: 0
+  itemSecondaryUsageDown: 0
+  itemSecondaryUsage: 0
+  itemSecondaryUsageUp: 0
   lookAroundInput: 0
 --- !u!114 &8297925720422174605
 MonoBehaviour:
@@ -1047,9 +1049,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8297925720422174607}
-  lpInput: {fileID: 8297925720422174604}
   playerCollider: {fileID: 5146644707679106066}
+  cameraTargetTransform: {fileID: 8297925720464115938}
+  lpInput: {fileID: 8297925720422174604}
   playerAnims: {fileID: 8396054065383248002}
+  playerItems: {fileID: 7020920123134806745}
   isMoving: 0
   baseMoveSpeed: 15
   isSprinting: 0
@@ -1093,17 +1097,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   pickupCheckRadius: 2.5
-  throwForce: 300
-  movementDirectionForceMultiplyer: 1.5
-  throwTarget: {fileID: 8297925720464115938}
   cameraController: {fileID: 8297925720197497096}
-  lineRenderer: {fileID: 1015575899964293741}
-  lineMaxLength: 25
-  trajectoryPointDist: 0.25
-  trajectoryLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  aimAdjustVec: {x: 1, y: 1.5, z: 1}
 --- !u!114 &3593138567035470615
 MonoBehaviour:
   m_ObjectHideFlags: 0

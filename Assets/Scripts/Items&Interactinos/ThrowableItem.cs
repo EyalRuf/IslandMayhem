@@ -52,7 +52,7 @@ public class ThrowableItem : PickupableItem
     public override void Pickup(PlayerItemInteractions player)
     {
         base.Pickup(player);
-        throwTarget = player.playerController.cameraTargetTransform;
+        throwTarget = player.cameraController.targetTransform;
     }
 
     public override void UseMain()

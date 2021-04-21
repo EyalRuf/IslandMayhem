@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class PlayerInteractionArea : NetworkBehaviour
 {
-    public int playerTeam = -1;
+    [Header("References")]
+    public LocalPlayerInput lpInput;
+    public PlayerAnimations playerAnims;
+    public Behaviour[] disableWhileInteracting;
 
     [Header("InteractionArea")]
     public LayerMask interactionAreaLayerMask;
+    public Transform areaCheckTransform;
+    public float areaCheckSphereRadius;
 
-    [Header("References")]
-    public LocalPlayerInput lpInput;
-    public Behaviour[] disableWhileInteracting;
+    [Header("Misc")]
+    public int playerTeam = -1;
 
     private MatchManager matchManager;
 
@@ -25,19 +29,17 @@ public class PlayerInteractionArea : NetworkBehaviour
         if(matchManager == null)
         {
             matchManager = FindObjectOfType<MatchManager>();
+            playerTeam = matchManager.GetTeamIndexByPlayer(gameObject);
         }
 
         if (lpInput.interactInputDown)
         {
-            RaycastHit hitInfo;
-            // Perhaps change to overlap sphere + checking what is infront of the player
-            if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 3f, interactionAreaLayerMask))
+            Collider[] cols = Physics.OverlapSphere(areaCheckTransform.position, areaCheckSphereRadius, interactionAreaLayerMask);
+            if (cols.Length > 0)
             {
-                InteractionArea area = hitInfo.collider.GetComponent<InteractionArea>();
+                InteractionArea area = cols[0].GetComponent<InteractionArea>();
                 if (area.canBeInteractedWith && !area.beingInteractedWith)
                 {
-                    playerTeam = matchManager.GetTeamIndexByPlayer(gameObject);
-
                     if (area.restrictedToTeam >= 0 ? area.restrictedToTeam == playerTeam : true)
                     {
                         CmdInteractWithArea(netId, area.netId);
@@ -49,20 +51,22 @@ public class PlayerInteractionArea : NetworkBehaviour
 
     void InteractWithArea(InteractionArea area)
     {
-        // stop moving + animation + call area function
-        foreach (Behaviour b in disableWhileInteracting)
-        {
-            b.enabled = false;
-        }
-
+        playerAnims.StartInteractingAnim();
+        EnableOrDisableBehaviors(false);
         StartCoroutine(area.Interact(EndInteractionWithArea));
     }
 
     void EndInteractionWithArea ()
     {
+        EnableOrDisableBehaviors(true);
+        playerAnims.StopInteractingAnim();
+    }
+
+    void EnableOrDisableBehaviors (bool isEnabled)
+    {
         foreach (Behaviour b in disableWhileInteracting)
         {
-            b.enabled = true;
+            b.enabled = isEnabled;
         }
     }
 
