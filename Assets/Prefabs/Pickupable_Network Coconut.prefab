@@ -308,7 +308,7 @@ MonoBehaviour:
   isBeingHeld: 0
   outlineDistance: 1.25
   currUsingPlayer: {fileID: 0}
-  throwForce: 150
+  throwForce: 300
   movementDirectionForceMultiplyer: 15
   throwTarget: {fileID: 0}
   drawTrajectory: 0
