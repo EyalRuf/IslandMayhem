@@ -377,7 +377,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   currUsingPlayer: {fileID: 0}
-  throwForce: 3000
+  throwForce: 2250
   movementDirectionForceMultiplyer: 15
   throwTarget: {fileID: 0}
   drawTrajectory: 0
