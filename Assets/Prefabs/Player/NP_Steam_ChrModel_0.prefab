@@ -532,7 +532,7 @@ MonoBehaviour:
   targetTransform: {fileID: 8297925720464115938}
   playerTransform: {fileID: 8297925720422174603}
   cameraRotationSpeed: 2.75
-  playerRotationSpeed: 0.095
+  playerRotationSpeed: 0.4
   cameraYClampMin: -70
   cameraYClampMax: 70
   cameraCollisionLayers:
