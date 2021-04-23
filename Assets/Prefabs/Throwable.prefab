@@ -109,7 +109,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3396668420586916290}
   serializedVersion: 2
-  m_Mass: 0.2
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -308,8 +308,13 @@ MonoBehaviour:
   outline: {fileID: 7888243684139002501}
   isBeingHeld: 0
   outlineDistance: 1.25
+  isGrounded: 0
+  groundedCheckDistance: 0.5
+  groundCheckMask:
+    serializedVersion: 2
+    m_Bits: 0
   currUsingPlayer: {fileID: 0}
-  throwForce: 150
+  throwForce: 3000
   movementDirectionForceMultiplyer: 15
   throwTarget: {fileID: 0}
   drawTrajectory: 0
@@ -319,8 +324,8 @@ MonoBehaviour:
   trajectoryLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  aimMultiplyerVec: {x: 1, y: 1.75, z: 1}
-  aimAdditionVec: {x: 0, y: 50, z: -25}
+  aimMultiplyerVec: {x: 1, y: 1, z: 1}
+  aimAdditionVec: {x: 0, y: 300, z: -25}
   hitter: {fileID: 5459268247171048136}
   hitActiveDuration: 2.5
 --- !u!1 &5343542601299133075
@@ -384,4 +389,4 @@ MonoBehaviour:
   syncInterval: 0.1
   isActive: 0
   initiatorInstanceId: 0
-  knockbackPower: 10
+  knockbackPower: 20

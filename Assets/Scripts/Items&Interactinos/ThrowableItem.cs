@@ -39,8 +39,10 @@ public class ThrowableItem : PickupableItem
         lineRenderer.enabled = drawTrajectory;
     }
 
-    void FixedUpdate()
+    public override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if (isBeingHeld)
         {
             currObjectVelocity = transform.position - lastPosition;
@@ -57,6 +59,7 @@ public class ThrowableItem : PickupableItem
     {
         base.Pickup(player);
         throwTarget = player.cameraController.targetTransform;
+        hitter.Deactivate();
     }
 
     public override void UseMain()

@@ -44,8 +44,8 @@ public class ThirdPersonCameraController : MonoBehaviour
     void Start()
     {
         //TEMPORARILY DISABLED SORRY - Pelle
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         initialCameraPos = camera.transform.localPosition;
         targetRotationOffset = targetTransform.localRotation.eulerAngles;
