@@ -9,18 +9,24 @@ public class RandomEventSystem : NetworkBehaviour
 
     private bool started = false;
     private MatchManager matchManager;
-    public RandomEvent[] events;
+    private RandomEvent[] events;
 
     private void Start()
     {
+        matchManager = FindObjectOfType<MatchManager>();
+
         if (!isServer) //server only behaviour
             return;
-
-        matchManager = FindObjectOfType<MatchManager>();
     }
 
     private void Update()
     {
+        if (matchManager.gameStarted && !started)
+        {
+            //get all events
+            events = FindObjectsOfType<RandomEvent>();
+        }
+
         if (!isServer) //server only behaviour
             return;
 
