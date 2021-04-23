@@ -70,20 +70,26 @@ public class ThirdPersonCharacterController : MonoBehaviour
         }
 
         // Applying additional falling physics
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector3.up * Physics2D.gravity.y * fallMultiplier * Time.fixedDeltaTime;
-        }
-        else if (rb.velocity.y > 0 && !lpInput.jumpInput)
-        {
-            rb.velocity += Vector3.up * Physics2D.gravity.y * lowJumpMultiplier * Time.fixedDeltaTime;
-        }
+        //if (rb.velocity.y < 0)
+        //{
+        //    rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * fallMultiplier * Time.fixedDeltaTime;
+        //}
+        //else if (rb.velocity.y > 0 && !lpInput.jumpInput)
+        //{
+        //    rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * lowJumpMultiplier * Time.fixedDeltaTime;
+        //} else if (rb.velocity.y > 0)
+        //{
+        //    rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
+        //}
 
         //if we're grounded, apply drag horizontally.
         if (isGrounded)
         {
             Vector3 newVelocity = rb.velocity * (1 - groundedDrag * Time.fixedDeltaTime);
             rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+        } else
+        {
+            rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
         }
 
         //set physics material
