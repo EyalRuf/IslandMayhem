@@ -12,9 +12,10 @@ public class PlayerAnimations : MonoBehaviour
     private const string anim_param_b_sprint = "isSprinting";
     private const string anim_param_b_holding_item = "isHoldingAnItem";
     private const string anim_param_t_interacting = "isInteracting";
-    private const string anim_param_b_isHit = "isHit";
+    private const string anim_param_b_isHit = "isBeingHit";
     private const string anim_param_t_jump = "jumpTrigger";
     private const string anim_param_t_throw = "throwTrigger";
+    private const string anim_param_t_punch = "punchTrigger";
 
     [Header("References")]
     public Animator animator;
@@ -74,4 +75,14 @@ public class PlayerAnimations : MonoBehaviour
         animator.SetBool(anim_param_t_interacting, false);
     }
 
+    public void PunchAnim()
+    {
+        animator.SetTrigger(anim_param_t_punch);
+        StartCoroutine(ResetTriggerCR(ResetPunchTrigger, 0.1f));
+    }
+
+    public void ResetPunchTrigger()
+    {
+        animator.ResetTrigger(anim_param_t_punch);
+    }
 }

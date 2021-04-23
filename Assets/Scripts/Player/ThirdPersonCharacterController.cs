@@ -35,9 +35,11 @@ public class ThirdPersonCharacterController : MonoBehaviour
     private bool jumpCDFlag;
 
     [Header("OtherCharacterActions")]
+    public bool isHoldingItem;
     public bool isAiming;
     public bool isLookingAround;
     public bool isBeingHit;
+    public bool isAttacking;
 
     [Header("Misc")]
     public float groundedDrag;
@@ -49,6 +51,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundCheckDistance, groundCheckMask);
         isSprinting = ShouldApplySprint();
         isLookingAround = lpInput.lookAroundInput;
+        isHoldingItem = playerItems.heldItem != null;
 
         if (isGrounded && lpInput.jumpInput && !jumpCDFlag)
         {
