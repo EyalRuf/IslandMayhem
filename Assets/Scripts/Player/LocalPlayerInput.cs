@@ -15,6 +15,7 @@ public class LocalPlayerInput : MonoBehaviour
     public bool itemSecondaryUsage = false;
     public bool itemSecondaryUsageUp = false;
     public bool lookAroundInput = false;
+    public bool attackInputDown = false;
 
     // Update is called once per frame
     void Update()
@@ -37,5 +38,6 @@ public class LocalPlayerInput : MonoBehaviour
         itemSecondaryUsage = Input.GetKey(KeyCode.Mouse1);
         itemSecondaryUsageUp = Input.GetKeyUp(KeyCode.Mouse1);
         lookAroundInput = Input.GetKey(KeyCode.LeftAlt);
+        attackInputDown = Input.GetKeyDown(KeyCode.Mouse0);
     }
 }

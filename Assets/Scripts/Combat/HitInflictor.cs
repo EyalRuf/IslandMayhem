@@ -12,10 +12,15 @@ public class HitInflictor : NetworkBehaviour
     [SyncVar]
     public int initiatorInstanceId;
     public float knockbackPower;
+    public bool singularDmgInstance;
+
+    public virtual void Update()
+    {
+    }
 
     public virtual void HitInflicted ()
     {
-        isActive = false;
+        isActive = !singularDmgInstance || isActive;
     }
 
     public void ActivateInflictorForDuration (int initiatorInstanceId, float durationInSeconds)

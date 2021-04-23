@@ -1,15 +1,26 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombat : MonoBehaviour
+public class PlayerCombat : NetworkBehaviour
 {
     [Header("References")]
+    public LocalPlayerInput lpInput;
     public ThirdPersonCharacterController cController;
+    public PlayerAnimations pAnims;
 
     [Header("Combat")]
+    public PlayerPunch punchObj;
+    public float punchCD = 0.5f;
+    private float punchCDTimer;
     public float invulnerabilityDuration;
     private float invulnerabilityTimer;
+
+    void Start()
+    {
+        punchObj.initiatorInstanceId = gameObject.GetInstanceID();
+    }
 
     // Update is called once per frame
     void Update()
@@ -19,6 +30,34 @@ public class PlayerCombat : MonoBehaviour
             invulnerabilityTimer -= Time.deltaTime;
             cController.isBeingHit = invulnerabilityTimer > 0;
         }
+
+        if (punchCDTimer > 0)
+        {
+            punchCDTimer -= Time.deltaTime;
+        } else if (!cController.isHoldingItem && lpInput.attackInputDown)
+        {
+            CmdPlayerPunch(netId);
+        }
+    }
+
+    void Punch ()
+    {
+        punchObj.gameObject.SetActive(true);
+        pAnims.PunchAnim();
+    }
+
+    [ClientRpc]
+    void RpcPunch()
+    {
+        Punch();
+    }
+
+    [Command]
+    void CmdPlayerPunch (uint playerNID)
+    {
+        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        PlayerCombat pc = player.GetComponent<PlayerCombat>();
+        pc.RpcPunch();
     }
 
     void ApplyHitOnSelf(Vector3 hitVector)
