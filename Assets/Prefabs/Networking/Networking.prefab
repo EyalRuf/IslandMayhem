@@ -505,6 +505,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7edf7e1c3b901e84eaf5bb45f229de5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   smokePoof: {fileID: 8370944710783813282, guid: 1ea65ab671127844f8bc82a5a082e8f1,
     type: 3}
   limits:
