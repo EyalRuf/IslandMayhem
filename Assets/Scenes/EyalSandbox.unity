@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48323107}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea368fb6f27ec2f40a40e20977992b9c, type: 3}
   m_Name: 
@@ -315,7 +315,7 @@ MonoBehaviour:
   serverBatchInterval: 0
   offlineScene: 
   onlineScene: 
-  transport: {fileID: 48323109}
+  transport: {fileID: 48323112}
   networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48323107}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
   m_Name: 
@@ -492,6 +492,100 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 92511776}
   m_Mesh: {fileID: 4711208715938537054, guid: 6f774fd62a339e1408c038272c37cb4d, type: 3}
+--- !u!1001 &136437080
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2764187346460522105, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: sceneId
+      value: 1723343706
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101749760747348320, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: throwForce
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294768, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064946466480294782, guid: 7e48e88ff724ac342b57506c754a5999,
+        type: 3}
+      propertyPath: m_Name
+      value: Pickupable_Network Coconut
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e48e88ff724ac342b57506c754a5999, type: 3}
 --- !u!1 &144001155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,6 +1352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneId
       value: 21016378
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982407063353100274, guid: 6fadfbf49f19218478fbdcbd8e9002d5,
+        type: 3}
+      propertyPath: throwForce
+      value: 2500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fadfbf49f19218478fbdcbd8e9002d5, type: 3}

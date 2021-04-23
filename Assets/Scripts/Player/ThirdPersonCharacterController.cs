@@ -87,7 +87,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
         {
             Vector3 newVelocity = rb.velocity * (1 - groundedDrag * Time.fixedDeltaTime);
             rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
-        } else
+        } else // Whenever we're not grounded apply gravity forces
         {
             rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
         }

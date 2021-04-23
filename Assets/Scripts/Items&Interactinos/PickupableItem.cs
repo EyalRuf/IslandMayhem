@@ -14,12 +14,17 @@ public class PickupableItem : NetworkBehaviour
     [SyncVar]
     public bool isBeingHeld;
     public float outlineDistance;
+    public bool isGrounded;
+    public float groundedCheckDistance = 0.5f;
+    public LayerMask groundCheckMask;
 
     [Header("PlayerUsage")]
     public PlayerItemInteractions currUsingPlayer;
 
     public virtual void Update()
     {
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundedCheckDistance, groundCheckMask);
+
         // Un-outlining item if local player is not close anymore or item is being held
         if (CustomNetworkManager.localPlayerInitialized)
         {
@@ -31,6 +36,15 @@ public class PickupableItem : NetworkBehaviour
             }
         }
     }
+
+    public virtual void FixedUpdate ()
+    {
+        if (!isGrounded)
+        {
+            rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
+        }
+    }
+
 
     public virtual void Pickup (PlayerItemInteractions player)
     {

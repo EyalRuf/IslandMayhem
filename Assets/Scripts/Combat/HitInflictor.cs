@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Mirror;
+using System;
 
 [RequireComponent(typeof(Collider))]
 public class HitInflictor : NetworkBehaviour
@@ -27,6 +28,12 @@ public class HitInflictor : NetworkBehaviour
     IEnumerator DeactivateInflictor (float durationInSeconds)
     {
         yield return new WaitForSeconds(durationInSeconds);
+        Deactivate();
+    }
+
+    public void Deactivate()
+    {
+        StopCoroutine("DeactivateInflictor");
         isActive = false;
     }
 }
