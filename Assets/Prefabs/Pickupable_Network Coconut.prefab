@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 4101749760747348320}
   m_Layer: 9
   m_Name: Pickupable_Network Coconut
-  m_TagString: Untagged
+  m_TagString: DisposableProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -424,6 +424,7 @@ GameObject:
   - component: {fileID: 3169354882680847610}
   - component: {fileID: 8796355035992480120}
   - component: {fileID: 6379415000001608967}
+  - component: {fileID: 4046825785367899688}
   m_Layer: 0
   m_Name: MatchManager
   m_TagString: Untagged
@@ -492,6 +493,26 @@ MonoBehaviour:
   team0Won: 0
   team1Totems: []
   team1Won: 0
+--- !u!114 &4046825785367899688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7254756723859983281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edf7e1c3b901e84eaf5bb45f229de5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  smokePoof: {fileID: 8370944710783813282, guid: 1ea65ab671127844f8bc82a5a082e8f1,
+    type: 3}
+  limits:
+  - name: DisposableProp
+    limit: 100
+    currentlyInScene: 0
 --- !u!1 &7476827079899557402
 GameObject:
   m_ObjectHideFlags: 0
