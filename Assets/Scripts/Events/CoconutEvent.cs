@@ -5,6 +5,8 @@ using Mirror;
 
 public class CoconutEvent : RandomEvent
 {
+    public GameObject coconutMessagePrefab;
+
     [Header("Real Coconuts")]
     public GameObject realCoconut;
     public Vector3 realSpawnRange;
@@ -47,5 +49,7 @@ public class CoconutEvent : RandomEvent
             fakeCoconuts.Emit(emitParams, 1);
         }
 
+        //send message
+        Instantiate(coconutMessagePrefab, CustomNetworkManager.GetLocalPlayer().transform.position + fakeSpawnOffset, Quaternion.identity);
     }
 }

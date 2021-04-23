@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ChatWindow
   - PlayerCamera
+  - DisposableProp
   layers:
   - Default
   - TransparentFX
