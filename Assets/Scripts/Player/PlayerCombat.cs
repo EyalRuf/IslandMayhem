@@ -8,35 +8,38 @@ public class PlayerCombat : MonoBehaviour
     public ThirdPersonCharacterController cController;
 
     [Header("Combat")]
-    public bool wasHit;
-    public float untouchableDuration;
-    public float untouchableTimer;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float invulnerabilityDuration;
+    private float invulnerabilityTimer;
 
     // Update is called once per frame
     void Update()
     {
-        if (wasHit)
+        if (cController.isBeingHit)
         {
-            untouchableTimer -= Time.deltaTime;
-            wasHit = untouchableTimer > 0;
+            invulnerabilityTimer -= Time.deltaTime;
+            cController.isBeingHit = invulnerabilityTimer > 0;
         }
     }
 
-    public void TryToApplyHit(Vector3 dir)
+    void ApplyHitOnSelf(Vector3 hitVector)
     {
-        if (!wasHit)
-            ApplyHit(dir);
+        cController.rb.AddForce(hitVector, ForceMode.Impulse);
+        invulnerabilityTimer = invulnerabilityDuration;
+        cController.isBeingHit = true;
     }
 
-    void ApplyHit(Vector3 dir)
+    void OnTriggerEnter(Collider other)
     {
-        untouchableTimer = untouchableDuration;
-        cController.rb.AddForce(dir, ForceMode.Impulse);
+        if (!cController.isBeingHit)
+        {
+            HitInflictor hit = other.GetComponent<HitInflictor>();
+
+            if (hit != null && hit.isActive && hit.initiatorInstanceId != gameObject.GetInstanceID())
+            {
+                Vector3 knockbackDir = transform.position - hit.transform.position;
+                ApplyHitOnSelf(knockbackDir * hit.knockbackPower);
+                hit.HitInflicted();
+            }
+        }
     }
 }

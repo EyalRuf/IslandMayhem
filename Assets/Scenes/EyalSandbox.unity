@@ -761,6 +761,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5459268247171048136, guid: 6fadfbf49f19218478fbdcbd8e9002d5,
+        type: 3}
+      propertyPath: knockbackPower
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5707595270139409605, guid: 6fadfbf49f19218478fbdcbd8e9002d5,
         type: 3}
       propertyPath: sceneId
@@ -1243,6 +1248,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459268247171048136, guid: 6fadfbf49f19218478fbdcbd8e9002d5,
+        type: 3}
+      propertyPath: knockbackPower
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5707595270139409605, guid: 6fadfbf49f19218478fbdcbd8e9002d5,
         type: 3}

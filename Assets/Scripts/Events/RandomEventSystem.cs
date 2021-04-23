@@ -9,7 +9,7 @@ public class RandomEventSystem : NetworkBehaviour
 
     private bool started = false;
     private MatchManager matchManager;
-    private RandomEvent[] events;
+    public RandomEvent[] events;
 
     private void Start()
     {

@@ -37,6 +37,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
     [Header("OtherCharacterActions")]
     public bool isAiming;
     public bool isLookingAround;
+    public bool isBeingHit;
 
     [Header("Misc")]
     public float groundedDrag;
@@ -118,6 +119,6 @@ public class ThirdPersonCharacterController : MonoBehaviour
         bool forwardMovementInput = lpInput.moveInput.z > 0;
 
         // Going Forward && not aiming && sprinting
-        return wasSprintingWhenJumped && forwardMovementInput && !isAiming;
+        return wasSprintingWhenJumped && forwardMovementInput && !isAiming && !isBeingHit;
     }
 }
