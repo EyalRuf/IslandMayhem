@@ -1339,7 +1339,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmokePoof
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -8520076003499532455, guid: 28583a8a68aa29a44b2d47463ee5ebec, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 28583a8a68aa29a44b2d47463ee5ebec, type: 3}
 --- !u!4 &9115910009004170858 stripped
 Transform:
