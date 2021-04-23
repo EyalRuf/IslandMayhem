@@ -39347,6 +39347,48 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 648635398}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &648714770 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7476827082030000012, guid: 0ee19bd16fe06344c96c32ba3805126f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7476827081574581295}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &648714772 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7476827082030000011, guid: 0ee19bd16fe06344c96c32ba3805126f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7476827081574581295}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648714770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea368fb6f27ec2f40a40e20977992b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &648714775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648714770}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  port: 7777
+  NoDelay: 1
+  SendTimeout: 5000
+  ReceiveTimeout: 5000
+  serverMaxMessageSize: 16384
+  serverMaxReceivesPerTick: 10000
+  serverSendQueueLimitPerConnection: 10000
+  serverReceiveQueueLimitPerConnection: 10000
+  clientMaxMessageSize: 16384
+  clientMaxReceivesPerTick: 1000
+  clientSendQueueLimit: 10000
+  clientReceiveQueueLimit: 10000
 --- !u!1001 &649546835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63605,7 +63647,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  eventDelayRange: {x: 30, y: 90}
+  eventDelayRange: {x: 10, y: 20}
+  events:
+  - {fileID: 1885570494}
 --- !u!114 &1021945538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119605,11 +119649,11 @@ MonoBehaviour:
     type: 3}
   realSpawnRange: {x: 1, y: 1, z: 1}
   realSpawnOffset: {x: 0, y: 25, z: 0}
-  realMinMaxSpawns: {x: 10, y: 20}
+  realMinMaxSpawns: {x: 50, y: 75}
   fakeCoconuts: {fileID: 1885570497}
   fakeSpawnRange: {x: 20, y: 20, z: 20}
   fakeSpawnOffset: {x: 0, y: 25, z: 0}
-  fakeMinMaxSpawns: {x: 100, y: 200}
+  fakeMinMaxSpawns: {x: 20, y: 50}
 --- !u!114 &1885570495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141259,12 +141303,12 @@ PrefabInstance:
     - target: {fileID: 6379415000001608967, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
       propertyPath: numberOfPlayersNeededToStart
-      value: 8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6379415000001608967, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
       propertyPath: numberOfTeams
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6379415000001608967, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
@@ -141378,6 +141422,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8297925720422174642, guid: ae6d0d3e9f62426409e367b8f02c613f,
         type: 3}
+    - target: {fileID: 7476827082030000010, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: transport
+      value: 
+      objectReference: {fileID: 648714772}
+    - target: {fileID: 7476827082030000011, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7476827082038273284, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
       propertyPath: m_LocalPosition.y

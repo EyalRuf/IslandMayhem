@@ -68,7 +68,11 @@ public class PlayerItemInteractions : NetworkBehaviour
             {
                 // Finding ones that are not held
                 List<PickupableItem> pickupables = new List<PickupableItem>();
-                pickupablesCols.ForEach(col => pickupables.Add(col.GetComponent<PickupableItem>()));
+                pickupablesCols.ForEach(col => {
+                    var pi = col.GetComponent<PickupableItem>();
+                    if (pi != null)
+                        pickupables.Add(col.GetComponent<PickupableItem>());
+                });
                 pickupables = pickupables.FindAll(pu => !pu.isBeingHeld);
 
                 if (pickupables.Count > 0)
@@ -190,7 +194,6 @@ public class PlayerItemInteractions : NetworkBehaviour
 
     void UseItem(bool isItemMainUse)
     {
-        //playerAnims.ThrowAnim();
         if (isItemMainUse)
         {
             heldItem.UseMain();

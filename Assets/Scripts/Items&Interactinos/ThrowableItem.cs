@@ -19,6 +19,10 @@ public class ThrowableItem : PickupableItem
     public Vector3 aimMultiplyerVec;
     public Vector3 aimAdditionVec;
 
+    [Header("HitInflictor")]
+    public HitInflictor hitter;
+    public float hitActiveDuration;
+
     [Header("Misc")]
     private Vector3 currObjectVelocity;
     private Vector3 lastPosition;
@@ -59,7 +63,9 @@ public class ThrowableItem : PickupableItem
     {
         base.UseMain();
         currUsingPlayer.playerAnims.ThrowAnim();
+        hitter.ActivateInflictorForDuration(currUsingPlayer.gameObject.GetInstanceID(), hitActiveDuration);
         Drop();
+
         rb.AddForce(CalcThrowVector());
     }
 

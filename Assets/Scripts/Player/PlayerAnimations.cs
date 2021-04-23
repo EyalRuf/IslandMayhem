@@ -12,6 +12,7 @@ public class PlayerAnimations : MonoBehaviour
     private const string anim_param_b_sprint = "isSprinting";
     private const string anim_param_b_holding_item = "isHoldingAnItem";
     private const string anim_param_t_interacting = "isInteracting";
+    private const string anim_param_b_isHit = "isHit";
     private const string anim_param_t_jump = "jumpTrigger";
     private const string anim_param_t_throw = "throwTrigger";
 
@@ -30,6 +31,7 @@ public class PlayerAnimations : MonoBehaviour
         animator.SetBool(anim_param_b_walk, cController.isMoving);
         animator.SetBool(anim_param_b_sprint, cController.isSprinting);
         animator.SetBool(anim_param_b_holding_item, isThrowing || cController.playerItems.heldItem != null);
+        animator.SetBool(anim_param_b_isHit, cController.isBeingHit);
     }
 
     IEnumerator ResetTriggerCR(Action resetTriggerFunc, float resetTimer)
