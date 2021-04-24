@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 8130700854952717282}
   - component: {fileID: 1048221122997660464}
   - component: {fileID: 260569609851265614}
-  - component: {fileID: 260569609851265615}
+  - component: {fileID: 8306572763913425979}
   m_Layer: 10
   m_Name: Totem
   m_TagString: Untagged
@@ -565,8 +565,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15, y: 4, z: 15}
-  m_Center: {x: 0, y: -1, z: 0}
+  m_Size: {x: 15, y: 5, z: 15}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!114 &260569609851265614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +583,7 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &260569609851265615
+--- !u!114 &8306572763913425979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -592,16 +592,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 260569609851265648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0532af964e088e4f86ae48d3d1fe3a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 751423880f6381d48934d19f908583a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  canBeInteractedWith: 1
-  beingInteractedWith: 0
-  isDisabledAfterInteraction: 0
-  interactionDuration: 0
-  restrictedToTeam: 0
   group: 0
   currentVisualStage: 0
   maxVisualStageReached: 0

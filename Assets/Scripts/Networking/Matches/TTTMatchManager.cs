@@ -7,9 +7,9 @@ using System.Linq;
 public class TTTMatchManager : MatchManager
 {
     [Header("Two Team Totems")]
-    public IA_Totem[] team0Totems;
+    public Totem[] team0Totems;
     public bool team0Won;
-    public IA_Totem[] team1Totems;
+    public Totem[] team1Totems;
     public bool team1Won;
 
     protected override void Start()
@@ -32,7 +32,7 @@ public class TTTMatchManager : MatchManager
                 //check if team 0 won
                 team0Won = team0Totems.Length > 0;
 
-                foreach (IA_Totem team0Totem in team0Totems)
+                foreach (Totem team0Totem in team0Totems)
                 {
                     if (!team0Totem.maxVisualStageReached)
                     {
@@ -44,7 +44,7 @@ public class TTTMatchManager : MatchManager
                 //check if team 1 won
                 team1Won = team1Totems.Length > 0;
 
-                foreach (IA_Totem team1Totem in team1Totems)
+                foreach (Totem team1Totem in team1Totems)
                 {
                     if (!team1Totem.maxVisualStageReached)
                     {
@@ -72,8 +72,8 @@ public class TTTMatchManager : MatchManager
         if (isServer)
         {
             //find totems
-            team0Totems = FindObjectsOfType<IA_Totem>().Where(t => t.restrictedToTeam == 0).ToArray();
-            team1Totems = FindObjectsOfType<IA_Totem>().Where(t => t.restrictedToTeam == 1).ToArray();
+            team0Totems = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Red).ToArray();
+            team1Totems = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Blue).ToArray();
         }
 
         StartCoroutine(StartGame());

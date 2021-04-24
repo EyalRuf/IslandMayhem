@@ -8,7 +8,7 @@ public class ZeroGravityEvent : RandomEvent
     public Vector3 spawnOffset;
 
     public float duration;
-    public Vector3 zGravity;
+    public float upwardsForce;
 
     public override void ServerEvent()
     {
@@ -33,13 +33,17 @@ public class ZeroGravityEvent : RandomEvent
         foreach (Rigidbody rb in bodies)
         {
             rb.useGravity = !rb.useGravity;
+            rb.AddForce(Vector3.up * upwardsForce, ForceMode.Acceleration);
         }
 
         yield return new WaitForSeconds(duration);
 
         foreach (Rigidbody rb in bodies)
         {
-            rb.useGravity = !rb.useGravity;
+            if(rb != null)
+            {
+                rb.useGravity = !rb.useGravity;
+            }
         }
 
         yield return null;
