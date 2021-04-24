@@ -39347,48 +39347,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 648635398}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &648714770 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7476827082030000012, guid: 0ee19bd16fe06344c96c32ba3805126f,
-    type: 3}
-  m_PrefabInstance: {fileID: 7476827081574581295}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &648714772 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7476827082030000011, guid: 0ee19bd16fe06344c96c32ba3805126f,
     type: 3}
   m_PrefabInstance: {fileID: 7476827081574581295}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 648714770}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea368fb6f27ec2f40a40e20977992b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &648714775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 648714770}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  port: 7777
-  NoDelay: 1
-  SendTimeout: 5000
-  ReceiveTimeout: 5000
-  serverMaxMessageSize: 16384
-  serverMaxReceivesPerTick: 10000
-  serverSendQueueLimitPerConnection: 10000
-  serverReceiveQueueLimitPerConnection: 10000
-  clientMaxMessageSize: 16384
-  clientMaxReceivesPerTick: 1000
-  clientSendQueueLimit: 10000
-  clientReceiveQueueLimit: 10000
 --- !u!1001 &649546835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136265,6 +136235,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892829868250792186, guid: 5d1d1124a97e5464e992a9b74bf7b79b,
+        type: 3}
+      propertyPath: sceneId
+      value: 610579742
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d1d1124a97e5464e992a9b74bf7b79b, type: 3}
