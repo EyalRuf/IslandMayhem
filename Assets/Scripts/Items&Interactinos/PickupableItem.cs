@@ -39,7 +39,7 @@ public class PickupableItem : NetworkBehaviour
 
     public virtual void FixedUpdate ()
     {
-        if (!isGrounded)
+        if (!isGrounded && rb.useGravity)
         {
             rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
         }
