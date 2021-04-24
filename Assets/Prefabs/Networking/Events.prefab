@@ -4946,4 +4946,4 @@ MonoBehaviour:
     type: 3}
   spawnOffset: {x: 0, y: 10, z: 0}
   duration: 10
-  zGravity: {x: 0, y: 0, z: 0}
+  upwardsForce: 500
