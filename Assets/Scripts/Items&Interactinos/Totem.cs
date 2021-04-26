@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Mirror;
 
 public class Totem : NetworkBehaviour
@@ -12,6 +13,9 @@ public class Totem : NetworkBehaviour
     public bool maxVisualStageReached;
     public GameObject[] visuals;
     public GameObject smokePoof;
+
+    [Header("UI")]
+    public Text totemText;
 
     private void Start()
     {
@@ -30,6 +34,9 @@ public class Totem : NetworkBehaviour
         }
 
         maxVisualStageReached = currentVisualStage >= visuals.Length;
+
+        //update ui
+        totemText.text = maxVisualStageReached ? "Completed!" : currentVisualStage + "/" + visuals.Length;
     }
 
     private void OnTriggerEnter(Collider other)
