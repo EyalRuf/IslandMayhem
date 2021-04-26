@@ -27,8 +27,11 @@ public class MatchManager : NetworkBehaviour
     [SyncVar]
     public string gameStatus;
     public Text statusText;
+    public Camera overviewCam;
+    public Text overviewText;
 
-    private CustomNetworkManager networkManager;
+    [HideInInspector]
+    public CustomNetworkManager networkManager;
 
     protected virtual void Start()
     {
@@ -148,6 +151,8 @@ public class MatchManager : NetworkBehaviour
         {
             gameOver = true;
         }
+
+        overviewCam.depth++;
 
         yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
     }

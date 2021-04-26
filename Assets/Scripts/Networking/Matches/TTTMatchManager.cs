@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Mirror;
 using System.Linq;
 
@@ -114,6 +115,30 @@ public class TTTMatchManager : MatchManager
     protected override IEnumerator EndGame()
     {
         yield return StartCoroutine(base.EndGame()); //first call base. Game should end immediately.
+
+        yield return new WaitForSeconds(1f);
+
+        overviewText.color = team0Won ? teamColors[0] : teamColors[1];
+        overviewText.text = "Team " + (team0Won ? "Red " : "Blue ").ToString() + "Wins!";
+
+        yield return new WaitForSeconds(5f);
+
+        if (isServer)
+        {
+            networkManager.StopHost();
+        }
+
+        if (isServerOnly)
+        {
+            networkManager.StopServer();
+        }
+
+        if (isClientOnly)
+        {
+            networkManager.StopClient();
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         yield return null;
     }
