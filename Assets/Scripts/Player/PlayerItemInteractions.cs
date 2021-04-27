@@ -94,7 +94,7 @@ public class PlayerItemInteractions : NetworkBehaviour
                     }
 
                     closestPickupable.Outline(true);
-                    if (lpInput.pickupInputDown) // Pick up
+                    if (lpInput.pickupInputDown && !playerController.isCrippled) // Pick up & not crippled
                     {
                         CmdPickupItem(netId, closestPickupable.netId);
                     }
@@ -159,8 +159,18 @@ public class PlayerItemInteractions : NetworkBehaviour
             NetworkServer.Destroy(item.gameObject);
         }
     }
+
+    public void DropItemIfHeld()
+    {
+        if (heldItem != null)
+        {
+            CmdDropItem(netId);
+        }
+    }
+
     public void DropItem()
     {
+        StopAiming();
         heldItem.Drop();
         heldItem = null;
     }

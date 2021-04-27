@@ -20,7 +20,7 @@ public class ThrowableItem : PickupableItem
     public Vector3 aimAdditionVec;
 
     [Header("HitInflictor")]
-    public HitInflictor hitter;
+    public HitInflictor hitInflictor;
     public float hitActiveDuration;
 
     [Header("Misc")]
@@ -59,14 +59,14 @@ public class ThrowableItem : PickupableItem
     {
         base.Pickup(player);
         throwTarget = player.cameraController.targetTransform;
-        hitter.Deactivate();
+        hitInflictor.Deactivate();
     }
 
     public override void UseMain()
     {
         base.UseMain();
         currUsingPlayer.playerAnims.ThrowAnim();
-        hitter.ActivateInflictorForDuration(currUsingPlayer.gameObject.GetInstanceID(), hitActiveDuration);
+        hitInflictor.ActivateInflictorForDuration(currUsingPlayer.netId, hitActiveDuration);
         Drop();
 
         rb.AddForce(CalcThrowVector());
