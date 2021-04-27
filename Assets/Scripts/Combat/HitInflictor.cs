@@ -10,8 +10,9 @@ public class HitInflictor : NetworkBehaviour
     [SyncVar]
     public bool isActive;
     [SyncVar]
-    public int initiatorInstanceId;
+    public uint initiatorNetId;
     public float knockbackPower;
+    public int damage = 1;
     public bool singularDmgInstance;
 
     public virtual void Update()
@@ -23,10 +24,10 @@ public class HitInflictor : NetworkBehaviour
         isActive = !singularDmgInstance || isActive;
     }
 
-    public void ActivateInflictorForDuration (int initiatorInstanceId, float durationInSeconds)
+    public void ActivateInflictorForDuration (uint initiatorNetId, float durationInSeconds)
     {
         isActive = true;
-        this.initiatorInstanceId = initiatorInstanceId;
+        this.initiatorNetId = initiatorNetId;
         StartCoroutine(DeactivateInflictor(durationInSeconds));
     }
 

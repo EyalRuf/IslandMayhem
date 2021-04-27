@@ -6,13 +6,14 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
-    private float triggerResetTime = 0.35f;
+    public float triggerResetTime = 0.35f;
     private const string anim_param_b_grounded = "isGrounded";
     private const string anim_param_b_falling = "isFalling";
     private const string anim_param_b_walk = "isWalking";
     private const string anim_param_b_sprint = "isSprinting";
     private const string anim_param_b_holding_item = "isHoldingAnItem";
-    private const string anim_param_b_isHit = "isBeingHit";
+    private const string anim_param_b_beingHit = "isBeingHit";
+    private const string anim_param_b_crippled = "isCrippled";
     private const string anim_param_t_interacting = "isInteracting";
     private const string anim_param_t_jump = "jumpTrigger";
     private const string anim_param_t_throw = "throwTrigger";
@@ -34,7 +35,8 @@ public class PlayerAnimations : MonoBehaviour
         animator.SetBool(anim_param_b_walk, !isJumping && cController.isMoving);
         animator.SetBool(anim_param_b_sprint, !isJumping && cController.isSprinting);
         animator.SetBool(anim_param_b_holding_item, isThrowing || cController.playerItems.heldItem != null);
-        animator.SetBool(anim_param_b_isHit, cController.isBeingHit);
+        animator.SetBool(anim_param_b_beingHit, cController.isBeingHit);
+        animator.SetBool(anim_param_b_crippled, cController.isCrippled);
     }
 
     IEnumerator ResetTriggerCR(Action resetTriggerFunc, float resetTimer)

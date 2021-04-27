@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ThirdPersonCharacterController : MonoBehaviour
+public class ThirdPersonCharacterController : NetworkBehaviour
 {
     [Header("References")]
     public Rigidbody rb;
@@ -38,8 +39,9 @@ public class ThirdPersonCharacterController : MonoBehaviour
     public bool isHoldingItem;
     public bool isAiming;
     public bool isLookingAround;
-    public bool isBeingHit;
     public bool isAttacking;
+    public bool isBeingHit;
+    public bool isCrippled;
 
     [Header("Misc")]
     public float groundedDrag;
@@ -59,7 +61,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
             wasSprintingWhenJumped = isSprinting;
         }
 
-        currMoveSpeed = isSprinting ? baseMoveSpeed * sprintSpeedMultiplyer : baseMoveSpeed;
+        currMoveSpeed = isCrippled ? baseMoveSpeed / 2 : isSprinting ? baseMoveSpeed * sprintSpeedMultiplyer : baseMoveSpeed;
     }
 
     private void FixedUpdate()
@@ -67,7 +69,7 @@ public class ThirdPersonCharacterController : MonoBehaviour
         //move
         rb.MovePosition(rb.position + rb.rotation * (lpInput.moveInput * currMoveSpeed * Time.fixedDeltaTime));
 
-        if (applyJump)
+        if (!isCrippled && applyJump)
         {
             Jump();
         }
@@ -129,6 +131,6 @@ public class ThirdPersonCharacterController : MonoBehaviour
         bool forwardMovementInput = lpInput.moveInput.z > 0;
 
         // Going Forward && not aiming && sprinting
-        return wasSprintingWhenJumped && forwardMovementInput && !isAiming && !isBeingHit;
+        return wasSprintingWhenJumped && forwardMovementInput && !isAiming && !isBeingHit && !isCrippled;
     }
 }

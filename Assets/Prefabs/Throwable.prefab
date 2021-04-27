@@ -314,7 +314,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   currUsingPlayer: {fileID: 0}
-  throwForce: 2250
+  throwForce: 2500
   movementDirectionForceMultiplyer: 15
   throwTarget: {fileID: 0}
   drawTrajectory: 0
@@ -326,7 +326,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   aimMultiplyerVec: {x: 1, y: 1.5, z: 1}
   aimAdditionVec: {x: 0, y: 300, z: -25}
-  hitter: {fileID: 5459268247171048136}
+  hitInflictor: {fileID: 5459268247171048136}
   hitActiveDuration: 2.5
 --- !u!1 &5343542601299133075
 GameObject:
@@ -388,5 +388,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   isActive: 0
-  initiatorInstanceId: 0
-  knockbackPower: 20
+  initiatorNetId: 0
+  knockbackPower: 40
+  damage: 1
+  singularDmgInstance: 1
