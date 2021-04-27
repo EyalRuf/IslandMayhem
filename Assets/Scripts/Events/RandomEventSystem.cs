@@ -25,6 +25,8 @@ public class RandomEventSystem : NetworkBehaviour
         {
             //get all events
             events = FindObjectsOfType<RandomEvent>();
+
+            started = true;
         }
 
         if (!isServer) //server only behaviour
