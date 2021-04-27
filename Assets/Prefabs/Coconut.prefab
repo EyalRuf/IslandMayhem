@@ -59,10 +59,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  isActive: 1
-  initiatorInstanceId: -85472
+  isActive: 0
+  initiatorNetId: 0
   knockbackPower: 20
-  singularDmgInstance: 0
+  damage: 1
+  singularDmgInstance: 1
 --- !u!1 &5064946466480294782
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,5 +450,5 @@ MonoBehaviour:
     m_Bits: 4294967295
   aimMultiplyerVec: {x: 1, y: 1.5, z: 1}
   aimAdditionVec: {x: 1, y: 300, z: -25}
-  hitter: {fileID: 6553304700991710724}
+  hitInflictor: {fileID: 6553304700991710724}
   hitActiveDuration: 2.5
