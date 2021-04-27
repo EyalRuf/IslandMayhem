@@ -6,20 +6,24 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
+    private float triggerResetTime = 0.35f;
     private const string anim_param_b_grounded = "isGrounded";
     private const string anim_param_b_falling = "isFalling";
     private const string anim_param_b_walk = "isWalking";
     private const string anim_param_b_sprint = "isSprinting";
     private const string anim_param_b_holding_item = "isHoldingAnItem";
+    private const string anim_param_b_isHit = "isBeingHit";
     private const string anim_param_t_interacting = "isInteracting";
     private const string anim_param_t_jump = "jumpTrigger";
     private const string anim_param_t_throw = "throwTrigger";
+    private const string anim_param_t_punch = "punchTrigger";
 
     [Header("References")]
     public Animator animator;
     public ThirdPersonCharacterController cController;
 
     [Header("Etc")]
+    bool isJumping;
     bool isThrowing;
 
     // Update is called once per frame
@@ -27,9 +31,10 @@ public class PlayerAnimations : MonoBehaviour
     {
         animator.SetBool(anim_param_b_grounded, cController.isGrounded);
         animator.SetBool(anim_param_b_falling, !cController.isGrounded && cController.playerVelocity.y < -0.25f);
-        animator.SetBool(anim_param_b_walk, cController.isMoving);
-        animator.SetBool(anim_param_b_sprint, cController.isSprinting);
+        animator.SetBool(anim_param_b_walk, !isJumping && cController.isMoving);
+        animator.SetBool(anim_param_b_sprint, !isJumping && cController.isSprinting);
         animator.SetBool(anim_param_b_holding_item, isThrowing || cController.playerItems.heldItem != null);
+        animator.SetBool(anim_param_b_isHit, cController.isBeingHit);
     }
 
     IEnumerator ResetTriggerCR(Action resetTriggerFunc, float resetTimer)
@@ -41,11 +46,13 @@ public class PlayerAnimations : MonoBehaviour
     public void JumpAnim ()
     {
         animator.SetTrigger(anim_param_t_jump);
-        StartCoroutine(ResetTriggerCR(ResetJumpTrigger, 0.1f));
+        isJumping = true;
+        StartCoroutine(ResetTriggerCR(ResetJumpTrigger, triggerResetTime));
     }
 
     public void ResetJumpTrigger ()
     {
+        isJumping = false;
         animator.ResetTrigger(anim_param_t_jump);
     }
 
@@ -53,7 +60,7 @@ public class PlayerAnimations : MonoBehaviour
     {
         isThrowing = true;
         animator.SetTrigger(anim_param_t_throw);
-        StartCoroutine(ResetTriggerCR(ResetThrowTrigger, 0.1f));
+        StartCoroutine(ResetTriggerCR(ResetThrowTrigger, triggerResetTime));
     }
 
     void ResetThrowTrigger ()
@@ -72,4 +79,14 @@ public class PlayerAnimations : MonoBehaviour
         animator.SetBool(anim_param_t_interacting, false);
     }
 
+    public void PunchAnim()
+    {
+        animator.SetTrigger(anim_param_t_punch);
+        StartCoroutine(ResetTriggerCR(ResetPunchTrigger, triggerResetTime));
+    }
+
+    public void ResetPunchTrigger()
+    {
+        animator.ResetTrigger(anim_param_t_punch);
+    }
 }

@@ -43,8 +43,15 @@ public class NetworkPlayer : NetworkBehaviour
 
     private void Update()
     {
-        nameTag.text = userName;
-        nameTag.color = teamColor;
+        if (!isLocalPlayer)
+        {
+            nameTag.text = userName;
+            nameTag.color = teamColor;
+        }
+        else
+        {
+            nameTag.text = "";
+        }
     }
 
     private void LateUpdate()

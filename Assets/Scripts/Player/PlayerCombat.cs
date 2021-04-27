@@ -1,42 +1,84 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombat : MonoBehaviour
+public class PlayerCombat : NetworkBehaviour
 {
     [Header("References")]
+    public LocalPlayerInput lpInput;
     public ThirdPersonCharacterController cController;
+    public PlayerAnimations pAnims;
 
     [Header("Combat")]
-    public bool wasHit;
-    public float untouchableDuration;
-    public float untouchableTimer;
+    public PlayerPunch punchObj;
+    public float punchCD = 0.5f;
+    private float punchCDTimer;
+    public float invulnerabilityDuration;
+    private float invulnerabilityTimer;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        punchObj.initiatorInstanceId = gameObject.GetInstanceID();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (wasHit)
+        if (cController.isBeingHit)
         {
-            untouchableTimer -= Time.deltaTime;
-            wasHit = untouchableTimer > 0;
+            invulnerabilityTimer -= Time.deltaTime;
+            cController.isBeingHit = invulnerabilityTimer > 0;
+        }
+
+        if (punchCDTimer > 0)
+        {
+            punchCDTimer -= Time.deltaTime;
+        } else if (!cController.isHoldingItem && lpInput.attackInputDown)
+        {
+            CmdPlayerPunch(netId);
         }
     }
 
-    public void TryToApplyHit(Vector3 dir)
+    void Punch ()
     {
-        if (!wasHit)
-            ApplyHit(dir);
+        punchObj.gameObject.SetActive(true);
+        pAnims.PunchAnim();
     }
 
-    void ApplyHit(Vector3 dir)
+    [ClientRpc]
+    void RpcPunch()
     {
-        untouchableTimer = untouchableDuration;
-        cController.rb.AddForce(dir, ForceMode.Impulse);
+        Punch();
+    }
+
+    [Command]
+    void CmdPlayerPunch (uint playerNID)
+    {
+        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        PlayerCombat pc = player.GetComponent<PlayerCombat>();
+        pc.RpcPunch();
+    }
+
+    void ApplyHitOnSelf(Vector3 hitVector)
+    {
+        cController.rb.AddForce(hitVector, ForceMode.Impulse);
+        invulnerabilityTimer = invulnerabilityDuration;
+        cController.isBeingHit = true;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!cController.isBeingHit)
+        {
+            HitInflictor hit = other.GetComponent<HitInflictor>();
+
+            if (hit != null && hit.isActive && hit.initiatorInstanceId != gameObject.GetInstanceID())
+            {
+                Vector3 knockbackDir = transform.position - hit.transform.position;
+                ApplyHitOnSelf(knockbackDir * hit.knockbackPower);
+                hit.HitInflicted();
+            }
+        }
     }
 }

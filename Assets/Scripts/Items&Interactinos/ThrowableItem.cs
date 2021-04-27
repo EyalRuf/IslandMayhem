@@ -19,6 +19,10 @@ public class ThrowableItem : PickupableItem
     public Vector3 aimMultiplyerVec;
     public Vector3 aimAdditionVec;
 
+    [Header("HitInflictor")]
+    public HitInflictor hitter;
+    public float hitActiveDuration;
+
     [Header("Misc")]
     private Vector3 currObjectVelocity;
     private Vector3 lastPosition;
@@ -35,8 +39,10 @@ public class ThrowableItem : PickupableItem
         lineRenderer.enabled = drawTrajectory;
     }
 
-    void FixedUpdate()
+    public override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if (isBeingHeld)
         {
             currObjectVelocity = transform.position - lastPosition;
@@ -53,13 +59,16 @@ public class ThrowableItem : PickupableItem
     {
         base.Pickup(player);
         throwTarget = player.cameraController.targetTransform;
+        hitter.Deactivate();
     }
 
     public override void UseMain()
     {
         base.UseMain();
         currUsingPlayer.playerAnims.ThrowAnim();
+        hitter.ActivateInflictorForDuration(currUsingPlayer.gameObject.GetInstanceID(), hitActiveDuration);
         Drop();
+
         rb.AddForce(CalcThrowVector());
     }
 

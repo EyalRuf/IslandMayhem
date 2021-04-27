@@ -107,6 +107,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Totem_Blue Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4582757239638718508, guid: 71027234dac2b0b44a1dc9b7da491359,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f409fd3247a6934ab20141cc07fe1ac, type: 2}
     - target: {fileID: 7426883632020992095, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -117,5 +122,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 21b400ad3ed779a488c27b357c16c9d1, type: 2}
+    - target: {fileID: 8306572763913425979, guid: 71027234dac2b0b44a1dc9b7da491359,
+        type: 3}
+      propertyPath: group
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71027234dac2b0b44a1dc9b7da491359, type: 3}
