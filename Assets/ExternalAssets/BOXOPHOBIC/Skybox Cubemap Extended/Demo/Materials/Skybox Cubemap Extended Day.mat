@@ -88,12 +88,12 @@ Material:
     - _EnableRotation: 1
     - _Exposure: 1.85
     - _Float0: 0
-    - _FogFill: 0.133
-    - _FogHeight: 0.502
+    - _FogFill: 0.194
+    - _FogHeight: 0.694
     - _FogIntensity: 1
     - _FogMessage: 0
     - _FogPosition: 0
-    - _FogSmoothness: 0.01
+    - _FogSmoothness: 0.913
     - _Fogg: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
