@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 656775806198840045}
   m_Layer: 0
   m_Name: M_Palm
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2569155293344339480
 Transform:
   m_ObjectHideFlags: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   spawnableObjects:
   - {fileID: 5064946466480294782, guid: 7e48e88ff724ac342b57506c754a5999, type: 3}
   spawnRange: {x: 5, y: 0, z: 5}
-  minMaxSpawns: {x: 0, y: 2}
+  minMaxSpawns: {x: 0, y: 0}
 --- !u!1001 &8952304825277861337
 PrefabInstance:
   m_ObjectHideFlags: 0

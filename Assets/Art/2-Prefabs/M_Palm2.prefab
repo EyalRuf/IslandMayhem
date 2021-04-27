@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7746006410841572181
 Transform:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
   spawnableObjects:
   - {fileID: 5064946466480294782, guid: 7e48e88ff724ac342b57506c754a5999, type: 3}
   spawnRange: {x: 5, y: 0, z: 5}
-  minMaxSpawns: {x: 0, y: 2}
+  minMaxSpawns: {x: 0, y: 0}
 --- !u!1 &5568170452287151969
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 5047916341849654747}
   m_Layer: 0
   m_Name: M_Palm2
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

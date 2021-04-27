@@ -79,9 +79,19 @@ public class CustomNetworkManagerHUD : MonoBehaviour
 
     void MatchMakingButtons()
     {
-        if (GUILayout.Button("Play Matchmaking"))
+        if (!customManager.matchmakingSearching)
         {
-            
+            if (GUILayout.Button("Start Matchmaking"))
+            {
+                customManager.StartMatchmaking();
+            }
+        }
+        else
+        {
+            if (GUILayout.Button("Stop Matchmaking"))
+            {
+                customManager.StopMatchmaking();
+            }
         }
     }
 
