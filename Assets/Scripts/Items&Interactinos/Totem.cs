@@ -58,6 +58,7 @@ public class Totem : NetworkBehaviour
                 {
                     NetworkServer.Destroy(other.gameObject);
                     BuildTotem();
+                    Destroy(piece);
                 }
             }
         }
@@ -74,6 +75,6 @@ public class Totem : NetworkBehaviour
     [ClientRpc]
     public void RpcBuildTotem(int stage)
     {
-        Instantiate(smokePoof, visuals[Mathf.RoundToInt(Mathf.Clamp(stage, 0, visuals.Length))].transform.position, Quaternion.identity);
+        Instantiate(smokePoof, visuals[Mathf.RoundToInt(Mathf.Clamp(stage, 0, visuals.Length - 1))].transform.position, Quaternion.identity);
     }
 }

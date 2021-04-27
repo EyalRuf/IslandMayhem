@@ -78,6 +78,72 @@ public class CustomNetworkManager : NetworkManager
         }
     }
 
+    [HideInInspector]
+    public bool matchmakingSearching = false;
+
+    private bool updatedLobbies = false;
+
+    private protected Callback<LobbyMatchList_t> Callback_lobbyList;
+    private List<CSteamID> lobbies = new List<CSteamID>();
+
+    public void StartMatchmaking()
+    {
+        StartCoroutine(FindMatchProcess());
+    }
+
+    public void StopMatchmaking()
+    {
+        matchmakingSearching = false;
+    }
+
+    private IEnumerator FindMatchProcess()
+    {
+        matchmakingSearching = true;
+
+        //run until found
+        while (true)
+        {
+            //request lobbies
+            updatedLobbies = false;
+            Callback_lobbyList = Callback<LobbyMatchList_t>.Create(OnGetLobbiesList);
+            SteamAPICall_t lobbyRequest = SteamMatchmaking.RequestLobbyList();
+
+            //wait until we have lobbies
+            yield return new WaitUntil(() => updatedLobbies);
+
+            if (matchmakingSearching)
+            {
+                for (int l = 0; l < lobbies.Count; l++)
+                {
+
+                    //if lobby matches
+                    if (SteamMatchmaking.GetNumLobbyMembers(lobbies[l]) < matchManager.numberOfPlayersNeededToStart)
+                    {
+                        networkAddress = SteamMatchmaking.GetLobbyOwner(lobbies[l]).ToString();
+                        StartClient();
+                        yield return null;
+                    }
+                }
+            }
+            else
+            {
+                //stop searching
+                yield return null;
+            }
+        }
+    }
+
+    private void OnGetLobbiesList(LobbyMatchList_t result)
+    {
+        for (int i = 0; i < result.m_nLobbiesMatching; i++)
+        {
+            CSteamID lobbyID = SteamMatchmaking.GetLobbyByIndex(i);
+            lobbies.Add(lobbyID);
+        }
+
+        updatedLobbies = true;
+    }
+
     #endregion
 
     #region Unity Callbacks

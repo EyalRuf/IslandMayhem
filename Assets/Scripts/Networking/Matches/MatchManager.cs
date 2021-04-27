@@ -160,6 +160,13 @@ public class MatchManager : NetworkBehaviour
             {
                 spawner.Spawn();
             }
+
+            TagItemSpawner[] tagSpawners = FindObjectsOfType<TagItemSpawner>();
+
+            foreach (TagItemSpawner spawner in tagSpawners)
+            {
+                spawner.Spawn();
+            }
         }
 
         yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
