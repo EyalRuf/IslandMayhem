@@ -659,6 +659,7 @@ MonoBehaviour:
   statusText: {fileID: 5736667671326634156}
   overviewCam: {fileID: 7476827082038273280}
   overviewText: {fileID: 900130767004820898}
+  networkManager: {fileID: 0}
   team0Totems: []
   team0Won: 0
   team1Totems: []
@@ -1208,7 +1209,7 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 8297925720422174642, guid: d5509e234c407224da2bec3f721affd4,
+  playerPrefab: {fileID: 8297925720422174642, guid: ae6d0d3e9f62426409e367b8f02c613f,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0

@@ -50,6 +50,8 @@ public class CustomNetworkManagerHUD : MonoBehaviour
         if (!NetworkClient.isConnected && !NetworkServer.active)
         {
             StartButtons();
+
+            MatchMakingButtons();
         }
         else
         {
@@ -73,6 +75,14 @@ public class CustomNetworkManagerHUD : MonoBehaviour
         StopButtons();
 
         GUILayout.EndArea();
+    }
+
+    void MatchMakingButtons()
+    {
+        if (GUILayout.Button("Play Matchmaking"))
+        {
+            
+        }
     }
 
     void StartButtons()
