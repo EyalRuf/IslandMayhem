@@ -14,7 +14,7 @@ public class LookAtCamera : MonoBehaviour
 
             if(localPlayer != null)
             {
-                cam = localPlayer.transform.GetChild(2).GetChild(0);
+                cam = localPlayer.transform.GetChild(3).GetChild(0);
             }
         }
         else
