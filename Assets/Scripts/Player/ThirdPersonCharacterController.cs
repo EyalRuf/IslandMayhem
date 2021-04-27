@@ -98,8 +98,9 @@ public class ThirdPersonCharacterController : MonoBehaviour
         //set physics material
         playerCollider.material = isGrounded ? groundedMaterial : airBorneMaterial;
 
-        playerVelocity = (rb.position - playerLastPos) / Time.deltaTime;
-        isMoving = (rb.position - playerLastPos).magnitude > 0.2f;
+        playerVelocity = (rb.position - playerLastPos) / Time.fixedDeltaTime;
+        var posOffset = rb.position - playerLastPos;
+        isMoving = new Vector3(posOffset.x, 0, posOffset.z).magnitude > 0.2f;
         playerLastPos = rb.position;
     }
 

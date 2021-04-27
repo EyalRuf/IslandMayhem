@@ -80,6 +80,32 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
+    private void OnGUI()
+    {
+        //custom UI for casper
+        if (Application.isEditor)
+        {
+            GUILayout.BeginArea(new Rect(Screen.width - 100, 0, 100, 25));
+
+            if (GUILayout.Button("Start Game"))
+            {
+                startingGame = true;
+
+                //disallow joining
+                networkManager.AllowJoin(false);
+
+                gameStatus = "Starting game.";
+                CalculateAndAssignTeams();
+
+                //sync info
+                RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(teams)));
+                RpcStartGame(); //invoke sychronized start game sequence
+            }
+
+            GUILayout.EndArea();
+        }
+    }
+
     protected virtual void CalculateAndAssignTeams()
     {
         if (!isServer) //server only to be sure
