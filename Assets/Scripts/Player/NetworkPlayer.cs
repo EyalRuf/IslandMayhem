@@ -19,6 +19,7 @@ public class NetworkPlayer : NetworkBehaviour
 
     [Header("UI")]
     public Text nameTag;
+    public bool hideLocalNametag;
 
     void Start()
     {
@@ -43,14 +44,14 @@ public class NetworkPlayer : NetworkBehaviour
 
     private void Update()
     {
-        if (!isLocalPlayer)
+        if (isLocalPlayer && hideLocalNametag)
         {
-            nameTag.text = userName;
-            nameTag.color = teamColor;
+            nameTag.text = "";
         }
         else
         {
-            nameTag.text = "";
+            nameTag.text = userName;
+            nameTag.color = teamColor;
         }
     }
 
