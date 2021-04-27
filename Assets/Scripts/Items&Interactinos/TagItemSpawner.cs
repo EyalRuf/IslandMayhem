@@ -30,7 +30,7 @@ public class TagItemSpawner : NetworkBehaviour
 
             //spawn
             Vector3 offset = Random.insideUnitSphere;
-            NetworkServer.Spawn(Instantiate(objectToSpawn, spawnPositions[Mathf.RoundToInt(Mathf.Repeat(s, spawnPositions.Count))].transform.position + new Vector3(spawnRange.x * offset.x, spawnRange.y * offset.y, spawnRange.z * offset.z), Quaternion.identity));
+            NetworkServer.Spawn(Instantiate(objectToSpawn, spawnPositions[Mathf.RoundToInt(Mathf.Repeat(s, spawnPositions.Count))].transform.position + new Vector3(spawnRange.x * offset.x, spawnRange.y * offset.y, spawnRange.z * offset.z) + spawnOffset, Quaternion.identity));
         }
 
         if (destroyAfterSpawn)
