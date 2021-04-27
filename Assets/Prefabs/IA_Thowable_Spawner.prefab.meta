@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Horizon Based Ambient Occlusion/SRP/HDRP.unitypackage.meta
+guid: 10f76f4e01402324488c7e16f362acb9
+DefaultImporter:
+=======
 guid: 74df9a9ea3ac4b54bbddeecd5b654da9
 PrefabImporter:
+>>>>>>> main:Assets/Prefabs/IA_Thowable_Spawner.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
