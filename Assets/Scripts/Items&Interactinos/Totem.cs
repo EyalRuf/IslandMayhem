@@ -56,9 +56,9 @@ public class Totem : NetworkBehaviour
             {
                 if (group == TotemPieceGroup.Any || group == piece.group)
                 {
+                    piece.group = TotemPieceGroup.None;
                     NetworkServer.Destroy(other.gameObject);
                     BuildTotem();
-                    Destroy(piece);
                 }
             }
         }

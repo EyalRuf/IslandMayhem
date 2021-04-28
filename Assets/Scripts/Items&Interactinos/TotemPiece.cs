@@ -9,6 +9,7 @@ public class TotemPiece : MonoBehaviour
 
 public enum TotemPieceGroup
 {
+    None,
     Any,
     Red,
     Blue
