@@ -103,7 +103,7 @@ Material:
     - _CausticsDistortion: 0.047
     - _CausticsOn: 1
     - _CausticsSpeed: 0.1
-    - _CausticsTiling: 0.1
+    - _CausticsTiling: 0.07
     - _CrossPan_IntersectionOn: 0
     - _Cull: 2
     - _Cutoff: 0.5
@@ -146,7 +146,7 @@ Material:
     - _NormalMapOn: 1
     - _NormalSpeed: 0.2
     - _NormalStrength: 0.127
-    - _NormalTiling: -0.48000008
+    - _NormalTiling: 7998
     - _OcclusionStrength: 1
     - _PlanarReflectionsEnabled: 0
     - _PlanarReflectionsParams: 0
@@ -206,7 +206,7 @@ Material:
     - _HorizonColor: {r: 0.68, g: 1, b: 0.99, a: 0.15}
     - _IntersectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShallowColor: {r: 0, g: 1, b: 0.98136926, a: 0.3764706}
+    - _ShallowColor: {r: 0, g: 0.42460012, b: 1, a: 0.3764706}
     - _SlopeParams: {r: 0.5, g: 4, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _TranslucencyParams: {r: 1, g: 4, b: 0, a: 0}
