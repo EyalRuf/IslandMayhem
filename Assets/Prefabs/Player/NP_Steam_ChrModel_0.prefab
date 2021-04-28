@@ -459,8 +459,6 @@ GameObject:
   - component: {fileID: 8297925720197497098}
   - component: {fileID: 8297925720197497099}
   - component: {fileID: 8297925720197497096}
-  - component: {fileID: 8888557173115942757}
-  - component: {fileID: 7470999614350439292}
   - component: {fileID: 7527648289834016182}
   m_Layer: 0
   m_Name: PlayerCamera
@@ -567,47 +565,6 @@ MonoBehaviour:
   cameraLooksAtThisWhileAiming: {fileID: 5818992189759618314}
   cameraYClampMinAim: -60
   cameraYClampMaxAim: 15
---- !u!114 &8888557173115942757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297925720197497102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d901ddf32d7c84ed4b0f84623ef3a7a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _intensity: 2
-  _radius: 0.25
-  _sampleCount: 3
-  _sampleCountValue: 24
-  _downsampling: 1
-  _occlusionSource: 1
-  _ambientOnly: 0
-  _aoShader: {fileID: 4800000, guid: 7541b5f18b1224a81927d8b1184b122b, type: 3}
-  _quadMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &7470999614350439292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297925720197497102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c8d76155f53cfc45b4f02922de468b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointOfFocus: {fileID: 8297925720422174603}
-  _focusDistance: 10
-  _fNumber: 1.4
-  _useCameraFov: 1
-  _focalLength: 0.175
-  _kernelSize: 2
-  _visualize: 0
-  _shader: {fileID: 4800000, guid: b99c58356816f7b46818fe7e788b2fa1, type: 3}
 --- !u!114 &7527648289834016182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,8 +851,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1559
   jumpForce: 25
-  fallMultiplier: 1
-  lowJumpMultiplier: 2
   jumpCD: 0.1
   isHoldingItem: 0
   isAiming: 0
@@ -1112,8 +1067,8 @@ MonoBehaviour:
   punchCD: 0.5
   maxHp: 4
   currHp: 4
-  regenerationDuration: 10
   invulnerabilityDuration: 0.75
+  regenerationDuration: 10
 --- !u!1 &8297925720464115939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,15 +1284,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62bcf384baa5a1c42968800e271628eb, type: 3}
---- !u!1 &3281345436739872060 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 62bcf384baa5a1c42968800e271628eb,
-    type: 3}
-  m_PrefabInstance: {fileID: 2398386274172377197}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2792934247588626310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62bcf384baa5a1c42968800e271628eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2398386274172377197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3281345436739872060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 62bcf384baa5a1c42968800e271628eb,
     type: 3}
   m_PrefabInstance: {fileID: 2398386274172377197}
   m_PrefabAsset: {fileID: 0}
@@ -1690,10 +1645,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1553423163}
     m_Modifications:
+    - target: {fileID: 5010886228330848764, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
+        type: 3}
+      propertyPath: knockbackPower
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5951003220492102780, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
       propertyPath: m_Name
       value: PlayerPunch
+      objectReference: {fileID: 0}
+    - target: {fileID: 5951003220492102780, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6039192194298955567, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}

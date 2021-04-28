@@ -6,15 +6,17 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
-    public float triggerResetTime = 0.35f;
+    public float triggerResetTime = 0.1f;
     private const string anim_param_b_grounded = "isGrounded";
     private const string anim_param_b_falling = "isFalling";
     private const string anim_param_b_walk = "isWalking";
     private const string anim_param_b_sprint = "isSprinting";
     private const string anim_param_b_holding_item = "isHoldingAnItem";
+    private const string anim_param_b_throwing = "isThrowing";
+    private const string anim_param_b_aiming = "isAiming";
     private const string anim_param_b_beingHit = "isBeingHit";
     private const string anim_param_b_crippled = "isCrippled";
-    private const string anim_param_t_interacting = "isInteracting";
+    private const string anim_param_b_interacting = "isInteracting";
     private const string anim_param_t_jump = "jumpTrigger";
     private const string anim_param_t_throw = "throwTrigger";
     private const string anim_param_t_punch = "punchTrigger";
@@ -34,7 +36,9 @@ public class PlayerAnimations : MonoBehaviour
         animator.SetBool(anim_param_b_falling, !cController.isGrounded && cController.playerVelocity.y < -0.25f);
         animator.SetBool(anim_param_b_walk, !isJumping && cController.isMoving);
         animator.SetBool(anim_param_b_sprint, !isJumping && cController.isSprinting);
+        animator.SetBool(anim_param_b_aiming, cController.isAiming);
         animator.SetBool(anim_param_b_holding_item, isThrowing || cController.playerItems.heldItem != null);
+        animator.SetBool(anim_param_b_throwing, isThrowing);
         animator.SetBool(anim_param_b_beingHit, cController.isBeingHit);
         animator.SetBool(anim_param_b_crippled, cController.isCrippled);
     }
@@ -73,12 +77,12 @@ public class PlayerAnimations : MonoBehaviour
 
     public void StartInteractingAnim ()
     {
-        animator.SetBool(anim_param_t_interacting, true);
+        animator.SetBool(anim_param_b_interacting, true);
     }
 
     public void StopInteractingAnim()
     {
-        animator.SetBool(anim_param_t_interacting, false);
+        animator.SetBool(anim_param_b_interacting, false);
     }
 
     public void PunchAnim()

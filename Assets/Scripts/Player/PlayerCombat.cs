@@ -16,11 +16,10 @@ public class PlayerCombat : NetworkBehaviour
     public float punchCD = 0.5f;
     public int maxHp = 4;
     public int currHp = 4;
+    public float invulnerabilityDuration;
     public float regenerationDuration;
     private float regenerationTimer;
     private float punchCDTimer;
-    public float invulnerabilityDuration;
-    private float invulnerabilityTimer;
 
     void Start()
     {
@@ -30,11 +29,8 @@ public class PlayerCombat : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cController.isBeingHit)
-        {
-            invulnerabilityTimer -= Time.deltaTime;
-            cController.isBeingHit = invulnerabilityTimer > 0;
-        }
+        if (!isLocalPlayer)
+            return;
 
         if (punchCDTimer > 0)
         {
@@ -49,8 +45,7 @@ public class PlayerCombat : NetworkBehaviour
             regenerationTimer -= Time.deltaTime;
             if (regenerationTimer <= 0)
             {
-                cController.isCrippled = false;
-                currHp = maxHp;
+                CmdRevive(netId);
             }
         }
     }
@@ -79,7 +74,6 @@ public class PlayerCombat : NetworkBehaviour
     {
         cController.rb.AddForce(hitVector, ForceMode.Impulse);
         cController.isBeingHit = true;
-        invulnerabilityTimer = invulnerabilityDuration;
 
         if (!cController.isCrippled)
         {
@@ -91,6 +85,14 @@ public class PlayerCombat : NetworkBehaviour
                 Cripple();
             }
         }
+
+        StartCoroutine(InulnerabilityTime());
+    }
+
+    IEnumerator InulnerabilityTime()
+    {
+        yield return new WaitForSeconds(invulnerabilityDuration);
+        cController.isBeingHit = false;
     }
 
     [ClientRpc]
@@ -129,5 +131,25 @@ public class PlayerCombat : NetworkBehaviour
     {
         cController.isCrippled = true;
         pItems.DropItemIfHeld();
+    }
+
+    void Revive ()
+    {
+        cController.isCrippled = false;
+        currHp = maxHp;
+    }
+
+    [ClientRpc]
+    void RpcRevive()
+    {
+        Revive();
+    }
+
+    [Command]
+    void CmdRevive(uint playerNID)
+    {
+        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        PlayerCombat pc = player.GetComponent<PlayerCombat>();
+        pc.RpcRevive();
     }
 }

@@ -29,8 +29,6 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     public float groundCheckDistance;
     public LayerMask groundCheckMask;
     public float jumpForce;
-    public float fallMultiplier;
-    public float lowJumpMultiplier;
     public float jumpCD;
     private bool applyJump;
     private bool jumpCDFlag;
@@ -71,21 +69,8 @@ public class ThirdPersonCharacterController : NetworkBehaviour
 
         if (!isCrippled && applyJump)
         {
-            Jump();
+            CmdJump(netId);
         }
-
-        // Applying additional falling physics
-        //if (rb.velocity.y < 0)
-        //{
-        //    rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * fallMultiplier * Time.fixedDeltaTime;
-        //}
-        //else if (rb.velocity.y > 0 && !lpInput.jumpInput)
-        //{
-        //    rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * lowJumpMultiplier * Time.fixedDeltaTime;
-        //} else if (rb.velocity.y > 0)
-        //{
-        //    rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
-        //}
 
         //if we're grounded, apply drag horizontally.
         if (isGrounded)
@@ -115,6 +100,21 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         StartCoroutine(JumpCDApplier());
     }
 
+    [ClientRpc]
+    public void RpcJump()
+    {
+        Jump();
+    }
+
+    [Command]
+    void CmdJump (uint playerNID)
+    {
+        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        ThirdPersonCharacterController pp = player.GetComponent<ThirdPersonCharacterController>();
+
+        pp.RpcJump();
+    }
+
     IEnumerator JumpCDApplier ()
     {
         yield return new WaitForSeconds(jumpCD);
@@ -130,7 +130,6 @@ public class ThirdPersonCharacterController : NetworkBehaviour
 
         bool forwardMovementInput = lpInput.moveInput.z > 0;
 
-        // Going Forward && not aiming && sprinting
         return wasSprintingWhenJumped && forwardMovementInput && !isAiming && !isBeingHit && !isCrippled;
     }
 }

@@ -15,12 +15,13 @@ public class InteractionArea : NetworkBehaviour
 
     public int restrictedToTeam = -1;
 
-    public virtual IEnumerator Interact (Action onEndInteraction)
+    public virtual IEnumerator Interact (Func<bool> onEndInteraction)
     {
         this.OnStartInteraction();
         yield return new WaitForSeconds(interactionDuration);
-        this.OnBeforeEndInteraction(onEndInteraction);
-        this.OnEndInteraction();
+        bool flagShouldEndInteraction = this.OnBeforeEndInteraction(onEndInteraction);
+        if (flagShouldEndInteraction)
+            this.OnEndInteraction();
     }
 
     public virtual void OnStartInteraction()
@@ -29,10 +30,10 @@ public class InteractionArea : NetworkBehaviour
         netIdentity.AssignClientAuthority(CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkIdentity>().connectionToClient);
     }
 
-    public virtual void OnBeforeEndInteraction(Action onEndInteraction)
+    public virtual bool OnBeforeEndInteraction(Func<bool> onEndInteraction)
     {
         beingInteractedWith = false;
-        onEndInteraction();
+        return onEndInteraction();
     }
 
     public virtual void OnEndInteraction()
