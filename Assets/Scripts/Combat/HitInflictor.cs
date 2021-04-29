@@ -21,7 +21,7 @@ public class HitInflictor : NetworkBehaviour
 
     public virtual void HitInflicted ()
     {
-        isActive = !singularDmgInstance || isActive;
+        isActive = !singularDmgInstance;
     }
 
     public void ActivateInflictorForDuration (uint initiatorNetId, float durationInSeconds)
