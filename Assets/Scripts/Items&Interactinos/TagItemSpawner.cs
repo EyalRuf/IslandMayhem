@@ -15,27 +15,30 @@ public class TagItemSpawner : NetworkBehaviour
 
     public void Spawn()
     {
-        //get spawn positions
-        List<GameObject> spawnPositions = new List<GameObject>();
-
-        spawnPositions.AddRange(GameObject.FindGameObjectsWithTag(targetTag));
-
-        spawnPositions.OrderBy(s => Random.value);
-
-        //spread items over points
-        int spawns = Random.Range(minMaxSpawns.x, minMaxSpawns.y);
-        for (int s = 0; s < spawns; s++)
+        if (enabled && gameObject.activeInHierarchy)
         {
-            GameObject objectToSpawn = spawnableObjects[Random.Range(0, spawnableObjects.Length)];
+            //get spawn positions
+            List<GameObject> spawnPositions = new List<GameObject>();
 
-            //spawn
-            Vector3 offset = Random.insideUnitSphere;
-            NetworkServer.Spawn(Instantiate(objectToSpawn, spawnPositions[Mathf.RoundToInt(Mathf.Repeat(s, spawnPositions.Count))].transform.position + new Vector3(spawnRange.x * offset.x, spawnRange.y * offset.y, spawnRange.z * offset.z) + spawnOffset, Quaternion.identity));
-        }
+            spawnPositions.AddRange(GameObject.FindGameObjectsWithTag(targetTag));
 
-        if (destroyAfterSpawn)
-        {
-            Destroy(this);
+            spawnPositions.OrderBy(s => Random.value);
+
+            //spread items over points
+            int spawns = Random.Range(minMaxSpawns.x, minMaxSpawns.y);
+            for (int s = 0; s < spawns; s++)
+            {
+                GameObject objectToSpawn = spawnableObjects[Random.Range(0, spawnableObjects.Length)];
+
+                //spawn
+                Vector3 offset = Random.insideUnitSphere;
+                NetworkServer.Spawn(Instantiate(objectToSpawn, spawnPositions[Mathf.RoundToInt(Mathf.Repeat(s, spawnPositions.Count))].transform.position + new Vector3(spawnRange.x * offset.x, spawnRange.y * offset.y, spawnRange.z * offset.z) + spawnOffset, Quaternion.identity));
+            }
+
+            if (destroyAfterSpawn)
+            {
+                Destroy(this);
+            }
         }
     }
 }
