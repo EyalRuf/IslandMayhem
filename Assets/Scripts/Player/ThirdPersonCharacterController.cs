@@ -70,6 +70,9 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         if (!isCrippled && applyJump)
         {
             CmdJump(netId);
+            applyJump = false;
+            jumpCDFlag = true;
+            StartCoroutine(JumpCDApplier());
         }
 
         //if we're grounded, apply drag horizontally.
@@ -95,9 +98,6 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     {
         playerAnims.JumpAnim();
         rb.velocity += Vector3.up * jumpForce;
-        applyJump = false;
-        jumpCDFlag = true;
-        StartCoroutine(JumpCDApplier());
     }
 
     [ClientRpc]

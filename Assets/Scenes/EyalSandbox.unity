@@ -287,7 +287,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48323107}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea368fb6f27ec2f40a40e20977992b9c, type: 3}
   m_Name: 
@@ -318,7 +318,7 @@ MonoBehaviour:
   serverBatchInterval: 0
   offlineScene: 
   onlineScene: 
-  transport: {fileID: 48323112}
+  transport: {fileID: 48323109}
   networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
@@ -333,6 +333,7 @@ MonoBehaviour:
   - {fileID: 3396668420586916290, guid: 6fadfbf49f19218478fbdcbd8e9002d5, type: 3}
   isSteam: 1
   matchManager: {fileID: 14179396}
+  matchmakingSearching: 0
 --- !u!114 &48323111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +357,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48323107}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
   m_Name: 
