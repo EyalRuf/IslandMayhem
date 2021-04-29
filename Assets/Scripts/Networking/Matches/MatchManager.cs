@@ -158,14 +158,20 @@ public class MatchManager : NetworkBehaviour
 
             foreach (ItemSpawner spawner in spawners)
             {
-                spawner.Spawn();
+                if(spawner.enabled && spawner.gameObject.activeInHierarchy)
+                {
+                    spawner.Spawn();
+                }
             }
 
             TagItemSpawner[] tagSpawners = FindObjectsOfType<TagItemSpawner>();
 
             foreach (TagItemSpawner spawner in tagSpawners)
             {
-                spawner.Spawn();
+                if (spawner.enabled && spawner.gameObject.activeInHierarchy)
+                {
+                    spawner.Spawn();
+                }
             }
         }
 
