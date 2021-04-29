@@ -139,6 +139,7 @@ public class CustomNetworkManager : NetworkManager
         {
             CSteamID lobbyID = SteamMatchmaking.GetLobbyByIndex(i);
             lobbies.Add(lobbyID);
+            Debug.Log(lobbyID);
         }
 
         updatedLobbies = true;

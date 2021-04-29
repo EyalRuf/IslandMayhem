@@ -17,6 +17,8 @@ public class RandomEventSystem : NetworkBehaviour
 
         if (!isServer) //server only behaviour
             return;
+
+        started = false;
     }
 
     private void Update()
@@ -25,8 +27,6 @@ public class RandomEventSystem : NetworkBehaviour
         {
             //get all events
             events = FindObjectsOfType<RandomEvent>();
-
-            started = true;
         }
 
         if (!isServer) //server only behaviour
@@ -49,7 +49,7 @@ public class RandomEventSystem : NetworkBehaviour
         while (true)
         {
             //first wait
-            yield return new WaitForSeconds(Random.Range(eventDelayRange.x, eventDelayRange.y));
+            yield return new WaitForSecondsRealtime(Random.Range(eventDelayRange.x, eventDelayRange.y));
 
             //start event
             StartEvent(Random.Range(0, events.Length));
