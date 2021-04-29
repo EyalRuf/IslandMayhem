@@ -72,6 +72,12 @@ public class ThrowableItem : PickupableItem
         rb.AddForce(CalcThrowVector());
     }
 
+    public override void Drop()
+    {
+        currUsingPlayer.StopAiming();
+        base.Drop();
+    }
+
     public override void UseSecondary()
     {
         base.UseSecondary();

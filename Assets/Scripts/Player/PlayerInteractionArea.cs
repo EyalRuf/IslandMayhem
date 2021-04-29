@@ -56,10 +56,11 @@ public class PlayerInteractionArea : NetworkBehaviour
         StartCoroutine(area.Interact(EndInteractionWithArea));
     }
 
-    void EndInteractionWithArea ()
+    bool EndInteractionWithArea ()
     {
         EnableOrDisableBehaviors(true);
         playerAnims.StopInteractingAnim();
+        return true;
     }
 
     void EnableOrDisableBehaviors (bool isEnabled)

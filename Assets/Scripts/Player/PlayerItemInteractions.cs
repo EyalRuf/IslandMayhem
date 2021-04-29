@@ -38,7 +38,6 @@ public class PlayerItemInteractions : NetworkBehaviour
             {
                 if (lpInput.itemMainUseDown)
                 {
-                    StopAiming();
                     CmdUseItem(netId, true);
                 }
                 if (lpInput.itemSecondaryUsageDown)
@@ -170,7 +169,6 @@ public class PlayerItemInteractions : NetworkBehaviour
 
     public void DropItem()
     {
-        StopAiming();
         heldItem.Drop();
         heldItem = null;
     }
@@ -190,13 +188,13 @@ public class PlayerItemInteractions : NetworkBehaviour
         pp.RpcDrop();
     }
 
-    void StartAiming()
+    public void StartAiming()
     {
         playerController.isAiming = true;
         cameraController.ToggleCameraAim(true);
     }
 
-    void StopAiming()
+    public void StopAiming()
     {
         playerController.isAiming = false;
         cameraController.ToggleCameraAim(false);

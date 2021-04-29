@@ -43,6 +43,10 @@ public class ThirdPersonCameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //TEMPORARILY DISABLED SORRY - Pelle
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         initialCameraPos = camera.transform.localPosition;
         targetRotationOffset = targetTransform.localRotation.eulerAngles;
         initialFov = camera.fieldOfView;
