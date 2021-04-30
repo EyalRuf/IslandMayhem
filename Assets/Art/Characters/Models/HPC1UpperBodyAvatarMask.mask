@@ -42,10 +42,10 @@ AvatarMask:
   - m_Path: Skeleton/Root/Hip/Thigh.L
     m_Weight: 0
   - m_Path: Skeleton/Root/Hip/Thigh.L/Shin.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Skeleton/Root/Hip/Thigh.R
     m_Weight: 0
   - m_Path: Skeleton/Root/Hip/Thigh.R/Shin.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Torso
     m_Weight: 1

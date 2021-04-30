@@ -13,7 +13,7 @@ public class PlayerCombat : NetworkBehaviour
 
     [Header("Combat")]
     public PlayerPunch punchObj;
-    public float punchCD = 0.5f;
+    public float punchCD = 0.75f;
     public int maxHp = 4;
     public int currHp = 4;
     public float invulnerabilityDuration;
@@ -132,6 +132,20 @@ public class PlayerCombat : NetworkBehaviour
         cController.isCrippled = true;
         pItems.DropItemIfHeld();
     }
+
+    //[ClientRpc]
+    //void RpcCripple()
+    //{
+    //    Cripple();
+    //}
+
+    //[Command]
+    //void CmdCripple(uint pNID)
+    //{
+    //    GameObject player = CustomNetworkManager.GetPlayerByNetId(pNID);
+    //    PlayerCombat pc = player.GetComponent<PlayerCombat>();
+    //    pc.RpcCripple();
+    //}
 
     void Revive ()
     {
