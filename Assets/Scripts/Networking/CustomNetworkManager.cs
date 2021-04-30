@@ -17,7 +17,7 @@ public class CustomNetworkManager : NetworkManager
     //public VivoxVoiceManager _vivoxVoiceManager;
 
     private const string PLAYER_ID_PREFIX = "Player_";
-    private static Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
+    private static Dictionary<string, NetworkIdentity> playersDic = new Dictionary<string, NetworkIdentity>();
     private static string localPlayerId;
     public static bool localPlayerInitialized { get; private set; }
 
@@ -27,10 +27,23 @@ public class CustomNetworkManager : NetworkManager
     [Header("References")]
     public MatchManager matchManager;
 
-    public static void RegisterPlayer(uint netId, GameObject go)
+    void OnLevelWasLoaded(int level)
+    {
+        ResetManager();
+    }
+
+    public void ResetManager()
+    {
+        matchManager.ResetMatch();
+        playersDic = new Dictionary<string, NetworkIdentity>();
+        localPlayerId = null;
+        localPlayerInitialized = false;
+    }
+
+    public static void RegisterPlayer(uint netId, NetworkIdentity go)
     {
         string id = PLAYER_ID_PREFIX + netId;
-        players.Add(id, go);
+        playersDic.Add(id, go);
         go.transform.name = id;
     }
 
@@ -40,31 +53,31 @@ public class CustomNetworkManager : NetworkManager
         localPlayerId = PLAYER_ID_PREFIX + netId;
     }
 
-    public static List<GameObject> GetAllPlayers() 
+    public static List<NetworkIdentity> GetAllPlayers() 
     {
-        return CustomNetworkManager.players.Values.ToList();
+        return playersDic.Values.ToList();
     }
 
-    public static GameObject GetLocalPlayer()
+    public static NetworkIdentity GetLocalPlayer()
     {
         if (localPlayerId == null)
             return null;
 
-        if (players.ContainsKey(localPlayerId))
-            return players[localPlayerId];
+        if (playersDic.ContainsKey(localPlayerId))
+            return playersDic[localPlayerId];
         return null;
     }
 
     public static void UnregisterPlayer(uint netId)
     {
         string id = PLAYER_ID_PREFIX + netId;
-        players.Remove(id);
+        playersDic.Remove(id);
     }
 
-    public static GameObject GetPlayerByNetId (uint netId)
+    public static NetworkIdentity GetPlayerByNetId (uint netId)
     {
         string id = PLAYER_ID_PREFIX + netId;
-        return players[id];
+        return playersDic[id];
     }
 
     #region Matchmaking and Steamworks
@@ -238,13 +251,13 @@ public class CustomNetworkManager : NetworkManager
     /// <para>This allows server to do work / cleanup / prep before the scene changes.</para>
     /// </summary>
     /// <param name="newSceneName">Name of the scene that's about to be loaded</param>
-    public override void OnServerChangeScene(string newSceneName) { }
+    public override void OnServerChangeScene(string newSceneName) { base.OnServerChangeScene(newSceneName); }
 
     /// <summary>
     /// Called on the server when a scene is completed loaded, when the scene load was initiated by the server with ServerChangeScene().
     /// </summary>
     /// <param name="sceneName">The name of the new scene.</param>
-    public override void OnServerSceneChanged(string sceneName) { }
+    public override void OnServerSceneChanged(string sceneName) { base.OnServerSceneChanged(sceneName); }
 
     /// <summary>
     /// Called from ClientChangeScene immediately before SceneManager.LoadSceneAsync is executed
@@ -276,6 +289,7 @@ public class CustomNetworkManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerConnect(NetworkConnection conn) 
     {
+        base.OnServerConnect(conn);
     }
 
     /// <summary>
@@ -316,7 +330,7 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     /// <param name="conn">Connection from client.</param>
     /// <param name="errorCode">Error code.</param>
-    public override void OnServerError(NetworkConnection conn, int errorCode) { }
+    public override void OnServerError(NetworkConnection conn, int errorCode) { base.OnServerError(conn, errorCode); }
 
     #endregion
 
@@ -368,14 +382,14 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     /// <param name="conn">Connection to a server.</param>
     /// <param name="errorCode">Error code.</param>
-    public override void OnClientError(NetworkConnection conn, int errorCode) { }
+    public override void OnClientError(NetworkConnection conn, int errorCode) { base.OnClientError(conn, errorCode); }
 
     /// <summary>
     /// Called on clients when a servers tells the client it is no longer ready.
     /// <para>This is commonly used when switching scenes.</para>
     /// </summary>
     /// <param name="conn">Connection to the server.</param>
-    public override void OnClientNotReady(NetworkConnection conn) { }
+    public override void OnClientNotReady(NetworkConnection conn) { base.OnClientNotReady(conn); }
 
     #endregion
 
@@ -389,7 +403,10 @@ public class CustomNetworkManager : NetworkManager
     /// This is invoked when a host is started.
     /// <para>StartHost has multiple signatures, but they all cause this hook to be called.</para>
     /// </summary>
-    public override void OnStartHost() { }
+    public override void OnStartHost() 
+    {
+        base.OnStartHost();
+    }
 
     /// <summary>
     /// This is invoked when a server is started - including when a host is started.
@@ -397,7 +414,7 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     public override void OnStartServer() 
     {
-       
+        base.OnStartServer();
     }
 
     /// <summary>
@@ -420,20 +437,30 @@ public class CustomNetworkManager : NetworkManager
     /// <summary>
     /// This is called when a host is stopped.
     /// </summary>
-    public override void OnStopHost() { }
+    public override void OnStopHost() 
+    {
+        base.OnStopHost();
+        ResetManager();
+    }
 
     /// <summary>
     /// This is called when a server is stopped - including when a host is stopped.
     /// </summary>
-    public override void OnStopServer() { }
+    public override void OnStopServer() 
+    {
+        base.OnStopServer();
+    }
 
     /// <summary>
     /// This is called when a client is stopped.
     /// </summary>
     public override void OnStopClient() 
     {
+        base.OnStopClient();
         SteamFriends.SetRichPresence("status", "In Menu");
         SteamFriends.SetRichPresence("room", "");
+
+        ResetManager();
     }
 
     #endregion

@@ -1,27 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 
 [System.Serializable]
 public class Team
 {
     public int teamNumber;
-    public List<string> playersInTeam;
+    public List<NetworkPlayer> playersInTeam;
 
     public Team()
     {
         teamNumber = 0;
-        playersInTeam = new List<string>();
+        playersInTeam = new List<NetworkPlayer>();
     }
 
     public Team(int number)
     {
         teamNumber = number;
-        playersInTeam = new List<string>();
+        playersInTeam = new List<NetworkPlayer>();
     }
 
-    public bool IsInTeam(GameObject player)
+    public bool IsInTeam(NetworkPlayer player)
     {
-        return playersInTeam.Contains(player.name);
+        return playersInTeam.Find(p => p.netId == player.netId) != null;
     }
 }

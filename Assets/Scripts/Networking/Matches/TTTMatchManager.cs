@@ -123,6 +123,14 @@ public class TTTMatchManager : MatchManager
 
         yield return new WaitForSeconds(5f);
 
+        if (isClientOnly)
+        {
+            overviewText.text = "";
+            networkManager.StopClient();
+        }
+
+        yield return new WaitForSeconds(2.5f);
+
         if (isServer)
         {
             networkManager.StopHost();
@@ -133,13 +141,28 @@ public class TTTMatchManager : MatchManager
             networkManager.StopServer();
         }
 
-        if (isClientOnly)
-        {
-            networkManager.StopClient();
-        }
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         yield return null;
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        ResetMatch();
+    }
+
+    public override void ResetMatch()
+    {
+        base.ResetMatch();
+
+        foreach (Totem team0Totem in team0Totems)
+        {
+            team0Totem.ResetTotem();
+        }
+
+        foreach (Totem team1Totem in team1Totems)
+        {
+            team1Totem.ResetTotem();
+        }
     }
 }

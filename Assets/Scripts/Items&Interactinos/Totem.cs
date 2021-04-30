@@ -52,11 +52,12 @@ public class Totem : NetworkBehaviour
 
         if(item != null)
         {
-            if (piece != null && !item.isBeingHeld)
+            if (piece != null && !piece.insertedToTotem && !item.isBeingHeld)
             {
                 if (group == TotemPieceGroup.Any || group == piece.group)
                 {
                     piece.group = TotemPieceGroup.None;
+                    piece.insertedToTotem = true;
                     NetworkServer.Destroy(other.gameObject);
                     BuildTotem();
                 }
@@ -76,5 +77,10 @@ public class Totem : NetworkBehaviour
     public void RpcBuildTotem(int stage)
     {
         Instantiate(smokePoof, visuals[Mathf.RoundToInt(Mathf.Clamp(stage, 0, visuals.Length - 1))].transform.position, Quaternion.identity);
+    }
+
+    public void ResetTotem()
+    {
+        currentVisualStage = 0;
     }
 }

@@ -16,6 +16,7 @@ public class PlayerCombat : NetworkBehaviour
     public float punchCD = 0.75f;
     public int maxHp = 4;
     public int currHp = 4;
+    public bool isInulnerable;
     public float invulnerabilityDuration;
     public float regenerationDuration;
     private float regenerationTimer;
@@ -65,7 +66,7 @@ public class PlayerCombat : NetworkBehaviour
     [Command]
     void CmdPlayerPunch (uint playerNID)
     {
-        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerCombat pc = player.GetComponent<PlayerCombat>();
         pc.RpcPunch();
     }
@@ -73,7 +74,8 @@ public class PlayerCombat : NetworkBehaviour
     void ApplyHitOnSelf(Vector3 hitVector, int damage)
     {
         cController.rb.AddForce(hitVector, ForceMode.Impulse);
-        cController.isBeingHit = true;
+        pAnims.GetHitAnim();
+        isInulnerable = true;
 
         if (!cController.isCrippled)
         {
@@ -92,7 +94,7 @@ public class PlayerCombat : NetworkBehaviour
     IEnumerator InulnerabilityTime()
     {
         yield return new WaitForSeconds(invulnerabilityDuration);
-        cController.isBeingHit = false;
+        isInulnerable = false;
     }
 
     [ClientRpc]
@@ -104,25 +106,22 @@ public class PlayerCombat : NetworkBehaviour
     [Command]
     void CmdPlayerWasHit(uint playerNID, Vector3 hitVec, int damage)
     {
-        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerCombat pc = player.GetComponent<PlayerCombat>();
         pc.RpcPlayerWasHit(hitVec, damage);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (isLocalPlayer)
+        if (isLocalPlayer && !isInulnerable)
         {
-            if (!cController.isBeingHit)
-            {
-                HitInflictor hit = other.GetComponent<HitInflictor>();
+            HitInflictor hit = other.GetComponent<HitInflictor>();
 
-                if (hit != null && hit.isActive && hit.initiatorNetId != netId)
-                {
-                    Vector3 knockbackDir = transform.position - hit.transform.position;
-                    CmdPlayerWasHit(netId, knockbackDir * hit.knockbackPower, hit.damage);
-                    hit.HitInflicted();
-                }
+            if (hit != null && hit.isActive && hit.initiatorNetId != netId)
+            {
+                Vector3 knockbackDir = transform.position - hit.transform.position;
+                CmdPlayerWasHit(netId, knockbackDir * hit.knockbackPower, hit.damage);
+                hit.HitInflicted();
             }
         }
     }
@@ -132,20 +131,6 @@ public class PlayerCombat : NetworkBehaviour
         cController.isCrippled = true;
         pItems.DropItemIfHeld();
     }
-
-    //[ClientRpc]
-    //void RpcCripple()
-    //{
-    //    Cripple();
-    //}
-
-    //[Command]
-    //void CmdCripple(uint pNID)
-    //{
-    //    GameObject player = CustomNetworkManager.GetPlayerByNetId(pNID);
-    //    PlayerCombat pc = player.GetComponent<PlayerCombat>();
-    //    pc.RpcCripple();
-    //}
 
     void Revive ()
     {
@@ -162,7 +147,7 @@ public class PlayerCombat : NetworkBehaviour
     [Command]
     void CmdRevive(uint playerNID)
     {
-        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerCombat pc = player.GetComponent<PlayerCombat>();
         pc.RpcRevive();
     }

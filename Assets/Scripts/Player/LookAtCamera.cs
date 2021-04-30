@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,15 +7,15 @@ public class LookAtCamera : MonoBehaviour
 {
     public Transform cam;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (cam == null)
         {
-            GameObject localPlayer = CustomNetworkManager.GetLocalPlayer();
+            NetworkPlayer localPlayer = CustomNetworkManager.GetLocalPlayer()?.GetComponent<NetworkPlayer>();
 
             if(localPlayer != null)
             {
-                cam = localPlayer.transform.GetChild(3).GetChild(0);
+                cam = localPlayer.playerCamera.transform;
             }
         }
         else

@@ -21,6 +21,10 @@ public class NetworkPlayer : NetworkBehaviour
     public Text nameTag;
     public bool hideLocalNametag;
 
+    [Header("Misc")]
+    [SyncVar]
+    public int playerTeam = -1;
+
     void Start()
     {
         if (!isLocalPlayer)
@@ -30,7 +34,6 @@ public class NetworkPlayer : NetworkBehaviour
                 b.enabled = false;
             }
 
-            //assign the localplayer's camera
             playerCamera = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>().playerCamera;
         } 
         else
@@ -39,19 +42,19 @@ public class NetworkPlayer : NetworkBehaviour
             {
                 CmdSetUserName(SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()));
             }
+
+            FindObjectOfType<MatchManager>()?.overviewCam.gameObject.SetActive(false);
         }
     }
 
     private void Update()
     {
+        nameTag.text = userName;
+        nameTag.color = teamColor;
+
         if (isLocalPlayer && hideLocalNametag)
         {
             nameTag.text = "";
-        }
-        else
-        {
-            nameTag.text = userName;
-            nameTag.color = teamColor;
         }
     }
 
@@ -64,7 +67,7 @@ public class NetworkPlayer : NetworkBehaviour
     {
         base.OnStartClient();
 
-        CustomNetworkManager.RegisterPlayer(netId, gameObject);
+        CustomNetworkManager.RegisterPlayer(netId, netIdentity);
 
         if (isLocalPlayer)
         {

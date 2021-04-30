@@ -22,9 +22,9 @@ public class CoconutEvent : RandomEvent
     public override void ServerEvent()
     {
         //spawn coconuts on each player
-        GameObject[] players = CustomNetworkManager.GetAllPlayers().ToArray();
+        NetworkIdentity[] players = CustomNetworkManager.GetAllPlayers().ToArray();
 
-        foreach(GameObject player in players)
+        foreach(NetworkIdentity player in players)
         {
             int spawns = Random.Range(realMinMaxSpawns.x, realMinMaxSpawns.y);
             for(int s = 0; s < spawns; s++)

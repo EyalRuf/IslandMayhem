@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class MinigameManager : MonoBehaviour
     public int numberOfPlayersNeededToStart;
     public int numberOfTeams;
     public List<Team> teams;
-    public List<GameObject> players;
+    public List<NetworkIdentity> players;
 
     [Header("Timer")]
     public float minigameTime = 60000; // 60 seconds
@@ -52,7 +53,7 @@ public class MinigameManager : MonoBehaviour
     protected virtual void CalculateAndAssignTeams()
     {
         teams = new List<Team>();
-        List<GameObject> players = new List<GameObject>(CustomNetworkManager.GetAllPlayers());
+        List<NetworkIdentity> players = new List<NetworkIdentity>(CustomNetworkManager.GetAllPlayers());
         players.Sort(new RandomizeComparer());
 
         //for editor
@@ -70,10 +71,13 @@ public class MinigameManager : MonoBehaviour
         while (players.Count > 0)
         {
             //dequeue
-            GameObject player = players[0];
+            NetworkIdentity player = players[0];
+            NetworkPlayer np = player.GetComponent<NetworkPlayer>();
             players.RemoveAt(0);
 
-            teams[team].playersInTeam.Add(player.name);
+            teams[team].playersInTeam.Add(np);
+            np.playerTeam = team;
+
             team = Mathf.RoundToInt(Mathf.Repeat(++team, teams.Count));
         }
 
@@ -90,7 +94,7 @@ public class MinigameManager : MonoBehaviour
         gameOver = true;
     }
 
-    public int GetTeamIndexByPlayer(GameObject player)
+    public int GetTeamIndexByPlayer(NetworkPlayer player)
     {
         for(int t = 0; t < teams.Count; t++)
         {

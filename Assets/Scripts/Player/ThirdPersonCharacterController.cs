@@ -39,8 +39,6 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     public bool isLookingAround;
     public bool isAttacking;
     [SyncVar]
-    public bool isBeingHit;
-    [SyncVar]
     public bool isCrippled;
 
     [Header("Misc")]
@@ -91,9 +89,11 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         playerVelocity = (rb.position - playerLastPos) / Time.fixedDeltaTime;
         var posOffset = rb.position - playerLastPos;
         playerLastPos = rb.position;
+        var minMovementMagnitude = isCrippled ? 0.05f : 0.15f;
 
         // If traversed some non vertical ditance + horizontal movement is above a low point -> you're inputting movement + you actually moved a bit
-        isMoving = new Vector3(posOffset.x, 0, posOffset.z).magnitude > 0.15f && (Mathf.Abs(lpInput.moveInput.x) > 0.1f || Mathf.Abs(lpInput.moveInput.z) > 0.1f);
+        isMoving = new Vector3(posOffset.x, 0, posOffset.z).magnitude > minMovementMagnitude && 
+            (Mathf.Abs(lpInput.moveInput.x) > 0.1f || Mathf.Abs(lpInput.moveInput.z) > 0.1f);
     }
 
     void Jump()
@@ -117,7 +117,7 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     [Command]
     void CmdJump (uint playerNID)
     {
-        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         ThirdPersonCharacterController pp = player.GetComponent<ThirdPersonCharacterController>();
 
         pp.RpcJump();
@@ -138,6 +138,6 @@ public class ThirdPersonCharacterController : NetworkBehaviour
 
         bool forwardMovementInput = lpInput.moveInput.z > 0;
 
-        return wasSprintingWhenJumped && forwardMovementInput && !isAiming && !isBeingHit && !isCrippled;
+        return wasSprintingWhenJumped && forwardMovementInput && !isAiming && !isCrippled;
     }
 }

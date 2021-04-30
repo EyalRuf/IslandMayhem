@@ -27,16 +27,17 @@ public class ThrowableItem : PickupableItem
     private Vector3 currObjectVelocity;
     private Vector3 lastPosition;
 
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     public override void Update()
     {
         base.Update();
         drawTrajectory = currUsingPlayer != null ? currUsingPlayer.lpInput.itemSecondaryUsage : false;
         lineRenderer.enabled = drawTrajectory;
+
+        if (isGrounded) // after hit ground can't hit players anymore
+        {
+            hitInflictor.isActive = false;
+        }
     }
 
     public override void FixedUpdate()

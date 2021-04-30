@@ -137,8 +137,7 @@ public class PlayerItemInteractions : NetworkBehaviour
     [Command]
     void CmdPickupItem(uint playerNID, uint objectNID)
     {
-        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
-
+        NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerItemInteractions pp = player.GetComponent<PlayerItemInteractions>();
 
         pp.RpcPickup(objectNID);
@@ -182,7 +181,7 @@ public class PlayerItemInteractions : NetworkBehaviour
     [Command]
     void CmdDropItem(uint playerNID)
     {
-        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerItemInteractions pp = player.GetComponent<PlayerItemInteractions>();
 
         pp.RpcDrop();
@@ -220,7 +219,7 @@ public class PlayerItemInteractions : NetworkBehaviour
     [Command]
     void CmdUseItem(uint playerNID, bool isItemMainUse)
     {
-        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerItemInteractions pp = player.GetComponent<PlayerItemInteractions>();
 
         pp.RpcUseItem(isItemMainUse);

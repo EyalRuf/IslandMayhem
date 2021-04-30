@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 public class IA_Totem : InteractionArea
 {
@@ -33,8 +34,10 @@ public class IA_Totem : InteractionArea
         canBeInteractedWith = !maxVisualStageReached;
     }
 
-    public override void OnEndInteraction()
+    public override IEnumerator Interact(Action<InteractionArea> endInteractionListener)
     {
+        yield return base.Interact(endInteractionListener);
+
         PlayerItemInteractions player = CustomNetworkManager.GetLocalPlayer().GetComponent<PlayerItemInteractions>();
         if (player.heldItem != null) //we can match this more specifically later on
         {
@@ -50,10 +53,10 @@ public class IA_Totem : InteractionArea
             }
         }
 
-        base.OnEndInteraction();
+        EndInteraction(endInteractionListener);
     }
 
-    [Command(channel = 0, ignoreAuthority = true)]
+    [Command(ignoreAuthority = true)]
     public void CmdBuildTotem()
     {
         RpcBuildTotem(currentVisualStage);
