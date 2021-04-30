@@ -663,6 +663,67 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6296080652301181609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5736755996257414559}
+  - component: {fileID: 31712397221255480}
+  - component: {fileID: 5944219647236976084}
+  m_Layer: 0
+  m_Name: LowerBoundBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5736755996257414559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296080652301181609}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -100, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7476827081589835148}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &31712397221255480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296080652301181609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c2bc846f93cea4c99a47da5d0e5f21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnHeight: {x: 0, y: 400, z: 0}
+  objectMask:
+    serializedVersion: 2
+    m_Bits: 768
+--- !u!65 &5944219647236976084
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296080652301181609}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5000, y: 100, z: 5000}
+  m_Center: {x: 0, y: -50, z: 0}
 --- !u!1 &6541720141168937252
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,6 +1353,7 @@ Transform:
   - {fileID: 7476827082038273284}
   - {fileID: 8645882275752007580}
   - {fileID: 7476827081913361300}
+  - {fileID: 5736755996257414559}
   - {fileID: 1254622318364717956}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1416,6 +1478,7 @@ MonoBehaviour:
   - {fileID: 3396668420586916290, guid: 0cf4970e31faab444a2db73d9f905208, type: 3}
   - {fileID: 3192004044822027774, guid: 348699131c785ca4a8e61cdfae0ea7e0, type: 3}
   - {fileID: 188268801859170097, guid: 14887700e46524543957cb3e19a9b0c6, type: 3}
+  - {fileID: 5064946466480294782, guid: 7e48e88ff724ac342b57506c754a5999, type: 3}
   isSteam: 0
   matchManager: {fileID: 6379415000001608967}
   matchmakingSearching: 0
@@ -1845,7 +1908,7 @@ PrefabInstance:
     - target: {fileID: 7546978050412687941, guid: d4701dc4fb3f91843ac199b446e26e80,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7546978050412687941, guid: d4701dc4fb3f91843ac199b446e26e80,
         type: 3}
