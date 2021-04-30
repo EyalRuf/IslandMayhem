@@ -38,7 +38,9 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     public bool isAiming;
     public bool isLookingAround;
     public bool isAttacking;
+    [SyncVar]
     public bool isBeingHit;
+    [SyncVar]
     public bool isCrippled;
 
     [Header("Misc")]
@@ -53,11 +55,8 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         isLookingAround = lpInput.lookAroundInput;
         isHoldingItem = playerItems.heldItem != null;
 
-        if (isGrounded && lpInput.jumpInput && !jumpCDFlag)
-        {
-            applyJump = true;
-            wasSprintingWhenJumped = isSprinting;
-        }
+        // Jump if not crip & on floor & not currently jumping & pressing jump input
+        applyJump = !isCrippled && isGrounded && lpInput.jumpInput && !jumpCDFlag;
 
         currMoveSpeed = isCrippled ? baseMoveSpeed / 2 : isSprinting ? baseMoveSpeed * sprintSpeedMultiplyer : baseMoveSpeed;
     }
@@ -67,11 +66,12 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         //move
         rb.MovePosition(rb.position + rb.rotation * (lpInput.moveInput * currMoveSpeed * Time.fixedDeltaTime));
 
-        if (!isCrippled && applyJump)
+        if (applyJump)
         {
-            CmdJump(netId);
+            wasSprintingWhenJumped = isSprinting;
             applyJump = false;
             jumpCDFlag = true;
+            CmdJump(netId);
             StartCoroutine(JumpCDApplier());
         }
 
@@ -80,23 +80,31 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         {
             Vector3 newVelocity = rb.velocity * (1 - groundedDrag * Time.fixedDeltaTime);
             rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
-        } else if(rb.useGravity) // Whenever we're not grounded apply gravity forces
+        } else if (rb.useGravity) // Whenever we're not grounded apply gravity forces
         {
             rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
         }
 
-        //set physics material
+        // Set physics material
         playerCollider.material = isGrounded ? groundedMaterial : airBorneMaterial;
 
         playerVelocity = (rb.position - playerLastPos) / Time.fixedDeltaTime;
         var posOffset = rb.position - playerLastPos;
-        isMoving = new Vector3(posOffset.x, 0, posOffset.z).magnitude > 0.2f;
         playerLastPos = rb.position;
+
+        // If traversed some non vertical ditance + horizontal movement is above a low point -> you're inputting movement + you actually moved a bit
+        isMoving = new Vector3(posOffset.x, 0, posOffset.z).magnitude > 0.15f && (Mathf.Abs(lpInput.moveInput.x) > 0.1f || Mathf.Abs(lpInput.moveInput.z) > 0.1f);
     }
 
     void Jump()
     {
         playerAnims.JumpAnim();
+
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        }
+
         rb.velocity += Vector3.up * jumpForce;
     }
 
