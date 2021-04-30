@@ -808,12 +808,12 @@ MonoBehaviour:
   sprintSpeedMultiplyer: 1.5
   isGrounded: 0
   groundCheck: {fileID: 8297925719936001042}
-  groundCheckDistance: 0.35
+  groundCheckDistance: 1
   groundCheckMask:
     serializedVersion: 2
     m_Bits: 1559
   jumpForce: 25
-  jumpCD: 0.1
+  jumpCD: 0.75
   isHoldingItem: 0
   isAiming: 0
   isLookingAround: 0
@@ -1029,7 +1029,7 @@ MonoBehaviour:
   punchCD: 0.5
   maxHp: 4
   currHp: 4
-  invulnerabilityDuration: 0.75
+  invulnerabilityDuration: 1
   regenerationDuration: 10
 --- !u!1 &8297925720464115939
 GameObject:
@@ -1614,7 +1614,7 @@ PrefabInstance:
     - target: {fileID: 6039192194298955567, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6039192194298955567, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
@@ -1659,7 +1659,7 @@ PrefabInstance:
     - target: {fileID: 6690779205446499095, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
       propertyPath: m_Radius
-      value: 3
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7507895164393320795, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
