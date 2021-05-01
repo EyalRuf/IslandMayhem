@@ -153702,6 +153702,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6379415000001608967, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: numberOfPlayersNeededToStart
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6408115012204009071, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
       propertyPath: sceneId
