@@ -43,27 +43,30 @@ public class SteamlessVoiceChat : NetworkBehaviour
 
     private void Update()
     {
-        int micReadPos = Microphone.GetPosition(Microphone.devices[deviceIndex]); //read pos
-        int sampleDiff = (micReadPos < lastMicReadPos) ? //get the difference in audio samples
-            microphoneClip.samples - lastMicReadPos + micReadPos
-            :
-            micReadPos - lastMicReadPos
-            ;
-
-        int packetDiff = Mathf.FloorToInt((float)sampleDiff / (float)chunkSize); //find number of packets in sample diff
-
-        if (Input.GetKey(voiceChatKey))
+        if (isLocalPlayer)
         {
-            for (int p = 0; p < packetDiff; p++) //send packets
+            int micReadPos = Microphone.GetPosition(Microphone.devices[deviceIndex]); //read pos
+            int sampleDiff = (micReadPos < lastMicReadPos) ? //get the difference in audio samples
+                microphoneClip.samples - lastMicReadPos + micReadPos
+                :
+                micReadPos - lastMicReadPos
+                ;
+
+            int packetDiff = Mathf.FloorToInt((float)sampleDiff / (float)chunkSize); //find number of packets in sample diff
+
+            if (Input.GetKey(voiceChatKey))
             {
-                VoicePacket packet = new VoicePacket(GetDataFromMic(chunkSize, lastMicReadPos + (p * chunkSize)));
-                Debug.Log(packet.chunk.Length);
+                for (int p = 0; p < packetDiff; p++) //send packets
+                {
+                    VoicePacket packet = new VoicePacket(GetDataFromMic(chunkSize, lastMicReadPos + (p * chunkSize)));
+                    Debug.Log(packet.chunk.Length);
 
-                SendPacket(packet);
+                    SendPacket(packet);
+                }
             }
-        }
 
-        lastMicReadPos += packetDiff * chunkSize; //advance lastReadPos by how many packets we made
+            lastMicReadPos += packetDiff * chunkSize; //advance lastReadPos by how many packets we made
+        }
     }
 
     private float[] GetDataFromMic(int length, int offset)
