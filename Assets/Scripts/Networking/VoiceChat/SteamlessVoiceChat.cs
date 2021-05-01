@@ -19,6 +19,7 @@ public class SteamlessVoiceChat : NetworkBehaviour
     public List<VoicePacket> packetQueue = new List<VoicePacket>();
     private AudioClip microphoneClip;
     private int lastMicReadPos = 0;
+    private string device;
 
     private int playbackSampleRate;
     private float playbackPos = 0;
@@ -30,10 +31,10 @@ public class SteamlessVoiceChat : NetworkBehaviour
         playbackSampleRate = AudioSettings.outputSampleRate;
 
         //start mic
-        string device = (deviceIndex < 0) ? "" : Microphone.devices[deviceIndex];
+        device = (deviceIndex < 0) ? "" : Microphone.devices[deviceIndex];
 
         microphoneClip = Microphone.Start(device, true, 1, sampleRate);
-        lastMicReadPos = Microphone.GetPosition(Microphone.devices[deviceIndex]);
+        lastMicReadPos = Microphone.GetPosition(device);
 
         //start playback source
         source = GetComponent<AudioSource>();
@@ -47,7 +48,7 @@ public class SteamlessVoiceChat : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            int micReadPos = Microphone.GetPosition(Microphone.devices[deviceIndex]); //read pos
+            int micReadPos = Microphone.GetPosition(device); //read pos
             int sampleDiff = (micReadPos < lastMicReadPos) ? //get the difference in audio samples
                 microphoneClip.samples - lastMicReadPos + micReadPos
                 :
