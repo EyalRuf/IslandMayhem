@@ -96,9 +96,10 @@ public class SteamlessVoiceChat : NetworkBehaviour
         CmdSendData(NetworkTools.ObjectToData(packet));
     }
 
-    [Command(channel = 1)] //unreliable for speed
+    [Command]
     private void CmdSendData(byte[] message)
     {
+        /*
         //get all players
         NetworkIdentity[] players = CustomNetworkManager.GetAllPlayers().Where(p => p != netIdentity).ToArray();
 
@@ -107,13 +108,16 @@ public class SteamlessVoiceChat : NetworkBehaviour
         {
             if (Vector3.Distance(transform.position, players[p].transform.position) < source.maxDistance)
             {
-                TargetReceiveData(players[p].connectionToClient, message);
+                ClientReceiveData(message);
             }
         }
+        */
+
+        ClientReceiveData(message);
     }
 
-    [TargetRpc(channel = 1)] //unreliable for speed
-    private void TargetReceiveData(NetworkConnection connection, byte[] message)
+    [ClientRpc]
+    private void ClientReceiveData(byte[] message)
     {
         VoicePacket serializedMessage = null;
 
