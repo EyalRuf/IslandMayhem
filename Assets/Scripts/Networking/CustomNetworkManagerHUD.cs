@@ -13,7 +13,6 @@ using Steamworks;
 [RequireComponent(typeof(NetworkManager), typeof(CustomNetworkManager))]
 public class CustomNetworkManagerHUD : MonoBehaviour
 {
-    NetworkManager manager;
     public CustomNetworkManager customManager;
 
     /// <summary>
@@ -37,7 +36,6 @@ public class CustomNetworkManagerHUD : MonoBehaviour
 
     void Awake()
     {
-        manager = GetComponent<NetworkManager>();
         customManager = GetComponent<CustomNetworkManager>();
     }
 
@@ -107,8 +105,8 @@ public class CustomNetworkManagerHUD : MonoBehaviour
                     if (GUILayout.Button("Host (Server + Client)"))
                     {
                         if (customManager.isSteam)
-                            manager.networkAddress = SteamUser.GetSteamID().ToString();
-                        manager.StartHost();
+                            customManager.networkAddress = SteamUser.GetSteamID().ToString();
+                        customManager.StartHost();
                     }
                 }
 
@@ -116,9 +114,9 @@ public class CustomNetworkManagerHUD : MonoBehaviour
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Client"))
                 {
-                    manager.StartClient();
+                    customManager.StartClient();
                 }
-                manager.networkAddress = GUILayout.TextField(manager.networkAddress);
+                customManager.networkAddress = GUILayout.TextField(customManager.networkAddress);
                 GUILayout.EndHorizontal();
 
                 // Server Only
@@ -129,7 +127,7 @@ public class CustomNetworkManagerHUD : MonoBehaviour
                 }
                 else
                 {
-                    if (GUILayout.Button("Server Only")) manager.StartServer();
+                    if (GUILayout.Button("Server Only")) customManager.StartServer();
                 }
 
                 if (GUILayout.Button("Join Friends"))
@@ -159,8 +157,8 @@ public class CustomNetworkManagerHUD : MonoBehaviour
                     {
                         if (GUILayout.Button("Join " + friend.Value))
                         {
-                            manager.networkAddress = SteamFriends.GetFriendRichPresence(SteamFriends.GetFriendByIndex(friend.Key, EFriendFlags.k_EFriendFlagAll), "room");
-                            manager.StartClient();
+                            customManager.networkAddress = SteamFriends.GetFriendRichPresence(SteamFriends.GetFriendByIndex(friend.Key, EFriendFlags.k_EFriendFlagAll), "room");
+                            customManager.StartClient();
                         }
                     }
                 }
@@ -173,10 +171,10 @@ public class CustomNetworkManagerHUD : MonoBehaviour
         else
         {
             // Connecting
-            GUILayout.Label("Connecting to " + manager.networkAddress + "..");
+            GUILayout.Label("Connecting to " + customManager.networkAddress + "..");
             if (GUILayout.Button("Cancel Connection Attempt"))
             {
-                manager.StopClient();
+                customManager.StopClient();
             }
         }
     }
@@ -190,7 +188,7 @@ public class CustomNetworkManagerHUD : MonoBehaviour
         }
         if (NetworkClient.isConnected)
         {
-            GUILayout.Label("Client: address=" + manager.networkAddress);
+            GUILayout.Label("Client: address=" + customManager.networkAddress);
         }
     }
 
@@ -201,7 +199,7 @@ public class CustomNetworkManagerHUD : MonoBehaviour
         {
             if (GUILayout.Button("Stop Host"))
             {
-                manager.StopHost();
+                customManager.StopHost();
             }
 
             // Client + IP
@@ -218,7 +216,7 @@ public class CustomNetworkManagerHUD : MonoBehaviour
         {
             if (GUILayout.Button("Stop Client"))
             {
-                manager.StopClient();
+                customManager.StopClient();
             }
         }
         // stop server if server-only
@@ -226,7 +224,7 @@ public class CustomNetworkManagerHUD : MonoBehaviour
         {
             if (GUILayout.Button("Stop Server"))
             {
-                manager.StopServer();
+                customManager.StopServer();
             }
         }
     }

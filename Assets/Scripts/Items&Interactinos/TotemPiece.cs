@@ -5,6 +5,7 @@ using UnityEngine;
 public class TotemPiece : MonoBehaviour
 {
     public TotemPieceGroup group = TotemPieceGroup.Any;
+    public bool insertedToTotem = false;
 }
 
 public enum TotemPieceGroup

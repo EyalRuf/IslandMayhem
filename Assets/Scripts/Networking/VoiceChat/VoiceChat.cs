@@ -235,14 +235,14 @@ public class VoiceChat : NetworkBehaviour
     private void CmdSendData(byte[] message)
     {
         //get all players
-        GameObject[] players = CustomNetworkManager.GetAllPlayers().Where(p => p != gameObject).ToArray();
+        NetworkIdentity[] players = CustomNetworkManager.GetAllPlayers().Where(p => p != gameObject).ToArray();
 
         //only send to players within the audiosource's range.
         for (int p = 0; p < players.Length; p++)
         {
             if (Vector3.Distance(transform.position, players[p].transform.position) < m_audioSource.maxDistance)
             {
-                TargetReceiveData(players[p].GetComponent<NetworkIdentity>().connectionToClient, message);
+                TargetReceiveData(players[p].connectionToClient, message);
             }
         }
     }

@@ -14,9 +14,9 @@ public class PlayerAnimations : MonoBehaviour
     private const string anim_param_b_holding_item = "isHoldingAnItem";
     private const string anim_param_b_throwing = "isThrowing";
     private const string anim_param_b_aiming = "isAiming";
-    private const string anim_param_b_beingHit = "isBeingHit";
     private const string anim_param_b_crippled = "isCrippled";
     private const string anim_param_b_interacting = "isInteracting";
+    private const string anim_param_t_beingHit = "beingHitTrigger";
     private const string anim_param_t_jump = "jumpTrigger";
     private const string anim_param_t_throw = "throwTrigger";
     private const string anim_param_t_punch = "punchTrigger";
@@ -39,7 +39,6 @@ public class PlayerAnimations : MonoBehaviour
         animator.SetBool(anim_param_b_aiming, cController.isAiming);
         animator.SetBool(anim_param_b_holding_item, isThrowing || cController.playerItems.heldItem != null);
         animator.SetBool(anim_param_b_throwing, isThrowing);
-        animator.SetBool(anim_param_b_beingHit, cController.isBeingHit);
         animator.SetBool(anim_param_b_crippled, cController.isCrippled);
     }
 
@@ -94,5 +93,16 @@ public class PlayerAnimations : MonoBehaviour
     public void ResetPunchTrigger()
     {
         animator.ResetTrigger(anim_param_t_punch);
+    }
+
+    public void GetHitAnim()
+    {
+        animator.SetTrigger(anim_param_t_beingHit);
+        StartCoroutine(ResetTriggerCR(ResetPunchTrigger, triggerResetTime));
+    }
+
+    public void ResetBeingHitTrigger()
+    {
+        animator.ResetTrigger(anim_param_t_beingHit);
     }
 }

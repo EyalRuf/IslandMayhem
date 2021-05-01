@@ -35,13 +35,13 @@ public class MatchManager : NetworkBehaviour
 
     protected virtual void Start()
     {
-        if (!isServer) //server only
-            return;
+        //if (!isServer) // Server only
+        //    return;
 
-        //set status
+        // Set status
         gameStatus = "Waiting for players...";
 
-        //get network manager
+        // Get network manager
         networkManager = FindObjectOfType<CustomNetworkManager>();
     }
 
@@ -80,6 +80,16 @@ public class MatchManager : NetworkBehaviour
         }
     }
 
+    public virtual void ResetMatch()
+    {
+        gameStarted = false;
+        gameOver = false;
+        gameStatus = "Waiting for players...";
+        teams = new List<Team>();
+        overviewCam.gameObject.SetActive(true);
+        overviewText.text = "";
+    }
+
     private void OnGUI()
     {
         //custom UI for casper
@@ -112,7 +122,7 @@ public class MatchManager : NetworkBehaviour
             return;
 
         teams = new List<Team>();
-        List<GameObject> players = new List<GameObject>(CustomNetworkManager.GetAllPlayers());
+        List<NetworkIdentity> players = new List<NetworkIdentity>(CustomNetworkManager.GetAllPlayers());
         players.Sort(new RandomizeComparer());
 
         //add teams
@@ -127,14 +137,16 @@ public class MatchManager : NetworkBehaviour
         while (players.Count > 0)
         {
             //dequeue
-            GameObject player = players[0];
+            NetworkIdentity player = players[0];
+            NetworkPlayer np = player.GetComponent<NetworkPlayer>();
             players.RemoveAt(0);
 
             //give team color
-            player.GetComponent<NetworkPlayer>().teamColor = teamColors[team];
+            np.teamColor = teamColors[team];
+            np.playerTeam = team;
 
             //assign to team
-            teams[team].playersInTeam.Add(player.name);
+            teams[team].playersInTeam.Add(np);
             team = Mathf.RoundToInt(Mathf.Repeat(++team, teams.Count));
         }
     }
@@ -191,12 +203,13 @@ public class MatchManager : NetworkBehaviour
             gameOver = true;
         }
 
+        overviewCam.gameObject.SetActive(true);
         overviewCam.depth++;
 
         yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
     }
 
-    public int GetTeamIndexByPlayer(GameObject player)
+    public int GetTeamIndexByPlayer(NetworkPlayer player)
     {
         for (int t = 0; t < teams.Count; t++)
         {
@@ -230,9 +243,9 @@ public class TeamInfo
     }
 }
 
-public class RandomizeComparer : IComparer<GameObject>
+public class RandomizeComparer : IComparer<object>
 {
     private readonly System.Random _random = new System.Random();
 
-    public int Compare(GameObject x, GameObject y) => _random.Next(-1, 2);
+    public int Compare(object x, object y) => _random.Next(-1, 2);
 }

@@ -642,8 +642,8 @@ ModelImporter:
       name: SkeletonNew|13-Hit
       takeName: Skeleton|13-Hit
       internalID: 0
-      firstFrame: 3
-      lastFrame: 20
+      firstFrame: 6
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

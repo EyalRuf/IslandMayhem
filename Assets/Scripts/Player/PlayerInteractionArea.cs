@@ -8,6 +8,7 @@ public class PlayerInteractionArea : NetworkBehaviour
     [Header("References")]
     public LocalPlayerInput lpInput;
     public PlayerAnimations playerAnims;
+    public NetworkPlayer networkPlayer;
     public Behaviour[] disableWhileInteracting;
 
     [Header("InteractionArea")]
@@ -15,22 +16,11 @@ public class PlayerInteractionArea : NetworkBehaviour
     public Transform areaCheckTransform;
     public float areaCheckSphereRadius;
 
-    [Header("Misc")]
-    public int playerTeam = -1;
-
-    private MatchManager matchManager;
-
     // Update is called once per frame
     void Update()
     {
         if (!isLocalPlayer)
             return;
-
-        if(matchManager == null)
-        {
-            matchManager = FindObjectOfType<MatchManager>();
-            playerTeam = matchManager.GetTeamIndexByPlayer(gameObject);
-        }
 
         if (lpInput.interactInputDown)
         {
@@ -40,7 +30,7 @@ public class PlayerInteractionArea : NetworkBehaviour
                 InteractionArea area = cols[0].GetComponent<InteractionArea>();
                 if (area.canBeInteractedWith && !area.beingInteractedWith)
                 {
-                    if (area.restrictedToTeam >= 0 ? area.restrictedToTeam == playerTeam : true)
+                    if (area.restrictedToTeam >= 0 ? area.restrictedToTeam == networkPlayer.playerTeam : true)
                     {
                         CmdInteractWithArea(netId, area.netId);
                     }
@@ -51,16 +41,22 @@ public class PlayerInteractionArea : NetworkBehaviour
 
     void InteractWithArea(InteractionArea area)
     {
-        playerAnims.StartInteractingAnim();
-        EnableOrDisableBehaviors(false);
-        StartCoroutine(area.Interact(EndInteractionWithArea));
+        if (isLocalPlayer)
+        {
+            playerAnims.StartInteractingAnim();
+            EnableOrDisableBehaviors(false);
+
+            //netIdentity.AssignClientAuthority(netIdentity.connectionToClient);
+            StartCoroutine(area.Interact(EndInteractionWithArea));
+        }
     }
 
-    bool EndInteractionWithArea ()
+    void EndInteractionWithArea (InteractionArea area)
     {
         EnableOrDisableBehaviors(true);
         playerAnims.StopInteractingAnim();
-        return true;
+
+        //area.netIdentity.RemoveClientAuthority();
     }
 
     void EnableOrDisableBehaviors (bool isEnabled)
@@ -83,7 +79,7 @@ public class PlayerInteractionArea : NetworkBehaviour
 
         if (area != null)
         {
-            this.InteractWithArea(area);
+            InteractWithArea(area);
         }
         else
         {
@@ -94,7 +90,7 @@ public class PlayerInteractionArea : NetworkBehaviour
     [Command]
     void CmdInteractWithArea(uint playerNID, uint areaNID)
     {
-        GameObject player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerInteractionArea pia = player.GetComponent<PlayerInteractionArea>();
 
         pia.RpcInteractWithArea(areaNID);

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Mirror;
+using System;
 
 public class IA_DiggingSite : InteractionArea
 {
@@ -8,18 +9,19 @@ public class IA_DiggingSite : InteractionArea
     public GameObject[] spawnableObjects;
     public int spawnPercentage;
 
-    public override void OnEndInteraction()
+    public override IEnumerator Interact(Action<InteractionArea> endInteractionListener)
     {
+        yield return base.Interact(endInteractionListener);
+
         // Spawn object on server
         CmdSpawnObj();
-
-        base.OnEndInteraction();
+        EndInteraction(endInteractionListener);
     }
 
-    [Command]
+    [Command(ignoreAuthority = true)]
     void CmdSpawnObj()
     {
-        GameObject toSpawn = spawnableObjects[Random.Range(0, spawnableObjects.Length)];
+        GameObject toSpawn = spawnableObjects[UnityEngine.Random.Range(0, spawnableObjects.Length)];
         GameObject spawned = Instantiate(toSpawn, transform.position + (Vector3.up * 3), transform.rotation);
         NetworkServer.Spawn(spawned);
     }

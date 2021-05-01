@@ -29,7 +29,7 @@ public class PickupableItem : NetworkBehaviour
         if (CustomNetworkManager.localPlayerInitialized)
         {
             // Disable outline if player is not close anymore or im being held
-            GameObject localPlayer = CustomNetworkManager.GetLocalPlayer();
+            NetworkIdentity localPlayer = CustomNetworkManager.GetLocalPlayer();
             if (isBeingHeld || Vector3.Distance(transform.position, localPlayer.transform.position) > outlineDistance)
             {
                 Outline(false);

@@ -1411,7 +1411,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7476827082030000008
 Transform:
@@ -1470,7 +1470,7 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 8297925720422174642, guid: ae6d0d3e9f62426409e367b8f02c613f,
+  playerPrefab: {fileID: 8297925720422174642, guid: 2b8c973e3da05a64ab92649e93d50726,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
@@ -1479,6 +1479,10 @@ MonoBehaviour:
   - {fileID: 3192004044822027774, guid: 348699131c785ca4a8e61cdfae0ea7e0, type: 3}
   - {fileID: 188268801859170097, guid: 14887700e46524543957cb3e19a9b0c6, type: 3}
   - {fileID: 5064946466480294782, guid: 7e48e88ff724ac342b57506c754a5999, type: 3}
+  - {fileID: 4473910350010878306, guid: d2796a08b4f73f64f84503d050330f16, type: 3}
+  - {fileID: 3396668420586916290, guid: 0e506b3c7c23d5443b042c9f44ba2da8, type: 3}
+  - {fileID: 108775995623184790, guid: c6e06e162a57eb94eb402ee8f70ff927, type: 3}
+  - {fileID: 4666147733101786583, guid: f367850b2f3e6544494486958b2db7bb, type: 3}
   isSteam: 0
   matchManager: {fileID: 6379415000001608967}
   matchmakingSearching: 0
