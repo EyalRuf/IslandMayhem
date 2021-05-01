@@ -66,7 +66,7 @@ public class SteamlessVoiceChat : NetworkBehaviour
                     SendPacket(packet);
                 }
             }
-
+            
             lastMicReadPos += packetDiff * chunkSize; //advance lastReadPos by how many packets we made
         }
     }
@@ -115,34 +115,29 @@ public class SteamlessVoiceChat : NetworkBehaviour
         }
         */
 
-        //get all players
-        NetworkIdentity[] players = CustomNetworkManager.GetAllPlayers().Where(p => p != netIdentity).ToArray();
-
-        //only send to players within the audiosource's range.
-        for (int p = 0; p < players.Length; p++)
-        {
-            TargetReceiveData(players[p].connectionToClient, message);
-        }
-
+        ClientReceiveData(message);
     }
 
-    [TargetRpc]
-    private void TargetReceiveData(NetworkConnection connection, byte[] message)
+    [ClientRpc]
+    private void ClientReceiveData(byte[] message)
     {
-        VoicePacket serializedMessage = null;
+        if (!isLocalPlayer)
+        {
+            VoicePacket serializedMessage = null;
 
-        try
-        {
-            serializedMessage = (VoicePacket)NetworkTools.DataToObject(message);
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogError(ex.ToString());
-        }
+            try
+            {
+                serializedMessage = (VoicePacket)NetworkTools.DataToObject(message);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError(ex.ToString());
+            }
 
-        if (serializedMessage != null)
-        {
-            packetQueue.Add(serializedMessage);
+            if (serializedMessage != null)
+            {
+                packetQueue.Add(serializedMessage);
+            }
         }
     }
 
