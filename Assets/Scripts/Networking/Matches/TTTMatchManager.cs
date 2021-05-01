@@ -155,6 +155,9 @@ public class TTTMatchManager : MatchManager
     {
         base.ResetMatch();
 
+        team0Won = false;
+        team1Won = false;
+
         foreach (Totem team0Totem in team0Totems)
         {
             team0Totem.ResetTotem();
