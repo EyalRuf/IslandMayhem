@@ -62,7 +62,6 @@ public class SteamlessVoiceChat : NetworkBehaviour
                 for (int p = 0; p < packetDiff; p++) //send packets
                 {
                     VoicePacket packet = new VoicePacket(GetDataFromMic(chunkSize, lastMicReadPos + (p * chunkSize)));
-                    Debug.Log(packet.chunk.Length);
 
                     SendPacket(packet);
                 }
@@ -116,11 +115,19 @@ public class SteamlessVoiceChat : NetworkBehaviour
         }
         */
 
-        ClientReceiveData(message);
+        //get all players
+        NetworkIdentity[] players = CustomNetworkManager.GetAllPlayers().Where(p => p != netIdentity).ToArray();
+
+        //only send to players within the audiosource's range.
+        for (int p = 0; p < players.Length; p++)
+        {
+            TargetReceiveData(players[p].connectionToClient, message);
+        }
+
     }
 
-    [ClientRpc]
-    private void ClientReceiveData(byte[] message)
+    [TargetRpc]
+    private void TargetReceiveData(NetworkConnection connection, byte[] message)
     {
         VoicePacket serializedMessage = null;
 
