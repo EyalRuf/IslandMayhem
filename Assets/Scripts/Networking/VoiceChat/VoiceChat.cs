@@ -301,37 +301,3 @@ public class VoiceChatPacket
         }
     }
 }
-
-public static class NetworkTools
-{
-    public static byte[] ObjectToData(object msg)
-    {
-        System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-        using (var ms = new System.IO.MemoryStream())
-        {
-            bf.Serialize(ms, (object)msg);
-            return ms.ToArray();
-        }
-    }
-
-    public static object DataToObject(byte[] data)
-    {
-        using (var memStream = new System.IO.MemoryStream())
-        {
-            var binForm = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            memStream.Write(data, 0, data.Length);
-            memStream.Seek(0, System.IO.SeekOrigin.Begin);
-            var obj = binForm.Deserialize(memStream);
-
-            try
-            {
-                return obj;
-            }
-            catch
-            {
-                Debug.LogWarning("Could not convert data to message.");
-                return null;
-            }
-        }
-    }
-}
