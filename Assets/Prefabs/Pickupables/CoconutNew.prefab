@@ -303,7 +303,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   rb: {fileID: 4473910350010878304}
-  col: {fileID: 0}
+  col: {fileID: 4926472309480314405}
   originalParent: {fileID: 0}
   outline: {fileID: 8956900972519205413}
   isBeingHeld: 0
