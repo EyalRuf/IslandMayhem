@@ -63,7 +63,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   spawnableObjects:
-  - {fileID: 3192004044822027774, guid: 348699131c785ca4a8e61cdfae0ea7e0, type: 3}
+  - {fileID: 4666147733101786583, guid: f367850b2f3e6544494486958b2db7bb, type: 3}
   spawnRange: {x: 25, y: 0, z: 25}
   minMaxSpawns: {x: 5, y: 5}
 --- !u!1 &258990044
@@ -129,7 +129,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   spawnableObjects:
-  - {fileID: 188268801859170097, guid: 14887700e46524543957cb3e19a9b0c6, type: 3}
+  - {fileID: 108775995623184790, guid: c6e06e162a57eb94eb402ee8f70ff927, type: 3}
   spawnRange: {x: 25, y: 0, z: 25}
   minMaxSpawns: {x: 5, y: 5}
 --- !u!1 &437315309
@@ -195,7 +195,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   spawnableObjects:
-  - {fileID: 188268801859170097, guid: 14887700e46524543957cb3e19a9b0c6, type: 3}
+  - {fileID: 108775995623184790, guid: c6e06e162a57eb94eb402ee8f70ff927, type: 3}
   spawnRange: {x: 25, y: 0, z: 25}
   minMaxSpawns: {x: 5, y: 5}
 --- !u!1 &523967425
@@ -261,7 +261,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   spawnableObjects:
-  - {fileID: 3192004044822027774, guid: 348699131c785ca4a8e61cdfae0ea7e0, type: 3}
+  - {fileID: 4666147733101786583, guid: f367850b2f3e6544494486958b2db7bb, type: 3}
   spawnRange: {x: 25, y: 0, z: 25}
   minMaxSpawns: {x: 5, y: 5}
 --- !u!1 &2925836236490887556
@@ -327,7 +327,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   spawnableObjects:
-  - {fileID: 3192004044822027774, guid: 348699131c785ca4a8e61cdfae0ea7e0, type: 3}
+  - {fileID: 4666147733101786583, guid: f367850b2f3e6544494486958b2db7bb, type: 3}
   spawnRange: {x: 25, y: 0, z: 25}
   minMaxSpawns: {x: 5, y: 5}
 --- !u!1 &2925836236810722704
@@ -436,7 +436,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   spawnableObjects:
-  - {fileID: 188268801859170097, guid: 14887700e46524543957cb3e19a9b0c6, type: 3}
+  - {fileID: 108775995623184790, guid: c6e06e162a57eb94eb402ee8f70ff927, type: 3}
   spawnRange: {x: 25, y: 0, z: 25}
   minMaxSpawns: {x: 5, y: 5}
 --- !u!1 &6825754580836422067

@@ -66,7 +66,7 @@ MonoBehaviour:
   syncInterval: 0.1
   coconutMessagePrefab: {fileID: 3833951736124228968, guid: 06fb8a15641b6d14fba742a57f7af413,
     type: 3}
-  realCoconut: {fileID: 5064946466480294782, guid: 7e48e88ff724ac342b57506c754a5999,
+  realCoconut: {fileID: 4473910350010878306, guid: d2796a08b4f73f64f84503d050330f16,
     type: 3}
   realSpawnRange: {x: 1, y: 1, z: 1}
   realSpawnOffset: {x: 0, y: 25, z: 0}
