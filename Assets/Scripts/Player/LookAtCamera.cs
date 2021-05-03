@@ -15,7 +15,7 @@ public class LookAtCamera : MonoBehaviour
 
             if(localPlayer != null)
             {
-                cam = localPlayer.playerCamera.transform;
+                cam = localPlayer.localPlayerCamera.transform;
             }
         }
         else
