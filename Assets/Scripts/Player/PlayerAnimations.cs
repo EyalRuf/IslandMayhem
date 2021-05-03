@@ -40,6 +40,8 @@ public class PlayerAnimations : MonoBehaviour
         animator.SetBool(anim_param_b_holding_item, isThrowing || cController.playerItems.heldItem != null);
         animator.SetBool(anim_param_b_throwing, isThrowing);
         animator.SetBool(anim_param_b_crippled, cController.isCrippled);
+
+        animator.speed = animator.GetCurrentAnimatorStateInfo(0).IsTag("MovingOnFloor") ? (cController.currMoveSpeed / cController.baseMoveSpeed) : 1;
     }
 
     IEnumerator ResetTriggerCR(Action resetTriggerFunc, float resetTimer)
