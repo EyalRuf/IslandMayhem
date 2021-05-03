@@ -116,7 +116,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Character_Tiger
-    second: {fileID: -8848810374240701247, guid: a8ca0d38472a1f94481651255c28e6dc,
+    second: {fileID: -8848810374240701247, guid: 5fc51feffc462424dade411140eb8ef2,
       type: 3}
   materials:
     materialImportMode: 1
