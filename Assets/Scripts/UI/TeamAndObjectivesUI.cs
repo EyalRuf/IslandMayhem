@@ -81,8 +81,11 @@ public class TeamAndObjectivesUI : MonoBehaviour
 
     public void RefreshUI ()
     {
-        RefreshTeamUI();
-        RefreshObjectiveUI();
+        if (localPlayer.playerTeam != -1)
+        {
+            RefreshTeamUI();
+            RefreshObjectiveUI();
+        }
     }
 
     public void RefreshTeamUI ()
