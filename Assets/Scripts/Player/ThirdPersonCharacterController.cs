@@ -41,10 +41,26 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     [SyncVar]
     public bool isCrippled;
 
+    [Header("Audio")]
+    public float playerVolume = 1f;
+    public AudioClip[] walkClips;
+    public AudioClip[] sprintClips;
+    public AudioClip[] jumpClips;
+    public float footstepDistance = 1f;
+
+    [SerializeField]
+    private AudioSource source;
+    private Vector3 lastFootstep;
+
     [Header("Misc")]
     public float groundedDrag;
     public PhysicMaterial groundedMaterial;
     public PhysicMaterial airBorneMaterial;
+
+    private void Start()
+    {
+        lastFootstep = transform.position;
+    }
 
     void Update()
     {
@@ -71,6 +87,9 @@ public class ThirdPersonCharacterController : NetworkBehaviour
             jumpCDFlag = true;
             CmdJump(netId);
             StartCoroutine(JumpCDApplier());
+
+            //jump sound
+            CmdPlayJumpClip();
         }
 
         //if we're grounded, apply drag horizontally.
@@ -94,6 +113,13 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         // If traversed some non vertical ditance + horizontal movement is above a low point -> you're inputting movement + you actually moved a bit
         isMoving = new Vector3(posOffset.x, 0, posOffset.z).magnitude > minMovementMagnitude && 
             (Mathf.Abs(lpInput.moveInput.x) > 0.1f || Mathf.Abs(lpInput.moveInput.z) > 0.1f);
+
+        //footsteps sounds
+        if (Vector3.Distance(lastFootstep, transform.position) > footstepDistance && isMoving && isGrounded)
+        {
+            lastFootstep = transform.position;
+            CmdPlayMovementClip(isSprinting);
+        }
     }
 
     void Jump()
@@ -140,4 +166,44 @@ public class ThirdPersonCharacterController : NetworkBehaviour
 
         return wasSprintingWhenJumped && forwardMovementInput && !isAiming && !isCrippled;
     }
+
+    #region Audio
+
+    [Command]
+    private void CmdPlayJumpClip()
+    {
+        RpcPlayJumpClip();
+    }
+
+    [ClientRpc]
+    private void RpcPlayJumpClip()
+    {
+        if(source == null)
+        {
+            source = GetComponent<AudioSource>();
+        }
+
+        source.PlayOneShot(jumpClips[Random.Range(0, jumpClips.Length)], playerVolume);
+    }
+
+    [Command]
+    private void CmdPlayMovementClip(bool isSprinting)
+    {
+        RpcPlayMovementClip(isSprinting);
+    }
+
+    [ClientRpc]
+    private void RpcPlayMovementClip(bool isSprinting)
+    {
+        if (source == null)
+        {
+            source = GetComponent<AudioSource>();
+        }
+
+        source.PlayOneShot(
+            isSprinting ? sprintClips[Random.Range(0, jumpClips.Length)] : walkClips[Random.Range(0, jumpClips.Length)], 
+            playerVolume);
+    }
+
+    #endregion
 }
