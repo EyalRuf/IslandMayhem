@@ -6,6 +6,9 @@ using Mirror;
 
 public class Totem : NetworkBehaviour
 {
+    [Header("References")]
+    public MatchManager matchManager;
+
     [Header("Totem")]
     public TotemPieceGroup group = TotemPieceGroup.Any;
     [SyncVar]
@@ -22,6 +25,11 @@ public class Totem : NetworkBehaviour
         foreach (GameObject visual in visuals)
         {
             visual.SetActive(false);
+        }
+
+        if (matchManager == null)
+        {
+            matchManager = FindObjectOfType<MatchManager>();
         }
     }
 
@@ -77,6 +85,11 @@ public class Totem : NetworkBehaviour
     public void RpcBuildTotem(int stage)
     {
         Instantiate(smokePoof, visuals[Mathf.RoundToInt(Mathf.Clamp(stage, 0, visuals.Length - 1))].transform.position, Quaternion.identity);
+
+        if (stage >= visuals.Length)
+        {
+            matchManager.UpdateTeamAndObjectiveUI();
+        }
     }
 
     public void ResetTotem()

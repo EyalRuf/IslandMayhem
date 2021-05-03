@@ -10,12 +10,13 @@ public class NetworkPlayer : NetworkBehaviour
     public bool isConnectedThroughSteam;
     [SyncVar]
     public string userName;
-    [SyncVar]
-    public Color teamColor = Color.white;
 
     [Header("References")]
-    public Camera playerCamera;
+    public Camera localPlayerCamera;
     public Behaviour[] disableForNotLocal;
+    public GameObject[] gameObjectsToDisableForNotLocal;
+    [HideInInspector]
+    public TeamAndObjectivesUI localPlayer_TNO_UI;
 
     [Header("UI")]
     public Text nameTag;
@@ -24,6 +25,8 @@ public class NetworkPlayer : NetworkBehaviour
     [Header("Misc")]
     [SyncVar]
     public int playerTeam = -1;
+    [SyncVar]
+    public Color teamColor = Color.white;
 
     void Start()
     {
@@ -33,8 +36,13 @@ public class NetworkPlayer : NetworkBehaviour
             {
                 b.enabled = false;
             }
+            
+            foreach (GameObject go in gameObjectsToDisableForNotLocal)
+            {
+                go.SetActive(false);
+            }
 
-            playerCamera = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>().playerCamera;
+            localPlayerCamera = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>().localPlayerCamera;
         } 
         else
         {
@@ -43,7 +51,8 @@ public class NetworkPlayer : NetworkBehaviour
                 CmdSetUserName(SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()));
             }
 
-            FindObjectOfType<MatchManager>()?.overviewCam.gameObject.SetActive(false);
+            FindObjectOfType<MatchManager>().overviewCam.gameObject.SetActive(false);
+            localPlayer_TNO_UI = FindObjectOfType<TeamAndObjectivesUI>();
         }
     }
 
@@ -60,7 +69,7 @@ public class NetworkPlayer : NetworkBehaviour
 
     private void LateUpdate()
     {
-        nameTag.transform.parent.LookAt(playerCamera.transform.position);
+        nameTag.transform.parent.LookAt(localPlayerCamera.transform.position);
     }
 
     public override void OnStartClient()

@@ -7,14 +7,6 @@ using System.Linq;
 
 public class TTTMatchManager : MatchManager
 {
-    [Header("Two Team Totems")]
-    public Totem[] team0Totems;
-    [SyncVar]
-    public bool team0Won;
-    public Totem[] team1Totems;
-    [SyncVar]
-    public bool team1Won;
-
     protected override void Start()
     {
         base.Start();
@@ -32,38 +24,37 @@ public class TTTMatchManager : MatchManager
         {
             if (!endingGame)
             {
-                //check if team 0 won
-                team0Won = team0Totems.Length > 0;
-
-                foreach (Totem team0Totem in team0Totems)
-                {
-                    if (!team0Totem.maxVisualStageReached)
-                    {
-                        team0Won = false;
-                        break;
-                    }
-                }
-
-                //check if team 1 won
-                team1Won = team1Totems.Length > 0;
-
-                foreach (Totem team1Totem in team1Totems)
-                {
-                    if (!team1Totem.maxVisualStageReached)
-                    {
-                        team1Won = false;
-                        break;
-                    }
-                }
-
                 //if either team won, start end sequence
-                if (team0Won || team1Won)
+                if (didTeam0Win || didTeam1Win)
                 {
                     endingGame = true;
-                    RpcEndGame();
+                    RpcEndGame(didTeam0Win ? 0 : 1);
                 }
             }
         }
+    }
+
+    protected override void CalculateAndAssignTeams()
+    {
+        base.CalculateAndAssignTeams();
+    }
+
+    void PopulateTeamObjectives()
+    {
+        List<Totem> totems0 = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Red).ToList();
+        List<Totem> totems1 = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Blue).ToList();
+
+        TotemsObjective team0Objective = new TotemsObjective();
+        team0Objective.totems = totems0;
+        team0Objectives = new List<MatchObjective>();
+        team0Objectives.Add(team0Objective);
+
+        TotemsObjective team1Objective = new TotemsObjective();
+        team1Objective.totems = totems1;
+        team1Objectives = new List<MatchObjective>();
+        team1Objectives.Add(team1Objective);
+
+        UpdateTeamAndObjectiveUI();
     }
 
     [ClientRpc]
@@ -71,14 +62,7 @@ public class TTTMatchManager : MatchManager
     {
         //base.RpcStartGame(); DON'T CALL BASE. CUSTOM IMPlEMENTATION OF STARTGAME WON'T BE CALLED.
 
-        //if server, find totems
-        if (isServer)
-        {
-            //find totems
-            team0Totems = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Red).ToArray();
-            team1Totems = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Blue).ToArray();
-        }
-
+        PopulateTeamObjectives();
         StartCoroutine(StartGame());
     }
 
@@ -107,31 +91,28 @@ public class TTTMatchManager : MatchManager
 
 
     [ClientRpc]
-    protected override void RpcEndGame()
+    protected override void RpcEndGame(int teamIndex)
     {
         //base.RpcEndGame(); DON'T CALL BASE. CUSTOM IMPlEMENTATION OF STARTGAME WON'T BE CALLED.
 
-        StartCoroutine(EndGame());
+        StartCoroutine(EndGame(teamIndex));
     }
 
-    protected override IEnumerator EndGame()
+    protected override IEnumerator EndGame(int teamIndex)
     {
-        yield return StartCoroutine(base.EndGame()); //first call base. Game should end immediately.
+        yield return StartCoroutine(base.EndGame(teamIndex)); //first call base. Game should end immediately.
 
         yield return new WaitForSeconds(1f);
 
-        overviewText.color = team0Won ? teamColors[0] : teamColors[1];
-        overviewText.text = "Team " + (team0Won ? "Red " : "Blue ").ToString() + "Wins!";
+        overviewText.color = teamColors[teamIndex];
+        overviewText.text = "Team " + (teamIndex == 0 ? "Red " : "Blue ").ToString() + "Wins!";
 
         yield return new WaitForSeconds(5f);
 
         if (isClientOnly)
         {
-            overviewText.text = "";
             networkManager.StopClient();
         }
-
-        yield return new WaitForSeconds(2.5f);
 
         if (isServer)
         {
@@ -151,23 +132,5 @@ public class TTTMatchManager : MatchManager
     void OnLevelWasLoaded(int level)
     {
         ResetMatch();
-    }
-
-    public override void ResetMatch()
-    {
-        base.ResetMatch();
-
-        team0Won = false;
-        team1Won = false;
-
-        foreach (Totem team0Totem in team0Totems)
-        {
-            team0Totem.ResetTotem();
-        }
-
-        foreach (Totem team1Totem in team1Totems)
-        {
-            team1Totem.ResetTotem();
-        }
     }
 }
