@@ -9,8 +9,10 @@ public class TTTMatchManager : MatchManager
 {
     [Header("Two Team Totems")]
     public Totem[] team0Totems;
+    [SyncVar]
     public bool team0Won;
     public Totem[] team1Totems;
+    [SyncVar]
     public bool team1Won;
 
     protected override void Start()
