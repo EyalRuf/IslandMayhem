@@ -18,7 +18,8 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     public float baseMoveSpeed;
     public bool isSprinting;
     public float sprintSpeedMultiplyer;
-    private float currMoveSpeed;
+    public float moveSpeedWithItemMultiplyer;
+    public float currMoveSpeed;
     private bool wasSprintingWhenJumped;
     private Vector3 playerLastPos;
     public Vector3 playerVelocity { get; private set; }
@@ -72,13 +73,13 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         // Jump if not crip & on floor & not currently jumping & pressing jump input
         applyJump = !isCrippled && isGrounded && lpInput.jumpInput && !jumpCDFlag;
 
-        currMoveSpeed = isCrippled ? baseMoveSpeed / 2 : isSprinting ? baseMoveSpeed * sprintSpeedMultiplyer : baseMoveSpeed;
+        float moveSpeedBasedOnItem = isHoldingItem ? baseMoveSpeed * moveSpeedWithItemMultiplyer : baseMoveSpeed;
+        currMoveSpeed = isCrippled ? baseMoveSpeed / 2 : isSprinting ? moveSpeedBasedOnItem * sprintSpeedMultiplyer : moveSpeedBasedOnItem;
     }
 
     private void FixedUpdate()
     {
-        //move
-        rb.MovePosition(rb.position + rb.rotation * (lpInput.moveInput * currMoveSpeed * Time.fixedDeltaTime));
+        rb.MovePosition(rb.position + rb.rotation * (Vector3.ClampMagnitude(lpInput.moveInput, 1f) * currMoveSpeed * Time.fixedDeltaTime));
 
         if (applyJump)
         {
@@ -187,7 +188,7 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     }
 
     [Command]
-    private void CmdPlayMovementClip(bool isSprinting)
+    public void CmdPlayMovementClip(bool isSprinting)
     {
         RpcPlayMovementClip(isSprinting);
     }

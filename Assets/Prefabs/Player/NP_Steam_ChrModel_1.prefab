@@ -887,6 +887,7 @@ MonoBehaviour:
   - {fileID: 3593138567035470615}
   gameObjectsToDisableForNotLocal:
   - {fileID: 2494572967839288047}
+  localPlayer_TNO_UI: {fileID: 0}
   nameTag: {fileID: 6212725011227106644}
   hideLocalNametag: 1
   playerTeam: -1
@@ -935,9 +936,10 @@ MonoBehaviour:
   playerAnims: {fileID: 8396054065383248002}
   playerItems: {fileID: 7020920123134806745}
   isMoving: 0
-  baseMoveSpeed: 15
+  baseMoveSpeed: 16
   isSprinting: 0
-  sprintSpeedMultiplyer: 1.5
+  sprintSpeedMultiplyer: 1.65
+  moveSpeedWithItemMultiplyer: 0.8
   isGrounded: 0
   groundCheck: {fileID: 8297925719936001042}
   groundCheckDistance: 1
@@ -1783,15 +1785,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8591e6248058244d98fbb019ff65bb9, type: 3}
---- !u!1 &2494572967839288047 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1520121365161359261, guid: b8591e6248058244d98fbb019ff65bb9,
-    type: 3}
-  m_PrefabInstance: {fileID: 4000901495417929074}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3700779214143358413 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 350649239692179647, guid: b8591e6248058244d98fbb019ff65bb9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4000901495417929074}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2494572967839288047 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1520121365161359261, guid: b8591e6248058244d98fbb019ff65bb9,
     type: 3}
   m_PrefabInstance: {fileID: 4000901495417929074}
   m_PrefabAsset: {fileID: 0}
@@ -1960,12 +1962,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65bb0bcdbdbb8f049aa1813588a0f193, type: 3}
---- !u!4 &4045887337131894683 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6039192194298955567, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
-    type: 3}
-  m_PrefabInstance: {fileID: 7776138024546410676}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3341770071569695048 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5010886228330848764, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
@@ -1978,3 +1974,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3e8e35cd61a8a4e949ca7b458b57aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &4045887337131894683 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6039192194298955567, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
+    type: 3}
+  m_PrefabInstance: {fileID: 7776138024546410676}
+  m_PrefabAsset: {fileID: 0}
