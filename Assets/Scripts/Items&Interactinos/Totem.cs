@@ -62,7 +62,7 @@ public class Totem : NetworkBehaviour
         {
             if (piece != null && !piece.insertedToTotem && !item.isBeingHeld)
             {
-                if (group == TotemPieceGroup.Any || group == piece.group)
+                if (group == TotemPieceGroup.Any || piece.group == TotemPieceGroup.Any || group == piece.group)
                 {
                     piece.group = TotemPieceGroup.None;
                     piece.insertedToTotem = true;

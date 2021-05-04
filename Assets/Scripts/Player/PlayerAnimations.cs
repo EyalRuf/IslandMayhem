@@ -41,6 +41,7 @@ public class PlayerAnimations : MonoBehaviour
         animator.SetBool(anim_param_b_throwing, isThrowing);
         animator.SetBool(anim_param_b_crippled, cController.isCrippled);
 
+        // Matching walking/sprinting animation speeds to actual movement speeds
         animator.speed = animator.GetCurrentAnimatorStateInfo(0).IsTag("MovingOnFloor") ? (cController.currMoveSpeed / cController.baseMoveSpeed) : 1;
     }
 
