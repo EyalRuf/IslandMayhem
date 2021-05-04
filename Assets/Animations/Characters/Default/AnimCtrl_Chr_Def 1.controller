@@ -774,7 +774,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 5311665783664302308, guid: 20ad56e2431614240811fb5c78ca1342,
     type: 3}
-  m_Tag: 
+  m_Tag: MovingOnFloor
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
@@ -1017,6 +1017,18 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-67899634421348900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6562240102cc32f42a145ffce6b90372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -1966,7 +1978,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1818945404688272295}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -67899634421348900}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2390,7 +2403,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Sprint
-  m_Speed: 2
+  m_Speed: 1.65
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7986137390181746728}
@@ -2405,7 +2418,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 5712881901026412014, guid: 20ad56e2431614240811fb5c78ca1342,
     type: 3}
-  m_Tag: 
+  m_Tag: MovingOnFloor
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
