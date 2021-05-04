@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Prefabs/Pickupables.meta
 guid: a50582576c4fa494daf5265732f06421
-=======
-guid: 0da08881c0e57d44b8a4a257dc342193
->>>>>>> main:Assets/Horizon Based Ambient Occlusion/SRP.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

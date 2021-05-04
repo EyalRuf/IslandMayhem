@@ -17,8 +17,16 @@ public class MatchManager : NetworkBehaviour
     public bool endingGame = false;
     public int numberOfPlayersNeededToStart;
     public int numberOfTeams;
-    public List<Team> teams;
     public Color[] teamColors = { Color.red, Color.blue };
+    public string[] teamNames = { "Red", "Blue" };
+    public List<Team> teams;
+
+    [HideInInspector]
+    public List<MatchObjective> team0Objectives = new List<MatchObjective>();
+    [HideInInspector]
+    public List<MatchObjective> team1Objectives = new List<MatchObjective>();
+    public bool didTeam0Win => team0Objectives?.Count > 0 && team0Objectives.TrueForAll(obj => obj.IsCompleted);
+    public bool didTeam1Win => team1Objectives?.Count > 0 && team1Objectives.TrueForAll(obj => obj.IsCompleted);
 
     [Header("Start game")]
     public GameObject startGameArea;
@@ -49,8 +57,6 @@ public class MatchManager : NetworkBehaviour
     {
         //dissapear if started
         startGameArea.SetActive(!gameStarted);
-
-        //update status
         statusText.text = gameStatus;
 
         if (!isServer) //server only
@@ -60,24 +66,34 @@ public class MatchManager : NetworkBehaviour
         {
             if (!gameStarted)
             {
-                // Starting the game
-                // Has to come from customnetworkmanager
-                if (!startingGame && CustomNetworkManager.GetAllPlayers().Count >= numberOfPlayersNeededToStart && numberOfPlayersNeededToStart > 0)
+                if (!startingGame)
                 {
-                    startingGame = true;
+                    gameStatus = "Waiting for players... " + CustomNetworkManager.GetAllPlayers().Count + "/" + numberOfPlayersNeededToStart;
 
-                    //disallow joining
-                    networkManager.AllowJoin(false);
+                    // Starting the game
+                    // Has to come from customnetworkmanager
+                    if (CustomNetworkManager.GetAllPlayers().Count >= numberOfPlayersNeededToStart && numberOfPlayersNeededToStart > 0)
+                    {
+                        startingGame = true;
 
-                    gameStatus = "Starting game.";
-                    CalculateAndAssignTeams();
+                        //disallow joining
+                        networkManager.AllowJoin(false);
 
-                    //sync info
-                    RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(teams)));
-                    RpcStartGame(); //invoke sychronized start game sequence
+                        gameStatus = "Starting game.";
+                        CalculateAndAssignTeams();
+
+                        //sync info
+                        RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(teams)));
+                        RpcStartGame(); //invoke sychronized start game sequence
+                    }
                 }
             }
         }
+    }
+
+    public virtual void UpdateTeamAndObjectiveUI()
+    {
+        CustomNetworkManager.GetLocalPlayer()?.GetComponent<NetworkPlayer>()?.localPlayer_TNO_UI?.RefreshUI();
     }
 
     public virtual void ResetMatch()
@@ -85,9 +101,12 @@ public class MatchManager : NetworkBehaviour
         gameStarted = false;
         gameOver = false;
         gameStatus = "Waiting for players...";
-        teams = new List<Team>();
         overviewCam.gameObject.SetActive(true);
         overviewText.text = "";
+
+        teams = new List<Team>();
+        team0Objectives = new List<MatchObjective>();
+        team1Objectives = new List<MatchObjective>();
     }
 
     private void OnGUI()
@@ -159,7 +178,7 @@ public class MatchManager : NetworkBehaviour
 
     protected virtual IEnumerator StartGame()
     {
-        //at the end start game
+        //at start game
         if (isServer)
         {
             gameStarted = true;
@@ -191,12 +210,12 @@ public class MatchManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    protected virtual void RpcEndGame()
+    protected virtual void RpcEndGame(int teamIndex)
     {
-        StartCoroutine(EndGame());
+        StartCoroutine(EndGame(teamIndex));
     }
 
-    protected virtual IEnumerator EndGame()
+    protected virtual IEnumerator EndGame(int teamIndex)
     {
         if (isServer)
         {
@@ -204,7 +223,6 @@ public class MatchManager : NetworkBehaviour
         }
 
         overviewCam.gameObject.SetActive(true);
-        overviewCam.depth++;
 
         yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
     }
