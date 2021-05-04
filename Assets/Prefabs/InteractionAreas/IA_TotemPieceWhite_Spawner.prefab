@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7897364648718383428}
   - component: {fileID: 7897364648718383429}
   m_Layer: 10
-  m_Name: IA_TotemPieceRed_Spawner
+  m_Name: IA_TotemPieceWhite_Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -382652638819485698, guid: 942c54754ac14184e809bd81d2332ca3, type: 3}
+  - {fileID: -8848810374240701247, guid: 9e22b634a976a3a4b8c1d89eaa3147ae, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -132,5 +132,5 @@ MonoBehaviour:
   interactionDuration: 1
   restrictedToTeam: -1
   spawnableObjects:
-  - {fileID: 4666147733101786583, guid: f367850b2f3e6544494486958b2db7bb, type: 3}
+  - {fileID: 4666147733101786583, guid: 1f7cbfe3f5a7bfd41bbccf693c70eb98, type: 3}
   spawnPercentage: 100
