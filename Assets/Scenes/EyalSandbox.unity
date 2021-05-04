@@ -131,7 +131,7 @@ PrefabInstance:
     - target: {fileID: 2366479850472179920, guid: f367850b2f3e6544494486958b2db7bb,
         type: 3}
       propertyPath: sceneId
-      value: 11252123
+      value: 949724494
       objectReference: {fileID: 0}
     - target: {fileID: 4666147733101786583, guid: f367850b2f3e6544494486958b2db7bb,
         type: 3}
@@ -191,21 +191,6 @@ PrefabInstance:
     - target: {fileID: 4666147733101786585, guid: f367850b2f3e6544494486958b2db7bb,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062040687920393389, guid: f367850b2f3e6544494486958b2db7bb,
-        type: 3}
-      propertyPath: lerpVelocityAmount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062040687920393389, guid: f367850b2f3e6544494486958b2db7bb,
-        type: 3}
-      propertyPath: lerpPositionAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8062040687920393389, guid: f367850b2f3e6544494486958b2db7bb,
-        type: 3}
-      propertyPath: syncInterval
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -479,25 +464,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3359985349342167276, guid: c6e06e162a57eb94eb402ee8f70ff927,
-        type: 3}
-      propertyPath: lerpVelocityAmount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3359985349342167276, guid: c6e06e162a57eb94eb402ee8f70ff927,
-        type: 3}
-      propertyPath: lerpPositionAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3359985349342167276, guid: c6e06e162a57eb94eb402ee8f70ff927,
-        type: 3}
-      propertyPath: syncInterval
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 7031354284234024081, guid: c6e06e162a57eb94eb402ee8f70ff927,
         type: 3}
       propertyPath: sceneId
-      value: 1911501689
+      value: 984845486
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6e06e162a57eb94eb402ee8f70ff927, type: 3}

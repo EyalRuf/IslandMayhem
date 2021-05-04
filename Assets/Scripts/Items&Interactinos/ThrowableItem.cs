@@ -18,6 +18,7 @@ public class ThrowableItem : PickupableItem
     public LayerMask trajectoryLayerMask;
     public Vector3 aimMultiplyerVec;
     public Vector3 aimAdditionVec;
+    public GameObject trajectoryEndSphere;
 
     [Header("HitInflictor")]
     public HitInflictor hitInflictor;
@@ -33,16 +34,12 @@ public class ThrowableItem : PickupableItem
         base.Update();
         drawTrajectory = currUsingPlayer != null ? currUsingPlayer.lpInput.itemSecondaryUsage : false;
         lineRenderer.enabled = drawTrajectory;
+        trajectoryEndSphere.SetActive(drawTrajectory);
 
         if (isGrounded) // after hit ground can't hit players anymore
         {
             hitInflictor.isActive = false;
         }
-    }
-
-    public override void FixedUpdate()
-    {
-        base.FixedUpdate();
 
         if (isBeingHeld)
         {
@@ -54,6 +51,11 @@ public class ThrowableItem : PickupableItem
                 DrawThrowTrajectory();
             }
         }
+    }
+
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 
     public override void Pickup(PlayerItemInteractions player)
@@ -90,7 +92,7 @@ public class ThrowableItem : PickupableItem
         float objMass = rb.mass;
         Vector3 startPoint = transform.position;
 
-        Vector3 throwVelocity = throwVec / objMass * Time.fixedDeltaTime;
+        Vector3 throwVelocity = (throwVec / (objMass*2)) * Time.fixedDeltaTime;
 
         linePoints.Clear();
         linePoints.Add(startPoint);
@@ -123,6 +125,7 @@ public class ThrowableItem : PickupableItem
         }
 
         lineRenderer.positionCount = linePoints.Count;
+        trajectoryEndSphere.transform.position = linePoints[linePoints.Count - 1];
         lineRenderer.SetPositions(linePoints.ToArray());
     }
 
@@ -133,8 +136,8 @@ public class ThrowableItem : PickupableItem
         Vector3 movement = currObjectVelocity;
 
         // Halfing the effect of the movement on the throwing if you're walking backwards
-        if (Mathf.Sign(dir.x) != Mathf.Sign(movement.x) && Mathf.Sign(dir.z) != Mathf.Sign(movement.z))
-            movementMultiplyer *= 0.5f;
+        //if (Mathf.Sign(dir.x) != Mathf.Sign(movement.x) && Mathf.Sign(dir.z) != Mathf.Sign(movement.z))
+        //    movementMultiplyer *= 0.5f;
 
         Vector3 adjustedThrowVec = new Vector3(throwTarget.forward.x * aimMultiplyerVec.x,
             throwTarget.forward.y * aimMultiplyerVec.y,
