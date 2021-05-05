@@ -940,6 +940,7 @@ MonoBehaviour:
   isSprinting: 0
   sprintSpeedMultiplyer: 1.65
   moveSpeedWithItemMultiplyer: 0.8
+  currMoveSpeed: 0
   isGrounded: 0
   groundCheck: {fileID: 8297925719936001042}
   groundCheckDistance: 1
@@ -1893,7 +1894,7 @@ PrefabInstance:
     - target: {fileID: 5951003220492102780, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6039192194298955567, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
