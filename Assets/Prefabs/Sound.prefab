@@ -1333,6 +1333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 853764775579851078}
   - component: {fileID: 853764775579851079}
+  - component: {fileID: 1527408074681546718}
   m_Layer: 0
   m_Name: Cave (0)
   m_TagString: Untagged
@@ -1450,6 +1451,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!167 &1527408074681546718
+AudioReverbZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853764775579851081}
+  m_Enabled: 1
+  m_MinDistance: 100
+  m_MaxDistance: 150
+  m_ReverbPreset: 27
+  m_Room: -1000
+  m_RoomHF: 0
+  m_DecayTime: 5
+  m_DecayHFRatio: 1.3
+  m_Reflections: -602
+  m_ReflectionsDelay: 0.015
+  m_Reverb: 0
+  m_ReverbDelay: 0.022
+  m_HFReference: 5000
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1 &853764775643828000
 GameObject:
   m_ObjectHideFlags: 0

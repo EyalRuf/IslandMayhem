@@ -29,8 +29,7 @@ public class PickupableItem : NetworkBehaviour
         if (CustomNetworkManager.localPlayerInitialized)
         {
             // Disable outline if player is not close anymore or im being held
-            NetworkIdentity localPlayer = CustomNetworkManager.GetLocalPlayer();
-            if (isBeingHeld || Vector3.Distance(transform.position, localPlayer.transform.position) > outlineDistance)
+            if (isBeingHeld || Vector3.Distance(transform.position, CustomNetworkManager.GetLocalPlayer().transform.position) > outlineDistance)
             {
                 Outline(false);
             }
@@ -80,5 +79,20 @@ public class PickupableItem : NetworkBehaviour
     public void Outline(bool flag)
     {
         outline.enabled = flag;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (isServer && !isBeingHeld)
+        {
+            HitInflictor hit = other.GetComponent<HitInflictor>();
+
+            if (hit != null && hit.isActive && hit.initiatorNetId != netId)
+            {
+                Vector3 knockbackDir = transform.position - hit.transform.position;
+                rb.AddForce(knockbackDir * hit.knockbackPower / 3, ForceMode.Impulse);
+                hit.HitInflicted();
+            }
+        }
     }
 }
