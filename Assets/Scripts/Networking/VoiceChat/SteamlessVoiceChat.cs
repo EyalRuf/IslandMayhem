@@ -15,6 +15,7 @@ public class SteamlessVoiceChat : NetworkBehaviour
     public int sampleRate = 22050;
     public int chunkSize = 256;
     public int deviceIndex = -1;
+    public VCPlaybackMode mode = VCPlaybackMode.Clip;
 
     public List<VoicePacket> packetQueue = new List<VoicePacket>();
     private AudioClip microphoneClip;
@@ -36,6 +37,8 @@ public class SteamlessVoiceChat : NetworkBehaviour
         source.loop = true;
         source.clip = AudioClip.Create("VoiceChat", sampleRate, 1, sampleRate, true, OnAudioRead, OnAudioSetPosition);
         source.Play();
+        source.spatialize = true;
+        source.spatializePostEffects = true; //not working for some reason
 
         if (isLocalPlayer)
         {
@@ -150,17 +153,23 @@ public class SteamlessVoiceChat : NetworkBehaviour
 
     private void OnAudioRead(float[] data)
     {
-        /*
+        if (mode != VCPlaybackMode.Clip)
+        {
+            return;
+        }
+
+        float sample = 0;
+
         for (int d = 0; d < data.Length; d++)
         {
             if (packetQueue.Count <= 0)
             {
                 //sweet, sweet silence
-                data[d] = 0;
+                sample = 0;
             }
             else
             {
-                data[d] = packetQueue[0].chunk[playbackPos];
+                sample = packetQueue[0].chunk[Mathf.FloorToInt(playbackPos)];
 
                 //advance playbackpos and switch packet when neccesary
                 playbackPos++;
@@ -170,8 +179,9 @@ public class SteamlessVoiceChat : NetworkBehaviour
                     packetQueue.RemoveAt(0);
                 }
             }
+
+            data[d] = sample;
         }
-        */
     }
 
     void OnAudioSetPosition(int newPosition)
@@ -187,6 +197,11 @@ public class SteamlessVoiceChat : NetworkBehaviour
 
     private void OnAudioFilterRead(float[] data, int channels)
     {
+        if (mode != VCPlaybackMode.Effect)
+        {
+            return;
+        }
+
         float sampleRateRatio = (float)sampleRate / (float)playbackSampleRate;
         float sample = 0;
 
@@ -218,6 +233,12 @@ public class SteamlessVoiceChat : NetworkBehaviour
     }
 
     #endregion 
+}
+
+public enum VCPlaybackMode
+{
+    Effect, //uses onaudiofilterread
+    Clip //uses clip callbacks
 }
 
 [System.Serializable]
