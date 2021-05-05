@@ -21,6 +21,15 @@ public class PickupableItem : NetworkBehaviour
     [Header("PlayerUsage")]
     public PlayerItemInteractions currUsingPlayer;
 
+    [Header("Networking")]
+    [SyncVar]
+    public Vector3 netPos;
+    [SyncVar]
+    public Quaternion netRot;
+    [SyncVar]
+    public Vector3 netVel;
+    public float lerpFactor;
+
     public virtual void Update()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, groundedCheckDistance, groundCheckMask);
@@ -42,8 +51,46 @@ public class PickupableItem : NetworkBehaviour
         {
             rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
         }
+
+        if (isBeingHeld)
+        {
+            if (currUsingPlayer.netId == CustomNetworkManager.GetLocalPlayer().netId)
+            {
+                CmdUpdateTransform(transform.position, transform.rotation, rb.velocity);
+            }
+        } else 
+        {
+            if (isServer)
+            {
+                netPos = transform.position;
+                netRot = transform.rotation;
+                netVel = rb.velocity;
+            }
+            
+            UpdateTransform(netPos, netRot, netVel);
+        }
     }
 
+    void UpdateTransform (Vector3 pos, Quaternion rot, Vector3 vel)
+    {
+        if (Vector3.Distance(transform.position, pos) > 0.01f)
+            transform.position = Vector3.Lerp(transform.position, pos, lerpFactor);
+        if (Quaternion.Angle(transform.rotation, rot) > 0.1f)
+            transform.rotation = Quaternion.Lerp(transform.rotation, rot, lerpFactor);
+        if (Vector3.Distance(rb.velocity, vel) > 0.01f)
+            rb.velocity = Vector3.Lerp(rb.velocity, vel, lerpFactor);
+    }
+
+    [Command]
+    void CmdUpdateTransform(Vector3 pos, Quaternion rot, Vector3 vel)
+    {
+        netPos = pos;
+        netRot = rot;
+        netVel = vel;
+        transform.position = pos;
+        transform.rotation = rot;
+        rb.velocity = vel;
+    }
 
     public virtual void Pickup (PlayerItemInteractions player)
     {
@@ -60,6 +107,11 @@ public class PickupableItem : NetworkBehaviour
 
     public virtual void Drop ()
     {
+        if (currUsingPlayer.netId == CustomNetworkManager.GetLocalPlayer().netId)
+        {
+            CmdUpdateTransform(transform.position, transform.rotation, rb.velocity);
+        }
+
         currUsingPlayer.heldItem = null;
         currUsingPlayer = null;
         transform.parent = originalParent;

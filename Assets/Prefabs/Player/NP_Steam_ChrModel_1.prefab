@@ -697,8 +697,6 @@ GameObject:
   - component: {fileID: 8297925720422174607}
   - component: {fileID: 2412498148627145051}
   - component: {fileID: 8297925720422174597}
-  - component: {fileID: 7144518429603572552}
-  - component: {fileID: 2010727303661905349}
   - component: {fileID: -8973449376831644078}
   - component: {fileID: 1523640836784011889}
   - component: {fileID: 1146311555544150160}
@@ -785,46 +783,6 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &7144518429603572552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297925720422174642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0
-  clientAuthority: 1
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0
---- !u!114 &2010727303661905349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297925720422174642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83392ae5c1b731446909f252fd494ae4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0
-  target: {fileID: 8297925720422174607}
-  clientAuthority: 1
-  syncVelocity: 1
-  clearVelocity: 0
-  velocitySensitivity: 0.01
-  syncAngularVelocity: 0
-  clearAngularVelocity: 0
-  angularVelocitySensitivity: 0
 --- !u!114 &-8973449376831644078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -873,9 +831,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   isConnectedThroughSteam: 1
   userName: 
+  rb: {fileID: 8297925720422174607}
   localPlayerCamera: {fileID: 8297925720197497098}
   disableForNotLocal:
   - {fileID: 8297925720422174604}
@@ -883,7 +842,6 @@ MonoBehaviour:
   - {fileID: 8297925720197497096}
   - {fileID: 8297925720197497099}
   - {fileID: 8297925720197497098}
-  - {fileID: 8396054065383248002}
   - {fileID: 3593138567035470615}
   gameObjectsToDisableForNotLocal:
   - {fileID: 2494572967839288047}
@@ -892,6 +850,10 @@ MonoBehaviour:
   hideLocalNametag: 1
   playerTeam: -1
   teamColor: {r: 1, g: 1, b: 1, a: 1}
+  netPlayerPos: {x: 0, y: 0, z: 0}
+  netPlayerRot: {x: 0, y: 0, z: 0, w: 0}
+  netPlayerVel: {x: 0, y: 0, z: 0}
+  lerpFactor: 0.5
 --- !u!114 &8297925720422174604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,9 +1007,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3251ac1618daf414a9428033d0ec30bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   triggerResetTime: 0.35
   animator: {fileID: 5620802269118984061}
   cController: {fileID: 8297925720422174605}
+  netPlayerAnimatorSpeed: 0
 --- !u!114 &7223162290677117676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1070,7 +1035,7 @@ MonoBehaviour:
   punchCD: 0.5
   maxHp: 4
   currHp: 4
-  isInulnerable: 0
+  isInvulnerable: 0
   invulnerabilityDuration: 1
   regenerationDuration: 10
 --- !u!114 &-7313913782277317431
