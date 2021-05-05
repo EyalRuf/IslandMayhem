@@ -4932,7 +4932,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: amountOfPlayersToSpawnObject
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -29093,7 +29093,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: amountOfPlayersToSpawnObject
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -43163,7 +43163,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: amountOfPlayersToSpawnObject
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -55768,6 +55768,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Events
       objectReference: {fileID: 0}
+    - target: {fileID: 1322323853112803296, guid: 5d1d1124a97e5464e992a9b74bf7b79b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1322323853112803298, guid: 5d1d1124a97e5464e992a9b74bf7b79b,
         type: 3}
       propertyPath: sceneId
@@ -56875,7 +56880,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: amountOfPlayersToSpawnObject
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -105087,7 +105092,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: amountOfPlayersToSpawnObject
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -136686,7 +136691,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: amountOfPlayersToSpawnObject
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -154282,7 +154287,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: amountOfPlayersToSpawnObject
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
