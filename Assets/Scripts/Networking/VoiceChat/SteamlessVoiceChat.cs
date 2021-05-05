@@ -30,18 +30,21 @@ public class SteamlessVoiceChat : NetworkBehaviour
         //get samplerate for playback
         playbackSampleRate = AudioSettings.outputSampleRate;
 
-        //start mic
-        device = (deviceIndex < 0) ? "" : Microphone.devices[deviceIndex];
-
-        microphoneClip = Microphone.Start(device, true, 1, sampleRate);
-        lastMicReadPos = Microphone.GetPosition(device);
-
         //start playback source
         source = GetComponent<AudioSource>();
 
         source.loop = true;
         source.clip = AudioClip.Create("VoiceChat", sampleRate, 1, sampleRate, true, OnAudioRead, OnAudioSetPosition);
         source.Play();
+
+        if (isLocalPlayer)
+        {
+            //start mic
+            device = (deviceIndex < 0) ? "" : Microphone.devices[deviceIndex];
+
+            microphoneClip = Microphone.Start(device, true, 1, sampleRate);
+            lastMicReadPos = Microphone.GetPosition(device);
+        }
     }
 
     private void Update()
