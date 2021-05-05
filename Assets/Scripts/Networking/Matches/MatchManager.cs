@@ -114,7 +114,7 @@ public class MatchManager : NetworkBehaviour
     private void OnGUI()
     {
         //custom UI for casper
-        if (Application.isEditor)
+        if (Application.isEditor || Debug.isDebugBuild)
         {
             GUILayout.BeginArea(new Rect(Screen.width - 100, 0, 100, 25));
 
