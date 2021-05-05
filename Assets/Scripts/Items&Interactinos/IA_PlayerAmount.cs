@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Mirror;
+using UnityEngine.UI;
 
 public class IA_PlayerAmount : InteractionArea
 {
@@ -9,6 +10,8 @@ public class IA_PlayerAmount : InteractionArea
     public bool isCoolingDown;
     [SyncVar]
     public bool isActive;
+    [SyncVar]
+    public int playersInside;
 
     [Header("Spawning")]
     public GameObject toSpawn;
@@ -19,6 +22,8 @@ public class IA_PlayerAmount : InteractionArea
     [Tooltip("Exclusive")]
     public int maxSpawnLimit;
     public float spawnCD;
+    [SyncVar]
+    private float spawnTimer;
         
     [Header("Raycast")]
     public float sphereCastRadius;
@@ -29,6 +34,7 @@ public class IA_PlayerAmount : InteractionArea
     public Material activeMat;
     public Material inactiveMat;
     public Material noMoreSpawnsMat;
+    public Text playerAmountIndicator;
 
     // Use this for initialization
     void Start()
@@ -40,6 +46,18 @@ public class IA_PlayerAmount : InteractionArea
     void Update()
     {
         mr.material = isActive ? activeMat : currSpawnLimit <= 0 ? noMoreSpawnsMat : inactiveMat;
+        
+        playerAmountIndicator.text = isActive ? (playersInside + "/" + amountOfPlayersToSpawnObject)
+            : currSpawnLimit > 0 ? TimeFormatting(spawnTimer) : "";
+
+        if (isCoolingDown)
+        {
+            spawnTimer -= Time.deltaTime;
+            if (spawnTimer <= 0)
+            {
+                isCoolingDown = false;
+            }
+        }
 
         if (!isServer || isCoolingDown || currSpawnLimit <= 0)
             return;
@@ -47,6 +65,7 @@ public class IA_PlayerAmount : InteractionArea
         isActive = !isCoolingDown || currSpawnLimit > 0;
 
         Collider[] cols = Physics.OverlapSphere(transform.position, sphereCastRadius, playerLM);
+        playersInside = cols.Length;
         if (cols.Length >= amountOfPlayersToSpawnObject)
         {
             SpawnObject();
@@ -60,12 +79,20 @@ public class IA_PlayerAmount : InteractionArea
         isCoolingDown = true;
         currSpawnLimit--;
         isActive = false;
-        StartCoroutine(Cooldown());
+        RpcStartTimer();
     }
 
-    IEnumerator Cooldown ()
+    string TimeFormatting (float timer)
     {
-        yield return new WaitForSeconds(spawnCD);
-        isCoolingDown = false;
+        return string.Format("{0:#00}:{1:00}", 
+            Mathf.Floor(timer / 60), //minutes
+            Mathf.Floor(timer) % 60);//seconds
+    }
+
+    [ClientRpc]
+    void RpcStartTimer()
+    {
+        isCoolingDown = true;
+        spawnTimer = spawnCD;
     }
 }
