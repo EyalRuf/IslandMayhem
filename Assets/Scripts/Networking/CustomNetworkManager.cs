@@ -417,6 +417,9 @@ public class CustomNetworkManager : NetworkManager
         base.OnStartServer();
     }
 
+
+    private OnClientStartStop[] onClientStartStops;
+
     /// <summary>
     /// This is invoked when the client is started.
     /// </summary>
@@ -431,6 +434,13 @@ public class CustomNetworkManager : NetworkManager
         else
         {
             SteamFriends.SetRichPresence("room", networkAddress);
+        }
+
+        onClientStartStops = FindObjectsOfType<OnClientStartStop>();
+
+        foreach(OnClientStartStop onClientStartStop in onClientStartStops)
+        {
+            onClientStartStop.OnClientStart();
         }
     }
 
@@ -461,6 +471,11 @@ public class CustomNetworkManager : NetworkManager
         SteamFriends.SetRichPresence("room", "");
 
         ResetManager();
+
+        foreach (OnClientStartStop onClientStartStop in onClientStartStops)
+        {
+            onClientStartStop.OnClientStart();
+        }
     }
 
     #endregion
