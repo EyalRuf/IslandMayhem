@@ -213,5 +213,5 @@ MonoBehaviour:
   groundedCheckDistance: 0.5
   groundCheckMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1047
   currUsingPlayer: {fileID: 0}

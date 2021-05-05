@@ -16,7 +16,7 @@ public class PlayerCombat : NetworkBehaviour
     public float punchCD = 0.75f;
     public int maxHp = 4;
     public int currHp = 4;
-    public bool isInulnerable;
+    public bool isInvulnerable;
     public float invulnerabilityDuration;
     public float regenerationDuration;
     private float regenerationTimer;
@@ -75,7 +75,8 @@ public class PlayerCombat : NetworkBehaviour
     {
         cController.rb.AddForce(hitVector, ForceMode.Impulse);
         pAnims.GetHitAnim();
-        isInulnerable = true;
+        pItems.DropItemIfHeld();
+        isInvulnerable = true;
 
         if (!cController.isCrippled)
         {
@@ -94,7 +95,7 @@ public class PlayerCombat : NetworkBehaviour
     IEnumerator InulnerabilityTime()
     {
         yield return new WaitForSeconds(invulnerabilityDuration);
-        isInulnerable = false;
+        isInvulnerable = false;
     }
 
     [ClientRpc]
@@ -113,7 +114,7 @@ public class PlayerCombat : NetworkBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (isLocalPlayer && !isInulnerable)
+        if (isLocalPlayer && !isInvulnerable)
         {
             HitInflictor hit = other.GetComponent<HitInflictor>();
 
@@ -129,7 +130,6 @@ public class PlayerCombat : NetworkBehaviour
     void Cripple ()
     {
         cController.isCrippled = true;
-        pItems.DropItemIfHeld();
     }
 
     void Revive ()
