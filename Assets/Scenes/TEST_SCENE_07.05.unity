@@ -4942,7 +4942,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -29103,7 +29103,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -32124,6 +32124,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930570721614430348, guid: 909e9a76830d92e49be90fad8be7a468,
+        type: 3}
+      propertyPath: visuals.Array.size
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 909e9a76830d92e49be90fad8be7a468, type: 3}
@@ -43158,7 +43163,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -56870,7 +56875,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -77762,7 +77767,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112698700}
-  - component: {fileID: 1112698701}
   m_Layer: 0
   m_Name: VISUALS
   m_TagString: Untagged
@@ -77788,18 +77792,6 @@ Transform:
   m_Father: {fileID: 1271916555}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1112698701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112698699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56a5540800977c34bbe2fe7c6b3fb2ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1113473958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78016,7 +78008,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -80859,7 +80851,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -105095,7 +105087,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -118753,6 +118745,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7930570721614430348, guid: 909e9a76830d92e49be90fad8be7a468,
+        type: 3}
+      propertyPath: visuals.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 909e9a76830d92e49be90fad8be7a468, type: 3}
 --- !u!4 &1628886466 stripped
@@ -125150,6 +125147,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Totem_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 6761932135788540398, guid: 8fe18c99357473e4fbe70e1d79fec59d,
+        type: 3}
+      propertyPath: visuals.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6988601816682333500, guid: 8fe18c99357473e4fbe70e1d79fec59d,
         type: 3}
       propertyPath: team
@@ -128571,6 +128573,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Totem_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 6761932135788540398, guid: 8fe18c99357473e4fbe70e1d79fec59d,
+        type: 3}
+      propertyPath: visuals.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6988601816682333500, guid: 8fe18c99357473e4fbe70e1d79fec59d,
         type: 3}
       propertyPath: team
@@ -129043,7 +129050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1800546829}
   m_Layer: 0
-  m_Name: Camps that give totems (IA_PlayerAmounts)
+  m_Name: Camps that give totem pieces (IA_PlayerAmounts)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136649,7 +136656,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -153609,7 +153616,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -153919,6 +153926,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Totem_Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761932135788540398, guid: 8fe18c99357473e4fbe70e1d79fec59d,
+        type: 3}
+      propertyPath: visuals.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6988601816682333500, guid: 8fe18c99357473e4fbe70e1d79fec59d,
         type: 3}
@@ -154230,7 +154242,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -154555,6 +154567,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930570721614430348, guid: 909e9a76830d92e49be90fad8be7a468,
+        type: 3}
+      propertyPath: visuals.Array.size
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 909e9a76830d92e49be90fad8be7a468, type: 3}
