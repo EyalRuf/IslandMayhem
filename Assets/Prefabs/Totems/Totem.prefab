@@ -618,6 +618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  matchManager: {fileID: 0}
   group: 0
   currentVisualStage: 0
   maxVisualStageReached: 0
@@ -686,6 +687,7 @@ GameObject:
   - component: {fileID: 6038659123531206483}
   - component: {fileID: 1731932684997170145}
   - component: {fileID: 7986491753910188081}
+  - component: {fileID: 5651290529963958505}
   m_Layer: 10
   m_Name: LightBeam
   m_TagString: Untagged
@@ -754,6 +756,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5651290529963958505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3195213823174306690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d45fc08130ac62429544e275ab78b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: -1
 --- !u!1 &4205626956772146716
 GameObject:
   m_ObjectHideFlags: 0

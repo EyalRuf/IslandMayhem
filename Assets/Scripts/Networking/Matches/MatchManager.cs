@@ -41,6 +41,8 @@ public class MatchManager : NetworkBehaviour
     [HideInInspector]
     public CustomNetworkManager networkManager;
 
+    private OnMatchStartStop[] onMatchStartStops;
+
     protected virtual void Start()
     {
         //if (!isServer) // Server only
@@ -178,6 +180,14 @@ public class MatchManager : NetworkBehaviour
 
     protected virtual IEnumerator StartGame()
     {
+        //do these events
+        onMatchStartStops = FindObjectsOfType<OnMatchStartStop>();
+
+        foreach (OnMatchStartStop onMatchStartStop in onMatchStartStops)
+        {
+            onMatchStartStop.OnMatchStart();
+        }
+
         //at start game
         if (isServer)
         {
@@ -217,6 +227,12 @@ public class MatchManager : NetworkBehaviour
 
     protected virtual IEnumerator EndGame(int teamIndex)
     {
+        //do these events
+        foreach (OnMatchStartStop onMatchStartStop in onMatchStartStops)
+        {
+            onMatchStartStop.OnMatchStop();
+        }
+
         if (isServer)
         {
             gameOver = true;

@@ -305,7 +305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9057364323874450319
 Transform:
   m_ObjectHideFlags: 0
@@ -905,22 +905,21 @@ MonoBehaviour:
   startingGame: 0
   gameOver: 0
   endingGame: 0
-  numberOfPlayersNeededToStart: 2
+  numberOfPlayersNeededToStart: 11
   numberOfTeams: 2
-  teams: []
   teamColors:
   - {r: 1, g: 0.5, b: 0.5, a: 1}
   - {r: 0.5, g: 0.5, b: 1, a: 1}
+  teamNames:
+  - Red
+  - Blue
+  teams: []
   startGameArea: {fileID: 7476827081168910087}
   gameStatus: 
   statusText: {fileID: 5736667671326634156}
   overviewCam: {fileID: 7476827082038273280}
   overviewText: {fileID: 900130767004820898}
   networkManager: {fileID: 0}
-  team0Totems: []
-  team0Won: 0
-  team1Totems: []
-  team1Won: 0
 --- !u!114 &4046825785367899688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,6 +1327,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7476827081589835148}
+  - component: {fileID: 489311620993692963}
+  - component: {fileID: 661110151050203761}
+  - component: {fileID: 3757016179187429553}
   m_Layer: 0
   m_Name: Networking
   m_TagString: Untagged
@@ -1358,6 +1360,87 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &489311620993692963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476827081589835149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85653f7d38ea84f4fadb52ac7b5bc966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6347207672809759062}
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 349348974397425324}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnStop:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &661110151050203761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476827081589835149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e6039e4eaef6643967e1a9df1402f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStop:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6347207672809759062}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3757016179187429553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476827081589835149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a5540800977c34bbe2fe7c6b3fb2ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7476827081913361301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,6 +1600,8 @@ GameObject:
   - component: {fileID: 7476827082038273282}
   - component: {fileID: 7476827082038273283}
   - component: {fileID: 9043263552855946107}
+  - component: {fileID: 349348974397425324}
+  - component: {fileID: 3960116235182893995}
   m_Layer: 0
   m_Name: OverviewCam
   m_TagString: MainCamera
@@ -1668,6 +1753,31 @@ MonoBehaviour:
   speed: 10
   axis: {x: 0, y: 1, z: 0}
   target: {fileID: 7476827081168910086}
+--- !u!81 &349348974397425324
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476827082038273285}
+  m_Enabled: 1
+--- !u!114 &3960116235182893995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476827082038273285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: ba2608c9f4c2e4a48ba36440c686dcc0, type: 2}
 --- !u!1 &7507646775062742157
 GameObject:
   m_ObjectHideFlags: 0

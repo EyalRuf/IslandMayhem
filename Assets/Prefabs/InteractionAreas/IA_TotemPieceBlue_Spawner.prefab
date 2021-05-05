@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7897364648718383428}
   - component: {fileID: 7897364648718383429}
   m_Layer: 10
-  m_Name: IA_TotemPiece_Spawner
+  m_Name: IA_TotemPieceBlue_Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   beingInteractedWith: 0
   isDisabledAfterInteraction: 0
   interactionDuration: 1
-  restrictedToTeam: -1
+  restrictedToTeam: 1
   spawnableObjects:
   - {fileID: 108775995623184790, guid: c6e06e162a57eb94eb402ee8f70ff927, type: 3}
   spawnPercentage: 100

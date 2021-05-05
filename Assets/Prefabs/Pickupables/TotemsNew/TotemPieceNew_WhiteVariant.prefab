@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3359985350044504148
+--- !u!1001 &8062040688618404885
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,12 +10,12 @@ PrefabInstance:
     - target: {fileID: -1509970933686586855, guid: df3f6e6ec488f5e4baf30aabdb8a64ce,
         type: 3}
       propertyPath: group
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3396668420586916290, guid: df3f6e6ec488f5e4baf30aabdb8a64ce,
         type: 3}
       propertyPath: m_Name
-      value: TotemPieceNew_BlueVariant
+      value: TotemPieceNew_WhiteVariant
       objectReference: {fileID: 0}
     - target: {fileID: 3396668420586916300, guid: df3f6e6ec488f5e4baf30aabdb8a64ce,
         type: 3}
@@ -76,22 +76,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2926557707537190794, guid: 06db46ecb92a0ce4c96f99dd4bf37860,
+      objectReference: {fileID: -8848810374240701247, guid: a7d5671b12074a84ebbc6e17c6f2e4fe,
         type: 3}
     - target: {fileID: 5707595270139409605, guid: df3f6e6ec488f5e4baf30aabdb8a64ce,
         type: 3}
       propertyPath: m_AssetId
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6982407063353100274, guid: df3f6e6ec488f5e4baf30aabdb8a64ce,
-        type: 3}
-      propertyPath: lineMaxLength
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6982407063353100274, guid: df3f6e6ec488f5e4baf30aabdb8a64ce,
-        type: 3}
-      propertyPath: trajectoryPointDist
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df3f6e6ec488f5e4baf30aabdb8a64ce, type: 3}

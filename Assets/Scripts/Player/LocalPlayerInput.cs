@@ -20,13 +20,6 @@ public class LocalPlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TEMP
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Cursor.visible = !Cursor.visible;
-            Cursor.lockState = Cursor.visible ? CursorLockMode.None : CursorLockMode.Locked;
-        }
-
         float ver = Input.GetAxis("Vertical");
         float hor = Input.GetAxis("Horizontal");
         if (Mathf.Abs(ver) < 0.01f)
