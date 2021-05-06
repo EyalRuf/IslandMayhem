@@ -34,8 +34,8 @@ public class NetworkPlayer : NetworkBehaviour
     public Vector3 netPlayerPos;
     [SyncVar]
     public Quaternion netPlayerRot;
-    //[SyncVar]
-    //public Vector3 netPlayerVel;
+    [SyncVar]
+    public Vector3 netPlayerVel;
     public float lerpFactor;
 
     void Start()
@@ -89,8 +89,8 @@ public class NetworkPlayer : NetworkBehaviour
                 transform.position = Vector3.Lerp(transform.position, netPlayerPos, lerpFactor);
             if (Quaternion.Angle(transform.rotation, netPlayerRot) > 0.1f)
                 transform.rotation = Quaternion.Lerp(transform.rotation, netPlayerRot, lerpFactor);
-            //if (Vector3.Distance(rb.velocity, netPlayerVel) > 0.01f)
-            //    rb.velocity = Vector3.Lerp(rb.velocity, netPlayerVel, lerpFactor);
+            if (Vector3.Distance(rb.velocity, netPlayerVel) > 0.01f)
+                rb.velocity = Vector3.Lerp(rb.velocity, netPlayerVel, lerpFactor);
         }
     }
 
@@ -101,7 +101,7 @@ public class NetworkPlayer : NetworkBehaviour
         NetworkPlayer np = player.GetComponent<NetworkPlayer>();
         np.netPlayerPos = pos;
         np.netPlayerRot = rot;
-        //np.netPlayerVel = vel;
+        np.netPlayerVel = vel;
     }
 
     private void LateUpdate()
