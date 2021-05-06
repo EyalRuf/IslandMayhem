@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: -1509970933686586855}
   m_Layer: 9
   m_Name: TotemPieceNew
-  m_TagString: Untagged
+  m_TagString: DisposableProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

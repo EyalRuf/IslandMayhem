@@ -854,7 +854,7 @@ MonoBehaviour:
   netPlayerPos: {x: 0, y: 0, z: 0}
   netPlayerRot: {x: 0, y: 0, z: 0, w: 0}
   netPlayerVel: {x: 0, y: 0, z: 0}
-  lerpFactor: 0.05
+  lerpFactor: 0.15
 --- !u!114 &8297925720422174604
 MonoBehaviour:
   m_ObjectHideFlags: 0
