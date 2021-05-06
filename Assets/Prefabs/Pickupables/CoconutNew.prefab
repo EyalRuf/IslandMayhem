@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 2275622145757902659}
   m_Layer: 9
   m_Name: CoconutNew
-  m_TagString: Untagged
+  m_TagString: DisposableProp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
