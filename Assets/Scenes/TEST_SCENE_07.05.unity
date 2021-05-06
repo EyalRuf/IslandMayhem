@@ -4942,7 +4942,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -15504,6 +15504,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 260260564}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &260894151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2256107072568812786, guid: 1a327dcbc1bee1b42848752cd8540c9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 423657721}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &260894155
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260894151}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8670151273213183110, guid: 1e01d80fdc2155d4692276500db33fc9, type: 3}
 --- !u!1001 &263272188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29098,12 +29118,12 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: minSpawnLimit
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -29218,6 +29238,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 454375319}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &454947765 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2256107072568812786, guid: 1a327dcbc1bee1b42848752cd8540c9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1575189545}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &454947769
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454947765}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8670151273213183110, guid: 1e01d80fdc2155d4692276500db33fc9, type: 3}
 --- !u!1 &455099258
 GameObject:
   m_ObjectHideFlags: 0
@@ -43168,12 +43208,12 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: minSpawnLimit
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -56890,7 +56930,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -105102,7 +105142,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -136696,12 +136736,12 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: minSpawnLimit
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -154013,6 +154053,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1271916555}
     m_Modifications:
+    - target: {fileID: 1993905341, guid: df82e80adf91366498d7584412952ae0, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b75eda7659deffd42a34f0febd31eb13, type: 3}
     - target: {fileID: 853764776289995950, guid: df82e80adf91366498d7584412952ae0,
         type: 3}
       propertyPath: m_Name
@@ -154297,7 +154341,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -154843,7 +154887,7 @@ PrefabInstance:
     - target: {fileID: 6379415000001608967, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
       propertyPath: numberOfPlayersNeededToStart
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6408115012204009071, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
