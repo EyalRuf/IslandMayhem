@@ -313,7 +313,7 @@ MonoBehaviour:
   groundedCheckDistance: 0.5
   groundCheckMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1031
   currUsingPlayer: {fileID: 0}
   throwForce: 2500
   movementDirectionForceMultiplyer: 15
