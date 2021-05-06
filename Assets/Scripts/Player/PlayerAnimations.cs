@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimations : MonoBehaviour
+public class PlayerAnimations : NetworkBehaviour
 {
     public float triggerResetTime = 0.1f;
     private const string anim_param_b_grounded = "isGrounded";
@@ -29,20 +29,46 @@ public class PlayerAnimations : MonoBehaviour
     bool isJumping;
     bool isThrowing;
 
+    [Header("Networking")]
+    [SyncVar]
+    public float netPlayerAnimatorSpeed;
+
     // Update is called once per frame
     void Update ()
     {
-        animator.SetBool(anim_param_b_grounded, cController.isGrounded);
-        animator.SetBool(anim_param_b_falling, !cController.isGrounded && cController.playerVelocity.y < -0.25f);
-        animator.SetBool(anim_param_b_walk, !isJumping && cController.isMoving);
-        animator.SetBool(anim_param_b_sprint, !isJumping && cController.isSprinting);
-        animator.SetBool(anim_param_b_aiming, cController.isAiming);
-        animator.SetBool(anim_param_b_holding_item, isThrowing || cController.playerItems.heldItem != null);
-        animator.SetBool(anim_param_b_throwing, isThrowing);
-        animator.SetBool(anim_param_b_crippled, cController.isCrippled);
+        if (isLocalPlayer)
+        {
+            animator.SetBool(anim_param_b_grounded, cController.isGrounded);
+            animator.SetBool(anim_param_b_falling, !cController.isGrounded && cController.playerVelocity.y < -0.25f);
+            animator.SetBool(anim_param_b_walk, !isJumping && cController.isMoving);
+            animator.SetBool(anim_param_b_sprint, !isJumping && cController.isSprinting);
+            animator.SetBool(anim_param_b_aiming, cController.isAiming);
+            animator.SetBool(anim_param_b_holding_item, isThrowing || cController.playerItems.heldItem != null);
+            animator.SetBool(anim_param_b_throwing, isThrowing);
+            animator.SetBool(anim_param_b_crippled, cController.isCrippled);
+        }
+    }
 
-        // Matching walking/sprinting animation speeds to actual movement speeds
-        animator.speed = animator.GetCurrentAnimatorStateInfo(0).IsTag("MovingOnFloor") ? (cController.currMoveSpeed / cController.baseMoveSpeed) : 1;
+    void FixedUpdate()
+    {
+        if (isLocalPlayer)
+        {
+            // Matching walking/sprinting animation speeds to actual movement speeds
+            float animSpeed = animator.GetCurrentAnimatorStateInfo(0).IsTag("MovingOnFloor") ? (cController.currMoveSpeed / cController.baseMoveSpeed) : 1;
+            animator.speed = animSpeed;
+            CmdUpdatePlayerAnimSpeed(netId, animSpeed);
+        } else
+        {
+            animator.speed = netPlayerAnimatorSpeed;
+        }
+    }
+
+    [Command]
+    void CmdUpdatePlayerAnimSpeed(uint playerNID, float animSpeed)
+    {
+        NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        PlayerAnimations pa = player.GetComponent<PlayerAnimations>();
+        pa.netPlayerAnimatorSpeed = animSpeed;
     }
 
     IEnumerator ResetTriggerCR(Action resetTriggerFunc, float resetTimer)

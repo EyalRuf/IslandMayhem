@@ -226,8 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 1
+  syncInterval: 0
+  clientAuthority: 0
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0
@@ -244,9 +244,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   target: {fileID: 3396668420586916288}
-  clientAuthority: 1
+  clientAuthority: 0
   syncVelocity: 1
   clearVelocity: 0
   velocitySensitivity: 0.01

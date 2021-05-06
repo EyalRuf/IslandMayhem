@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4942,7 +4942,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -29118,12 +29118,12 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: minSpawnLimit
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -43208,12 +43208,12 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: minSpawnLimit
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -56930,7 +56930,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -105142,7 +105142,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -136736,12 +136736,12 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: minSpawnLimit
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
@@ -154341,7 +154341,7 @@ PrefabInstance:
     - target: {fileID: 3288910044470953427, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
       propertyPath: maxSpawnLimit
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3288910044470953428, guid: 704220048a7ff1d49938f9d3b8963d95,
         type: 3}
