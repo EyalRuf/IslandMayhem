@@ -19,11 +19,11 @@ public class ThirdPersonCameraController : MonoBehaviour
 
     [Header("Camera Collision")]
     public LayerMask cameraCollisionLayers;
-    public float cameraColTransitionSpeed;
     private Vector3 initialCameraPos;
     private Vector3 dollyDir;
     public float minDistance = 5, maxDistance = 12;
-    private float smooth = 10;
+    public float smooth = 10;
+    public float collisionDistanceOffset = 2f;
 
     [Header("Aiming")]
     private bool isAiming;
@@ -77,13 +77,13 @@ public class ThirdPersonCameraController : MonoBehaviour
         
         if (!isAiming)
         {
-            Vector3 desiredCameraPos = targetTransform.TransformPoint(dollyDir * maxDistance);
+            Vector3 desiredCameraPos = targetTransform.TransformPoint(dollyDir * (maxDistance + collisionDistanceOffset));
             float distance = maxDistance;
 
             RaycastHit hit;
             if (Physics.Linecast(targetTransform.position, desiredCameraPos, out hit, cameraCollisionLayers))
             {
-                distance = Mathf.Clamp(hit.distance, minDistance, maxDistance);
+                distance = Mathf.Clamp(hit.distance - collisionDistanceOffset, minDistance, maxDistance);
             }
             currCameraLocalPos = Vector3.Lerp(camera.transform.localPosition, dollyDir * distance, Time.deltaTime * smooth);
         }
