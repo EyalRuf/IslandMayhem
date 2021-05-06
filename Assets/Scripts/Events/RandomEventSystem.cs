@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Mirror;
 
@@ -26,7 +27,7 @@ public class RandomEventSystem : NetworkBehaviour
         if (matchManager.gameStarted && !started)
         {
             //get all events
-            events = FindObjectsOfType<RandomEvent>();
+            events = FindObjectsOfType<RandomEvent>().OrderBy(e => e.name).ToArray();
         }
 
         if (!isServer) //server only behaviour
