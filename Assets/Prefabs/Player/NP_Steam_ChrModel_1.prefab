@@ -644,9 +644,10 @@ MonoBehaviour:
   cameraCollisionLayers:
     serializedVersion: 2
     m_Bits: 1559
-  cameraColTransitionSpeed: 0.025
   minDistance: 5
   maxDistance: 12
+  smooth: 10
+  collisionDistanceOffset: 2
   cameraAimPos: {x: -5, y: 0, z: -7}
   cameraAimRot: {x: 0, y: 0, z: 0, w: 1}
   cameraTransitionDuration: 0.15
@@ -853,7 +854,7 @@ MonoBehaviour:
   netPlayerPos: {x: 0, y: 0, z: 0}
   netPlayerRot: {x: 0, y: 0, z: 0, w: 0}
   netPlayerVel: {x: 0, y: 0, z: 0}
-  lerpFactor: 0.5
+  lerpFactor: 0.05
 --- !u!114 &8297925720422174604
 MonoBehaviour:
   m_ObjectHideFlags: 0
