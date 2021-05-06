@@ -69,12 +69,17 @@ public class ThrowableItem : PickupableItem
     public override void UseMain()
     {
         base.UseMain();
-        currUsingPlayer.playerAnims.ThrowAnim();
-        hitInflictor.ActivateInflictorForDuration(currUsingPlayer.netId, hitActiveDuration);
+        PlayerItemInteractions pi = currUsingPlayer;
+
+        pi.playerAnims.ThrowAnim();
+        hitInflictor.ActivateInflictorForDuration(pi.netId, hitActiveDuration);
         Drop();
 
-        rb.AddForce(CalcThrowVector());
-        CmdUpdateTransform(transform.position, transform.rotation, rb.velocity);
+        if (pi.netId == CustomNetworkManager.GetLocalPlayer().netId)
+        {
+            rb.AddForce(CalcThrowVector());
+            CmdUpdateTransform(transform.position, transform.rotation, rb.velocity);
+        }
     }
 
     public override void Drop()

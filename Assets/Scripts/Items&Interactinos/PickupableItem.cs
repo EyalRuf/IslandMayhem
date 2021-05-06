@@ -58,7 +58,7 @@ public class PickupableItem : NetworkBehaviour
             //{
             //    CmdUpdateTransform(transform.position, transform.rotation, rb.velocity);
             //}
-        } else 
+        } else
         {
             if (isServer)
             {
@@ -75,10 +75,10 @@ public class PickupableItem : NetworkBehaviour
     {
         if (Vector3.Distance(transform.position, pos) > 5f)
             transform.position = pos;
-        if (Quaternion.Angle(transform.rotation, rot) > 20f)
+        if (Quaternion.Angle(transform.rotation, rot) > 10f)
             transform.rotation = rot;
-        //if (Vector3.Distance(rb.velocity, vel) > 5f)
-        //    rb.velocity = vel;
+        if (Vector3.Distance(rb.velocity, vel) > 5f)
+            rb.velocity = vel;
 
         if (Vector3.Distance(transform.position, pos) > 0.01f)
             transform.position = Vector3.Lerp(transform.position, pos, lerpFactor);
