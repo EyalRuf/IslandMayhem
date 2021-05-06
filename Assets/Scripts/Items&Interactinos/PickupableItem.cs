@@ -54,10 +54,10 @@ public class PickupableItem : NetworkBehaviour
 
         if (isBeingHeld)
         {
-            if (currUsingPlayer.netId == CustomNetworkManager.GetLocalPlayer().netId)
-            {
-                CmdUpdateTransform(transform.position, transform.rotation, rb.velocity);
-            }
+            //if (currUsingPlayer.netId == CustomNetworkManager.GetLocalPlayer().netId)
+            //{
+            //    CmdUpdateTransform(transform.position, transform.rotation, rb.velocity);
+            //}
         } else 
         {
             if (isServer)
@@ -71,14 +71,14 @@ public class PickupableItem : NetworkBehaviour
         }
     }
 
-    void UpdateTransform (Vector3 pos, Quaternion rot, Vector3 vel)
+    public void UpdateTransform (Vector3 pos, Quaternion rot, Vector3 vel)
     {
         if (Vector3.Distance(transform.position, pos) > 5f)
             transform.position = pos;
         if (Quaternion.Angle(transform.rotation, rot) > 20f)
             transform.rotation = rot;
-        if (Vector3.Distance(rb.velocity, vel) > 5f)
-            rb.velocity = vel;
+        //if (Vector3.Distance(rb.velocity, vel) > 5f)
+        //    rb.velocity = vel;
 
         if (Vector3.Distance(transform.position, pos) > 0.01f)
             transform.position = Vector3.Lerp(transform.position, pos, lerpFactor);
@@ -89,7 +89,7 @@ public class PickupableItem : NetworkBehaviour
     }
 
     [Command(ignoreAuthority=true)]
-    void CmdUpdateTransform(Vector3 pos, Quaternion rot, Vector3 vel)
+    public void CmdUpdateTransform(Vector3 pos, Quaternion rot, Vector3 vel)
     {
         netPos = pos;
         netRot = rot;
@@ -114,10 +114,10 @@ public class PickupableItem : NetworkBehaviour
 
     public virtual void Drop ()
     {
-        if (currUsingPlayer.netId == CustomNetworkManager.GetLocalPlayer().netId)
-        {
-            CmdUpdateTransform(transform.position, transform.rotation, rb.velocity);
-        }
+        //if (currUsingPlayer.netId == CustomNetworkManager.GetLocalPlayer().netId)
+        //{
+        //    CmdUpdateTransform(transform.position, transform.rotation, rb.velocity);
+        //}
 
         currUsingPlayer.heldItem = null;
         currUsingPlayer = null;

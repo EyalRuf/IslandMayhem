@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 
 public class ThrowableItem : PickupableItem
 {
@@ -73,6 +74,7 @@ public class ThrowableItem : PickupableItem
         Drop();
 
         rb.AddForce(CalcThrowVector());
+        CmdUpdateTransform(transform.position, transform.rotation, rb.velocity);
     }
 
     public override void Drop()
