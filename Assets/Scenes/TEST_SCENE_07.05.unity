@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -154887,7 +154887,7 @@ PrefabInstance:
     - target: {fileID: 6379415000001608967, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
       propertyPath: numberOfPlayersNeededToStart
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6408115012204009071, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
