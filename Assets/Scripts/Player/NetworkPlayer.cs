@@ -12,6 +12,7 @@ public class NetworkPlayer : NetworkBehaviour
     public string userName;
 
     [Header("References")]
+    public Rigidbody rb;
     public Camera localPlayerCamera;
     public Behaviour[] disableForNotLocal;
     public GameObject[] gameObjectsToDisableForNotLocal;
@@ -27,6 +28,15 @@ public class NetworkPlayer : NetworkBehaviour
     public int playerTeam = -1;
     [SyncVar]
     public Color teamColor = Color.white;
+
+    [Header("Networking")]
+    [SyncVar]
+    public Vector3 netPlayerPos;
+    [SyncVar]
+    public Quaternion netPlayerRot;
+    [SyncVar]
+    public Vector3 netPlayerVel;
+    public float lerpFactor;
 
     void Start()
     {
@@ -65,6 +75,33 @@ public class NetworkPlayer : NetworkBehaviour
         {
             nameTag.text = "";
         }
+    }
+
+    void FixedUpdate()
+    {
+        if (isLocalPlayer)
+        {
+            CmdUpdatePlayerTransform(netId, transform.position, transform.rotation, rb.velocity);
+        }
+        else 
+        {
+            if (Vector3.Distance(transform.position, netPlayerPos) > 0.01f)
+                transform.position = Vector3.Lerp(transform.position, netPlayerPos, lerpFactor);
+            if (Quaternion.Angle(transform.rotation, netPlayerRot) > 0.1f)
+                transform.rotation = Quaternion.Lerp(transform.rotation, netPlayerRot, lerpFactor);
+            if (Vector3.Distance(rb.velocity, netPlayerVel) > 0.01f)
+                rb.velocity = Vector3.Lerp(rb.velocity, netPlayerVel, lerpFactor);
+        }
+    }
+
+    [Command]
+    void CmdUpdatePlayerTransform (uint playerNID, Vector3 pos, Quaternion rot, Vector3 vel)
+    {
+        NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
+        NetworkPlayer np = player.GetComponent<NetworkPlayer>();
+        np.netPlayerPos = pos;
+        np.netPlayerRot = rot;
+        np.netPlayerVel = vel;
     }
 
     private void LateUpdate()

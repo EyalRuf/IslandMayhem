@@ -291,10 +291,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0
-  clientAuthority: 1
+  clientAuthority: 0
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
+  localScaleSensitivity: 0
 --- !u!114 &6845015283597272587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,13 +310,13 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   target: {fileID: 5064946466480294780}
-  clientAuthority: 1
+  clientAuthority: 0
   syncVelocity: 1
   clearVelocity: 0
   velocitySensitivity: 0.01
-  syncAngularVelocity: 1
+  syncAngularVelocity: 0
   clearAngularVelocity: 0
-  angularVelocitySensitivity: 0.01
+  angularVelocitySensitivity: 0
 --- !u!114 &293162515785951289
 MonoBehaviour:
   m_ObjectHideFlags: 0
