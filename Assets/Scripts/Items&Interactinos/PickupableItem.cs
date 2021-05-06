@@ -73,6 +73,13 @@ public class PickupableItem : NetworkBehaviour
 
     void UpdateTransform (Vector3 pos, Quaternion rot, Vector3 vel)
     {
+        if (Vector3.Distance(transform.position, pos) > 5f)
+            transform.position = pos;
+        if (Quaternion.Angle(transform.rotation, rot) > 20f)
+            transform.rotation = rot;
+        if (Vector3.Distance(rb.velocity, vel) > 5f)
+            rb.velocity = vel;
+
         if (Vector3.Distance(transform.position, pos) > 0.01f)
             transform.position = Vector3.Lerp(transform.position, pos, lerpFactor);
         if (Quaternion.Angle(transform.rotation, rot) > 0.1f)
@@ -81,7 +88,7 @@ public class PickupableItem : NetworkBehaviour
             rb.velocity = Vector3.Lerp(rb.velocity, vel, lerpFactor);
     }
 
-    [Command]
+    [Command(ignoreAuthority=true)]
     void CmdUpdateTransform(Vector3 pos, Quaternion rot, Vector3 vel)
     {
         netPos = pos;
