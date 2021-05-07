@@ -13,6 +13,7 @@ public class PickupableItem : NetworkBehaviour
     [Header("Pickupable")]
     [SyncVar]
     public bool isBeingHeld;
+    public float dropCDDuration = 0.75f;
     public float outlineDistance;
     public bool isGrounded;
     public float groundedCheckDistance = 0.5f;
@@ -20,6 +21,22 @@ public class PickupableItem : NetworkBehaviour
 
     [Header("PlayerUsage")]
     public PlayerItemInteractions currUsingPlayer;
+
+    [Header("Networking")]
+    [SyncVar]
+    public Vector3 netPos;
+    [SyncVar]
+    public Quaternion netRot;
+    [SyncVar]
+    public Vector3 netVel;
+    public float lerpFactor;
+
+    public void Start()
+    {
+        netPos = transform.position;
+        netRot = transform.rotation;
+        netVel = rb.velocity;
+    }
 
     public virtual void Update()
     {
@@ -40,10 +57,50 @@ public class PickupableItem : NetworkBehaviour
     {
         if (!isGrounded && rb.useGravity)
         {
-            rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
+            Vector3 vec = Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
+            rb.velocity += vec;
+        }
+
+        if (isServer)
+        {
+            netPos = transform.position;
+            netRot = transform.rotation;
+            netVel = rb.velocity;
+        } else if (!isBeingHeld)
+        {
+            UpdateTransform(netPos, netRot, netVel);
         }
     }
 
+    public void UpdateTransform(Vector3 pos, Quaternion rot, Vector3 vel)
+    {
+        // teleport if too far away
+        if (Vector3.Distance(transform.position, pos) > 10f)
+            transform.position = pos;
+        if (Quaternion.Angle(transform.rotation, rot) > 10f)
+            transform.rotation = rot;
+        if (Vector3.Distance(rb.velocity, vel) > 5f)
+            rb.velocity = vel;
+
+        // smooth closer if not very very close already
+        if (Vector3.Distance(transform.position, pos) > 0.01f)
+            transform.position = Vector3.Lerp(transform.position, pos, lerpFactor);
+        if (Quaternion.Angle(transform.rotation, rot) > 0.1f)
+            transform.rotation = Quaternion.Lerp(transform.rotation, rot, lerpFactor);
+        if (Vector3.Distance(rb.velocity, vel) > 0.01f)
+            rb.velocity = Vector3.Lerp(rb.velocity, vel, lerpFactor);
+    }
+
+    //[Command]
+    //public void CmdUpdateServerTransform(Vector3 pos, Quaternion rot, Vector3 vel)
+    //{
+    //    transform.position = pos;
+    //    transform.rotation = rot;
+    //    rb.velocity = vel;
+    //    netPos = pos;
+    //    netRot = rot;
+    //    netVel = vel;
+    //}
 
     public virtual void Pickup (PlayerItemInteractions player)
     {
@@ -66,14 +123,22 @@ public class PickupableItem : NetworkBehaviour
         isBeingHeld = false;
         rb.isKinematic = false;
         col.enabled = true;
+
+        StartCoroutine(HoldCD());
     }
 
-    public virtual void UseMain ()
+    public virtual void UseMain (Vector3 pos, Quaternion rot, Vector3 vel, Vector3 throwVec)
     {
+        transform.position = pos;
+        transform.rotation = rot;
+        rb.velocity = vel;
     }
 
-    public virtual void UseSecondary()
+    public virtual void UseSecondary(Vector3 pos, Quaternion rot, Vector3 vel)
     {
+        transform.position = pos;
+        transform.rotation = rot;
+        rb.velocity = vel;
     }
 
     public void Outline(bool flag)
@@ -94,5 +159,12 @@ public class PickupableItem : NetworkBehaviour
                 hit.HitInflicted();
             }
         }
+    }
+
+    protected IEnumerator HoldCD ()
+    {
+        isBeingHeld = true;
+        yield return new WaitForSeconds(dropCDDuration);
+        isBeingHeld = false;
     }
 }
