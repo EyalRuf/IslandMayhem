@@ -33,12 +33,12 @@ public class PickupableItem : NetworkBehaviour
 
     public void Start()
     {
-        netPos = Vector3.zero;
-        netRot = Quaternion.identity;
-        netVel = Vector3.zero;
-        transform.position = Vector3.zero;
-        transform.rotation = Quaternion.identity;
-        rb.velocity = Vector3.zero;
+        //netPos = Vector3.zero;
+        //netRot = Quaternion.identity;
+        //netVel = Vector3.zero;
+        //transform.position = Vector3.zero;
+        //transform.rotation = Quaternion.identity;
+        //rb.velocity = Vector3.zero;
     }
 
     public virtual void Update()
@@ -61,10 +61,7 @@ public class PickupableItem : NetworkBehaviour
         if (!isGrounded && rb.useGravity)
         {
             Vector3 vec = Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
-            Vector3 vec2 = rb.velocity + vec;
-            if (vec.x == vec.x && vec.y == vec.y && vec.z == vec.z &&
-                vec2.x == vec2.x && vec2.y == vec2.y && vec2.z == vec2.z)
-                rb.velocity += vec;
+            rb.velocity += vec;
         }
 
         if (isServer)

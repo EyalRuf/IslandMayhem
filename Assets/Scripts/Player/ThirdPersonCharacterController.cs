@@ -80,9 +80,7 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     private void FixedUpdate()
     {
         Vector3 vec = rb.position + rb.rotation * (Vector3.ClampMagnitude(lpInput.moveInput, 1f) * currMoveSpeed * Time.fixedDeltaTime);
-
-        if (vec.x == vec.x && vec.y == vec.y && vec.z == vec.z)
-            rb.MovePosition(vec);
+        rb.MovePosition(vec);
 
         if (applyJump)
         {
@@ -100,16 +98,12 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         if (isGrounded)
         {
             Vector3 newVelocity = rb.velocity * (1 - groundedDrag * Time.fixedDeltaTime);
+            rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
 
-            if (newVelocity.x == newVelocity.x && newVelocity.z == newVelocity.z)
-                rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
         } else if (rb.useGravity) // Whenever we're not grounded apply gravity forces
         {
             Vector3 vec2 = Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
-            Vector3 vec3 = rb.velocity + vec2;
-            if (vec2.x == vec2.x && vec2.y == vec2.y && vec2.z == vec2.z &&
-                vec3.x == vec3.x && vec3.y == vec3.y && vec3.z == vec3.z)
-                rb.velocity += vec2;
+            rb.velocity += vec2;
         }
 
         // Set physics material
