@@ -61,8 +61,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   isActive: 1
-  initiatorInstanceId: 0
+  initiatorNetId: 0
   knockbackPower: 15
+  damage: 1
+  singularDmgInstance: 0
   lifespan: 0.15
 --- !u!114 &7507895164393320795
 MonoBehaviour:
