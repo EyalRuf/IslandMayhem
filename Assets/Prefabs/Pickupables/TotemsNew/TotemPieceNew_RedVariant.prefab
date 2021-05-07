@@ -82,5 +82,10 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6982407063353100274, guid: df3f6e6ec488f5e4baf30aabdb8a64ce,
+        type: 3}
+      propertyPath: smoothDampFactor
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df3f6e6ec488f5e4baf30aabdb8a64ce, type: 3}

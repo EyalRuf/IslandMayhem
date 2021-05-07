@@ -36,9 +36,10 @@ public class PlayerItemInteractions : NetworkBehaviour
 
             if (heldItem is ThrowableItem)
             {
+                Vector3 throwVec = (heldItem as ThrowableItem).CalcThrowVector();
                 if (lpInput.itemMainUseDown)
                 {
-                    CmdUseItem(netId, true);
+                    CmdUseItem(netId, heldItem.transform.position, heldItem.transform.rotation, heldItem.rb.velocity, throwVec, true);
                 }
                 if (lpInput.itemSecondaryUsageDown)
                 {
@@ -49,14 +50,14 @@ public class PlayerItemInteractions : NetworkBehaviour
                 }
             } else
             {
-                if (lpInput.itemMainUseDown)
-                {
-                    CmdUseItem(netId, true);
-                }
-                if (lpInput.itemSecondaryUsage)
-                {
-                    CmdUseItem(netId, false);
-                }
+                //if (lpInput.itemMainUseDown)
+                //{
+                //    CmdUseItem(netId, heldItem.transform.position, heldItem.transform.rotation, heldItem.rb.velocity, true);
+                //}
+                //if (lpInput.itemSecondaryUsage)
+                //{
+                //    CmdUseItem(netId, heldItem.transform.position, heldItem.transform.rotation, heldItem.rb.velocity, false);
+                //}
             }
         }
         else // Not Holding
@@ -199,29 +200,29 @@ public class PlayerItemInteractions : NetworkBehaviour
         cameraController.ToggleCameraAim(false);
     }
 
-    void UseItem(bool isItemMainUse)
+    void UseItem(Vector3 pos, Quaternion rot, Vector3 vel, Vector3 throwVec, bool isItemMainUse)
     {
         if (isItemMainUse)
         {
-            heldItem.UseMain();
+            heldItem.UseMain(pos, rot, vel, throwVec);
         } else
         {
-            heldItem.UseSecondary();
+            heldItem.UseSecondary(pos, rot, vel);
         }
     }
 
     [ClientRpc]
-    public void RpcUseItem(bool isItemMainUse)
+    public void RpcUseItem(Vector3 pos, Quaternion rot, Vector3 vel, Vector3 throwVec, bool isItemMainUse)
     {
-        UseItem(isItemMainUse);
+        UseItem(pos, rot, vel, throwVec, isItemMainUse);
     }
 
     [Command]
-    void CmdUseItem(uint playerNID, bool isItemMainUse)
+    void CmdUseItem(uint playerNID, Vector3 pos, Quaternion rot, Vector3 vel, Vector3 throwVec, bool isItemMainUse)
     {
         NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerItemInteractions pp = player.GetComponent<PlayerItemInteractions>();
 
-        pp.RpcUseItem(isItemMainUse);
+        pp.RpcUseItem(pos, rot, vel, throwVec, isItemMainUse);
     }
 }
