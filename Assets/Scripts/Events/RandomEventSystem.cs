@@ -64,12 +64,18 @@ public class RandomEventSystem : NetworkBehaviour
         events[eventIndex].ServerEvent();
 
         //invoke on client
-        RpcStartClientEvent(eventIndex);
+        RpcStartClientEvent(events[eventIndex].name);
     }
 
     [ClientRpc]
-    private void RpcStartClientEvent(int eventIndex)
+    private void RpcStartClientEvent(string eventName)
     {
-        events[eventIndex].ClientEvent();
+        foreach (RandomEvent randomEvent in events)
+        {
+            if(randomEvent.name == eventName)
+            {
+                randomEvent.ClientEvent();
+            }
+        }
     }
 }

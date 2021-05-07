@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: 3396668420586916289}
   - component: {fileID: 3396668420586916288}
   - component: {fileID: 5707595270139409605}
-  - component: {fileID: -8929572852497363306}
-  - component: {fileID: 8442190050400806887}
   - component: {fileID: 8401161832207245447}
   - component: {fileID: 7888243684139002501}
   - component: {fileID: 6982407063353100274}
@@ -135,46 +133,6 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &-8929572852497363306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3396668420586916290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 1
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0
---- !u!114 &8442190050400806887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3396668420586916290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83392ae5c1b731446909f252fd494ae4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  target: {fileID: 3396668420586916288}
-  clientAuthority: 1
-  syncVelocity: 1
-  clearVelocity: 0
-  velocitySensitivity: 0.01
-  syncAngularVelocity: 0
-  clearAngularVelocity: 0
-  angularVelocitySensitivity: 0
 --- !u!120 &8401161832207245447
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -309,6 +267,7 @@ MonoBehaviour:
   originalParent: {fileID: 0}
   outline: {fileID: 7888243684139002501}
   isBeingHeld: 0
+  dropCDDuration: 0.75
   outlineDistance: 1.25
   isGrounded: 0
   groundedCheckDistance: 1.25
@@ -316,6 +275,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1047
   currUsingPlayer: {fileID: 0}
+  netPos: {x: 0, y: 0, z: 0}
+  netRot: {x: 0, y: 0, z: 0, w: 0}
+  netVel: {x: 0, y: 0, z: 0}
+  lerpFactor: 0.15
   throwForce: 8000
   movementDirectionForceMultiplyer: 25
   throwTarget: {fileID: 0}

@@ -520,6 +520,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1047
   currUsingPlayer: {fileID: 0}
+  netPos: {x: 0, y: 0, z: 0}
+  netRot: {x: 0, y: 0, z: 0, w: 0}
+  netVel: {x: 0, y: 0, z: 0}
+  lerpFactor: 0.05
   throwForce: 6750
   movementDirectionForceMultiplyer: 15
   throwTarget: {fileID: 0}

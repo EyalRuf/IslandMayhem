@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 
 public class ThrowableItem : PickupableItem
 {
@@ -53,11 +54,6 @@ public class ThrowableItem : PickupableItem
         }
     }
 
-    public override void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
-
     public override void Pickup(PlayerItemInteractions player)
     {
         base.Pickup(player);
@@ -65,14 +61,15 @@ public class ThrowableItem : PickupableItem
         hitInflictor.Deactivate();
     }
 
-    public override void UseMain()
+    public override void UseMain(Vector3 pos, Quaternion rot, Vector3 vel, Vector3 throwVec)
     {
-        base.UseMain();
-        currUsingPlayer.playerAnims.ThrowAnim();
-        hitInflictor.ActivateInflictorForDuration(currUsingPlayer.netId, hitActiveDuration);
-        Drop();
+        base.UseMain(pos, rot, vel, throwVec);
+        PlayerItemInteractions pi = currUsingPlayer;
 
-        rb.AddForce(CalcThrowVector());
+        pi.playerAnims.ThrowAnim();
+        hitInflictor.ActivateInflictorForDuration(pi.netId, hitActiveDuration);
+        Drop();
+        rb.AddForce(throwVec);
     }
 
     public override void Drop()
@@ -81,9 +78,9 @@ public class ThrowableItem : PickupableItem
         base.Drop();
     }
 
-    public override void UseSecondary()
+    public override void UseSecondary(Vector3 pos, Quaternion rot, Vector3 vel)
     {
-        base.UseSecondary();
+        base.UseSecondary(pos, rot, vel);
     }
 
     void DrawThrowTrajectory()
@@ -129,11 +126,11 @@ public class ThrowableItem : PickupableItem
         lineRenderer.SetPositions(linePoints.ToArray());
     }
 
-    Vector3 CalcThrowVector()
+    public Vector3 CalcThrowVector()
     {
         float movementMultiplyer = movementDirectionForceMultiplyer;
-        Vector3 dir = throwTarget.forward;
-        Vector3 movement = currObjectVelocity;
+        //Vector3 dir = throwTarget.forward;
+        //Vector3 movement = currObjectVelocity;
 
         // Halfing the effect of the movement on the throwing if you're walking backwards
         //if (Mathf.Sign(dir.x) != Mathf.Sign(movement.x) && Mathf.Sign(dir.z) != Mathf.Sign(movement.z))
