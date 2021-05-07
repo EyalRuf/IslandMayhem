@@ -33,12 +33,12 @@ public class PickupableItem : NetworkBehaviour
 
     public void Start()
     {
-        //netPos = Vector3.zero;
-        //netRot = Quaternion.identity;
-        //netVel = Vector3.zero;
-        //transform.position = Vector3.zero;
-        //transform.rotation = Quaternion.identity;
-        //rb.velocity = Vector3.zero;
+        if (isServer)
+        {
+            netPos = Vector3.zero;
+            netRot = Quaternion.identity;
+            netVel = Vector3.zero;
+        }
     }
 
     public virtual void Update()
