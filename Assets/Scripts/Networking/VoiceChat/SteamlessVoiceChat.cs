@@ -97,7 +97,7 @@ public class SteamlessVoiceChat : NetworkBehaviour
         else
         {
             //do ui and stuff
-            speaking = packetQueue.Count <= 0;
+            speaking = packetQueue.Count >= 0;
 
             if (nonLocalVCIcon != null)
             {
