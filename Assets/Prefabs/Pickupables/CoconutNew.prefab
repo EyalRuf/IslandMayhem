@@ -271,7 +271,7 @@ MonoBehaviour:
   dropCDDuration: 0.75
   outlineDistance: 1.25
   isGrounded: 0
-  groundedCheckDistance: 0.5
+  groundedCheckDistance: 1.25
   groundCheckMask:
     serializedVersion: 2
     m_Bits: 1047
@@ -281,7 +281,7 @@ MonoBehaviour:
   netVel: {x: 0, y: 0, z: 0}
   lerpFactor: 0.15
   throwForce: 7000
-  movementDirectionForceMultiplyer: 15
+  movementDirectionForceMultiplyer: 25
   throwTarget: {fileID: 0}
   drawTrajectory: 0
   lineRenderer: {fileID: 7323708414163492903}

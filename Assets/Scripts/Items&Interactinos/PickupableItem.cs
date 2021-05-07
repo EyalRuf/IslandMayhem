@@ -24,21 +24,18 @@ public class PickupableItem : NetworkBehaviour
 
     [Header("Networking")]
     [SyncVar]
-    public Vector3 netPos = Vector3.zero;
+    public Vector3 netPos;
     [SyncVar]
-    public Quaternion netRot = Quaternion.identity;
+    public Quaternion netRot;
     [SyncVar]
-    public Vector3 netVel = Vector3.zero;
+    public Vector3 netVel;
     public float lerpFactor;
 
     public void Start()
     {
-        if (isServer)
-        {
-            netPos = Vector3.zero;
-            netRot = Quaternion.identity;
-            netVel = Vector3.zero;
-        }
+        netPos = transform.position;
+        netRot = transform.rotation;
+        netVel = rb.velocity;
     }
 
     public virtual void Update()
