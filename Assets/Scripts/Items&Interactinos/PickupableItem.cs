@@ -60,7 +60,10 @@ public class PickupableItem : NetworkBehaviour
     {
         if (!isGrounded && rb.useGravity)
         {
-            rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
+            Vector3 vec = Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
+
+            if (vec.x == vec.x && vec.y == vec.y && vec.z == vec.z)
+                rb.velocity += vec;
         }
 
         if (isServer)

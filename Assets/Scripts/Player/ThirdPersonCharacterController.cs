@@ -97,10 +97,14 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         if (isGrounded)
         {
             Vector3 newVelocity = rb.velocity * (1 - groundedDrag * Time.fixedDeltaTime);
-            rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+
+            if (newVelocity.x == newVelocity.x && newVelocity.z == newVelocity.z)
+                rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
         } else if (rb.useGravity) // Whenever we're not grounded apply gravity forces
         {
-            rb.velocity += Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
+            Vector3 vec = Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
+            if (vec.x == vec.x && vec.y == vec.y && vec.z == vec.z)
+                rb.velocity += vec;
         }
 
         // Set physics material
