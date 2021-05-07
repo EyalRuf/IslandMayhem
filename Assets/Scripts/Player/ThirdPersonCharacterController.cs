@@ -47,7 +47,9 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     public AudioClip[] walkClips;
     public AudioClip[] sprintClips;
     public AudioClip[] jumpClips;
+    public AudioClip[] landingClips;
     public float footstepDistance = 1f;
+    public Vector2 pitchRange;
 
     [SerializeField]
     private AudioSource source;
@@ -187,6 +189,7 @@ public class ThirdPersonCharacterController : NetworkBehaviour
             source = GetComponent<AudioSource>();
         }
 
+        source.pitch = Random.Range(pitchRange.x, pitchRange.y);
         source.PlayOneShot(jumpClips[Random.Range(0, jumpClips.Length)], playerVolume);
     }
 
@@ -204,9 +207,28 @@ public class ThirdPersonCharacterController : NetworkBehaviour
             source = GetComponent<AudioSource>();
         }
 
+        source.pitch = Random.Range(pitchRange.x, pitchRange.y);
         source.PlayOneShot(
             isSprinting ? sprintClips[Random.Range(0, jumpClips.Length)] : walkClips[Random.Range(0, jumpClips.Length)], 
             playerVolume);
+    }
+
+    [Command]
+    public void CmdPlayLandClip()
+    {
+        RpcPlayLandClip();
+    }
+
+    [ClientRpc]
+    private void RpcPlayLandClip()
+    {
+        if (source == null)
+        {
+            source = GetComponent<AudioSource>();
+        }
+
+        source.pitch = Random.Range(pitchRange.x, pitchRange.y);
+        source.PlayOneShot(landingClips[Random.Range(0, landingClips.Length)], playerVolume);
     }
 
     #endregion

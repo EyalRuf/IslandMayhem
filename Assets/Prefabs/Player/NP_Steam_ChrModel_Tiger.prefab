@@ -973,7 +973,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d91b006957b70d643a065a923054bc2e, type: 3}
   - {fileID: 8300000, guid: 95c6e4061460177459a19b9b2dd8c700, type: 3}
   - {fileID: 8300000, guid: a6eb023b708329a448dd9f5e018258da, type: 3}
+  landingClips:
+  - {fileID: 8300000, guid: ac9b3c6b9bdd6a3429225d9a9116d607, type: 3}
   footstepDistance: 5
+  pitchRange: {x: 0.9, y: 1.1}
   source: {fileID: 8417534788943112897}
   groundedDrag: 5
   groundedMaterial: {fileID: 13400000, guid: cf291c228a03d5d48bceeb1a804190f5, type: 2}
