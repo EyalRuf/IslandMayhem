@@ -61,8 +61,9 @@ public class PickupableItem : NetworkBehaviour
         if (!isGrounded && rb.useGravity)
         {
             Vector3 vec = Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
-
-            if (vec.x == vec.x && vec.y == vec.y && vec.z == vec.z)
+            Vector3 vec2 = rb.velocity + vec;
+            if (vec.x == vec.x && vec.y == vec.y && vec.z == vec.z &&
+                vec2.x == vec2.x && vec2.y == vec2.y && vec2.z == vec2.z)
                 rb.velocity += vec;
         }
 

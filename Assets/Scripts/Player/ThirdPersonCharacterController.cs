@@ -106,8 +106,9 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         } else if (rb.useGravity) // Whenever we're not grounded apply gravity forces
         {
             Vector3 vec2 = Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
-
-            if (vec2.x == vec2.x && vec2.y == vec2.y && vec2.z == vec2.z)
+            Vector3 vec3 = rb.velocity + vec2;
+            if (vec2.x == vec2.x && vec2.y == vec2.y && vec2.z == vec2.z &&
+                vec3.x == vec3.x && vec3.y == vec3.y && vec3.z == vec3.z)
                 rb.velocity += vec2;
         }
 
