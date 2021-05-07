@@ -24,6 +24,7 @@ public class PlayerCombat : NetworkBehaviour
 
     [Header("Particles")]
     public GameObject hitParticles;
+    public Vector3 hitParticlesOffset;
 
     void Start()
     {
@@ -104,7 +105,8 @@ public class PlayerCombat : NetworkBehaviour
     [ClientRpc]
     void RpcPlayerWasHit(Vector3 hitVec, int damage)
     {
-        Instantiate(hitParticles, transform.position, Quaternion.identity);
+        //spawn hit particles
+        Instantiate(hitParticles, transform.position + hitParticlesOffset, hitParticles.transform.rotation);
         ApplyHitOnSelf(hitVec, damage);
     }
 
