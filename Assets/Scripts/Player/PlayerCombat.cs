@@ -22,6 +22,9 @@ public class PlayerCombat : NetworkBehaviour
     private float regenerationTimer;
     private float punchCDTimer;
 
+    [Header("Particles")]
+    public GameObject hitParticles;
+
     void Start()
     {
         punchObj.initiatorNetId = netId;
@@ -101,6 +104,7 @@ public class PlayerCombat : NetworkBehaviour
     [ClientRpc]
     void RpcPlayerWasHit(Vector3 hitVec, int damage)
     {
+        Instantiate(hitParticles, transform.position, Quaternion.identity);
         ApplyHitOnSelf(hitVec, damage);
     }
 

@@ -855,7 +855,6 @@ MonoBehaviour:
   netPlayerRot: {x: 0, y: 0, z: 0, w: 0}
   netPlayerVel: {x: 0, y: 0, z: 0}
   lerpFactor: 0.15
-  smoothDampFactor: 100
 --- !u!114 &8297925720422174604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,6 +1039,8 @@ MonoBehaviour:
   isInvulnerable: 0
   invulnerabilityDuration: 1
   regenerationDuration: 10
+  hitParticles: {fileID: 1838810860747614094, guid: 0f6975e2edb83e141bd36c0a3422b584,
+    type: 3}
 --- !u!114 &-7313913782277317431
 MonoBehaviour:
   m_ObjectHideFlags: 0
