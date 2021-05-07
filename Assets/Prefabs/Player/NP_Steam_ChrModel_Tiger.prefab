@@ -910,7 +910,7 @@ MonoBehaviour:
   groundCheckDistance: 1
   groundCheckMask:
     serializedVersion: 2
-    m_Bits: 1559
+    m_Bits: 1543
   jumpForce: 25
   jumpCD: 0.75
   isHoldingItem: 0
