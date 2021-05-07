@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Mirror;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class SteamlessVoiceChat : NetworkBehaviour
 {
     public KeyCode voiceChatKey = KeyCode.V;
     public bool previewVoice = true;
+
+    [Header("UI")]
+    public Image voiceIcon;
+    public Sprite speakingSprite;
+    public Sprite silentSprite;
 
     [Header("Misc settings")]
     [Range(11025, 48000)]
@@ -17,7 +23,8 @@ public class SteamlessVoiceChat : NetworkBehaviour
     public int deviceIndex = -1;
     public VCPlaybackMode mode = VCPlaybackMode.Clip;
 
-    public List<VoicePacket> packetQueue = new List<VoicePacket>();
+    private bool speaking;
+    private List<VoicePacket> packetQueue = new List<VoicePacket>();
     private AudioClip microphoneClip;
     private int lastMicReadPos = 0;
     private string device;
@@ -74,6 +81,14 @@ public class SteamlessVoiceChat : NetworkBehaviour
             }
             
             lastMicReadPos += packetDiff * chunkSize; //advance lastReadPos by how many packets we made
+        }
+
+        //do ui and stuff
+        speaking = packetQueue.Count <= 0;
+
+        if (voiceIcon != null)
+        {
+            voiceIcon.sprite = speaking ? speakingSprite : silentSprite;
         }
     }
 
