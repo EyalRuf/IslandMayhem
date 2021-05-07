@@ -24,11 +24,11 @@ public class PickupableItem : NetworkBehaviour
 
     [Header("Networking")]
     [SyncVar]
-    public Vector3 netPos;
+    public Vector3 netPos = Vector3.zero;
     [SyncVar]
-    public Quaternion netRot;
+    public Quaternion netRot = Quaternion.identity;
     [SyncVar]
-    public Vector3 netVel;
+    public Vector3 netVel = Vector3.zero;
     public float lerpFactor;
 
     public virtual void Update()

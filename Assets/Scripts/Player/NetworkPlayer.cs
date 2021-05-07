@@ -31,11 +31,11 @@ public class NetworkPlayer : NetworkBehaviour
 
     [Header("Networking")]
     [SyncVar]
-    public Vector3 netPlayerPos;
+    public Vector3 netPlayerPos = Vector3.zero;
     [SyncVar]
-    public Quaternion netPlayerRot;
+    public Quaternion netPlayerRot = Quaternion.identity;
     [SyncVar]
-    public Vector3 netPlayerVel;
+    public Vector3 netPlayerVel = Vector3.zero;
     public float lerpFactor;
 
     void Start()
