@@ -169,8 +169,11 @@ public class PlayerItemInteractions : NetworkBehaviour
 
     public void DropItem()
     {
-        heldItem.Drop();
-        heldItem = null;
+        if (heldItem != null)
+        {
+            heldItem.Drop();
+            heldItem = null;
+        }
     }
 
     [ClientRpc]

@@ -66,6 +66,15 @@ public class PickupableItem : NetworkBehaviour
 
     public void UpdateTransform(Vector3 pos, Quaternion rot, Vector3 vel)
     {
+        // teleport if too far away
+        if (Vector3.Distance(transform.position, pos) > 10f)
+            transform.position = pos;
+        if (Quaternion.Angle(transform.rotation, rot) > 10f)
+            transform.rotation = rot;
+        if (Vector3.Distance(rb.velocity, vel) > 5f)
+            rb.velocity = vel;
+
+        // smooth closer if not very very close already
         if (Vector3.Distance(transform.position, pos) > 0.01f)
             transform.position = Vector3.Lerp(transform.position, pos, lerpFactor);
         if (Quaternion.Angle(transform.rotation, rot) > 0.1f)
