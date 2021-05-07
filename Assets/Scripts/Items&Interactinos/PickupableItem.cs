@@ -31,6 +31,16 @@ public class PickupableItem : NetworkBehaviour
     public Vector3 netVel = Vector3.zero;
     public float lerpFactor;
 
+    public void Start()
+    {
+        netPos = Vector3.zero;
+        netRot = Quaternion.identity;
+        netVel = Vector3.zero;
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        rb.velocity = Vector3.zero;
+    }
+
     public virtual void Update()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, groundedCheckDistance, groundCheckMask);

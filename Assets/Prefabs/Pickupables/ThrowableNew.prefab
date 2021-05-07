@@ -387,6 +387,7 @@ MonoBehaviour:
   originalParent: {fileID: 0}
   outline: {fileID: 7888243684139002501}
   isBeingHeld: 0
+  dropCDDuration: 0.5
   outlineDistance: 1.25
   isGrounded: 0
   groundedCheckDistance: 0.5
@@ -397,7 +398,7 @@ MonoBehaviour:
   netPos: {x: 0, y: 0, z: 0}
   netRot: {x: 0, y: 0, z: 0, w: 0}
   netVel: {x: 0, y: 0, z: 0}
-  lerpFactor: 0.05
+  lerpFactor: 0.15
   throwForce: 6750
   movementDirectionForceMultiplyer: 15
   throwTarget: {fileID: 0}
