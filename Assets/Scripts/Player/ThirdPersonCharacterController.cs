@@ -79,7 +79,9 @@ public class ThirdPersonCharacterController : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + rb.rotation * (Vector3.ClampMagnitude(lpInput.moveInput, 1f) * currMoveSpeed * Time.fixedDeltaTime));
+        Vector3 vec = rb.position + rb.rotation * (Vector3.ClampMagnitude(lpInput.moveInput, 1f) * currMoveSpeed * Time.fixedDeltaTime);
+        if (vec.x == vec.x && vec.y == vec.y && vec.z == vec.z)
+            rb.MovePosition(vec);
 
         if (applyJump)
         {
