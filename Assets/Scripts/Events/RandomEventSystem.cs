@@ -10,7 +10,7 @@ public class RandomEventSystem : NetworkBehaviour
 
     private bool started = false;
     private MatchManager matchManager;
-    private RandomEvent[] events;
+    public RandomEvent[] events;
 
     private void Start()
     {
@@ -26,8 +26,9 @@ public class RandomEventSystem : NetworkBehaviour
     {
         if (matchManager.gameStarted && !started)
         {
+            //DO THIS IN EDITOR
             //get all events
-            events = FindObjectsOfType<RandomEvent>().OrderBy(e => e.name).ToArray();
+            //events = FindObjectsOfType<RandomEvent>().OrderBy(e => e.name).ToArray();
         }
 
         if (!isServer) //server only behaviour

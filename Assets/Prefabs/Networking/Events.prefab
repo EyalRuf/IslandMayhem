@@ -4880,6 +4880,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   eventDelayRange: {x: 30, y: 120}
+  events:
+  - {fileID: 1322323852098428062}
+  - {fileID: 828920448136953145}
 --- !u!1 &5055732106071761009
 GameObject:
   m_ObjectHideFlags: 0
