@@ -1041,6 +1041,7 @@ MonoBehaviour:
   regenerationDuration: 10
   hitParticles: {fileID: 1838810860747614094, guid: 0f6975e2edb83e141bd36c0a3422b584,
     type: 3}
+  hitParticlesOffset: {x: 0, y: 4, z: 0}
 --- !u!114 &-7313913782277317431
 MonoBehaviour:
   m_ObjectHideFlags: 0
