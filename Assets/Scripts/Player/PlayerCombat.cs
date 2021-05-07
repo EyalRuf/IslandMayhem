@@ -25,6 +25,7 @@ public class PlayerCombat : NetworkBehaviour
     [Header("Particles")]
     public GameObject hitParticles;
     public Vector3 hitParticlesOffset;
+    public GameObject stunnedParticles;
 
     void Start()
     {
@@ -135,11 +136,13 @@ public class PlayerCombat : NetworkBehaviour
 
     void Cripple ()
     {
+        stunnedParticles.SetActive(true);
         cController.isCrippled = true;
     }
 
     void Revive ()
     {
+        stunnedParticles.SetActive(false);
         cController.isCrippled = false;
         currHp = maxHp;
     }
