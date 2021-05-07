@@ -124,7 +124,6 @@ public class PickupableItem : NetworkBehaviour
         rb.isKinematic = false;
         col.enabled = true;
 
-        StartCoroutine(HoldCD());
     }
 
     public virtual void UseMain (Vector3 pos, Quaternion rot, Vector3 vel, Vector3 throwVec)
