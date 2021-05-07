@@ -1060,9 +1060,8 @@ MonoBehaviour:
   syncInterval: 0.1
   voiceChatKey: 118
   previewVoice: 0
-  voiceIcon: {fileID: 1008796090472887632}
-  speakingSprite: {fileID: 21300000, guid: 9bc61e42e3a790e40a95091d6eaee5e9, type: 3}
-  silentSprite: {fileID: 21300000, guid: e23ca9c1a5882604ba536b3cb8295603, type: 3}
+  localVCIcon: {fileID: 0}
+  nonLocalVCIcon: {fileID: 1008796090472887632}
   sampleRate: 22050
   chunkSize: 256
   deviceIndex: -1
