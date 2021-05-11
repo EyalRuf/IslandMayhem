@@ -117,8 +117,12 @@ public class PickupableItem : NetworkBehaviour
 
     public virtual void Drop ()
     {
-        currUsingPlayer.heldItem = null;
-        currUsingPlayer = null;
+        if (currUsingPlayer != null)
+        {
+            currUsingPlayer.heldItem = null;
+            currUsingPlayer = null;
+        }
+
         transform.parent = originalParent;
         isBeingHeld = false;
         rb.isKinematic = false;

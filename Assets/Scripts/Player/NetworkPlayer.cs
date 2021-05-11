@@ -81,7 +81,7 @@ public class NetworkPlayer : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            CmdUpdatePlayerTransform(netId, transform.position, transform.rotation, rb.velocity);
+            CmdUpdatePlayerTransform(netId, transform.position, transform.rotation, rb.velocity, transform.localScale);
         }
         else 
         {
@@ -95,13 +95,14 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [Command]
-    void CmdUpdatePlayerTransform (uint playerNID, Vector3 pos, Quaternion rot, Vector3 vel)
+    void CmdUpdatePlayerTransform (uint playerNID, Vector3 pos, Quaternion rot, Vector3 vel, Vector3 size)
     {
         NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         NetworkPlayer np = player.GetComponent<NetworkPlayer>();
         np.netPlayerPos = pos;
         np.netPlayerRot = rot;
         np.netPlayerVel = vel;
+        np.transform.localScale = size;
     }
 
     private void LateUpdate()
