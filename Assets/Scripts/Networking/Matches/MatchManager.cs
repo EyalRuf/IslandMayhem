@@ -18,7 +18,8 @@ public class MatchManager : NetworkBehaviour
     public int numberOfPlayersNeededToStart;
     public int numberOfTeams;
     public Color[] teamColors = { Color.red, Color.blue };
-    public string[] teamNames = { "Red", "Blue" };
+    public Color neutralTeamColor = Color.white;
+    public string[] teamNames = { "Natives", "Explorers" };
     public List<Team> teams;
 
     [HideInInspector]
@@ -41,7 +42,7 @@ public class MatchManager : NetworkBehaviour
     [HideInInspector]
     public CustomNetworkManager networkManager;
 
-    private OnMatchStartStop[] onMatchStartStops;
+    protected OnMatchStartStop[] onMatchStartStops;
 
     protected virtual void Start()
     {
@@ -253,7 +254,5 @@ public class TeamInfo
 
 public class RandomizeComparer : IComparer<object>
 {
-    private readonly System.Random _random = new System.Random();
-
-    public int Compare(object x, object y) => _random.Next(-1, 2);
+    public int Compare(object x, object y) => Random.Range(-1, 2);
 }

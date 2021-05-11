@@ -39,7 +39,7 @@ public class TTTMatchManager : MatchManager
         base.CalculateAndAssignTeams();
     }
 
-    void PopulateTeamObjectives()
+    protected virtual void PopulateTeamObjectives()
     {
         List<Totem> totems0 = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Red).ToList();
         List<Totem> totems1 = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Blue).ToList();
@@ -105,7 +105,7 @@ public class TTTMatchManager : MatchManager
         yield return new WaitForSeconds(1f);
 
         overviewText.color = teamColors[teamIndex];
-        overviewText.text = "Team " + (teamIndex == 0 ? "Red " : "Blue ").ToString() + "Wins!";
+        overviewText.text = teamNames[teamIndex] + " Win!";
 
         yield return new WaitForSeconds(5f);
 
