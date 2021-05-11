@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/EyalSandbox.unity
-    guid: 5d369b3c33e7be8459444f84ffb625de
+    path: Assets/Scenes/SD_Test.unity
+    guid: 51d755ca50dda2e478b01fb4dd5ba783
   m_configObjects: {}

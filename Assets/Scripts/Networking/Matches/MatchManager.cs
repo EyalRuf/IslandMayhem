@@ -18,7 +18,7 @@ public class MatchManager : NetworkBehaviour
     public int numberOfPlayersNeededToStart;
     public int numberOfTeams;
     public Color[] teamColors = { Color.red, Color.blue };
-    public string[] teamNames = { "Red", "Blue" };
+    public string[] teamNames = { "Natives", "Explorers" };
     public List<Team> teams;
 
     [HideInInspector]
@@ -41,7 +41,7 @@ public class MatchManager : NetworkBehaviour
     [HideInInspector]
     public CustomNetworkManager networkManager;
 
-    private OnMatchStartStop[] onMatchStartStops;
+    protected OnMatchStartStop[] onMatchStartStops;
 
     protected virtual void Start()
     {

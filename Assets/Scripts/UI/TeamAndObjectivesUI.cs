@@ -13,6 +13,7 @@ public class TeamAndObjectivesUI : MonoBehaviour
     [Header("TeamUI")]
     public Image background;
     public TextMeshProUGUI teamNameText;
+    public TextMeshProUGUI timerText;
 
     [Header("ObjectivesUI")]
     public RectTransform container;
@@ -54,6 +55,11 @@ public class TeamAndObjectivesUI : MonoBehaviour
                 RefreshUI();
                 initialRefresh = true;
             }
+        }
+
+        if (matchManager is SDMatchManager)
+        {
+            timerText.text = (matchManager as SDMatchManager).matchTimer.GetMatchTimeString;
         }
     }
 

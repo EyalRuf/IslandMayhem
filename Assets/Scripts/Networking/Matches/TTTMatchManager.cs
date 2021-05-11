@@ -39,7 +39,7 @@ public class TTTMatchManager : MatchManager
         base.CalculateAndAssignTeams();
     }
 
-    void PopulateTeamObjectives()
+    protected virtual void PopulateTeamObjectives()
     {
         List<Totem> totems0 = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Red).ToList();
         List<Totem> totems1 = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Blue).ToList();
