@@ -22,5 +22,5 @@ public class TimerObjective : MatchObjective
     public int MultiObjCurrIndex => 0;
 
     public string ObjectiveName => "Let timer run out";
-    public string ProgressIndication => TimeFormatter.Format(timer != null ? timer.GetMatchTime : 0);
+    public string ProgressIndication => timer.GetMatchTimeString;
 }

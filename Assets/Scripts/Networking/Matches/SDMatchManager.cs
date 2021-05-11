@@ -11,14 +11,13 @@ public class SDMatchManager : TTTMatchManager
 
     protected override void PopulateTeamObjectives()
     {
-        List<Totem> totems0 = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Blue).ToList();
-
-        TotemsObjective team0Objective = new TotemsObjective();
-        team0Objective.totems = totems0;
+        TimerObjective team0Objective = new TimerObjective(matchTimer);
         team0Objectives = new List<MatchObjective>();
         team0Objectives.Add(team0Objective);
 
-        TimerObjective team1Objective = new TimerObjective(matchTimer);
+        List<Totem> totems = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Blue).ToList();
+        TotemsObjective team1Objective = new TotemsObjective();
+        team1Objective.totems = totems;
         team1Objectives = new List<MatchObjective>();
         team1Objectives.Add(team1Objective);
 
@@ -79,5 +78,11 @@ public class SDMatchManager : TTTMatchManager
         matchTimer.MatchStarted();
 
         yield return null;
+    }
+
+    protected override IEnumerator EndGame(int teamIndex)
+    {
+        matchTimer.MatchEnd();
+        yield return base.EndGame(teamIndex);
     }
 }

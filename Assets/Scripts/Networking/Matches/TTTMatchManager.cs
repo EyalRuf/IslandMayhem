@@ -105,7 +105,7 @@ public class TTTMatchManager : MatchManager
         yield return new WaitForSeconds(1f);
 
         overviewText.color = teamColors[teamIndex];
-        overviewText.text = "Team " + (teamIndex == 0 ? "Red " : "Blue ").ToString() + "Wins!";
+        overviewText.text = teamNames[teamIndex] + " Win!";
 
         yield return new WaitForSeconds(5f);
 

@@ -29552,7 +29552,6 @@ GameObject:
   - component: {fileID: 455943078}
   - component: {fileID: 455943077}
   - component: {fileID: 455943076}
-  - component: {fileID: 455943080}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -29567,7 +29566,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455943075}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea368fb6f27ec2f40a40e20977992b9c, type: 3}
   m_Name: 
@@ -29598,7 +29597,7 @@ MonoBehaviour:
   serverBatchInterval: 0
   offlineScene: 
   onlineScene: 
-  transport: {fileID: 455943080}
+  transport: {fileID: 455943076}
   networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
@@ -29651,30 +29650,6 @@ Transform:
   m_Father: {fileID: 23642531}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &455943080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455943075}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  port: 7777
-  NoDelay: 1
-  SendTimeout: 5000
-  ReceiveTimeout: 5000
-  serverMaxMessageSize: 16384
-  serverMaxReceivesPerTick: 10000
-  serverSendQueueLimitPerConnection: 10000
-  serverReceiveQueueLimitPerConnection: 10000
-  clientMaxMessageSize: 16384
-  clientMaxReceivesPerTick: 1000
-  clientSendQueueLimit: 10000
-  clientReceiveQueueLimit: 10000
 --- !u!1001 &457611360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -122060,7 +122035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  matchLength: 600
+  matchLength: 5
   timeRemaining: 0
   didStart: 0
 --- !u!1001 &1671869247

@@ -97,8 +97,8 @@ public class TeamAndObjectivesUI : MonoBehaviour
     public void RefreshTeamUI ()
     {
         Color teamColor = matchManager.teamColors[localPlayer.playerTeam];
-        background.color = new Color(teamColor.r, teamColor.g, teamColor.b, 25f/255f);
-        teamNameText.text = "Team " + matchManager.teamNames[localPlayer.playerTeam];
+        background.color = new Color(teamColor.r, teamColor.g, teamColor.b, 55f/255f);
+        teamNameText.text = matchManager.teamNames[localPlayer.playerTeam];
     }
 
     public void RefreshObjectiveUI ()

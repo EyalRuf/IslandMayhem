@@ -14,7 +14,7 @@ public class MatchTimer : NetworkBehaviour
     public bool didStart = false;
 
     public float GetMatchTime => timeRemaining;
-    public string GetMatchTimeString => didStart ? TimeFormatter.Format(GetMatchTime) : TimeFormatter.Format(0);
+    public string GetMatchTimeString => didStart ? TimeFormatter.Format(GetMatchTime) : TimeFormatter.Format(matchLength);
     public bool IsTimeOver => didStart && GetMatchTime <= 0;
 
     void FixedUpdate()
@@ -30,5 +30,11 @@ public class MatchTimer : NetworkBehaviour
         didStart = true;
         startTime = Time.time;
         timeRemaining = matchLength - (Time.time - startTime);
+    }
+
+    public void MatchEnd()
+    {
+        didStart = false;
+        timeRemaining = 0;
     }
 }
