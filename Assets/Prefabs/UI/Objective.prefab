@@ -225,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 5753206108191285144}
   objNameText: {fileID: 1166790119073102025}
-  objFinishProgressText: {fileID: 5711544790753626388}
+  objProgressText: {fileID: 5711544790753626388}
   objectiveItemHeight: 60
   objectiveIndex: 0
 --- !u!1 &8857618682484158376
@@ -260,7 +260,7 @@ RectTransform:
   m_Father: {fileID: 5753206108191285144}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.75, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: 0}
   m_SizeDelta: {x: -40, y: 0}

@@ -5,10 +5,12 @@
     int MultiObjRequirement { get; }
     int MultiObjCurrIndex { get; }
     string ObjectiveName { get; }
+    string ProgressIndication { get; }
 }
 
 public enum ObjectiveType
 {
     single,
-    multiple
+    multiple,
+    time
 }

@@ -7,7 +7,7 @@ public class ObjectiveUI : MonoBehaviour
     [Header("References")]
     public RectTransform rectTransform;
     public TextMeshProUGUI objNameText;
-    public TextMeshProUGUI objFinishProgressText;
+    public TextMeshProUGUI objProgressText;
 
     [Header("Objective")]
     public MatchObjective objective;
@@ -16,7 +16,6 @@ public class ObjectiveUI : MonoBehaviour
     public float objectiveItemHeight;
     public int objectiveIndex;
 
-    // Use this for initialization
     void Start()
     {
         rectTransform.rect.Set(rectTransform.rect.x, -(objectiveItemHeight / 2 * objectiveIndex),
@@ -27,14 +26,7 @@ public class ObjectiveUI : MonoBehaviour
 
     void Update()
     {
-        if (objective.ObjectiveType == ObjectiveType.multiple)
-        {
-            objFinishProgressText.text = objective.MultiObjCurrIndex + "/" + objective.MultiObjRequirement;
-        }
-        else
-        {
-            objFinishProgressText.text = objective.IsCompleted ? "[x]" : "[]";
-        }
+        objProgressText.text = objective.ProgressIndication;
 
         objNameText.fontStyle = objective.IsCompleted ? FontStyles.Strikethrough : FontStyles.Normal;
         objNameText.fontStyle = objective.IsCompleted ? FontStyles.Strikethrough : FontStyles.Normal;
