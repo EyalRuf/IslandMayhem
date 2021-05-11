@@ -740,6 +740,8 @@ GameObject:
   - component: {fileID: 7223162290677117676}
   - component: {fileID: -7313913782277317431}
   - component: {fileID: 5296987309341545049}
+  - component: {fileID: 2113026379820137657}
+  - component: {fileID: 5183499915911283767}
   m_Layer: 8
   m_Name: NP_Steam_ChrModel_Tiger
   m_TagString: Player
@@ -1196,6 +1198,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2113026379820137657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297925720422174642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c19143b8e37f624aa1cb1ae8096ee04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treshold: 0.25
+  ratio: 5
+  attack: 10
+  release: 10
+  makeup: 2
+--- !u!114 &5183499915911283767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297925720422174642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe21895bc25247145827373fa43f7ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limit: 1
 --- !u!1 &8297925720464115939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,9 +1595,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8591e6248058244d98fbb019ff65bb9, type: 3}
---- !u!224 &3700779214143358413 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 350649239692179647, guid: b8591e6248058244d98fbb019ff65bb9,
+--- !u!1 &2494572967839288047 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1520121365161359261, guid: b8591e6248058244d98fbb019ff65bb9,
     type: 3}
   m_PrefabInstance: {fileID: 4000901495417929074}
   m_PrefabAsset: {fileID: 0}
@@ -1581,9 +1613,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2494572967839288047 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1520121365161359261, guid: b8591e6248058244d98fbb019ff65bb9,
+--- !u!224 &3700779214143358413 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 350649239692179647, guid: b8591e6248058244d98fbb019ff65bb9,
     type: 3}
   m_PrefabInstance: {fileID: 4000901495417929074}
   m_PrefabAsset: {fileID: 0}
@@ -1849,15 +1881,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e041b231f40fcb647a9ba751fdf91125, type: 3}
---- !u!95 &2808533703779893529 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: e041b231f40fcb647a9ba751fdf91125,
-    type: 3}
-  m_PrefabInstance: {fileID: 8616370339083189384}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8077705459957406563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e041b231f40fcb647a9ba751fdf91125,
+    type: 3}
+  m_PrefabInstance: {fileID: 8616370339083189384}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2808533703779893529 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: e041b231f40fcb647a9ba751fdf91125,
     type: 3}
   m_PrefabInstance: {fileID: 8616370339083189384}
   m_PrefabAsset: {fileID: 0}
