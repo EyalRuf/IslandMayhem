@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5850217411237514959
+--- !u!1 &6347549712358234109
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6520074342220321909}
-  - component: {fileID: 7914001591867366352}
-  - component: {fileID: 5346012233945165594}
+  - component: {fileID: 8920000486664412586}
+  - component: {fileID: 4688862825745076544}
+  - component: {fileID: 8374195984661983354}
   m_Layer: 0
-  m_Name: Ivy
+  m_Name: polySurface66
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6520074342220321909
+--- !u!4 &8920000486664412586
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5850217411237514959}
-  m_LocalRotation: {x: -0, y: 0.6739343, z: -0, w: 0.73879135}
-  m_LocalPosition: {x: 72.75718, y: 11.6, z: 55.354332}
-  m_LocalScale: {x: 64.408, y: 64.408, z: 64.408}
+  m_GameObject: {fileID: 6347549712358234109}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 7339060976168958359}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 84.743004, z: 0}
---- !u!33 &7914001591867366352
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4688862825745076544
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5850217411237514959}
-  m_Mesh: {fileID: -1604003869957533625, guid: 12d3184c114dd2243905410f5573ffdb, type: 3}
---- !u!23 &5346012233945165594
+  m_GameObject: {fileID: 6347549712358234109}
+  m_Mesh: {fileID: 4339897982791373186, guid: 311231b467fb6a443bacf06d50e256eb, type: 3}
+--- !u!23 &8374195984661983354
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5850217411237514959}
+  m_GameObject: {fileID: 6347549712358234109}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -79,3 +79,34 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &7967507375261950765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7339060976168958359}
+  m_Layer: 0
+  m_Name: M_Ivy1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7339060976168958359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967507375261950765}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 54.979, y: 7.2956, z: 274.09}
+  m_LocalScale: {x: 1.54, y: 1.54, z: 1.54}
+  m_Children:
+  - {fileID: 8920000486664412586}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
