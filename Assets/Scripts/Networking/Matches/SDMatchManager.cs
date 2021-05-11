@@ -38,8 +38,10 @@ public class SDMatchManager : TTTMatchManager
         teams.Add(natives);
         teams.Add(explorers);
 
+        int nativeCount = (int)(players.Count * 0.25f) + 1;
+
         // Natives
-        while (players.Count > players.Count - (players.Count * 0.25f))
+        while (nativeCount > 0)
         {
             //dequeue
             NetworkIdentity player = players[0];
@@ -52,6 +54,7 @@ public class SDMatchManager : TTTMatchManager
 
             //assign to team
             teams[0].playersInTeam.Add(np);
+            nativeCount--;
         }
 
         // Explorers
