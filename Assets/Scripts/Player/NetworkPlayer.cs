@@ -71,6 +71,8 @@ public class NetworkPlayer : NetworkBehaviour
 
     private void Update()
     {
+        nameTag.text = userName;
+        
         if (isLocalPlayer && hideLocalNametag)
         {
             nameTag.text = "";
@@ -78,7 +80,6 @@ public class NetworkPlayer : NetworkBehaviour
 
         if (matchManager.gameStarted && !isLocalPlayer)
         {
-            nameTag.text = userName;
             nameTag.color = teamColor;
 
             if (matchManager is SDMatchManager)
