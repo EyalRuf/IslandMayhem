@@ -122035,7 +122035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  matchLength: 5
+  matchLength: 600
   timeRemaining: 0
   didStart: 0
 --- !u!1001 &1671869247
