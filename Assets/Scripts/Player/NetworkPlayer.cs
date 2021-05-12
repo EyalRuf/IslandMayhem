@@ -18,6 +18,7 @@ public class NetworkPlayer : NetworkBehaviour
     public GameObject[] gameObjectsToDisableForNotLocal;
     [HideInInspector]
     public TeamAndObjectivesUI localPlayer_TNO_UI;
+    MatchManager matchManager;
 
     [Header("UI")]
     public Text nameTag;
