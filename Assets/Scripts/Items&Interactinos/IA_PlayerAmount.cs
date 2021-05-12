@@ -48,7 +48,7 @@ public class IA_PlayerAmount : InteractionArea
         mr.material = isActive ? activeMat : currSpawnLimit <= 0 ? noMoreSpawnsMat : inactiveMat;
         
         playerAmountIndicator.text = isActive ? (playersInside + "/" + amountOfPlayersToSpawnObject)
-            : currSpawnLimit > 0 ? TimeFormatting(spawnTimer) : "";
+            : currSpawnLimit > 0 ? TimeFormatter.Format(spawnTimer) : "";
 
         if (isCoolingDown)
         {
@@ -80,13 +80,6 @@ public class IA_PlayerAmount : InteractionArea
         currSpawnLimit--;
         isActive = false;
         RpcStartTimer();
-    }
-
-    string TimeFormatting (float timer)
-    {
-        return string.Format("{0:#00}:{1:00}", 
-            Mathf.Floor(timer / 60), //minutes
-            Mathf.Floor(timer) % 60);//seconds
     }
 
     [ClientRpc]

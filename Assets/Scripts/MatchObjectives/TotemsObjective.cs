@@ -9,4 +9,6 @@ public class TotemsObjective : MatchObjective
     public int MultiObjRequirement => totems.Count;
     public int MultiObjCurrIndex => totems.FindAll(totem => totem.maxVisualStageReached).Count;
     public string ObjectiveName => "Build Totem/s";
+
+    public string ProgressIndication => MultiObjCurrIndex + "/" + MultiObjRequirement;
 }

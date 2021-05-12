@@ -101,9 +101,11 @@ public class Outline : MonoBehaviour {
 
   void OnEnable() {
     foreach (var renderer in renderers) {
+            if (renderer == null)
+                continue;
 
-      // Append outline shaders
-      var materials = renderer.sharedMaterials.ToList();
+            // Append outline shaders
+            var materials = renderer.sharedMaterials.ToList();
 
       materials.Add(outlineMaskMaterial);
       materials.Add(outlineFillMaterial);
@@ -139,6 +141,8 @@ public class Outline : MonoBehaviour {
 
   void OnDisable() {
     foreach (var renderer in renderers) {
+            if (renderer == null)
+                continue;
 
       // Remove outline shaders
       var materials = renderer.sharedMaterials.ToList();

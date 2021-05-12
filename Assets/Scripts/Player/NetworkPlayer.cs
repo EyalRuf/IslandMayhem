@@ -18,6 +18,7 @@ public class NetworkPlayer : NetworkBehaviour
     public GameObject[] gameObjectsToDisableForNotLocal;
     [HideInInspector]
     public TeamAndObjectivesUI localPlayer_TNO_UI;
+    MatchManager matchManager;
 
     [Header("UI")]
     public Text nameTag;
@@ -31,15 +32,20 @@ public class NetworkPlayer : NetworkBehaviour
 
     [Header("Networking")]
     [SyncVar]
-    public Vector3 netPlayerPos = Vector3.zero;
+    public Vector3 netPlayerPos;
     [SyncVar]
-    public Quaternion netPlayerRot = Quaternion.identity;
+    public Quaternion netPlayerRot;
     [SyncVar]
-    public Vector3 netPlayerVel = Vector3.zero;
+    public Vector3 netPlayerVel;
     public float lerpFactor;
 
     void Start()
     {
+        matchManager = FindObjectOfType<MatchManager>();
+        netPlayerPos = transform.position;
+        netPlayerRot = transform.rotation;
+        netPlayerVel = rb.velocity;
+
         if (!isLocalPlayer)
         {
             foreach (Behaviour b in disableForNotLocal)
@@ -81,7 +87,7 @@ public class NetworkPlayer : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            CmdUpdatePlayerTransform(netId, transform.position, transform.rotation, rb.velocity);
+            CmdUpdatePlayerTransform(netId, transform.position, transform.rotation, rb.velocity, transform.localScale);
         }
         else 
         {
@@ -95,13 +101,14 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [Command]
-    void CmdUpdatePlayerTransform (uint playerNID, Vector3 pos, Quaternion rot, Vector3 vel)
+    void CmdUpdatePlayerTransform (uint playerNID, Vector3 pos, Quaternion rot, Vector3 vel, Vector3 size)
     {
         NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         NetworkPlayer np = player.GetComponent<NetworkPlayer>();
         np.netPlayerPos = pos;
         np.netPlayerRot = rot;
         np.netPlayerVel = vel;
+        np.transform.localScale = size;
     }
 
     private void LateUpdate()

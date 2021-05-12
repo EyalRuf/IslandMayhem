@@ -13,7 +13,7 @@ public class LandSMB : StateMachineBehaviour
 
         if (cController != null)
         {
-            cController.CmdPlayMovementClip(false);
+            cController.CmdPlayLandClip();
         } else if (CustomNetworkManager.localPlayerInitialized)
         {
             cController = CustomNetworkManager.GetLocalPlayer().GetComponent<ThirdPersonCharacterController>();

@@ -13,6 +13,7 @@ public class TeamAndObjectivesUI : MonoBehaviour
     [Header("TeamUI")]
     public Image background;
     public TextMeshProUGUI teamNameText;
+    public TextMeshProUGUI timerText;
 
     [Header("ObjectivesUI")]
     public RectTransform container;
@@ -55,6 +56,11 @@ public class TeamAndObjectivesUI : MonoBehaviour
                 initialRefresh = true;
             }
         }
+
+        if (matchManager is SDMatchManager)
+        {
+            timerText.text = (matchManager as SDMatchManager).matchTimer.GetMatchTimeString;
+        }
     }
 
     void RecreateObjectiveList (List<MatchObjective> playerObjectives)
@@ -91,8 +97,8 @@ public class TeamAndObjectivesUI : MonoBehaviour
     public void RefreshTeamUI ()
     {
         Color teamColor = matchManager.teamColors[localPlayer.playerTeam];
-        background.color = new Color(teamColor.r, teamColor.g, teamColor.b, 25f/255f);
-        teamNameText.text = "Team " + matchManager.teamNames[localPlayer.playerTeam];
+        background.color = new Color(teamColor.r, teamColor.g, teamColor.b, 55f/255f);
+        teamNameText.text = matchManager.teamNames[localPlayer.playerTeam];
     }
 
     public void RefreshObjectiveUI ()

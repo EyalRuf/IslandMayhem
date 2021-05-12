@@ -12,9 +12,8 @@ public class SteamlessVoiceChat : NetworkBehaviour
     public bool previewVoice = true;
 
     [Header("UI")]
-    public Image voiceIcon;
-    public Sprite speakingSprite;
-    public Sprite silentSprite;
+    public Image localVCIcon;
+    public Image nonLocalVCIcon;
 
     [Header("Misc settings")]
     [Range(11025, 48000)]
@@ -79,16 +78,31 @@ public class SteamlessVoiceChat : NetworkBehaviour
                     SendPacket(packet);
                 }
             }
-            
+
             lastMicReadPos += packetDiff * chunkSize; //advance lastReadPos by how many packets we made
+
+            //do ui and stuff
+            speaking = Input.GetKey(voiceChatKey);
+
+            if (nonLocalVCIcon != null)
+            {
+                nonLocalVCIcon.gameObject.SetActive(false);
+            }
+
+            if(localVCIcon != null)
+            {
+                localVCIcon.gameObject.SetActive(speaking);
+            }
         }
-
-        //do ui and stuff
-        speaking = packetQueue.Count <= 0;
-
-        if (voiceIcon != null)
+        else
         {
-            voiceIcon.sprite = speaking ? speakingSprite : silentSprite;
+            //do ui and stuff
+            speaking = packetQueue.Count > 0;
+
+            if (nonLocalVCIcon != null)
+            {
+                nonLocalVCIcon.gameObject.SetActive(speaking);
+            }
         }
     }
 

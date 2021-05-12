@@ -58,7 +58,7 @@ public class RandomEventSystem : NetworkBehaviour
         }
     }
 
-    private void StartEvent(int eventIndex)
+    public void StartEvent(int eventIndex)
     {
         //invoke on server
         events[eventIndex].ServerEvent();

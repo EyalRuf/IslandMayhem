@@ -66,15 +66,26 @@ public class ThrowableItem : PickupableItem
         base.UseMain(pos, rot, vel, throwVec);
         PlayerItemInteractions pi = currUsingPlayer;
 
-        pi.playerAnims.ThrowAnim();
-        hitInflictor.ActivateInflictorForDuration(pi.netId, hitActiveDuration);
+        if (pi != null && pi.playerAnims != null)
+        {
+            pi.playerAnims.ThrowAnim();
+        }
+
+        if (pi != null)
+        {
+            hitInflictor.ActivateInflictorForDuration(pi.netId, hitActiveDuration);
+        }
+
         Drop();
         rb.AddForce(throwVec);
     }
 
     public override void Drop()
     {
-        currUsingPlayer.StopAiming();
+        if(currUsingPlayer != null)
+        {
+            currUsingPlayer.StopAiming();
+        }
         base.Drop();
     }
 
