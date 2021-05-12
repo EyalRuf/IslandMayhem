@@ -31,15 +31,20 @@ public class NetworkPlayer : NetworkBehaviour
 
     [Header("Networking")]
     [SyncVar]
-    public Vector3 netPlayerPos = Vector3.zero;
+    public Vector3 netPlayerPos;
     [SyncVar]
-    public Quaternion netPlayerRot = Quaternion.identity;
+    public Quaternion netPlayerRot;
     [SyncVar]
-    public Vector3 netPlayerVel = Vector3.zero;
+    public Vector3 netPlayerVel;
     public float lerpFactor;
 
     void Start()
     {
+        matchManager = FindObjectOfType<MatchManager>();
+        netPlayerPos = transform.position;
+        netPlayerRot = transform.rotation;
+        netPlayerVel = rb.velocity;
+
         if (!isLocalPlayer)
         {
             foreach (Behaviour b in disableForNotLocal)
