@@ -154907,6 +154907,16 @@ PrefabInstance:
       propertyPath: OnStop.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3367226965062506563, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: cmgCooldown
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462760912248026703, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: sceneId
+      value: 4030118754
+      objectReference: {fileID: 0}
     - target: {fileID: 6379415000001608967, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
       propertyPath: numberOfPlayersNeededToStart
