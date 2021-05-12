@@ -34,7 +34,7 @@ public class TTTMatchManager : MatchManager
         }
     }
 
-    protected override void CalculateAndAssignTeams()
+    public override void CalculateAndAssignTeams()
     {
         base.CalculateAndAssignTeams();
     }
@@ -58,7 +58,7 @@ public class TTTMatchManager : MatchManager
     }
 
     [ClientRpc]
-    protected override void RpcStartGame()
+    public override void RpcStartGame()
     {
         //base.RpcStartGame(); DON'T CALL BASE. CUSTOM IMPlEMENTATION OF STARTGAME WON'T BE CALLED.
 

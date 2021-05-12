@@ -18,7 +18,6 @@ public class NetworkPlayer : NetworkBehaviour
     public GameObject[] gameObjectsToDisableForNotLocal;
     [HideInInspector]
     public TeamAndObjectivesUI localPlayer_TNO_UI;
-    private MatchManager matchManager;
 
     [Header("UI")]
     public Text nameTag;
@@ -41,22 +40,20 @@ public class NetworkPlayer : NetworkBehaviour
 
     void Start()
     {
-        matchManager = FindObjectOfType<MatchManager>();
-
         if (!isLocalPlayer)
         {
             foreach (Behaviour b in disableForNotLocal)
             {
                 b.enabled = false;
             }
-
+            
             foreach (GameObject go in gameObjectsToDisableForNotLocal)
             {
                 go.SetActive(false);
             }
 
             localPlayerCamera = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>().localPlayerCamera;
-        }
+        } 
         else
         {
             if (isConnectedThroughSteam)
@@ -72,24 +69,11 @@ public class NetworkPlayer : NetworkBehaviour
     private void Update()
     {
         nameTag.text = userName;
-        
+        nameTag.color = teamColor;
+
         if (isLocalPlayer && hideLocalNametag)
         {
             nameTag.text = "";
-        }
-
-        if (matchManager.gameStarted && !isLocalPlayer)
-        {
-            nameTag.color = teamColor;
-
-            if (matchManager is SDMatchManager)
-            {
-                NetworkPlayer localPlayer = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>();
-                if (localPlayer.playerTeam != -1)
-                {
-                    nameTag.color = localPlayer.playerTeam == 0 ? teamColor : Color.white;
-                }
-            }
         }
     }
 
@@ -97,9 +81,9 @@ public class NetworkPlayer : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            CmdUpdatePlayerTransform(netId, transform.position, transform.rotation, rb.velocity);
+            CmdUpdatePlayerTransform(netId, transform.position, transform.rotation, rb.velocity, transform.localScale);
         }
-        else
+        else 
         {
             if (Vector3.Distance(transform.position, netPlayerPos) > 0.01f)
                 transform.position = Vector3.Lerp(transform.position, netPlayerPos, lerpFactor);
@@ -111,13 +95,14 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [Command]
-    void CmdUpdatePlayerTransform(uint playerNID, Vector3 pos, Quaternion rot, Vector3 vel)
+    void CmdUpdatePlayerTransform (uint playerNID, Vector3 pos, Quaternion rot, Vector3 vel, Vector3 size)
     {
         NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         NetworkPlayer np = player.GetComponent<NetworkPlayer>();
         np.netPlayerPos = pos;
         np.netPlayerRot = rot;
         np.netPlayerVel = vel;
+        np.transform.localScale = size;
     }
 
     private void LateUpdate()

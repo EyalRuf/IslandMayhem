@@ -24,7 +24,7 @@ public class SDMatchManager : TTTMatchManager
         UpdateTeamAndObjectiveUI();
     }
 
-    protected override void CalculateAndAssignTeams()
+    public override void CalculateAndAssignTeams()
     {
         if (!isServer) //server only to be sure
             return;

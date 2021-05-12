@@ -82,7 +82,10 @@ public class ThrowableItem : PickupableItem
 
     public override void Drop()
     {
-        currUsingPlayer.StopAiming();
+        if(currUsingPlayer != null)
+        {
+            currUsingPlayer.StopAiming();
+        }
         base.Drop();
     }
 
