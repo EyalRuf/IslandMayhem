@@ -126,7 +126,7 @@ public class PlayerItemInteractions : NetworkBehaviour
             pickupable = item.GetComponent<PickupableItem>();
         }
 
-        if (pickupable != null)
+        if (pickupable != null && !pickupable.isBeingHeld)
         {
             Pickup(pickupable);
         } else
@@ -141,7 +141,17 @@ public class PlayerItemInteractions : NetworkBehaviour
         NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerItemInteractions pp = player.GetComponent<PlayerItemInteractions>();
 
-        pp.RpcPickup(objectNID);
+        NetworkIdentity item;
+        PickupableItem pickupable = null;
+        if (NetworkIdentity.spawned.TryGetValue(objectNID, out item))
+        {
+            pickupable = item.GetComponent<PickupableItem>();
+        }
+
+        if (pickupable != null && !pickupable.isBeingHeld)
+        {
+            pp.RpcPickup(objectNID);
+        }
     }
 
     public void DestroyItem()
@@ -205,12 +215,15 @@ public class PlayerItemInteractions : NetworkBehaviour
 
     void UseItem(Vector3 pos, Quaternion rot, Vector3 vel, Vector3 throwVec, bool isItemMainUse)
     {
-        if (isItemMainUse)
+        if (heldItem != null)
         {
-            heldItem.UseMain(pos, rot, vel, throwVec);
-        } else
-        {
-            heldItem.UseSecondary(pos, rot, vel);
+            if (isItemMainUse)
+            {
+                heldItem.UseMain(pos, rot, vel, throwVec);
+            } else
+            {
+                heldItem.UseSecondary(pos, rot, vel);
+            }
         }
     }
 
