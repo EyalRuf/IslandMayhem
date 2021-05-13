@@ -95,24 +95,27 @@ public class Cheats : NetworkBehaviour
 
         GUILayout.Label("Press F11 to toggle cheats.");
 
-        if (GUILayout.Button("Start Game") && isServer && matchManager != null)
+        if (isServer)
         {
-            matchManager.startingGame = true;
+            if (GUILayout.Button("Start Game") && matchManager != null)
+            {
+                matchManager.startingGame = true;
 
-            //disallow joining
-            matchManager.networkManager.AllowJoin(false);
+                //disallow joining
+                matchManager.networkManager.AllowJoin(false);
 
-            matchManager.gameStatus = "Starting game.";
-            matchManager.CalculateAndAssignTeams();
+                matchManager.gameStatus = "Starting game.";
+                matchManager.CalculateAndAssignTeams();
 
-            //sync info
-            matchManager.RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(matchManager.teams)));
-            matchManager.RpcStartGame(); //invoke sychronized start game sequence
-        }
+                //sync info
+                matchManager.RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(matchManager.teams)));
+                matchManager.RpcStartGame(); //invoke sychronized start game sequence
+            }
 
-        if (GUILayout.Button("Random event") && isServer && eventSystem != null)
-        {
-            eventSystem.StartEvent(Random.Range(0, eventSystem.events.Length));
+            if (GUILayout.Button("Random event") && eventSystem != null)
+            {
+                eventSystem.StartEvent(Random.Range(0, eventSystem.events.Length));
+            }
         }
 
         if (player != null)
