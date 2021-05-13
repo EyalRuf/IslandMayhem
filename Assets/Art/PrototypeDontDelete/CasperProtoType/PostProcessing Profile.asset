@@ -620,7 +620,7 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 140.5
   perPixelNormals:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   baseColor:
     m_OverrideState: 1
@@ -639,7 +639,7 @@ MonoBehaviour:
     m_Value: 2
   sharpness:
     m_OverrideState: 1
-    m_Value: 8
+    m_Value: 16
     min: 0
     max: 16
   colorBleedingEnabled:
