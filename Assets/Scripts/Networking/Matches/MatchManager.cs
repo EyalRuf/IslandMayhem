@@ -79,9 +79,6 @@ public class MatchManager : NetworkBehaviour
                     {
                         startingGame = true;
 
-                        //disallow joining
-                        networkManager.AllowJoin(false);
-
                         gameStatus = "Starting game.";
                         CalculateAndAssignTeams();
 
@@ -150,6 +147,8 @@ public class MatchManager : NetworkBehaviour
     [ClientRpc]
     public virtual void RpcStartGame()
     {
+        networkManager.StopLobby();
+
         StartCoroutine(StartGame());
     }
 
