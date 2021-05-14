@@ -101,9 +101,6 @@ public class Cheats : NetworkBehaviour
             {
                 matchManager.startingGame = true;
 
-                //disallow joining
-                matchManager.networkManager.AllowJoin(false);
-
                 matchManager.gameStatus = "Starting game.";
                 matchManager.CalculateAndAssignTeams();
 
