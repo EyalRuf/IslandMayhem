@@ -90,6 +90,7 @@ public class CustomNetworkManager : NetworkManager
 
     private protected Callback<LobbyMatchList_t> Callback_lobbyList;
     private protected Callback<LobbyCreated_t> Callback_lobbyCreated;
+    private protected Callback<LobbyEnter_t> Callback_lobbyEntered;
     private CSteamID lobby = CSteamID.Nil;
 
     public void StartLobby()
@@ -132,12 +133,18 @@ public class CustomNetworkManager : NetworkManager
             SteamAPICall_t lobbyRequest = SteamMatchmaking.RequestLobbyList();
 
             //wait until we have lobbies
-            yield return new WaitUntil(() => updatedLobbies);
+            //yield return new WaitUntil(() => updatedLobbies);
 
             if (matchmakingSearching)
             {
-                for (int l = 0; l < lobbies.Count; l++)
-                { 
+                if(lobbies.Count > 0)
+                {
+                    Callback_lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
+                    SteamMatchmaking.JoinLobby(lobbies[0]);
+                    yield return null;
+
+                    /*                for (int l = 0; l < lobbies.Count; l++)
+                    { 
                     //if lobby matches
                     if (SteamMatchmaking.GetNumLobbyMembers(lobbies[l]) < matchManager.numberOfPlayersNeededToStart)
                     {
@@ -150,6 +157,7 @@ public class CustomNetworkManager : NetworkManager
                             yield return null;
                         }
                     }
+                    }*/
                 }
             }
             else
@@ -162,6 +170,8 @@ public class CustomNetworkManager : NetworkManager
 
     private void OnGetLobbiesList(LobbyMatchList_t result)
     {
+        lobbies.Clear();
+
         string lobbyResults = "Found " + result.m_nLobbiesMatching + " lobbies with the following IDs:\n";
         for (int i = 0; i < result.m_nLobbiesMatching; i++)
         {
@@ -186,6 +196,13 @@ public class CustomNetworkManager : NetworkManager
 
             Debug.Log("Created a lobby with the following ID: " + (CSteamID)result.m_ulSteamIDLobby);
         }
+    }
+
+    private void OnLobbyEntered(LobbyEnter_t result)
+    {
+        CSteamID lobbyOwner = SteamMatchmaking.GetLobbyOwner((CSteamID)result.m_ulSteamIDLobby);
+        networkAddress = lobbyOwner.ToString();
+        StartClient();
     }
 
     #endregion
@@ -500,6 +517,8 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     public override void OnStopClient() 
     {
+        StopLobby();
+
         base.OnStopClient();
         SteamFriends.SetRichPresence("status", "In Menu");
         SteamFriends.SetRichPresence("room", "");
