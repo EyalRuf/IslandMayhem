@@ -41,6 +41,8 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     public bool isAttacking;
     [SyncVar]
     public bool isCrippled;
+    [SyncVar]
+    public bool isKnockedDown = false;
 
     [Header("Audio")]
     public float playerVolume = 1f;
@@ -73,10 +75,10 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         isHoldingItem = playerItems.heldItem != null;
 
         // Jump if not crip & on floor & not currently jumping & pressing jump input
-        applyJump = !isCrippled && isGrounded && lpInput.jumpInput && !jumpCDFlag;
+        applyJump = !isKnockedDown && !isCrippled && isGrounded && lpInput.jumpInput && !jumpCDFlag;
 
         float moveSpeedBasedOnItem = isHoldingItem ? baseMoveSpeed * moveSpeedWithItemMultiplyer : baseMoveSpeed;
-        currMoveSpeed = isCrippled ? baseMoveSpeed / 2 : isSprinting ? moveSpeedBasedOnItem * sprintSpeedMultiplyer : moveSpeedBasedOnItem;
+        currMoveSpeed = isKnockedDown ? 0 : (isCrippled ? baseMoveSpeed / 2 : isSprinting ? moveSpeedBasedOnItem * sprintSpeedMultiplyer : moveSpeedBasedOnItem);
     }
 
     private void FixedUpdate()

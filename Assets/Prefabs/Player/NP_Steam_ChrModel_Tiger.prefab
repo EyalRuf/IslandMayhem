@@ -949,6 +949,7 @@ MonoBehaviour:
   isLookingAround: 0
   isAttacking: 0
   isCrippled: 0
+  isKnockedDown: 0
   playerVolume: 1
   walkClips:
   - {fileID: 8300000, guid: d371571111fb99046a358c11a9ee10bf, type: 3}
@@ -1073,7 +1074,10 @@ MonoBehaviour:
   currHp: 4
   isInvulnerable: 0
   invulnerabilityDuration: 1
-  regenerationDuration: 10
+  miniStunDuration: 0.5
+  crippleDuration: 5
+  knockDownDuration: 10
+  knockDownChance: 0.25
   hitParticles: {fileID: 1838810860747614094, guid: 0f6975e2edb83e141bd36c0a3422b584,
     type: 3}
   hitParticlesOffset: {x: 0, y: 4, z: 0}

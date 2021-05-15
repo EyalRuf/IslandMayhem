@@ -25,6 +25,7 @@ public class Cheats : NetworkBehaviour
     private PlayerItemInteractions playerItemInteractions;
 
     private bool coconutMachineGun;
+    private string passwordEntered = "";
 
     private void Start()
     {
@@ -90,73 +91,86 @@ public class Cheats : NetworkBehaviour
 
     private void DoCheatWindow(int windowID)
     {
-        GUILayout.Label(pepega);
-        GUILayout.Label("The pepega wishes you luck with development " + username + ". Pepega bless!");
-
-        GUILayout.Label("Press F11 to toggle cheats.");
-
-        if (isServer)
+        if (passwordEntered == "Pepega" || Application.isEditor)
         {
-            if (GUILayout.Button("Start Game") && matchManager != null)
+            GUILayout.Label(pepega);
+            GUILayout.Label("The pepega wishes you luck with development " + username + ". Pepega bless!");
+
+            GUILayout.Label("Press F11 to toggle cheats.");
+
+            if (isServer)
             {
-                matchManager.startingGame = true;
-
-                matchManager.gameStatus = "Starting game.";
-                matchManager.CalculateAndAssignTeams();
-
-                //sync info
-                matchManager.RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(matchManager.teams)));
-                matchManager.RpcStartGame(); //invoke sychronized start game sequence
-            }
-
-            if (GUILayout.Button("Random event") && eventSystem != null)
-            {
-                eventSystem.StartEvent(Random.Range(0, eventSystem.events.Length));
-            }
-        }
-
-        if (player != null)
-        {
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Grow"))
-            {
-                player.transform.localScale *= 1.5f;
-                player.groundCheckDistance *= 1.5f;
-            }
-            if (GUILayout.Button("Shrink"))
-            {
-                player.transform.localScale *= 0.75f;
-                player.groundCheckDistance *= 0.75f;
-            }
-            GUILayout.EndHorizontal();
-
-            GUILayout.Label("Player movement speed:");
-            player.baseMoveSpeed = GUILayout.HorizontalSlider(player.baseMoveSpeed, 0f, 100f);
-
-            GUILayout.Label("Player jump force:");
-            player.jumpForce = GUILayout.HorizontalSlider(player.jumpForce, 0f, 100f);
-        }
-
-        if (isServer)
-        {
-            coconutMachineGun = GUILayout.Toggle(coconutMachineGun, "Coconut machine gun:");
-        }
-
-        if (matchManager.networkManager != null && isServer)
-        {
-            GUILayout.Label("Spawn items:");
-
-            itemScroll = GUILayout.BeginScrollView(itemScroll, GUILayout.Height(100));
-            foreach (GameObject prefab in matchManager.networkManager.spawnPrefabs)
-            {
-                if (GUILayout.Button("Spawn " + prefab.name))
+                if (GUILayout.Button("Start Game") && matchManager != null)
                 {
-                    NetworkServer.Spawn(Instantiate(prefab, player.transform.position + Vector3.up * 25, Quaternion.identity));
+                    matchManager.startingGame = true;
+
+                    matchManager.gameStatus = "Starting game.";
+                    matchManager.CalculateAndAssignTeams();
+
+                    //sync info
+                    matchManager.RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(matchManager.teams)));
+                    matchManager.RpcStartGame(); //invoke sychronized start game sequence
+                }
+
+                if (GUILayout.Button("Random event") && eventSystem != null)
+                {
+                    eventSystem.StartEvent(Random.Range(0, eventSystem.events.Length));
                 }
             }
-            GUILayout.EndScrollView();
-        }
 
-        GUI.DragWindow();
+            if (player != null)
+            {
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Grow"))
+                {
+                    player.transform.localScale *= 1.5f;
+                    player.groundCheckDistance *= 1.5f;
+                }
+                if (GUILayout.Button("Shrink"))
+                {
+                    player.transform.localScale *= 0.75f;
+                    player.groundCheckDistance *= 0.75f;
+                }
+                GUILayout.EndHorizontal();
+
+                GUILayout.Label("Player movement speed:");
+                player.baseMoveSpeed = GUILayout.HorizontalSlider(player.baseMoveSpeed, 0f, 100f);
+
+                GUILayout.Label("Player jump force:");
+                player.jumpForce = GUILayout.HorizontalSlider(player.jumpForce, 0f, 100f);
+            }
+
+            if (isServer)
+            {
+                coconutMachineGun = GUILayout.Toggle(coconutMachineGun, "Coconut machine gun:");
+            }
+
+            if (matchManager.networkManager != null && isServer)
+            {
+                GUILayout.Label("Spawn items:");
+
+                itemScroll = GUILayout.BeginScrollView(itemScroll, GUILayout.Height(100));
+                foreach (GameObject prefab in matchManager.networkManager.spawnPrefabs)
+                {
+                    if (GUILayout.Button("Spawn " + prefab.name))
+                    {
+                        NetworkServer.Spawn(Instantiate(prefab, player.transform.position + Vector3.up * 25, Quaternion.identity));
+                    }
+                }
+                GUILayout.EndScrollView();
+            }
+
+            GUI.DragWindow();
+        }
+        else
+        {
+            GUILayout.Label(pepega);
+            GUILayout.Label("The pepega urges you to enter the password!");
+
+            GUILayout.Label("Password:");
+            passwordEntered = GUILayout.PasswordField(passwordEntered, '*');
+
+            GUI.DragWindow();
+        }
     }
 }
