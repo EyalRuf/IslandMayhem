@@ -18,7 +18,12 @@ public class PlayerCombat : NetworkBehaviour
     public int currHp = 4;
     public bool isInvulnerable;
     public float invulnerabilityDuration;
-    public float regenerationDuration;
+    public float miniStunDuration;
+    public float crippleDuration;
+    public float knockDownDuration;
+    [Range(0f, 1f)]
+    public float knockDownChance;
+
     private float regenerationTimer;
     private float punchCDTimer;
 
@@ -76,7 +81,7 @@ public class PlayerCombat : NetworkBehaviour
         pc.RpcPunch();
     }
 
-    void ApplyHitOnSelf(Vector3 hitVector, int damage)
+    private void ApplyHitOnSelf(Vector3 hitVector, int damage)
     {
         cController.rb.AddForce(hitVector, ForceMode.Impulse);
         pAnims.GetHitAnim();
@@ -86,10 +91,24 @@ public class PlayerCombat : NetworkBehaviour
         if (!cController.isCrippled)
         {
             currHp -= damage;
-            regenerationTimer = regenerationDuration;
             
             if (currHp <= 0)
             {
+                if(Random.value < knockDownChance)
+                {
+                    regenerationTimer = knockDownDuration;
+                    cController.isKnockedDown = true;
+                }
+                else
+                {
+                    regenerationTimer = crippleDuration;
+                }
+
+                Cripple();
+            }
+            else
+            {
+                regenerationTimer = miniStunDuration;
                 Cripple();
             }
         }
@@ -112,7 +131,7 @@ public class PlayerCombat : NetworkBehaviour
     }
 
     [Command]
-    void CmdPlayerWasHit(uint playerNID, Vector3 hitVec, int damage)
+    public void CmdPlayerWasHit(uint playerNID, Vector3 hitVec, int damage)
     {
         NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerCombat pc = player.GetComponent<PlayerCombat>();
@@ -127,7 +146,7 @@ public class PlayerCombat : NetworkBehaviour
 
             if (hit != null && hit.isActive && hit.initiatorNetId != netId)
             {
-                Vector3 knockbackDir = transform.position - hit.transform.position;
+                Vector3 knockbackDir = (other.GetComponent<Lava>() != null) ? Vector3.up : (transform.position - hit.transform.position).normalized;
                 CmdPlayerWasHit(netId, knockbackDir * hit.knockbackPower, hit.damage);
                 hit.HitInflicted();
             }
@@ -142,9 +161,17 @@ public class PlayerCombat : NetworkBehaviour
 
     void Revive ()
     {
-        stunnedParticles.SetActive(false);
-        cController.isCrippled = false;
-        currHp = maxHp;
+        if(regenerationTimer <= 0)
+        {
+            cController.isKnockedDown = false;
+            stunnedParticles.SetActive(false);
+            cController.isCrippled = false;
+
+            if (currHp <= 0)
+            {
+                currHp = maxHp;
+            }
+        }
     }
 
     [ClientRpc]
