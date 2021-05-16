@@ -4977,7 +4977,7 @@ MonoBehaviour:
   zgravMessagePrefab: {fileID: 6766450225715405537, guid: bf5c49f98d0d0df4ea5f7f35fab541f2,
     type: 3}
   spawnOffset: {x: 0, y: 10, z: 0}
-  duration: 10
+  duration: 18
   upwardsForce: 500
 --- !u!1 &8349323256421431373
 GameObject:
