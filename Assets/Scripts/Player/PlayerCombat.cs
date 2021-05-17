@@ -165,16 +165,13 @@ public class PlayerCombat : NetworkBehaviour
 
     void Revive ()
     {
-        if(regenerationTimer <= 0)
-        {
-            cController.isKnockedDown = false;
-            stunnedParticles.SetActive(false);
-            cController.isCrippled = false;
+        cController.isKnockedDown = false;
+        stunnedParticles.SetActive(false);
+        cController.isCrippled = false;
 
-            if (currHp <= 0)
-            {
-                currHp = maxHp;
-            }
+        if (currHp <= 0)
+        {
+            currHp = maxHp;
         }
     }
 

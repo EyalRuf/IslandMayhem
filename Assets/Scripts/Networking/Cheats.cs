@@ -116,6 +116,14 @@ public class Cheats : NetworkBehaviour
                 {
                     eventSystem.StartEvent(Random.Range(0, eventSystem.events.Length));
                 }
+
+                for (int e = 0; e < eventSystem.events.Length; e++)
+                {
+                    if (GUILayout.Button("Start " + eventSystem.events[e].name))
+                    {
+                        eventSystem.StartEvent(e);
+                    }
+                }
             }
 
             if (player != null)
