@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -29685,6 +29685,8 @@ MonoBehaviour:
   - {fileID: 4666147733101786583, guid: 1f7cbfe3f5a7bfd41bbccf693c70eb98, type: 3}
   isSteam: 0
   matchManager: {fileID: 1670522844}
+  lobbysearchInterval: 1
+  lobbies: []
   matchmakingSearching: 0
 --- !u!114 &455943078
 MonoBehaviour:
@@ -56339,6 +56341,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneId
       value: 2030650633
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702163810260812426, guid: 5d1d1124a97e5464e992a9b74bf7b79b,
+        type: 3}
+      propertyPath: sceneId
+      value: 1401930118
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d1d1124a97e5464e992a9b74bf7b79b, type: 3}
