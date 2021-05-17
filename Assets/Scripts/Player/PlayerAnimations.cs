@@ -21,6 +21,12 @@ public class PlayerAnimations : NetworkBehaviour
     private const string anim_param_t_throw = "throwTrigger";
     private const string anim_param_t_punch = "punchTrigger";
 
+    [Header("Skins")]
+    [SyncVar]
+    public int currentSkin = -1;
+    public Animator[] skins;
+    private bool selectedSkin;
+
     [Header("References")]
     public Animator animator;
     public ThirdPersonCharacterController cController;
@@ -33,11 +39,43 @@ public class PlayerAnimations : NetworkBehaviour
     [SyncVar]
     public float netPlayerAnimatorSpeed;
 
+    private void Start()
+    {
+        if (isServer)
+        {
+            currentSkin = UnityEngine.Random.Range(0, skins.Length);
+        }
+
+        if (isLocalPlayer)
+        {
+            foreach (Animator skin in skins)
+            {
+                skin.gameObject.SetActive(false);
+            }
+
+            animator = skins[0];
+        }
+    }
+
     // Update is called once per frame
     void Update ()
     {
         if (isLocalPlayer)
         {
+            if(currentSkin >= 0 && !selectedSkin)
+            {
+                foreach (Animator skin in skins)
+                {
+                    skin.gameObject.SetActive(false);
+                }
+
+                skins[currentSkin].gameObject.SetActive(true);
+                animator = skins[currentSkin];
+
+                selectedSkin = true;
+            }
+
+            //set variables
             animator.SetBool(anim_param_b_grounded, cController.isGrounded);
             animator.SetBool(anim_param_b_falling, !cController.isGrounded && cController.playerVelocity.y < -0.25f);
             animator.SetBool(anim_param_b_walk, !isJumping && cController.isMoving);

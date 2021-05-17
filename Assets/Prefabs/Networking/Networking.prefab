@@ -910,6 +910,7 @@ MonoBehaviour:
   teamColors:
   - {r: 1, g: 0.5, b: 0.5, a: 1}
   - {r: 0.5, g: 0.5, b: 1, a: 1}
+  neutralTeamColor: {r: 1, g: 1, b: 1, a: 1}
   teamNames:
   - Red
   - Blue
@@ -1569,6 +1570,8 @@ MonoBehaviour:
   - {fileID: 4666147733101786583, guid: f367850b2f3e6544494486958b2db7bb, type: 3}
   isSteam: 0
   matchManager: {fileID: 6379415000001608967}
+  lobbysearchInterval: 1
+  lobbies: []
   matchmakingSearching: 0
 --- !u!114 &7476827082030000011
 MonoBehaviour:
@@ -1931,7 +1934,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   showCheats: 0
-  cmgCooldown: 0.25
+  cmgCooldown: 0.1
   coconut: {fileID: 4473910350010878306, guid: d2796a08b4f73f64f84503d050330f16, type: 3}
 --- !u!1 &9079577929771948554
 GameObject:
