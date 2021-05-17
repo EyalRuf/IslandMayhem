@@ -26,6 +26,9 @@ public class FloorIsLavaEvent : RandomEvent
 
     private IEnumerator MakeTheFloorLava()
     {
+        //enable lava
+        lava.gameObject.SetActive(true);
+
         float waterVelocity = 0;
         float lavaVelocity = 0;
 
@@ -37,33 +40,36 @@ public class FloorIsLavaEvent : RandomEvent
         {
             durationTimer += Time.deltaTime;
 
-            water.transform.position = new Vector3(
-                water.transform.position.x,
-                Mathf.SmoothDamp(water.transform.position.y, lavaPos.y, ref waterVelocity, swapSpeed * Time.deltaTime),
-                water.transform.position.z);
+            water.position = new Vector3(
+                water.position.x,
+                Mathf.SmoothDamp(water.position.y, lavaPos.y, ref waterVelocity, swapSpeed * Time.deltaTime),
+                water.position.z);
 
-            lava.transform.position = new Vector3(
-                lava.transform.position.x,
-                Mathf.SmoothDamp(lava.transform.position.y, waterPos.y, ref lavaVelocity, swapSpeed * Time.deltaTime),
-                lava.transform.position.z);
+            lava.position = new Vector3(
+                lava.position.x,
+                Mathf.SmoothDamp(lava.position.y, waterPos.y, ref lavaVelocity, swapSpeed * Time.deltaTime),
+                lava.position.z);
 
             yield return new WaitForEndOfFrame();
         }
 
-        while (Vector3.Distance(water.transform.position, waterPos) > 0.01f || Vector3.Distance(lava.transform.position, lavaPos) > 0.01f)
+        while (Vector3.Distance(water.position, waterPos) > 0.01f || Vector3.Distance(lava.position, lavaPos) > 0.01f)
         {
-            water.transform.position = new Vector3(
-                water.transform.position.x,
-                Mathf.SmoothDamp(water.transform.position.y, waterPos.y, ref waterVelocity, swapSpeed * Time.deltaTime),
-                water.transform.position.z);
+            water.position = new Vector3(
+                water.position.x,
+                Mathf.SmoothDamp(water.position.y, waterPos.y, ref waterVelocity, swapSpeed * Time.deltaTime),
+                water.position.z);
 
-            lava.transform.position = new Vector3(
-                lava.transform.position.x,
-                Mathf.SmoothDamp(lava.transform.position.y, lavaPos.y, ref lavaVelocity, swapSpeed * Time.deltaTime),
-                lava.transform.position.z);
+            lava.position = new Vector3(
+                lava.position.x,
+                Mathf.SmoothDamp(lava.position.y, lavaPos.y, ref lavaVelocity, swapSpeed * Time.deltaTime),
+                lava.position.z);
 
             yield return new WaitForEndOfFrame();
         }
+
+        //disable lava
+        lava.gameObject.SetActive(false);
 
         yield return null;
     }
