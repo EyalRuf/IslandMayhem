@@ -97,18 +97,18 @@ public class PlayerCombat : NetworkBehaviour
                 if(Random.value < knockDownChance)
                 {
                     regenerationTimer = knockDownDuration;
-                    CmdCripple(true);
+                    Cripple(true);
                 }
                 else
                 {
                     regenerationTimer = crippleDuration;
-                    CmdCripple(false);
+                    Cripple(false);
                 }
             }
             else
             {
                 regenerationTimer = miniStunDuration;
-                CmdCripple(false);
+                Cripple(false);
             }
         }
 
@@ -150,18 +150,6 @@ public class PlayerCombat : NetworkBehaviour
                 hit.HitInflicted();
             }
         }
-    }
-
-    [Command]
-    private void CmdCripple(bool knockDown)
-    {
-        RpcCripple(knockDown);
-    }
-
-    [ClientRpc]
-    private void RpcCripple(bool knockDown)
-    {
-        Cripple(knockDown);
     }
 
     void Cripple (bool knockDown)
