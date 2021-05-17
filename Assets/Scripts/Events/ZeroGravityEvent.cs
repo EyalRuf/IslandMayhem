@@ -9,6 +9,8 @@ public class ZeroGravityEvent : RandomEvent
 
     public float duration;
     public float upwardsForce;
+    [Range(0f, 10f)]
+    public float downforce = 0.1f;
 
     public override void ServerEvent()
     {
@@ -36,8 +38,24 @@ public class ZeroGravityEvent : RandomEvent
             rb.AddForce(Vector3.up * upwardsForce, ForceMode.Acceleration);
         }
 
-        yield return new WaitForSeconds(duration);
+        //wait with downforce
+        float timer = 0;
+        while (timer < duration)
+        {
+            timer += Time.fixedDeltaTime;
 
+            foreach (Rigidbody rb in bodies)
+            {
+                if (rb != null)
+                {
+                    rb.AddForce(Physics.gravity * downforce * rb.mass, ForceMode.Acceleration);
+                }
+            }
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        //return to normal
         foreach (Rigidbody rb in bodies)
         {
             if(rb != null)
