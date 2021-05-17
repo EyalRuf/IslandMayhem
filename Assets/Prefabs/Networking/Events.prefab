@@ -4978,7 +4978,8 @@ MonoBehaviour:
     type: 3}
   spawnOffset: {x: 0, y: 10, z: 0}
   duration: 18
-  upwardsForce: 500
+  upwardsForce: 1000
+  downforce: 0.25
 --- !u!1 &8349323256421431373
 GameObject:
   m_ObjectHideFlags: 0
