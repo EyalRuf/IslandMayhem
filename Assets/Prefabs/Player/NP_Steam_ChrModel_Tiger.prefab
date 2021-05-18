@@ -1102,7 +1102,7 @@ MonoBehaviour:
   skins:
   - {fileID: 8366791748275764615}
   - {fileID: 2808533703779893529}
-  animator: {fileID: 0}
+  animator: {fileID: 8366791748275764615}
   cController: {fileID: 8297925720422174605}
   netPlayerAnimatorSpeed: 0
 --- !u!114 &7223162290677117676
