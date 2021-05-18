@@ -46,35 +46,32 @@ public class PlayerAnimations : NetworkBehaviour
             currentSkin = UnityEngine.Random.Range(0, skins.Length);
         }
 
-        if (isLocalPlayer)
+        foreach (Animator skin in skins)
+        {
+            skin.gameObject.SetActive(false);
+        }
+
+        animator = skins[0];
+    }
+
+    // Update is called once per frame
+    void Update ()
+    {
+        if (currentSkin >= 0 && !selectedSkin)
         {
             foreach (Animator skin in skins)
             {
                 skin.gameObject.SetActive(false);
             }
 
-            animator = skins[0];
-        }
-    }
+            skins[currentSkin].gameObject.SetActive(true);
+            animator = skins[currentSkin];
 
-    // Update is called once per frame
-    void Update ()
-    {
+            selectedSkin = true;
+        }
+
         if (isLocalPlayer)
         {
-            if(currentSkin >= 0 && !selectedSkin)
-            {
-                foreach (Animator skin in skins)
-                {
-                    skin.gameObject.SetActive(false);
-                }
-
-                skins[currentSkin].gameObject.SetActive(true);
-                animator = skins[currentSkin];
-
-                selectedSkin = true;
-            }
-
             //set variables
             animator.SetBool(anim_param_b_grounded, cController.isGrounded);
             animator.SetBool(anim_param_b_falling, !cController.isGrounded && cController.playerVelocity.y < -0.25f);
