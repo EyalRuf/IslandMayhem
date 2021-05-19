@@ -39,7 +39,7 @@ public class Camp : NetworkBehaviour
     {
         text.text = spawnsLeft <= 0 ? "Depleted" : isCoolingDown ? TimeFormatter.Format(cooldownTimer) : GetStepsText();
         
-        if (!isServer && spawnsLeft <= 0)
+        if (!isServer || spawnsLeft <= 0)
             return;
 
         currStepsCompleted = campSteps.FindAll(step => step.isCompleted).Count;
