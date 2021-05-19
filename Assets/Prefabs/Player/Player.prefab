@@ -1130,7 +1130,7 @@ MonoBehaviour:
   currHp: 4
   isInvulnerable: 0
   invulnerabilityDuration: 1
-  miniStunDuration: 0.15
+  miniStunDuration: 0.25
   crippleDuration: 3
   knockDownDuration: 7.5
   knockDownChance: 0.25
