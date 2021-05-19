@@ -26,11 +26,12 @@ public class Camp : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
+        campSteps = new List<CampStep>(GetComponentsInChildren<CampStep>()).FindAll(step => step.transform.parent == transform);
+        
         if (!isServer)
             return;
 
         // Getting first level hierarchy children who are camp steps
-        campSteps = new List<CampStep>(GetComponentsInChildren<CampStep>()).FindAll(step => step.transform.parent == transform);
         spawnsLeft = UnityEngine.Random.Range(spawnLimitRange.x, spawnLimitRange.y);
     }
 
