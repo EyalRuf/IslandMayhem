@@ -19,7 +19,7 @@ public class TimerCampStep : CampStep
 
     public virtual void FixedUpdate()
     {
-        if (!isServer)
+        if (!isServer || !isEnabled)
             return;
 
         if (isCompleted && timer > 0)
