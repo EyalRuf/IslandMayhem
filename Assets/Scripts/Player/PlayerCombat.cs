@@ -40,29 +40,30 @@ public class PlayerCombat : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLocalPlayer)
-            return;
-
-        if (punchCDTimer > 0)
+        if (isLocalPlayer)
         {
-            punchCDTimer -= Time.deltaTime;
-        } else if (!cController.isCrippled && !cController.isHoldingItem && lpInput.attackInputDown)
-        {
-            CmdPlayerPunch(netId);
-        }
-
-        if (currHp < maxHp)
-        {
-            regenerationTimer -= Time.deltaTime;
-            if (regenerationTimer <= 0)
+            if (punchCDTimer > 0)
             {
-                CmdRevive(netId);
+                punchCDTimer -= Time.deltaTime;
+            } else if (!cController.isCrippled && !cController.isHoldingItem && lpInput.attackInputDown)
+            {
+                CmdPlayerPunch(netId);
+            }
+
+            if (currHp < maxHp && cController.isCrippled)
+            {
+                regenerationTimer -= Time.deltaTime;
+                if (regenerationTimer <= 0)
+                {
+                    CmdRevive(netId);
+                }
             }
         }
     }
 
     void Punch ()
     {
+        punchCDTimer = punchCD;
         punchObj.gameObject.SetActive(true);
         pAnims.PunchAnim();
     }
@@ -84,10 +85,14 @@ public class PlayerCombat : NetworkBehaviour
     private void ApplyHitOnSelf(Vector3 hitVector, int damage)
     {
         cController.rb.AddForce(hitVector, ForceMode.Impulse);
-        pAnims.GetHitAnim();
         pItems.DropItemIfHeld();
-        isInvulnerable = true;
+        
+        pAnims.GetHitAnim();
+        stunnedParticles.SetActive(true);
 
+        isInvulnerable = true;
+        StartCoroutine(InvulnerabilityTime());
+        
         if (!cController.isCrippled)
         {
             currHp -= damage;
@@ -96,26 +101,21 @@ public class PlayerCombat : NetworkBehaviour
             {
                 if(Random.value < knockDownChance)
                 {
-                    regenerationTimer = knockDownDuration;
-                    Cripple(true);
+                    Knockdown();
                 }
                 else
                 {
-                    regenerationTimer = crippleDuration;
-                    Cripple(false);
+                    Cripple();
                 }
             }
             else
             {
-                regenerationTimer = miniStunDuration;
-                Cripple(false);
+                Ministun();
             }
         }
-
-        StartCoroutine(InulnerabilityTime());
     }
 
-    IEnumerator InulnerabilityTime()
+    IEnumerator InvulnerabilityTime()
     {
         yield return new WaitForSeconds(invulnerabilityDuration);
         isInvulnerable = false;
@@ -147,27 +147,41 @@ public class PlayerCombat : NetworkBehaviour
             {
                 Vector3 knockbackDir = (other.GetComponent<Lava>() != null) ? Vector3.up : (transform.position - hit.transform.position).normalized;
                 CmdPlayerWasHit(netId, knockbackDir * hit.knockbackPower, hit.damage);
+
                 hit.HitInflicted();
             }
         }
     }
 
-    void Cripple (bool knockDown)
+    void Ministun ()
     {
-        stunnedParticles.SetActive(true);
-        cController.isCrippled = true;
+        StartCoroutine(MinistunTime());
+    }
 
-        if (knockDown)
-        {
-            cController.isKnockedDown = true;
-        }
+    IEnumerator MinistunTime()
+    {
+        yield return new WaitForSeconds(miniStunDuration);
+        stunnedParticles.SetActive(false);
+    }
+
+    void Cripple ()
+    {
+        regenerationTimer = crippleDuration;
+        cController.isCrippled = true;
+    }
+
+    void Knockdown ()
+    {
+        regenerationTimer = knockDownDuration;
+        cController.isCrippled = true;
+        cController.isKnockedDown = true;
     }
 
     void Revive ()
     {
         cController.isKnockedDown = false;
-        stunnedParticles.SetActive(false);
         cController.isCrippled = false;
+        stunnedParticles.SetActive(false);
 
         if (currHp <= 0)
         {
