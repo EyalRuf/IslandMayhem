@@ -15,11 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-<<<<<<< Updated upstream
   m_FogColor: {r: 0.3726415, g: 0.7056831, b: 1, a: 1}
-=======
-  m_FogColor: {r: 0.3317462, g: 0.668817, b: 0.990566, a: 1}
->>>>>>> Stashed changes
   m_FogMode: 3
   m_FogDensity: 0.0016
   m_LinearFogStart: 500
@@ -64063,7 +64059,7 @@ PrefabInstance:
     - target: {fileID: 3663206043901374579, guid: 1feeb52b0e07e25498f42288c8caa806,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1827.9999
+      value: -2328
       objectReference: {fileID: 0}
     - target: {fileID: 3663206043901374579, guid: 1feeb52b0e07e25498f42288c8caa806,
         type: 3}
@@ -80346,7 +80342,7 @@ PrefabInstance:
     - target: {fileID: 3663206043901374579, guid: 1feeb52b0e07e25498f42288c8caa806,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1828
+      value: -2328
       objectReference: {fileID: 0}
     - target: {fileID: 3663206043901374579, guid: 1feeb52b0e07e25498f42288c8caa806,
         type: 3}
@@ -105956,12 +105952,12 @@ PrefabInstance:
     - target: {fileID: 3663206043901374579, guid: 1feeb52b0e07e25498f42288c8caa806,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2303
+      value: -2668
       objectReference: {fileID: 0}
     - target: {fileID: 3663206043901374579, guid: 1feeb52b0e07e25498f42288c8caa806,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 417
+      value: 286
       objectReference: {fileID: 0}
     - target: {fileID: 3663206043901374579, guid: 1feeb52b0e07e25498f42288c8caa806,
         type: 3}
