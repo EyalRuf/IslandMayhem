@@ -65,6 +65,7 @@ public class SequenceCampStep : CampStep
         base.CompleteStep();
 
         sequenceBtns.ForEach(step => step.isEnabled = false);
+        sequenceRevealers.ForEach(revealer => revealer.gameObject.SetActive(false));
     }
 
     public override void ResetStep()
