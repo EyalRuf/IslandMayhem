@@ -2148,6 +2148,8 @@ MonoBehaviour:
   - {fileID: 4666147733101786583, guid: 1f7cbfe3f5a7bfd41bbccf693c70eb98, type: 3}
   isSteam: 0
   matchManager: {fileID: 4092401781944547625}
+  lobbysearchInterval: 1
+  lobbies: []
   matchmakingSearching: 0
 --- !u!114 &540461665996841893
 MonoBehaviour:
@@ -2750,6 +2752,85 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
+--- !u!1001 &1449149539065392705
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1449149538809548264, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_Name
+      value: Camp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548266, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: sceneId
+      value: 3344652510
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548266, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 2419816fe32862f43bb8647faf44b629
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538809548269, guid: 2419816fe32862f43bb8647faf44b629,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2419816fe32862f43bb8647faf44b629, type: 3}
 --- !u!224 &1711162831007994802
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2963,6 +3044,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: IA_PlayerAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 8218640422270661401, guid: 704220048a7ff1d49938f9d3b8963d95,
+        type: 3}
+      propertyPath: m_Text
+      value: adada
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 704220048a7ff1d49938f9d3b8963d95, type: 3}
@@ -3204,6 +3290,7 @@ MonoBehaviour:
   teamColors:
   - {r: 1, g: 0.5, b: 0.5, a: 1}
   - {r: 0.5, g: 0.5, b: 1, a: 1}
+  neutralTeamColor: {r: 1, g: 1, b: 1, a: 1}
   teamNames:
   - Red
   - Blue
