@@ -1,17 +1,20 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CampStepButton : CampStep
+public class CampStepButton : TimerCampStep
 {
     [Header("Button")]
-    public float duration;
     public Transform overlapPosition;
     public float overlapRadius;
     public LayerMask overlapMask;
 
-    private void FixedUpdate()
+    public override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if (!isServer)
             return;
 
@@ -19,18 +22,12 @@ public class CampStepButton : CampStep
 
         if (!isCompleted && colliders.Length > 0)
         {
-            StartCoroutine(PressButton());
+            PressButton();
         }
     }
 
-    private IEnumerator PressButton()
+    private void PressButton()
     {
         CompleteStep();
-
-        yield return new WaitForSeconds(duration);
-
-        ResetStep();
-
-        yield return null;
     }
 }

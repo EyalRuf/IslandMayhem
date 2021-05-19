@@ -6,6 +6,8 @@ public class CampStep : NetworkBehaviour
 {
     [SyncVar]
     public bool isCompleted;
+    [SyncVar]
+    public bool isEnabled;
 
     // Use this for initialization
     void Start()
@@ -27,5 +29,6 @@ public class CampStep : NetworkBehaviour
     public virtual void ResetStep ()
     {
         isCompleted = false;
+        isEnabled = true;
     }
 }

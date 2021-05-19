@@ -8,9 +8,9 @@ public class CampStepPressurePlate : CampStep
     public float overlapRadius;
     public LayerMask overlapMask;
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
-        if (!isServer)
+        if (!isServer || !isEnabled)
             return;
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, overlapRadius, overlapMask);
@@ -19,6 +19,7 @@ public class CampStepPressurePlate : CampStep
         {
             CompleteStep();
         }
+
         else if (isCompleted && colliders.Length <= 0)
         {
             ResetStep();

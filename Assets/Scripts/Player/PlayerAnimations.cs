@@ -29,6 +29,7 @@ public class PlayerAnimations : NetworkBehaviour
 
     [Header("References")]
     public Animator animator;
+    public NetworkAnimator netAnimator;
     public ThirdPersonCharacterController cController;
 
     [Header("Etc")]
@@ -50,8 +51,6 @@ public class PlayerAnimations : NetworkBehaviour
         {
             skin.gameObject.SetActive(false);
         }
-
-        animator = skins[0];
     }
 
     // Update is called once per frame
@@ -59,22 +58,14 @@ public class PlayerAnimations : NetworkBehaviour
     {
         if (currentSkin >= 0 && !selectedSkin)
         {
-            foreach (Animator skin in skins)
-            {
-                skin.gameObject.SetActive(false);
-            }
-
-            skins[currentSkin].gameObject.SetActive(true);
-            animator = skins[currentSkin];
-
-            selectedSkin = true;
+            SetSkin();
         }
 
         if (isLocalPlayer)
         {
             //set variables
             animator.SetBool(anim_param_b_grounded, cController.isGrounded);
-            animator.SetBool(anim_param_b_falling, !cController.isGrounded && cController.playerVelocity.y < -0.25f);
+            animator.SetBool(anim_param_b_falling, !cController.isGrounded && cController.playerVelocity.y < -0.35f);
             animator.SetBool(anim_param_b_walk, !isJumping && cController.isMoving);
             animator.SetBool(anim_param_b_sprint, !isJumping && cController.isSprinting);
             animator.SetBool(anim_param_b_aiming, cController.isAiming);
@@ -82,6 +73,15 @@ public class PlayerAnimations : NetworkBehaviour
             animator.SetBool(anim_param_b_throwing, isThrowing);
             animator.SetBool(anim_param_b_crippled, cController.isCrippled);
         }
+    }
+
+    void SetSkin ()
+    {
+        skins[currentSkin].gameObject.SetActive(true);
+        animator = skins[currentSkin];
+        netAnimator.animator = animator;
+
+        selectedSkin = true;
     }
 
     void FixedUpdate()

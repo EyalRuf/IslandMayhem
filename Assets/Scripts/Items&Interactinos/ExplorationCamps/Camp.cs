@@ -7,24 +7,21 @@ using System;
 
 public class Camp : NetworkBehaviour
 {
+    [Header("Camp")]
     public List<CampStep> campSteps;
     public GameObject rewardPrefab;
-
-    [SyncVar]
-    public int currStepsCompleted;
-
-    [SyncVar]
-    public bool isCoolingDown;
-    [SyncVar]
-    public float cooldownTimer;
+    [SyncVar] public int currStepsCompleted;
+    [SyncVar] public bool isCoolingDown;
+    [SyncVar] private float cooldownTimer;
     public float cooldownDuration;
-
-    [SyncVar]
-    public int spawnsLeft;
+    [SyncVar] public int spawnsLeft;
     public Vector2Int spawnLimitRange;
 
     [Header("UI")]
     public Text text;
+
+    [Header("MISC")]
+    public Transform pedestalTransform;
 
     // Use this for initialization
     void Start()
@@ -74,8 +71,10 @@ public class Camp : NetworkBehaviour
 
     private void CampDone()
     {
-        GameObject spawned = Instantiate(rewardPrefab, transform.position + (Vector3.up * 3), Quaternion.identity);
+        GameObject spawned = Instantiate(rewardPrefab, pedestalTransform.position + (Vector3.up * 3), Quaternion.identity);
         NetworkServer.Spawn(spawned);
+
+        campSteps.ForEach(step => step.isEnabled = false);
 
         isCoolingDown = true;
         cooldownTimer = cooldownDuration;

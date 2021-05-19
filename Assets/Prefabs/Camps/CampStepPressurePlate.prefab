@@ -64,6 +64,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   isCompleted: 0
+  isEnabled: 1
   overlapRadius: 3.75
   overlapMask:
     serializedVersion: 2
