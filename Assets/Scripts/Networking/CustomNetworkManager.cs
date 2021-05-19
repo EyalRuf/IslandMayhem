@@ -142,6 +142,8 @@ public class CustomNetworkManager : NetworkManager
                     {
                         ulong lobbyOwnerAsInt = 0;
 
+                        Debug.Log(SteamMatchmaking.GetLobbyData(lobby, "owner"));
+
                         if (ulong.TryParse(SteamMatchmaking.GetLobbyData(lobby, "owner"), out lobbyOwnerAsInt))
                         {
                             CSteamID lobbyOwner = (CSteamID)lobbyOwnerAsInt;
@@ -186,7 +188,7 @@ public class CustomNetworkManager : NetworkManager
 
     private void OnLobbyCreated(LobbyCreated_t result)
     {
-        if(result.m_eResult == EResult.k_EResultOK && matchmakingSearching)
+        if(result.m_eResult == EResult.k_EResultOK)
         {
             lobby = (CSteamID)result.m_ulSteamIDLobby;
             SteamMatchmaking.SetLobbyOwner(lobby, SteamUser.GetSteamID());
