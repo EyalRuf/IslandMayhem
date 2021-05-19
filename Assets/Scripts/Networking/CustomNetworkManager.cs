@@ -140,10 +140,15 @@ public class CustomNetworkManager : NetworkManager
                 {
                     try
                     {
-                        CSteamID lobbyOwner = (CSteamID)System.Convert.ToUInt64(SteamMatchmaking.GetLobbyData(lobby, "owner"));
-                        networkAddress = lobbyOwner.ToString();
-                        StartClient();
-                        matchmakingSearching = false;
+                        ulong lobbyOwnerAsInt = 0;
+
+                        if (ulong.TryParse(SteamMatchmaking.GetLobbyData(lobby, "owner"), out lobbyOwnerAsInt))
+                        {
+                            CSteamID lobbyOwner = (CSteamID)lobbyOwnerAsInt;
+                            networkAddress = lobbyOwner.ToString();
+                            StartClient();
+                            matchmakingSearching = false;
+                        }
                     }
                     catch(System.Exception ex)
                     {
