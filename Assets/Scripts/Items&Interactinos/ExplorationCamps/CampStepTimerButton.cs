@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class CampStepButton : CampStep
+public class CampStepTimerButton : TimerCampStep
 {
     [Header("Button")]
     public Transform overlapPosition;
@@ -10,6 +9,8 @@ public class CampStepButton : CampStep
 
     public override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if (!isServer)
             return;
 
@@ -21,7 +22,7 @@ public class CampStepButton : CampStep
         }
     }
 
-    public virtual void PressButton()
+    private void PressButton()
     {
         CompleteStep();
     }

@@ -8,7 +8,7 @@ public class CampStepPressurePlate : CampStep
     public float overlapRadius;
     public LayerMask overlapMask;
 
-    public void FixedUpdate()
+    public override void FixedUpdate()
     {
         if (!isServer || !isEnabled)
             return;
