@@ -31,21 +31,19 @@ public class SequenceCampStep : CampStep
     public override void Update()
     {
         base.Update();
-        if (isEnabled)
+
+        for (int i = 0; i < sequenceSize; i++)
         {
-            for (int i = 0; i < sequenceSize; i++)
-            {
-                sequenceRevealers[i].text = sequenceFigureOptions[sequenceFiguresIndexes[i]] + "";
-                sequenceRevealers[i].gameObject.SetActive(stepsToRevealSequence.TrueForAll(step => step.isCompleted));
-            }
+            sequenceRevealers[i].text = isEnabled ? sequenceFigureOptions[sequenceFiguresIndexes[i]] + "" : "";
+            sequenceRevealers[i].gameObject.SetActive(isEnabled && stepsToRevealSequence.TrueForAll(step => step.isCompleted));
+        }
 
-            if (!isServer )
-                return;
+        if (!isServer || !isEnabled)
+            return;
 
-            if (IsSequenceCorrect())
-            {
-                CompleteStep();
-            }
+        if (IsSequenceCorrect())
+        {
+            CompleteStep();
         }
     }
 
