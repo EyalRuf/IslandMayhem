@@ -12,13 +12,16 @@ public class TimerCampStep : CampStep
     private float timer;
     public Text timerText;
 
-    void Update()
+    public override void Update()
     {
+        base.Update();
         timerText.text = isCompleted && isEnabled ? TimeFormatter.Format(timer) : "";
     }
 
-    public virtual void FixedUpdate()
+    public override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if (!isServer || !isEnabled)
             return;
 

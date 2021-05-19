@@ -29,14 +29,15 @@ public class Camp : NetworkBehaviour
         if (!isServer)
             return;
 
-        campSteps = new List<CampStep>(GetComponentsInChildren<CampStep>());
+        // Getting first level hierarchy children who are camp steps
+        campSteps = new List<CampStep>(GetComponentsInChildren<CampStep>()).FindAll(step => step.transform.parent == transform);
         spawnsLeft = UnityEngine.Random.Range(spawnLimitRange.x, spawnLimitRange.y);
     }
 
     // Update is called once per frame
     void Update()
     {
-        text.text = spawnsLeft <= 0 ? "Depleted" :isCoolingDown ? TimeFormatter.Format(cooldownTimer) : GetStepsText();
+        text.text = spawnsLeft <= 0 ? "Depleted" : isCoolingDown ? TimeFormatter.Format(cooldownTimer) : GetStepsText();
         
         if (!isServer && spawnsLeft <= 0)
             return;

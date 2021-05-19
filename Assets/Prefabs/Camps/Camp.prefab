@@ -279,11 +279,11 @@ MonoBehaviour:
     type: 3}
   currStepsCompleted: 0
   isCoolingDown: 0
-  cooldownTimer: 0
   cooldownDuration: 60
   spawnsLeft: 0
   spawnLimitRange: {x: 2, y: 4}
   text: {fileID: 1449149538636402487}
+  pedestalTransform: {fileID: 5720263629435449103}
 --- !u!1 &5720263629435449099
 GameObject:
   m_ObjectHideFlags: 0
