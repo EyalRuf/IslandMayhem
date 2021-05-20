@@ -120401,6 +120401,56 @@ PrefabInstance:
       propertyPath: sceneId
       value: 88279607
       objectReference: {fileID: 0}
+    - target: {fileID: 1449149537258597100, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: sceneId
+      value: 2926728810
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149537258931614, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: sceneId
+      value: 1487095917
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149537471204016, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: sceneId
+      value: 436106518
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149537653214033, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: sceneId
+      value: 2814582736
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538088343137, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: sceneId
+      value: 3839887051
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538793796310, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: sceneId
+      value: 831335547
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538795869395, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: sceneId
+      value: 1809656684
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149538918278850, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: sceneId
+      value: 3986321240
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149539157074535, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: sceneId
+      value: 264469192
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449149539315349464, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: sceneId
+      value: 4270543648
+      objectReference: {fileID: 0}
     - target: {fileID: 2221516287718658947, guid: c710a445d7048f34595a64095c348853,
         type: 3}
       propertyPath: sceneId
@@ -120454,7 +120504,7 @@ PrefabInstance:
     - target: {fileID: 2925836236810722704, guid: c710a445d7048f34595a64095c348853,
         type: 3}
       propertyPath: m_Name
-      value: Totems
+      value: Totems And Camps
       objectReference: {fileID: 0}
     - target: {fileID: 2925836236810722711, guid: c710a445d7048f34595a64095c348853,
         type: 3}
@@ -129503,12 +129553,12 @@ Transform:
   - {fileID: 740867889}
   - {fileID: 4865961575670657650}
   - {fileID: 6577144911461773694}
-  - {fileID: 814947111383619076}
   - {fileID: 1367972822}
   - {fileID: 23061998}
   - {fileID: 33658402}
   - {fileID: 1125979560}
   - {fileID: 2091423904}
+  - {fileID: 814947111383619076}
   - {fileID: 569687380}
   - {fileID: 1179615698}
   - {fileID: 810444696}
