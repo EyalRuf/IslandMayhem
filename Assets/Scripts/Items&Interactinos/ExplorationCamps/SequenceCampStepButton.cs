@@ -25,8 +25,12 @@ public class SequenceCampStepButton : CampStepButton
     public override void PressButton()
     {
         base.PressButton();
-        StartCoroutine(BtnCD());
-        currSequenceFigureIndex = (currSequenceFigureIndex + 1) % sequenceCampStep.sequenceFigureOptions.Count;
+
+        if (isEnabled)
+        {
+            currSequenceFigureIndex = (currSequenceFigureIndex + 1) % sequenceCampStep.sequenceFigureOptions.Count;
+            StartCoroutine(BtnCD());
+        }
     }
 
     IEnumerator BtnCD()

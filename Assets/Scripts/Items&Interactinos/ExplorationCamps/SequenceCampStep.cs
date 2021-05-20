@@ -32,7 +32,7 @@ public class SequenceCampStep : CampStep
     {
         base.Update();
 
-        for (int i = 0; i < sequenceSize; i++)
+        for (int i = 0; i < sequenceRevealers.Count; i++)
         {
             sequenceRevealers[i].text = isEnabled ? sequenceFigureOptions[sequenceFiguresIndexes[i]] + "" : "";
             sequenceRevealers[i].gameObject.SetActive(isEnabled && stepsToRevealSequence.TrueForAll(step => step.isCompleted));
@@ -62,8 +62,9 @@ public class SequenceCampStep : CampStep
     {
         base.CompleteStep();
 
-        sequenceBtns.ForEach(step => step.isEnabled = false);
+        sequenceBtns.ForEach(btn => btn.isEnabled = false);
         sequenceRevealers.ForEach(revealer => revealer.gameObject.SetActive(false));
+        stepsToRevealSequence.ForEach(step => step.isEnabled = false);
     }
 
     public override void ResetStep()
@@ -71,20 +72,23 @@ public class SequenceCampStep : CampStep
         base.ResetStep();
 
         NewSequence();
-        sequenceBtns.ForEach(step => step.isEnabled = true);
+        sequenceBtns.ForEach(btn => btn.ResetStep());
+        stepsToRevealSequence.ForEach(step => step.ResetStep());
     }
 
-    void NewSequence ()
+    public virtual void NewSequence ()
     {
         sequenceFiguresIndexes = new List<int>();
         for (int i = 0; i < sequenceSize; i++)
         {
             int correctFigureIndex = Random.Range(0, sequenceFigureOptions.Count);
+
+            // making sure new figure isn't same as what is already set so it wouldn't solve itself by accident
+            while (correctFigureIndex == sequenceBtns[i].currSequenceFigureIndex)
+                correctFigureIndex = Random.Range(0, sequenceFigureOptions.Count);
+
             sequenceFiguresIndexes.Add(correctFigureIndex);
             sequenceBtns[i].correctSequenceFigureIndex = correctFigureIndex;
-
-            int randomFigureIndex = Random.Range(0, sequenceFigureOptions.Count);
-            sequenceBtns[i].currSequenceFigureIndex = randomFigureIndex;
         }
     }
 }
