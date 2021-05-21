@@ -40,7 +40,7 @@ public class Camp : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        campOverheadText.text = spawnsLeft <= 0 ? "Totem pieces out of stock" : isCoolingDown ? "Restocking totem piece, please hold" : "Solve to get a totem piece";
+        campOverheadText.text = spawnsLeft <= 0 ? "Totem pieces out of stock" : isCoolingDown ? (cooldownDuration - cooldownTimer < 3f ? "Take the piece to your totem!" : "Restocking totem piece") : "Solve to get a totem piece";
         campSignText.text = "Totem Pieces\nleft: " + spawnsLeft;
         timerAndExesText.text = spawnsLeft <= 0 ? "Come back another day" : isCoolingDown ? TimeFormatter.Format(cooldownTimer) : GetStepsText();
         
