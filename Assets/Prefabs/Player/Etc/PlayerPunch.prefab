@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6690779205446499095}
   - component: {fileID: 5010886228330848764}
   - component: {fileID: 7507895164393320795}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: PlayerPunch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 3.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5010886228330848764
 MonoBehaviour:
@@ -62,7 +62,7 @@ MonoBehaviour:
   syncInterval: 0.1
   isActive: 1
   initiatorNetId: 0
-  knockbackPower: 15
+  knockbackPower: 100
   damage: 1
   singularDmgInstance: 0
   lifespan: 0.15
