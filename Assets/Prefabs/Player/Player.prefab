@@ -915,7 +915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.1
   isConnectedThroughSteam: 1
   userName: 
   rb: {fileID: 8297925720422174607}
