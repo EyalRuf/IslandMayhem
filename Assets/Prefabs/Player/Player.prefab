@@ -2087,10 +2087,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1553423163}
     m_Modifications:
+    - target: {fileID: 5010886228330848764, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
+        type: 3}
+      propertyPath: knockbackPower
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5951003220492102780, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
       propertyPath: m_Name
       value: PlayerPunch
+      objectReference: {fileID: 0}
+    - target: {fileID: 5951003220492102780, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5951003220492102780, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6039192194298955567, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
@@ -2146,6 +2161,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6690779205446499095, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
+        type: 3}
+      propertyPath: m_Radius
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 7507895164393320795, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
