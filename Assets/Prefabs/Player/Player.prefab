@@ -2090,7 +2090,7 @@ PrefabInstance:
     - target: {fileID: 5010886228330848764, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
       propertyPath: knockbackPower
-      value: 25
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5951003220492102780, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}

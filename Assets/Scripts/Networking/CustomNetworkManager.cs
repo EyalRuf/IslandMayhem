@@ -97,6 +97,7 @@ public class CustomNetworkManager : NetworkManager
     {
         Callback_lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, matchManager.numberOfPlayersNeededToStart);
+        SteamAPI.RunCallbacks();
     }
 
     public void StopLobby()
@@ -122,7 +123,7 @@ public class CustomNetworkManager : NetworkManager
         matchmakingSearching = true;
 
         //run until found
-        while (true)
+        while (matchmakingSearching)
         {
             //wait a lil bit
             yield return new WaitForSeconds(lobbysearchInterval);
@@ -141,6 +142,7 @@ public class CustomNetworkManager : NetworkManager
                 if(lobbies.Count > 0)
                 {
                     bool request = SteamMatchmaking.RequestLobbyData(lobbies[0]);
+                    SteamAPI.RunCallbacks();
                     Debug.Log("Requested lobby data for lobby " + lobby.ToString() + " with result:" + request.ToString());
                 }
             }
@@ -477,6 +479,7 @@ public class CustomNetworkManager : NetworkManager
     public override void OnStartClient() 
     {
         matchmakingSearching = false;
+        StopCoroutine(FindMatchProcess());
 
         SteamFriends.SetRichPresence("status", "In Game");
 
