@@ -6,6 +6,6 @@ public static class TimeFormatter
     {
         return string.Format("{0:#00}:{1:00}",
             Mathf.Floor(timer / 60), //minutes
-            Mathf.Floor(timer) % 60);//seconds
+            Mathf.Floor((timer) % 60) + 1f);//seconds
     }
 }

@@ -18,7 +18,9 @@ public class Camp : NetworkBehaviour
     public Vector2Int spawnLimitRange;
 
     [Header("UI")]
-    public Text text;
+    public Text campOverheadText;
+    public Text campSignText;
+    public Text timerAndExesText;
 
     [Header("MISC")]
     public Transform pedestalTransform;
@@ -38,7 +40,9 @@ public class Camp : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = spawnsLeft <= 0 ? "Depleted" : isCoolingDown ? TimeFormatter.Format(cooldownTimer) : GetStepsText();
+        campOverheadText.text = spawnsLeft <= 0 ? "Totem pieces out of stock" : isCoolingDown ? (cooldownDuration - cooldownTimer < 3f ? "Take the piece to your totem!" : "Restocking totem piece") : "Solve to get a totem piece";
+        campSignText.text = "Totem Pieces\nleft: " + spawnsLeft;
+        timerAndExesText.text = spawnsLeft <= 0 ? "Come back another day" : isCoolingDown ? TimeFormatter.Format(cooldownTimer) : GetStepsText();
         
         if (!isServer || spawnsLeft <= 0)
             return;

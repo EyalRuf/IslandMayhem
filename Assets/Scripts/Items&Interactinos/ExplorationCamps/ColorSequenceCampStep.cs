@@ -57,6 +57,11 @@ public class ColorSequenceCampStep : SequenceCampStep
         isSequenceBeingRevealed = true;
         yield return new WaitForSeconds(timeSequenceRevealed);
         isSequenceBeingRevealed = false;
+
+        if (!stepsToRevealSequence.TrueForAll(step => step.isCompleted))
+        {
+            stepsToRevealSequence.ForEach(step => step.ResetStep());
+        }
     }
 
     public override void CompleteStep()
