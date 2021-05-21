@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: group
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2165989195448311912, guid: df3f6e6ec488f5e4baf30aabdb8a64ce,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3396668420586916290, guid: df3f6e6ec488f5e4baf30aabdb8a64ce,
         type: 3}
       propertyPath: m_Name

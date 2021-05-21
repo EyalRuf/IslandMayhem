@@ -23,6 +23,9 @@ public class CampStepButton : CampStep
 
     public virtual void PressButton()
     {
-        CompleteStep();
+        if (isEnabled)
+        {
+            CompleteStep();
+        }
     }
 }
