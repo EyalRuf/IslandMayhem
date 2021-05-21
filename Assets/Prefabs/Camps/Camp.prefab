@@ -313,7 +313,7 @@ MonoBehaviour:
   isCoolingDown: 0
   cooldownDuration: 60
   spawnsLeft: 0
-  spawnLimitRange: {x: 2, y: 4}
+  spawnLimitRange: {x: 3, y: 6}
   campOverheadText: {fileID: 1449149538636402487}
   campSignText: {fileID: 4842314456081606772}
   timerAndExesText: {fileID: 6112673376007846964}
