@@ -21,6 +21,6 @@ public class TimerObjective : MatchObjective
 
     public int MultiObjCurrIndex => 0;
 
-    public string ObjectiveName => "Let timer run out";
-    public string ProgressIndication => timer.GetMatchTimeString;
+    public string ObjectiveName => "Prevent totem building";
+    public string ProgressIndication => "";
 }

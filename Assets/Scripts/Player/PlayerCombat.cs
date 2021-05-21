@@ -122,7 +122,7 @@ public class PlayerCombat : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcPlayerWasHit(Vector3 hitVec, int damage)
+    public void RpcPlayerWasHit(Vector3 hitVec, int damage)
     {
         //spawn hit particles
         Instantiate(hitParticles, transform.position + hitParticlesOffset, hitParticles.transform.rotation);
