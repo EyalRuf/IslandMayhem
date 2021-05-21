@@ -324,7 +324,7 @@ MonoBehaviour:
   - {fileID: -2505642851634945670, guid: ff22bc3efe9123f4d8a0c91c78f69a3d, type: 3}
   - {fileID: 7575915981058242857, guid: ff22bc3efe9123f4d8a0c91c78f69a3d, type: 3}
   wereStepsComplete: 0
-  timeSequenceRevealed: 0
+  timeSequenceRevealed: 2
   isSequenceBeingRevealed: 0
 --- !u!1 &5290542968215431579
 GameObject:
