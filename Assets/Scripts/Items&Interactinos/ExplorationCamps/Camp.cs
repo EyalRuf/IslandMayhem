@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
 
+[RequireComponent(typeof(AudioSource))]
 public class Camp : NetworkBehaviour
 {
     [Header("Camp")]
@@ -24,10 +25,15 @@ public class Camp : NetworkBehaviour
 
     [Header("MISC")]
     public Transform pedestalTransform;
+    public AudioClip campDoneSound;
+
+    private AudioSource source;
 
     // Use this for initialization
     void Start()
     {
+        source = GetComponent<AudioSource>();
+
         campSteps = new List<CampStep>(GetComponentsInChildren<CampStep>()).FindAll(step => step.transform.parent == transform);
         
         if (!isServer)
@@ -62,6 +68,12 @@ public class Camp : NetworkBehaviour
             if (currStepsCompleted == campSteps.Count)
             {
                 CampDone();
+
+                if (isServer)
+                {
+                    //for clients
+                    RpcCampDone();
+                }
             }
         }
     }
@@ -85,6 +97,12 @@ public class Camp : NetworkBehaviour
         isCoolingDown = true;
         cooldownTimer = cooldownDuration;
         spawnsLeft--;
+    }
+
+    [ClientRpc]
+    private void RpcCampDone()
+    {
+        source.PlayOneShot(campDoneSound);
     }
 
     void ResetCamp ()
