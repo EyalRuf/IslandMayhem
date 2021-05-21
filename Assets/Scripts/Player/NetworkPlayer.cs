@@ -75,11 +75,19 @@ public class NetworkPlayer : NetworkBehaviour
     private void Update()
     {
         nameTag.text = userName;
-        nameTag.color = teamColor;
-
         if (isLocalPlayer && hideLocalNametag)
         {
             nameTag.text = "";
+        }
+
+        if (!isLocalPlayer)
+        {
+            NetworkPlayer local = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>();
+
+            if (local.playerTeam == 0)
+                nameTag.color = teamColor;
+            else
+                nameTag.color = matchManager.neutralTeamColor;
         }
     }
 
