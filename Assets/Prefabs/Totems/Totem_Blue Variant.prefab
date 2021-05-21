@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0f409fd3247a6934ab20141cc07fe1ac, type: 2}
+    - target: {fileID: 260569608137435751, guid: 71027234dac2b0b44a1dc9b7da491359,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 260569608685511726, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -22,6 +27,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0f409fd3247a6934ab20141cc07fe1ac, type: 2}
+    - target: {fileID: 260569609620048352, guid: 71027234dac2b0b44a1dc9b7da491359,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 260569609620048381, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -30,17 +40,17 @@ PrefabInstance:
     - target: {fileID: 260569609851265610, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 402
+      value: 431
       objectReference: {fileID: 0}
     - target: {fileID: 260569609851265610, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 260569609851265610, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 434
+      value: 258
       objectReference: {fileID: 0}
     - target: {fileID: 260569609851265610, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
@@ -107,6 +117,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Totem_Blue Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 535424244228785626, guid: 71027234dac2b0b44a1dc9b7da491359,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15.69
+      objectReference: {fileID: 0}
     - target: {fileID: 4582757239638718508, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -122,6 +137,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 21b400ad3ed779a488c27b357c16c9d1, type: 2}
+    - target: {fileID: 8306572763913425979, guid: 71027234dac2b0b44a1dc9b7da491359,
+        type: 3}
+      propertyPath: visuals.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8306572763913425979, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: group
