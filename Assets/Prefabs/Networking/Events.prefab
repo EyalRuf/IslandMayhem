@@ -5063,9 +5063,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  duration: 30
+  duration: 15
   initialSwapSpeed: 25
-  swapSpeed: 500
+  swapSpeed: 250
   floorIsLavaMessagePrefab: {fileID: 5763865000358864138, guid: 850f425ca8614da4cb64c0eaef7dff27,
     type: 3}
   messageSpawnOffset: {x: 0, y: 10, z: 0}
