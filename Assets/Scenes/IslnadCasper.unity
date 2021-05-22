@@ -85017,6 +85017,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Totem_Blue (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6761932135788540398, guid: 8fe18c99357473e4fbe70e1d79fec59d,
+        type: 3}
+      propertyPath: matchManager
+      value: 
+      objectReference: {fileID: 7476827081574581296}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fe18c99357473e4fbe70e1d79fec59d, type: 3}
 --- !u!1001 &698992790
@@ -122514,6 +122519,11 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: c710a445d7048f34595a64095c348853
       objectReference: {fileID: 0}
+    - target: {fileID: 6761932137172217108, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: matchManager
+      value: 
+      objectReference: {fileID: 7476827081574581296}
     - target: {fileID: 6773578236872436635, guid: c710a445d7048f34595a64095c348853,
         type: 3}
       propertyPath: sceneId
@@ -201869,6 +201879,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Totem_Blue (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6761932135788540398, guid: 8fe18c99357473e4fbe70e1d79fec59d,
+        type: 3}
+      propertyPath: matchManager
+      value: 
+      objectReference: {fileID: 7476827081574581296}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fe18c99357473e4fbe70e1d79fec59d, type: 3}
 --- !u!1001 &1561330403
@@ -218524,6 +218539,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Totem_Blue (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6761932135788540398, guid: 8fe18c99357473e4fbe70e1d79fec59d,
+        type: 3}
+      propertyPath: matchManager
+      value: 
+      objectReference: {fileID: 7476827081574581296}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fe18c99357473e4fbe70e1d79fec59d, type: 3}
 --- !u!1 &1651742538
