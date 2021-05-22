@@ -98844,6 +98844,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Events
       objectReference: {fileID: 0}
+    - target: {fileID: 1322323853112803297, guid: 5d1d1124a97e5464e992a9b74bf7b79b,
+        type: 3}
+      propertyPath: matchManager
+      value: 
+      objectReference: {fileID: 7476827081574581296}
     - target: {fileID: 1322323853112803298, guid: 5d1d1124a97e5464e992a9b74bf7b79b,
         type: 3}
       propertyPath: sceneId
@@ -281069,6 +281074,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ee19bd16fe06344c96c32ba3805126f, type: 3}
+--- !u!114 &7476827081574581296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4689160645360657473, guid: 0ee19bd16fe06344c96c32ba3805126f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7476827081574581295}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e47ccc3cad53364ab7b80351011e77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7519196604178463823
 PrefabInstance:
   m_ObjectHideFlags: 0

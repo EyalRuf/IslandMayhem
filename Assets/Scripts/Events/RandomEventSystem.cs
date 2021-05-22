@@ -9,13 +9,11 @@ public class RandomEventSystem : NetworkBehaviour
     public Vector2 eventDelayRange = new Vector2(30f, 120f);
 
     private bool started = false;
-    private MatchManager matchManager;
+    public MatchManager matchManager;
     public RandomEvent[] events;
 
     private void Start()
     {
-        matchManager = FindObjectOfType<MatchManager>();
-
         if (!isServer) //server only behaviour
             return;
 
@@ -24,25 +22,31 @@ public class RandomEventSystem : NetworkBehaviour
 
     private void Update()
     {
-        if (matchManager.gameStarted && !started)
+        if (matchManager == null)
         {
-            //DO THIS IN EDITOR
-            //get all events
-            //events = FindObjectsOfType<RandomEvent>().OrderBy(e => e.name).ToArray();
-        }
-
-        if (!isServer) //server only behaviour
-            return;
-
-        if (matchManager.gameStarted && !started)
+            matchManager = FindObjectOfType<MatchManager>();
+        } else
         {
-            //get all events
-            events = FindObjectsOfType<RandomEvent>();
+            if (matchManager.gameStarted && !started)
+            {
+                //DO THIS IN EDITOR
+                //get all events
+                //events = FindObjectsOfType<RandomEvent>().OrderBy(e => e.name).ToArray();
+            }
 
-            //start coroutine
-            StartCoroutine(EventLoop());
+            if (!isServer) //server only behaviour
+                return;
 
-            started = true;
+            if (matchManager.gameStarted && !started)
+            {
+                //get all events
+                events = FindObjectsOfType<RandomEvent>();
+
+                //start coroutine
+                StartCoroutine(EventLoop());
+
+                started = true;
+            }
         }
     }
 
