@@ -250,8 +250,8 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     public override void LateUpdate()
     {
-        SteamAPI.RunCallbacks();
         base.LateUpdate();
+        SteamAPI.RunCallbacks();
     }
 
     /// <summary>
@@ -317,7 +317,7 @@ public class CustomNetworkManager : NetworkManager
     /// <param name="newSceneName">Name of the scene that's about to be loaded</param>
     /// <param name="sceneOperation">Scene operation that's about to happen</param>
     /// <param name="customHandling">true to indicate that scene loading will be handled through overrides</param>
-    public override void OnClientChangeScene(string newSceneName, SceneOperation sceneOperation, bool customHandling) { }
+    public override void OnClientChangeScene(string newSceneName, SceneOperation sceneOperation, bool customHandling) { base.OnClientChangeScene(newSceneName, sceneOperation, customHandling); }
 
     /// <summary>
     /// Called on clients when a scene has completed loaded, when the scene load was initiated by the server.
@@ -381,7 +381,7 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     /// <param name="conn">Connection from client.</param>
     /// <param name="errorCode">Error code.</param>
-    public override void OnServerError(NetworkConnection conn, int errorCode) { base.OnServerError(conn, errorCode); }
+    //public override void OnServerError(NetworkConnection conn, int errorCode) { base.OnServerError(conn, errorCode); }
 
     #endregion
 
@@ -433,7 +433,7 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     /// <param name="conn">Connection to a server.</param>
     /// <param name="errorCode">Error code.</param>
-    public override void OnClientError(NetworkConnection conn, int errorCode) { base.OnClientError(conn, errorCode); }
+    //public override void OnClientError(NetworkConnection conn, int errorCode) { base.OnClientError(conn, errorCode); }
 
     /// <summary>
     /// Called on clients when a servers tells the client it is no longer ready.
@@ -478,6 +478,8 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     public override void OnStartClient() 
     {
+        base.OnStartClient();
+
         matchmakingSearching = false;
         StopCoroutine(FindMatchProcess());
 
