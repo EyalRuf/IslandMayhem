@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/IslnadCasper.unity
+    path: Assets/Scenes/Baking Island V1.unity
     guid: 2e3fe4cba444c744392d074451f0cd29
   m_configObjects: {}
