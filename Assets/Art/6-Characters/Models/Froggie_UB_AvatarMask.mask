@@ -22,7 +22,7 @@ AvatarMask:
   - m_Path: Skeleton/Root/Hip
     m_Weight: 0
   - m_Path: Skeleton/Root/Hip/Belly
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Skeleton/Root/Hip/Belly/Chest
     m_Weight: 1
   - m_Path: Skeleton/Root/Hip/Belly/Chest/Neck
