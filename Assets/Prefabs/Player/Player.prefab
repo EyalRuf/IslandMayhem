@@ -1099,7 +1099,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   triggerResetTime: 0.35
-  chosenSkin: 2
+  chosenSkin: -1
   currentSkin: -1
   skins:
   - {fileID: 8366791748275764615}
