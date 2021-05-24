@@ -22,6 +22,7 @@ public class PlayerAnimations : NetworkBehaviour
     private const string anim_param_t_punch = "punchTrigger";
 
     [Header("Skins")]
+    public Skin chosenSkin = Skin.Random;
     [SyncVar]
     public int currentSkin = -1;
     public Animator[] skins;
@@ -44,7 +45,7 @@ public class PlayerAnimations : NetworkBehaviour
     {
         if (isServer)
         {
-            currentSkin = UnityEngine.Random.Range(0, skins.Length);
+            currentSkin = chosenSkin != Skin.Random ? (int) chosenSkin : UnityEngine.Random.Range(0, skins.Length);
         }
 
         foreach (Animator skin in skins)
@@ -169,4 +170,12 @@ public class PlayerAnimations : NetworkBehaviour
     {
         animator.ResetTrigger(anim_param_t_beingHit);
     }
+}
+
+public enum Skin
+{
+    Random = -1,
+    Tiger = 0,
+    Frog = 1,
+    Lemur = 2
 }

@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Lemur_WB_AvatarMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Cube
+    m_Weight: 1
+  - m_Path: Eyes
+    m_Weight: 1
+  - m_Path: Skeleton
+    m_Weight: 1
+  - m_Path: Skeleton/Root
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Belly
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Belly/Chest
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Belly/Chest/Neck
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Belly/Chest/Neck/Head
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Belly/Chest/Shoulder.L
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Belly/Chest/Shoulder.L/UpperArm.L
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Belly/Chest/Shoulder.L/UpperArm.L/LowerArm.L
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Belly/Chest/Shoulder.R
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Belly/Chest/Shoulder.R/UpperArm.R
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Belly/Chest/Shoulder.R/UpperArm.R/LowerArm.R
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06/Tail07
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06/Tail07/Tail08
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06/Tail07/Tail08/Tail09
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06/Tail07/Tail08/Tail09/Tail10
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06/Tail07/Tail08/Tail09/Tail10/Tail11
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06/Tail07/Tail08/Tail09/Tail10/Tail11/Tail12
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06/Tail07/Tail08/Tail09/Tail10/Tail11/Tail12/Tail13
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06/Tail07/Tail08/Tail09/Tail10/Tail11/Tail12/Tail13/Tail14
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06/Tail07/Tail08/Tail09/Tail10/Tail11/Tail12/Tail13/Tail14/Tail15
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/TailBase/Tail01/Tail02/Tail03/Tail04/Tail05/Tail06/Tail07/Tail08/Tail09/Tail10/Tail11/Tail12/Tail13/Tail14/Tail15/Tail16
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Thigh.L
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Thigh.L/Shin.L
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Thigh.L/Shin.L/Foot.L
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Thigh.R
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Thigh.R/Shin.R
+    m_Weight: 1
+  - m_Path: Skeleton/Root/Hip/Thigh.R/Shin.R/Foot.R
+    m_Weight: 1
+  - m_Path: Tail
+    m_Weight: 1
+  - m_Path: Torso
+    m_Weight: 1
