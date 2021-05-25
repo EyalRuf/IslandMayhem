@@ -19,6 +19,7 @@ public class MatchManager : NetworkBehaviour
     public int numberOfTeams;
     public Color[] teamColors = { Color.red, Color.blue };
     public Color neutralTeamColor = Color.white;
+    public List<bool> hideColorsForTeam = new List<bool>() { false, false };
     public string[] teamNames = { "Natives", "Explorers" };
     public List<Team> teams;
 
@@ -99,6 +100,7 @@ public class MatchManager : NetworkBehaviour
     public virtual void ResetMatch()
     {
         gameStarted = false;
+        startingGame = false;
         gameOver = false;
         gameStatus = "Waiting for players...";
         overviewCam.gameObject.SetActive(true);
