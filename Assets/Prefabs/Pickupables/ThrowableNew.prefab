@@ -476,5 +476,5 @@ MonoBehaviour:
   isActive: 0
   initiatorNetId: 0
   knockbackPower: 30
-  damage: 1
+  damage: 15
   singularDmgInstance: 1

@@ -11,7 +11,7 @@ public class NoRotation : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         transform.position = transform.parent.position + baseLocalPos;
         transform.rotation = Quaternion.Euler(0, 0, 0);

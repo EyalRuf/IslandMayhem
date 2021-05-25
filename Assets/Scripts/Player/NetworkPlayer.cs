@@ -21,6 +21,8 @@ public class NetworkPlayer : NetworkBehaviour
     MatchManager matchManager;
 
     [Header("UI")]
+    public GameObject localPlayerUI;
+    public GameObject remotePlayerUI;
     public Text nameTag;
     public bool hideLocalNametag;
 
@@ -45,6 +47,8 @@ public class NetworkPlayer : NetworkBehaviour
         netPlayerPos = transform.position;
         netPlayerRot = transform.rotation;
         netPlayerVel = rb.velocity;
+        localPlayerUI.SetActive(isLocalPlayer);
+        remotePlayerUI.SetActive(!isLocalPlayer);
 
         if (!isLocalPlayer)
         {
@@ -117,11 +121,6 @@ public class NetworkPlayer : NetworkBehaviour
         np.netPlayerRot = rot;
         np.netPlayerVel = vel;
         np.transform.localScale = size;
-    }
-
-    private void LateUpdate()
-    {
-        nameTag.transform.parent.LookAt(localPlayerCamera.transform.position);
     }
 
     public override void OnStartClient()
