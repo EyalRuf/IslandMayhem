@@ -12,6 +12,8 @@ public class FloorIsLavaEvent : RandomEvent
     public float lavaOffset;
     public Transform water;
     public Transform lava;
+    public AudioSource lavaSource;
+    public float lavaVolume;
 
     private bool isActive = false;
 
@@ -39,6 +41,7 @@ public class FloorIsLavaEvent : RandomEvent
 
         float waterVelocity = 0;
         float lavaVelocity = 0;
+        float lavaSoundVelocity = 0;
 
         Vector3 waterPos = water.transform.position;
         Vector3 lavaPos = lava.transform.position;
@@ -54,6 +57,8 @@ public class FloorIsLavaEvent : RandomEvent
                 lava.position.x,
                 Mathf.SmoothDamp(lava.position.y, waterPos.y, ref lavaVelocity, initialSwapSpeed * Time.deltaTime),
                 lava.position.z);
+
+            lavaSource.volume = Mathf.SmoothDamp(lavaSource.volume, lavaVolume, ref lavaSoundVelocity, initialSwapSpeed * Time.deltaTime);
 
             yield return new WaitForEndOfFrame();
         }
@@ -73,6 +78,8 @@ public class FloorIsLavaEvent : RandomEvent
                 Mathf.SmoothDamp(lava.position.y, waterPos.y + lavaOffset, ref lavaVelocity, swapSpeed * Time.deltaTime),
                 lava.position.z);
 
+            lavaSource.volume = Mathf.SmoothDamp(lavaSource.volume, lavaVolume, ref lavaSoundVelocity, swapSpeed * Time.deltaTime);
+
             yield return new WaitForEndOfFrame();
         }
 
@@ -87,6 +94,8 @@ public class FloorIsLavaEvent : RandomEvent
                 lava.position.x,
                 Mathf.SmoothDamp(lava.position.y, lavaPos.y, ref lavaVelocity, initialSwapSpeed * Time.deltaTime),
                 lava.position.z);
+
+            lavaSource.volume = Mathf.SmoothDamp(lavaSource.volume, 0f, ref lavaSoundVelocity, initialSwapSpeed * Time.deltaTime);
 
             yield return new WaitForEndOfFrame();
         }
