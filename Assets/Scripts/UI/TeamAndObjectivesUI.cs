@@ -50,16 +50,16 @@ public class TeamAndObjectivesUI : MonoBehaviour
             if (!localPlayer.isLocalPlayer)
                 return;
 
-            if (!initialRefresh && matchManager.gameStarted && localPlayer.playerTeam != -1)
+            if (!initialRefresh && localPlayer.playerTeam != -1)
             {
                 RefreshUI();
                 initialRefresh = true;
             }
         }
 
-        if (matchManager is SDMatchManager)
+        if (matchManager is SingelTotemMatchManager)
         {
-            timerText.text = (matchManager as SDMatchManager).matchTimer.GetMatchTimeString;
+            timerText.text = (matchManager as SingelTotemMatchManager).matchTimer.GetMatchTimeString;
         }
     }
 

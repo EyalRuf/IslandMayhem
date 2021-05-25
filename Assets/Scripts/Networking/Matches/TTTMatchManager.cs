@@ -104,8 +104,8 @@ public class TTTMatchManager : MatchManager
 
         yield return new WaitForSeconds(1f);
 
-        overviewText.color = teamColors[teamIndex];
-        overviewText.text = teamNames[teamIndex] + " Win!";
+        overviewText.color = teamIndex == -1 ? neutralTeamColor : teamColors[teamIndex];
+        overviewText.text = teamIndex == -1 ? "Draw" : teamNames[teamIndex] + " Win!";
 
         yield return new WaitForSeconds(5f);
 

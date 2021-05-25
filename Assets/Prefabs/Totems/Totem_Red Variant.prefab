@@ -102,6 +102,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Totem_Red Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 535424244228785626, guid: 71027234dac2b0b44a1dc9b7da491359,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4582757239638718508, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -110,7 +115,7 @@ PrefabInstance:
     - target: {fileID: 5651290529963958505, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}
       propertyPath: team
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7426883632020992095, guid: 71027234dac2b0b44a1dc9b7da491359,
         type: 3}

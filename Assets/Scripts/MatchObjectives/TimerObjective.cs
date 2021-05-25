@@ -15,8 +15,6 @@ public class TimerObjective : MatchObjective
 
     public bool IsCompleted => timer.IsTimeOver;
 
-    public ObjectiveType ObjectiveType => ObjectiveType.time;
-
     public int MultiObjRequirement => 0;
 
     public int MultiObjCurrIndex => 0;
