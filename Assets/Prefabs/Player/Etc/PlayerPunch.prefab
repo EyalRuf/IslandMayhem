@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6039192194298955567}
   - component: {fileID: 6690779205446499095}
-  - component: {fileID: 5010886228330848764}
   - component: {fileID: 7507895164393320795}
+  - component: {fileID: 5010886228330848764}
   m_Layer: 11
   m_Name: PlayerPunch
   m_TagString: Untagged
@@ -46,6 +46,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7507895164393320795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5951003220492102780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!114 &5010886228330848764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,22 +79,6 @@ MonoBehaviour:
   isActive: 1
   initiatorNetId: 0
   knockbackPower: 100
-  damage: 1
+  damage: 15
   singularDmgInstance: 0
   lifespan: 0.15
---- !u!114 &7507895164393320795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5951003220492102780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
