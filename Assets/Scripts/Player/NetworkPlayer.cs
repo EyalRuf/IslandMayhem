@@ -82,9 +82,9 @@ public class NetworkPlayer : NetworkBehaviour
 
         if (!isLocalPlayer)
         {
-            NetworkPlayer local = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>();
+            NetworkPlayer localPlayer = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>();
 
-            if (local.playerTeam == 0)
+            if (localPlayer.playerTeam != -1 && matchManager.hideColorsForTeam[localPlayer.playerTeam])
                 nameTag.color = teamColor;
             else
                 nameTag.color = matchManager.neutralTeamColor;

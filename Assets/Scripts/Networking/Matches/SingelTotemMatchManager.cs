@@ -4,20 +4,35 @@ using System.Collections.Generic;
 using System.Linq;
 using Mirror;
 
-public class SDMatchManager : TTTMatchManager
+public class SingelTotemMatchManager : TTTMatchManager
 {
-    [Header("SDMatchManager")]
+    [Header("SingelTotemMatchManager")]
     public MatchTimer matchTimer;
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (!isServer)
+            return;
+
+        if (matchTimer.IsTimeOver)
+        {
+            RpcEndGame(-1);
+        }
+    }
 
     protected override void PopulateTeamObjectives()
     {
-        TimerObjective team0Objective = new TimerObjective(matchTimer);
+        Totem redTotem = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Red).FirstOrDefault();
+        SingleTotemObjective team0Objective = new SingleTotemObjective();
+        team0Objective.totem = redTotem;
         team0Objectives = new List<MatchObjective>();
         team0Objectives.Add(team0Objective);
 
-        List<Totem> totems = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Blue).ToList();
-        TotemsObjective team1Objective = new TotemsObjective();
-        team1Objective.totems = totems;
+        Totem blueTotem = FindObjectsOfType<Totem>().Where(t => t.group == TotemPieceGroup.Blue).FirstOrDefault();
+        SingleTotemObjective team1Objective = new SingleTotemObjective();
+        team1Objective.totem = blueTotem;
         team1Objectives = new List<MatchObjective>();
         team1Objectives.Add(team1Objective);
 
@@ -37,27 +52,9 @@ public class SDMatchManager : TTTMatchManager
         Team explorers = new Team(1);
         teams.Add(natives);
         teams.Add(explorers);
-
-        int nativeCount = (int)(players.Count * 0.25f) + 1;
+        int teamIndex = 0;
 
         // Natives
-        while (nativeCount > 0)
-        {
-            //dequeue
-            NetworkIdentity player = players[0];
-            NetworkPlayer np = player.GetComponent<NetworkPlayer>();
-            players.RemoveAt(0);
-
-            //give team color
-            np.teamColor = teamColors[0];
-            np.playerTeam = 0;
-
-            //assign to team
-            teams[0].playersInTeam.Add(np);
-            nativeCount--;
-        }
-
-        // Explorers
         while (players.Count > 0)
         {
             //dequeue
@@ -66,11 +63,12 @@ public class SDMatchManager : TTTMatchManager
             players.RemoveAt(0);
 
             //give team color
-            np.teamColor = teamColors[1];
-            np.playerTeam = 1;
+            np.teamColor = teamColors[teamIndex];
+            np.playerTeam = teamIndex;
 
             //assign to team
-            teams[1].playersInTeam.Add(np);
+            teams[teamIndex].playersInTeam.Add(np);
+            teamIndex = (teamIndex + 1) % numberOfTeams;
         }
     }
 
@@ -87,5 +85,11 @@ public class SDMatchManager : TTTMatchManager
     {
         matchTimer.MatchEnd();
         yield return base.EndGame(teamIndex);
+    }
+
+    public override void ResetMatch()
+    {
+        base.ResetMatch();
+        matchTimer.ResetMatch();
     }
 }

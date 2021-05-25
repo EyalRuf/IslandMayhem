@@ -37,4 +37,10 @@ public class MatchTimer : NetworkBehaviour
         didStart = false;
         timeRemaining = 0;
     }
+
+    public void ResetMatch ()
+    {
+        didStart = false;
+        timeRemaining = 0;
+    }
 }

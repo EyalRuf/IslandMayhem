@@ -9,6 +9,7 @@ TagManager:
   - DisposableProp
   - Tree
   - UI
+  - NoOutline
   layers:
   - Default
   - TransparentFX
