@@ -158,7 +158,7 @@ public class PickupableItem : NetworkBehaviour
             if (hit != null && hit.isActive && hit.initiatorNetId != netId)
             {
                 Vector3 knockbackDir = transform.position - hit.transform.position;
-                rb.AddForce(knockbackDir * hit.knockbackPower / 3, ForceMode.Impulse);
+                rb.AddForce(knockbackDir.normalized * hit.knockbackPower / 2, ForceMode.Impulse);
                 hit.HitInflicted();
             }
         }
