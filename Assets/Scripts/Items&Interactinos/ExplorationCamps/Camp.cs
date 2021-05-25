@@ -10,7 +10,6 @@ public class Camp : NetworkBehaviour
 {
     [Header("Camp")]
     public List<CampStep> campSteps;
-    public GameObject rewardPrefab;
     [SyncVar] public int currStepsCompleted;
     [SyncVar] public bool isCoolingDown;
     [SyncVar] private float cooldownTimer;
@@ -18,16 +17,24 @@ public class Camp : NetworkBehaviour
     [SyncVar] public int spawnsLeft;
     public Vector2Int spawnLimitRange;
 
+    [Header("Rewards")]
+    [SyncVar] public bool isTotemDispenser;
+    public GameObject totemDispenserVisual;
+    public GameObject totemPrefab;
+    public GameObject alternativePrefab;
+
     [Header("UI")]
     public Text campOverheadText;
     public Text campSignText;
     public Text timerAndExesText;
+    public Text totemDispenserText;
 
-    [Header("MISC")]
+    [Header("Misc")]
     public Transform pedestalTransform;
     public AudioClip campDoneSound;
 
     private AudioSource source;
+    [HideInInspector] public CampManager campManager;
 
     // Use this for initialization
     void Start()
@@ -46,6 +53,9 @@ public class Camp : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        totemDispenserVisual.SetActive(isTotemDispenser && !isCoolingDown);
+        totemDispenserText.text = isTotemDispenser ? Mathf.CeilToInt(campManager.swapDelay - campManager.swapTimer).ToString() : "";
+
         campOverheadText.text = spawnsLeft <= 0 ? "Totem pieces out of stock" : isCoolingDown ? (cooldownDuration - cooldownTimer < 3f ? "Take the piece to your totem!" : "Restocking totem piece") : "Solve to get a totem piece";
         campSignText.text = "Totem Pieces\nleft: " + spawnsLeft;
         timerAndExesText.text = spawnsLeft <= 0 ? "Come back another day" : isCoolingDown ? TimeFormatter.Format(cooldownTimer) : GetStepsText();
@@ -89,7 +99,7 @@ public class Camp : NetworkBehaviour
 
     private void CampDone()
     {
-        GameObject spawned = Instantiate(rewardPrefab, pedestalTransform.position + (Vector3.up * 3), Quaternion.identity);
+        GameObject spawned = Instantiate(isTotemDispenser ? totemPrefab : alternativePrefab, pedestalTransform.position + (Vector3.up * 3), Quaternion.identity);
         NetworkServer.Spawn(spawned);
 
         campSteps.ForEach(step => step.isEnabled = false);

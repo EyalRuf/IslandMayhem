@@ -27,11 +27,13 @@ public class PlayerAnimations : NetworkBehaviour
     public int currentSkin = -1;
     public Animator[] skins;
     private bool selectedSkin;
+    public float invunerabilityBlinkSpeed = 0.1f;
 
     [Header("References")]
     public Animator animator;
     public NetworkAnimator netAnimator;
     public ThirdPersonCharacterController cController;
+    public PlayerCombat combat;
 
     [Header("Etc")]
     bool isJumping;
@@ -61,6 +63,9 @@ public class PlayerAnimations : NetworkBehaviour
         {
             SetSkin();
         }
+
+        //invunerablility stuff
+        skins[currentSkin].gameObject.SetActive(combat.isInvulnerable ? Mathf.PingPong(Time.time, invunerabilityBlinkSpeed) > invunerabilityBlinkSpeed / 2 : true);
 
         if (isLocalPlayer)
         {

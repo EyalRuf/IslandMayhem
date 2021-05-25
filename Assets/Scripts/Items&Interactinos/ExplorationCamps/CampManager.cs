@@ -1,0 +1,53 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Mirror;
+
+public class CampManager : NetworkBehaviour
+{
+    public int currentMainCamp;
+    public float swapDelay = 60f;
+    [SyncVar] public float swapTimer;
+
+    [HideInInspector] public Camp[] camps;
+
+    private void Start()
+    {
+        if (isServer)
+        {
+            camps = GetComponentsInChildren<Camp>();
+
+            foreach (Camp camp in camps)
+            {
+                camp.campManager = this;
+            }
+
+            SwapMainCamp();
+        }
+    }
+
+    private void Update()
+    {
+        if (!isServer)
+            return;
+
+        swapTimer += Time.deltaTime;
+
+        if(swapTimer >= swapDelay)
+        {
+            swapTimer = 0;
+
+            SwapMainCamp();
+        }
+    }
+
+    private void SwapMainCamp()
+    {
+        currentMainCamp = Random.Range(0, camps.Length);
+
+        for(int c = 0; c < camps.Length; c++)
+        {
+            camps[c].isTotemDispenser = c == currentMainCamp;
+        }
+    }
+}
