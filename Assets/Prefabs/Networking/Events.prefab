@@ -4929,7 +4929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  damage: 1
+  damage: 20
   hitVector: {x: 0, y: 50, z: 0}
   cooldown: 1
 --- !u!1 &5055732106071761009
