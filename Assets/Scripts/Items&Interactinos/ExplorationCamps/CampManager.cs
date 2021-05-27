@@ -13,15 +13,15 @@ public class CampManager : NetworkBehaviour
 
     private void Start()
     {
+        camps = GetComponentsInChildren<Camp>();
+
+        foreach (Camp camp in camps)
+        {
+            camp.campManager = this;
+        }
+
         if (isServer)
         {
-            camps = GetComponentsInChildren<Camp>();
-
-            foreach (Camp camp in camps)
-            {
-                camp.campManager = this;
-            }
-
             SwapMainCamp();
         }
     }

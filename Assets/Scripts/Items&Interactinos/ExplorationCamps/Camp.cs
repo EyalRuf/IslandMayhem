@@ -53,8 +53,15 @@ public class Camp : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        totemDispenserVisual.SetActive(isTotemDispenser && !isCoolingDown);
-        totemDispenserText.text = isTotemDispenser ? Mathf.CeilToInt(campManager.swapDelay - campManager.swapTimer).ToString() : "";
+        if(campManager != null)
+        {
+            totemDispenserVisual.SetActive(isTotemDispenser && !isCoolingDown);
+            totemDispenserText.text = isTotemDispenser ? Mathf.CeilToInt(campManager.swapDelay - campManager.swapTimer).ToString() : "";
+        }
+        else
+        {
+            campManager = FindObjectOfType<CampManager>();
+        }
 
         campOverheadText.text = spawnsLeft <= 0 ? "Totem pieces out of stock" : isCoolingDown ? (cooldownDuration - cooldownTimer < 3f ? "Take the piece to your totem!" : "Restocking totem piece") : "Solve to get a totem piece";
         campSignText.text = "Totem Pieces\nleft: " + spawnsLeft;
