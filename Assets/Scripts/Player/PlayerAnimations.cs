@@ -23,11 +23,12 @@ public class PlayerAnimations : NetworkBehaviour
 
     [Header("Skins")]
     public Skin chosenSkin = Skin.Random;
-    [SyncVar]
-    public int currentSkin = -1;
+    [SyncVar] public int currentSkin = -1;
     public Animator[] skins;
     private bool selectedSkin;
     public float invunerabilityBlinkSpeed = 0.1f;
+    [Range(0f, 1f)] public float invunerabilityPulseWidth = 0.5f;
+
 
     [Header("References")]
     public Animator animator;
@@ -65,7 +66,7 @@ public class PlayerAnimations : NetworkBehaviour
         }
 
         //invunerablility stuff
-        skins[currentSkin].gameObject.SetActive(combat.isInvulnerable ? Mathf.PingPong(Time.time, invunerabilityBlinkSpeed) > invunerabilityBlinkSpeed / 2 : true);
+        skins[Mathf.RoundToInt(Mathf.Clamp(currentSkin, 0, skins.Length))].gameObject.SetActive(combat.isInvulnerable ? Mathf.PingPong(Time.time, invunerabilityBlinkSpeed) > invunerabilityBlinkSpeed * invunerabilityPulseWidth : true);
 
         if (isLocalPlayer)
         {
