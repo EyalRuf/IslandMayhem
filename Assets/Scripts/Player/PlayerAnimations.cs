@@ -22,15 +22,19 @@ public class PlayerAnimations : NetworkBehaviour
     private const string anim_param_t_punch = "punchTrigger";
 
     [Header("Skins")]
-    [SyncVar]
-    public int currentSkin = -1;
+    public Skin chosenSkin = Skin.Random;
+    [SyncVar] public int currentSkin = -1;
     public Animator[] skins;
     private bool selectedSkin;
+    public float invunerabilityBlinkSpeed = 0.1f;
+    [Range(0f, 1f)] public float invunerabilityPulseWidth = 0.5f;
+
 
     [Header("References")]
     public Animator animator;
     public NetworkAnimator netAnimator;
     public ThirdPersonCharacterController cController;
+    public PlayerCombat combat;
 
     [Header("Etc")]
     bool isJumping;
@@ -44,7 +48,7 @@ public class PlayerAnimations : NetworkBehaviour
     {
         if (isServer)
         {
-            currentSkin = UnityEngine.Random.Range(0, skins.Length);
+            currentSkin = chosenSkin != Skin.Random ? (int) chosenSkin : UnityEngine.Random.Range(0, skins.Length);
         }
 
         foreach (Animator skin in skins)
@@ -60,6 +64,9 @@ public class PlayerAnimations : NetworkBehaviour
         {
             SetSkin();
         }
+
+        //invunerablility stuff
+        skins[Mathf.RoundToInt(Mathf.Clamp(currentSkin, 0, skins.Length))].gameObject.SetActive(combat.isInvulnerable ? Mathf.PingPong(Time.time, invunerabilityBlinkSpeed) > invunerabilityBlinkSpeed * invunerabilityPulseWidth : true);
 
         if (isLocalPlayer)
         {
@@ -169,4 +176,12 @@ public class PlayerAnimations : NetworkBehaviour
     {
         animator.ResetTrigger(anim_param_t_beingHit);
     }
+}
+
+public enum Skin
+{
+    Random = -1,
+    Tiger = 0,
+    Frog = 1,
+    Lemur = 2
 }

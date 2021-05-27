@@ -469,7 +469,7 @@ MonoBehaviour:
   isActive: 0
   initiatorNetId: 0
   knockbackPower: 30
-  damage: 1
+  damage: 15
   singularDmgInstance: 1
 --- !u!1 &9214029714054354397
 GameObject:

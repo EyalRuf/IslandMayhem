@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCombat : NetworkBehaviour
 {
@@ -14,8 +15,11 @@ public class PlayerCombat : NetworkBehaviour
     [Header("Combat")]
     public PlayerPunch punchObj;
     public float punchCD = 0.75f;
-    public int maxHp = 4;
-    public int currHp = 4;
+    public int maxHp;
+    [SyncVar]
+    public int currHp;
+    public Image hpBarLocal;
+    public Image hpBarRemote;
     public bool isInvulnerable;
     public float invulnerabilityDuration;
     public float miniStunDuration;
@@ -23,9 +27,17 @@ public class PlayerCombat : NetworkBehaviour
     public float knockDownDuration;
     [Range(0f, 1f)]
     public float knockDownChance;
-
-    private float regenerationTimer;
     private float punchCDTimer;
+    private float reviveTimer;
+
+    [Header("Regeneration")]
+    public int regenAmount;
+    public Vector2 regenMinMax;
+    public float currRegenInterval;
+    public float regenIntervalInc;
+    public float timeBeforeRegen;
+    private float regenTimer;
+    private float timerBeforeRegen;
 
     [Header("Particles")]
     public GameObject hitParticles;
@@ -40,6 +52,9 @@ public class PlayerCombat : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        hpBarLocal.fillAmount = Mathf.Lerp(hpBarLocal.fillAmount, (float) currHp / maxHp, 0.05f);
+        hpBarRemote.fillAmount = Mathf.Lerp(hpBarRemote.fillAmount, (float) currHp / maxHp, 0.05f);
+
         if (isLocalPlayer)
         {
             if (punchCDTimer > 0)
@@ -50,12 +65,29 @@ public class PlayerCombat : NetworkBehaviour
                 CmdPlayerPunch(netId);
             }
 
-            if (currHp < maxHp && cController.isCrippled)
+            if (currHp < maxHp)
             {
-                regenerationTimer -= Time.deltaTime;
-                if (regenerationTimer <= 0)
+                if (cController.isCrippled)
                 {
-                    CmdRevive(netId);
+                    reviveTimer -= Time.deltaTime;
+                    if (reviveTimer <= 0)
+                    {
+                        CmdRevive(netId);
+                    }
+                } else
+                {
+                    timerBeforeRegen -= Time.deltaTime;
+                    if (timerBeforeRegen <= 0)
+                    {
+                        regenTimer -= Time.deltaTime;
+                        if (regenTimer <= 0)
+                        {
+                            CmdRegen();
+                            currRegenInterval -= regenIntervalInc;
+                            currRegenInterval = Mathf.Clamp(currRegenInterval, regenMinMax.x, regenMinMax.y);
+                            regenTimer = currRegenInterval;
+                        }
+                    }
                 }
             }
         }
@@ -84,15 +116,21 @@ public class PlayerCombat : NetworkBehaviour
 
     private void ApplyHitOnSelf(Vector3 hitVector, int damage)
     {
+        //spawn hit particles
+        Instantiate(hitParticles, transform.position + hitParticlesOffset, hitParticles.transform.rotation);
+        stunnedParticles.SetActive(true);
+
+        // push & drop item
         cController.rb.AddForce(hitVector, ForceMode.Impulse);
         pItems.DropItemIfHeld();
-        
         pAnims.GetHitAnim();
-        stunnedParticles.SetActive(true);
 
         isInvulnerable = true;
         StartCoroutine(InvulnerabilityTime());
-        
+        currRegenInterval = regenMinMax.y;
+        regenTimer = currRegenInterval;
+        timerBeforeRegen = timeBeforeRegen;
+
         if (!cController.isCrippled)
         {
             currHp -= damage;
@@ -124,8 +162,6 @@ public class PlayerCombat : NetworkBehaviour
     [ClientRpc]
     public void RpcPlayerWasHit(Vector3 hitVec, int damage)
     {
-        //spawn hit particles
-        Instantiate(hitParticles, transform.position + hitParticlesOffset, hitParticles.transform.rotation);
         ApplyHitOnSelf(hitVec, damage);
     }
 
@@ -166,13 +202,13 @@ public class PlayerCombat : NetworkBehaviour
 
     void Cripple ()
     {
-        regenerationTimer = crippleDuration;
+        reviveTimer = crippleDuration;
         cController.isCrippled = true;
     }
 
     void Knockdown ()
     {
-        regenerationTimer = knockDownDuration;
+        reviveTimer = knockDownDuration;
         cController.isCrippled = true;
         cController.isKnockedDown = true;
     }
@@ -182,11 +218,7 @@ public class PlayerCombat : NetworkBehaviour
         cController.isKnockedDown = false;
         cController.isCrippled = false;
         stunnedParticles.SetActive(false);
-
-        if (currHp <= 0)
-        {
-            currHp = maxHp;
-        }
+        currHp = maxHp;
     }
 
     [ClientRpc]
@@ -201,5 +233,11 @@ public class PlayerCombat : NetworkBehaviour
         NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerCombat pc = player.GetComponent<PlayerCombat>();
         pc.RpcRevive();
+    }
+
+    [Command]
+    void CmdRegen()
+    {
+        currHp = Mathf.Clamp(currHp + regenAmount, 0, maxHp);
     }
 }

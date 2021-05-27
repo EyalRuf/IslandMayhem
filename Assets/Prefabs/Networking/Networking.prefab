@@ -1169,7 +1169,7 @@ GameObject:
   - component: {fileID: 5148358175575193913}
   - component: {fileID: 5552412104907174469}
   m_Layer: 0
-  m_Name: SD_MatchManager
+  m_Name: MatchManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1229,6 +1229,7 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
   neutralTeamColor: {r: 1, g: 1, b: 1, a: 1}
+  hideColorsForTeam: 0000
   teamNames:
   - Natives
   - Explorers
@@ -1755,18 +1756,7 @@ MonoBehaviour:
       m_Calls: []
   OnStop:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6347207672809759062}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &3757016179187429553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2474,6 +2464,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7476827081589835148}
     m_Modifications:
+    - target: {fileID: 2394545500262487888, guid: d4701dc4fb3f91843ac199b446e26e80,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2394545500262487982, guid: d4701dc4fb3f91843ac199b446e26e80,
         type: 3}
       propertyPath: m_AssetId

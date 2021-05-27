@@ -796,8 +796,8 @@ ModelImporter:
       name: Tiger|13-Hit(UpperBody)
       takeName: Skeleton|13-Hit(UpperBody)
       internalID: 0
-      firstFrame: 0
-      lastFrame: 20
+      firstFrame: 1
+      lastFrame: 8
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
