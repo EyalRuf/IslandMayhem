@@ -862,6 +862,7 @@ MonoBehaviour:
   - {fileID: 2808533703779893529}
   - {fileID: 5494302242522951843}
   invunerabilityBlinkSpeed: 0.1
+  invunerabilityPulseWidth: 0.5
   animator: {fileID: 8366791748275764615}
   netAnimator: {fileID: 1523640836784011889}
   cController: {fileID: 8297925720422174605}
