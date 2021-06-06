@@ -49,11 +49,13 @@ public class PlayerAnimations : NetworkBehaviour
         if (isServer)
         {
             currentSkin = chosenSkin != Skin.Random ? (int) chosenSkin : UnityEngine.Random.Range(0, skins.Length);
+            Debug.Log(chosenSkin);
         }
 
         foreach (Animator skin in skins)
         {
             skin.gameObject.SetActive(false);
+            Debug.Log("kek");
         }
     }
 
@@ -89,6 +91,7 @@ public class PlayerAnimations : NetworkBehaviour
         netAnimator.animator = animator;
 
         selectedSkin = true;
+        Debug.Log(chosenSkin + " Pog");
     }
 
     void FixedUpdate()
@@ -181,7 +184,7 @@ public class PlayerAnimations : NetworkBehaviour
 public enum Skin
 {
     Random = -1,
-    Tiger = 0,
-    Frog = 1,
+    Frog = 0,
+    Tiger = 1,
     Lemur = 2
 }

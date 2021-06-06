@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class PlayerCombat : NetworkBehaviour
     public ThirdPersonCharacterController cController;
     public PlayerItemInteractions pItems;
     public PlayerAnimations pAnims;
+    public CampManager cm;
 
     [Header("Combat")]
     public PlayerPunch punchObj;
@@ -44,9 +46,17 @@ public class PlayerCombat : NetworkBehaviour
     public Vector3 hitParticlesOffset;
     public GameObject stunnedParticles;
 
+    [Header("Death&Respawn")]
+    public List<Behaviour> turnOffWhenDead;
+    public float deathAnimTime;
+    public float fadeTime;
+    public float deathTime;
+    public DeathFade deathFade;
+
     void Start()
     {
         punchObj.initiatorNetId = netId;
+        cm = FindObjectOfType<CampManager>();
     }
 
     // Update is called once per frame
@@ -55,7 +65,7 @@ public class PlayerCombat : NetworkBehaviour
         hpBarLocal.fillAmount = Mathf.Lerp(hpBarLocal.fillAmount, (float) currHp / maxHp, 0.05f);
         hpBarRemote.fillAmount = Mathf.Lerp(hpBarRemote.fillAmount, (float) currHp / maxHp, 0.05f);
 
-        if (isLocalPlayer)
+        if (isLocalPlayer && !cController.isDead)
         {
             if (punchCDTimer > 0)
             {
@@ -137,20 +147,62 @@ public class PlayerCombat : NetworkBehaviour
             
             if (currHp <= 0)
             {
-                if(Random.value < knockDownChance)
-                {
-                    Knockdown();
-                }
-                else
-                {
-                    Cripple();
-                }
+                // Will be gone when death is a thing
+                //if(UnityEngine.Random.value < knockDownChance)
+                //{
+                //    Knockdown();
+                //}
+                //else
+                //{
+                //    Cripple();
+                //}
+
+                // death animation & etc
+                StartCoroutine(DeathSequence());
             }
             else
             {
                 Ministun();
             }
         }
+    }
+
+    IEnumerator DeathSequence()
+    {
+        // Turn off behaviors + Death animation
+        cController.isDead = true;
+        cController.isCrippled = true;
+        cController.isLookingAround = true;
+
+        yield return new WaitForSeconds(deathAnimTime);
+
+        // Fadeout 
+        deathFade.FadeOut(fadeTime);
+
+        yield return new WaitForSeconds(fadeTime);
+
+        // Teleport player
+        int randomCamp = UnityEngine.Random.Range(0, cm.camps.Length);
+        while (cm.camps.Length > 1 && randomCamp == cm.currentMainCamp) { randomCamp = UnityEngine.Random.Range(0, cm.camps.Length); }
+
+        Camp spawnCamp = cm.camps[randomCamp];
+        Transform spawnPos = spawnCamp.spawnPositions[UnityEngine.Random.Range(0, spawnCamp.spawnPositions.Length)];
+
+        transform.position = spawnPos.position;
+
+        yield return new WaitForSeconds(deathTime);
+
+        // Fadein
+        deathFade.FadeIn(fadeTime);
+
+        yield return new WaitForSeconds(fadeTime);
+
+        // Turn behaviors on
+        cController.isDead = false;
+        cController.isCrippled = false;
+        cController.isLookingAround = false;
+        stunnedParticles.SetActive(false);
+        currHp = maxHp;
     }
 
     IEnumerator InvulnerabilityTime()
@@ -175,7 +227,7 @@ public class PlayerCombat : NetworkBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (isLocalPlayer && !isInvulnerable)
+        if (isLocalPlayer && !isInvulnerable && !cController.isDead)
         {
             HitInflictor hit = other.GetComponent<HitInflictor>();
 

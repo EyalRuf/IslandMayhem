@@ -5,7 +5,7 @@ using Mirror;
 
 public class CampManager : NetworkBehaviour
 {
-    public int currentMainCamp;
+    [SyncVar] public int currentMainCamp;
     public float swapDelay = 60f;
     [SyncVar] public float swapTimer;
 

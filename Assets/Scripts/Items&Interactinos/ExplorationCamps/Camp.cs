@@ -32,6 +32,7 @@ public class Camp : NetworkBehaviour
     [Header("Misc")]
     public Transform pedestalTransform;
     public AudioClip campDoneSound;
+    public Transform[] spawnPositions;
 
     private AudioSource source;
     [HideInInspector] public CampManager campManager;
