@@ -13,6 +13,7 @@ public class PlayerCombat : NetworkBehaviour
     public PlayerItemInteractions pItems;
     public PlayerAnimations pAnims;
     public CampManager cm;
+    public MatchManager matchManager;
 
     [Header("Combat")]
     public PlayerPunch punchObj;
@@ -57,6 +58,7 @@ public class PlayerCombat : NetworkBehaviour
     {
         punchObj.initiatorNetId = netId;
         cm = FindObjectOfType<CampManager>();
+        matchManager = FindObjectOfType<MatchManager>();
     }
 
     // Update is called once per frame
@@ -126,43 +128,36 @@ public class PlayerCombat : NetworkBehaviour
 
     private void ApplyHitOnSelf(Vector3 hitVector, int damage)
     {
-        //spawn hit particles
-        Instantiate(hitParticles, transform.position + hitParticlesOffset, hitParticles.transform.rotation);
-        stunnedParticles.SetActive(true);
 
-        // push & drop item
+        Instantiate(hitParticles, transform.position + hitParticlesOffset, hitParticles.transform.rotation);
         cController.rb.AddForce(hitVector, ForceMode.Impulse);
         pItems.DropItemIfHeld();
         pAnims.GetHitAnim();
 
         isInvulnerable = true;
         StartCoroutine(InvulnerabilityTime());
-        currRegenInterval = regenMinMax.y;
-        regenTimer = currRegenInterval;
-        timerBeforeRegen = timeBeforeRegen;
 
-        if (!cController.isCrippled)
+        if (matchManager.gameStarted)
         {
-            currHp -= damage;
-            
-            if (currHp <= 0)
-            {
-                // Will be gone when death is a thing
-                //if(UnityEngine.Random.value < knockDownChance)
-                //{
-                //    Knockdown();
-                //}
-                //else
-                //{
-                //    Cripple();
-                //}
+            stunnedParticles.SetActive(true);
 
-                // death animation & etc
-                StartCoroutine(DeathSequence());
-            }
-            else
+            currRegenInterval = regenMinMax.y;
+            regenTimer = currRegenInterval;
+            timerBeforeRegen = timeBeforeRegen;
+
+            if (!cController.isCrippled)
             {
-                Ministun();
+                currHp -= damage;
+            
+                if (currHp <= 0)
+                {
+                    // Death sequence
+                    StartCoroutine(DeathSequence());
+                }
+                else
+                {
+                    Ministun();
+                }
             }
         }
     }
