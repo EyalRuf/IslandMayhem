@@ -1,4 +1,5 @@
 ﻿using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class PlayerCombat : NetworkBehaviour
     public ThirdPersonCharacterController cController;
     public PlayerItemInteractions pItems;
     public PlayerAnimations pAnims;
+    public CampManager cm;
+    public MatchManager matchManager;
 
     [Header("Combat")]
     public PlayerPunch punchObj;
@@ -44,9 +47,18 @@ public class PlayerCombat : NetworkBehaviour
     public Vector3 hitParticlesOffset;
     public GameObject stunnedParticles;
 
+    [Header("Death&Respawn")]
+    public List<Behaviour> turnOffWhenDead;
+    public float deathAnimTime;
+    public float fadeTime;
+    public float deathTime;
+    public DeathFade deathFade;
+
     void Start()
     {
         punchObj.initiatorNetId = netId;
+        cm = FindObjectOfType<CampManager>();
+        matchManager = FindObjectOfType<MatchManager>();
     }
 
     // Update is called once per frame
@@ -55,7 +67,7 @@ public class PlayerCombat : NetworkBehaviour
         hpBarLocal.fillAmount = Mathf.Lerp(hpBarLocal.fillAmount, (float) currHp / maxHp, 0.05f);
         hpBarRemote.fillAmount = Mathf.Lerp(hpBarRemote.fillAmount, (float) currHp / maxHp, 0.05f);
 
-        if (isLocalPlayer)
+        if (isLocalPlayer && !cController.isDead)
         {
             if (punchCDTimer > 0)
             {
@@ -116,41 +128,76 @@ public class PlayerCombat : NetworkBehaviour
 
     private void ApplyHitOnSelf(Vector3 hitVector, int damage)
     {
-        //spawn hit particles
-        Instantiate(hitParticles, transform.position + hitParticlesOffset, hitParticles.transform.rotation);
-        stunnedParticles.SetActive(true);
 
-        // push & drop item
+        Instantiate(hitParticles, transform.position + hitParticlesOffset, hitParticles.transform.rotation);
         cController.rb.AddForce(hitVector, ForceMode.Impulse);
         pItems.DropItemIfHeld();
         pAnims.GetHitAnim();
 
         isInvulnerable = true;
         StartCoroutine(InvulnerabilityTime());
-        currRegenInterval = regenMinMax.y;
-        regenTimer = currRegenInterval;
-        timerBeforeRegen = timeBeforeRegen;
 
-        if (!cController.isCrippled)
+        if (matchManager.gameStarted)
         {
-            currHp -= damage;
-            
-            if (currHp <= 0)
+            stunnedParticles.SetActive(true);
+
+            currRegenInterval = regenMinMax.y;
+            regenTimer = currRegenInterval;
+            timerBeforeRegen = timeBeforeRegen;
+
+            if (!cController.isCrippled)
             {
-                if(Random.value < knockDownChance)
+                currHp -= damage;
+            
+                if (currHp <= 0)
                 {
-                    Knockdown();
+                    // Death sequence
+                    StartCoroutine(DeathSequence());
                 }
                 else
                 {
-                    Cripple();
+                    Ministun();
                 }
             }
-            else
-            {
-                Ministun();
-            }
         }
+    }
+
+    IEnumerator DeathSequence()
+    {
+        // Turn off behaviors + Death animation
+        cController.isDead = true;
+        cController.isCrippled = true;
+        cController.isLookingAround = true;
+
+        yield return new WaitForSeconds(deathAnimTime);
+
+        // Fadeout 
+        deathFade.FadeOut(fadeTime);
+
+        yield return new WaitForSeconds(fadeTime);
+
+        // Teleport player
+        int randomCamp = UnityEngine.Random.Range(0, cm.camps.Length);
+        while (cm.camps.Length > 1 && randomCamp == cm.currentMainCamp) { randomCamp = UnityEngine.Random.Range(0, cm.camps.Length); }
+
+        Camp spawnCamp = cm.camps[randomCamp];
+        Transform spawnPos = spawnCamp.spawnPositions[UnityEngine.Random.Range(0, spawnCamp.spawnPositions.Length)];
+
+        transform.position = spawnPos.position;
+
+        yield return new WaitForSeconds(deathTime);
+
+        // Fadein
+        deathFade.FadeIn(fadeTime);
+
+        yield return new WaitForSeconds(fadeTime);
+
+        // Turn behaviors on
+        cController.isDead = false;
+        cController.isCrippled = false;
+        cController.isLookingAround = false;
+        stunnedParticles.SetActive(false);
+        currHp = maxHp;
     }
 
     IEnumerator InvulnerabilityTime()
@@ -175,7 +222,7 @@ public class PlayerCombat : NetworkBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (isLocalPlayer && !isInvulnerable)
+        if (isLocalPlayer && !isInvulnerable && !cController.isDead)
         {
             HitInflictor hit = other.GetComponent<HitInflictor>();
 

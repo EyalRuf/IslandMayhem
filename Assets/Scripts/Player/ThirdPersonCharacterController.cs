@@ -35,6 +35,7 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     private bool jumpCDFlag;
 
     [Header("OtherCharacterActions")]
+    public bool isDead;
     public bool isHoldingItem;
     public bool isAiming;
     public bool isLookingAround;
@@ -83,19 +84,22 @@ public class ThirdPersonCharacterController : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 vec = rb.position + rb.rotation * (Vector3.ClampMagnitude(lpInput.moveInput, 1f) * currMoveSpeed * Time.fixedDeltaTime);
-        rb.MovePosition(vec);
-
-        if (applyJump)
+        if (!isDead)
         {
-            wasSprintingWhenJumped = isSprinting;
-            applyJump = false;
-            jumpCDFlag = true;
-            CmdJump(netId);
-            StartCoroutine(JumpCDApplier());
+            Vector3 vec = rb.position + rb.rotation * (Vector3.ClampMagnitude(lpInput.moveInput, 1f) * currMoveSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(vec);
 
-            //jump sound
-            CmdPlayJumpClip();
+            if (applyJump)
+            {
+                wasSprintingWhenJumped = isSprinting;
+                applyJump = false;
+                jumpCDFlag = true;
+                CmdJump(netId);
+                StartCoroutine(JumpCDApplier());
+
+                //jump sound
+                CmdPlayJumpClip();
+            }
         }
 
         //if we're grounded, apply drag horizontally.
