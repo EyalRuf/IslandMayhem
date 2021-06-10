@@ -181,7 +181,7 @@ public class PlayerAnimations : NetworkBehaviour
 public enum Skin
 {
     Random = -1,
-    Tiger = 0,
-    Frog = 1,
+    Frog = 0,
+    Tiger = 1,
     Lemur = 2
 }
