@@ -133,6 +133,26 @@ PrefabInstance:
       propertyPath: sceneId
       value: 1645595810
       objectReference: {fileID: 0}
+    - target: {fileID: 1508502308007467159, guid: 5ecffe2f3d4c57b45abde328dbde2995,
+        type: 3}
+      propertyPath: m_Radius
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574949315252407248, guid: 5ecffe2f3d4c57b45abde328dbde2995,
+        type: 3}
+      propertyPath: cooldownDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574949315252407248, guid: 5ecffe2f3d4c57b45abde328dbde2995,
+        type: 3}
+      propertyPath: spawnLimitRange.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574949315252407248, guid: 5ecffe2f3d4c57b45abde328dbde2995,
+        type: 3}
+      propertyPath: spawnLimitRange.y
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1574949315252407249, guid: 5ecffe2f3d4c57b45abde328dbde2995,
         type: 3}
       propertyPath: sceneId

@@ -33,6 +33,11 @@ public class Camp : NetworkBehaviour
     public Transform pedestalTransform;
     public AudioClip campDoneSound;
     public Transform[] spawnPositions;
+    public MatchManager mm;
+
+    [Header("Buffs")]
+    public float overlapRadius;
+    public LayerMask overlapMask;
 
     private AudioSource source;
     [HideInInspector] public CampManager campManager;
@@ -43,7 +48,8 @@ public class Camp : NetworkBehaviour
         source = GetComponent<AudioSource>();
 
         campSteps = new List<CampStep>(GetComponentsInChildren<CampStep>()).FindAll(step => step.transform.parent == transform);
-        
+        mm = FindObjectOfType<MatchManager>();
+
         if (!isServer)
             return;
 
@@ -87,12 +93,6 @@ public class Camp : NetworkBehaviour
                 if (currStepsCompleted == campSteps.Count)
                 {
                     CampDone();
-
-                    if (isServer)
-                    {
-                        //for clients
-                        RpcCampDone();
-                    }
                 }
             }
         }
@@ -109,14 +109,28 @@ public class Camp : NetworkBehaviour
 
     private void CampDone()
     {
-        GameObject spawned = Instantiate(isTotemDispenser ? totemPrefab : alternativePrefab, pedestalTransform.position + (Vector3.up * 3), Quaternion.identity);
-        NetworkServer.Spawn(spawned);
+        if (isTotemDispenser)
+        {
+            GameObject spawned = Instantiate(totemPrefab, pedestalTransform.position + (Vector3.up * 3), Quaternion.identity);
+            NetworkServer.Spawn(spawned);
+        } else
+        {
+            // Get players in area
+            Collider[] colliders = Physics.OverlapSphere(transform.position, overlapRadius, overlapMask);
+            List<PlayerBuffs> players = new List<Collider>(colliders).ConvertAll(c => c.GetComponent<PlayerBuffs>());
+
+            // randomize buff
+            Buff randomBuff = (Buff)UnityEngine.Random.Range(0, (int)Buff.PunchPower + 1);
+            players.ForEach(p => p.GiveBuff(randomBuff));
+        }
 
         campSteps.ForEach(step => step.isEnabled = false);
 
         isCoolingDown = true;
         cooldownTimer = cooldownDuration;
         spawnsLeft--;
+
+        RpcCampDone();
     }
 
     [ClientRpc]
@@ -130,4 +144,13 @@ public class Camp : NetworkBehaviour
         isCoolingDown = false;
         campSteps.ForEach(step => step.ResetStep());
     }
+}
+
+public enum Buff
+{
+    MoveSpeed = 0,
+    SizeUp = 1,
+    JumpForce = 2,
+    Health = 3,
+    PunchPower = 4,
 }

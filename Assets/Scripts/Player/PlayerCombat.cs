@@ -18,6 +18,8 @@ public class PlayerCombat : NetworkBehaviour
     [Header("Combat")]
     public PlayerPunch punchObj;
     public float punchCD = 0.75f;
+    public int baseMaxHp;
+    [SyncVar]
     public int maxHp;
     [SyncVar]
     public int currHp;
@@ -135,7 +137,6 @@ public class PlayerCombat : NetworkBehaviour
 
         isInvulnerable = true;
         StartCoroutine(InvulnerabilityTime());
-
 
         if (matchManager.gameStarted)
         {

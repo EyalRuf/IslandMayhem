@@ -19,6 +19,7 @@ public class NetworkPlayer : NetworkBehaviour
     [HideInInspector]
     public TeamAndObjectivesUI localPlayer_TNO_UI;
     MatchManager matchManager;
+    public PlayerBuffs pBuffs;
 
     [Header("UI")]
     public GameObject localPlayerUI;
