@@ -6,7 +6,7 @@ using Mirror;
 public class CampManager : NetworkBehaviour
 {
     [SyncVar] public int currentMainCamp;
-    public float swapDelay = 60f;
+    public float swapDelay = 30f;
     [SyncVar] public float swapTimer;
 
     [HideInInspector] public Camp[] camps;
@@ -32,8 +32,18 @@ public class CampManager : NetworkBehaviour
             return;
 
         swapTimer += Time.deltaTime;
+        if(swapTimer > swapDelay)
+        {
+            camps[currentMainCamp].isTotemDispenser = true;
+        }
 
-        if(swapTimer >= swapDelay)
+        //toggle visuals for all camps
+        for (int c = 0; c < camps.Length; c++)
+        {
+            camps[c].totemDispenserVisual.SetActive(c == currentMainCamp && !camps[c].isCoolingDown);
+        }
+
+        if (camps[currentMainCamp].isCoolingDown)
         {
             swapTimer = 0;
 
@@ -47,7 +57,7 @@ public class CampManager : NetworkBehaviour
 
         for(int c = 0; c < camps.Length; c++)
         {
-            camps[c].isTotemDispenser = c == currentMainCamp;
+            camps[c].isTotemDispenser = false;
         }
     }
 }
