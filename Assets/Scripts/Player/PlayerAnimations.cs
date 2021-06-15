@@ -29,6 +29,8 @@ public class PlayerAnimations : NetworkBehaviour
     public float invunerabilityBlinkSpeed = 0.1f;
     [Range(0f, 1f)] public float invunerabilityPulseWidth = 0.5f;
 
+    private List<SkinnedMeshRenderer> skinRenderers = new List<SkinnedMeshRenderer>();
+
 
     [Header("References")]
     public Animator animator;
@@ -54,6 +56,7 @@ public class PlayerAnimations : NetworkBehaviour
         foreach (Animator skin in skins)
         {
             skin.gameObject.SetActive(false);
+            skinRenderers.AddRange(skin.GetComponentsInChildren<SkinnedMeshRenderer>(true));
         }
     }
 
@@ -66,7 +69,10 @@ public class PlayerAnimations : NetworkBehaviour
         }
 
         //invunerablility stuff
-        skins[Mathf.RoundToInt(Mathf.Clamp(currentSkin, 0, skins.Length))].gameObject.SetActive(combat.isInvulnerable ? Mathf.PingPong(Time.time, invunerabilityBlinkSpeed) > invunerabilityBlinkSpeed * invunerabilityPulseWidth : true);
+        foreach(SkinnedMeshRenderer renderer in skinRenderers)
+        {
+            renderer.enabled = combat.isInvulnerable ? Mathf.PingPong(Time.time, invunerabilityBlinkSpeed) > invunerabilityBlinkSpeed * invunerabilityPulseWidth : true;
+        }
 
         if (isLocalPlayer)
         {
