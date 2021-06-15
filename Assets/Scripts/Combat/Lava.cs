@@ -31,7 +31,7 @@ public class Lava : NetworkBehaviour
                 {
                     if (!pc.isInvulnerable && pc.isLocalPlayer)
                     {
-                        pc.CmdPlayerWasHit(pc.netId, hitVector, damage);
+                        pc.CmdPlayerWasHit(pc.netId, hitVector, damage, false);
                         cooldownTimer = 0;
                     }
                 }

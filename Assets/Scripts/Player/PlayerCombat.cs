@@ -126,38 +126,39 @@ public class PlayerCombat : NetworkBehaviour
         pc.RpcPunch();
     }
 
-    private void ApplyHitOnSelf(Vector3 hitVector, int damage)
+    private void ApplyHitOnSelf(Vector3 hitVector, int damage, bool isStun)
     {
-
         Instantiate(hitParticles, transform.position + hitParticlesOffset, hitParticles.transform.rotation);
         cController.rb.AddForce(hitVector, ForceMode.Impulse);
         pItems.DropItemIfHeld();
-        pAnims.GetHitAnim();
+        
+        if (!isStun)
+            pAnims.GetHitAnim();
 
         isInvulnerable = true;
         StartCoroutine(InvulnerabilityTime());
 
         if (matchManager.gameStarted)
         {
+            Debug.Log("ApplyHitOnSelf");
             stunnedParticles.SetActive(true);
 
             currRegenInterval = regenMinMax.y;
             regenTimer = currRegenInterval;
             timerBeforeRegen = timeBeforeRegen;
 
-            if (!cController.isCrippled)
+            currHp -= damage;
+
+            if (currHp <= 0)
             {
-                currHp -= damage;
-            
-                if (currHp <= 0)
-                {
-                    // Death sequence
-                    StartCoroutine(DeathSequence());
-                }
-                else
-                {
+                // Death sequence
+                StartCoroutine(DeathSequence());
+            }
+            else if (!cController.isCrippled) {
+               if (isStun)
+                    Cripple();
+                else 
                     Ministun();
-                }
             }
         }
     }
@@ -207,17 +208,17 @@ public class PlayerCombat : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcPlayerWasHit(Vector3 hitVec, int damage)
+    public void RpcPlayerWasHit(Vector3 hitVec, int damage, bool isStun)
     {
-        ApplyHitOnSelf(hitVec, damage);
+        ApplyHitOnSelf(hitVec, damage, isStun);
     }
 
     [Command]
-    public void CmdPlayerWasHit(uint playerNID, Vector3 hitVec, int damage)
+    public void CmdPlayerWasHit(uint playerNID, Vector3 hitVec, int damage, bool isStun)
     {
         NetworkIdentity player = CustomNetworkManager.GetPlayerByNetId(playerNID);
         PlayerCombat pc = player.GetComponent<PlayerCombat>();
-        pc.RpcPlayerWasHit(hitVec, damage);
+        pc.RpcPlayerWasHit(hitVec, damage, isStun);
     }
 
     void OnTriggerEnter(Collider other)
@@ -229,7 +230,7 @@ public class PlayerCombat : NetworkBehaviour
             if (hit != null && hit.isActive && hit.initiatorNetId != netId)
             {
                 Vector3 knockbackDir = (other.GetComponent<Lava>() != null) ? Vector3.up : (transform.position - hit.transform.position).normalized;
-                CmdPlayerWasHit(netId, knockbackDir * hit.knockbackPower, hit.damage);
+                CmdPlayerWasHit(netId, knockbackDir * hit.knockbackPower, hit.damage, hit.isStunning);
 
                 hit.HitInflicted();
             }
@@ -251,6 +252,8 @@ public class PlayerCombat : NetworkBehaviour
     {
         reviveTimer = crippleDuration;
         cController.isCrippled = true;
+        pAnims.GetHitAnim();
+        Debug.Log("Cripple");
     }
 
     void Knockdown ()
@@ -265,7 +268,7 @@ public class PlayerCombat : NetworkBehaviour
         cController.isKnockedDown = false;
         cController.isCrippled = false;
         stunnedParticles.SetActive(false);
-        currHp = maxHp;
+        Debug.Log("Revive");
     }
 
     [ClientRpc]

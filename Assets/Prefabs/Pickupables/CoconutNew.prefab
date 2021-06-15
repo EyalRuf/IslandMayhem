@@ -416,7 +416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3698577606216150545}
-  - component: {fileID: 3158593724339358698}
+  - component: {fileID: 4745246865651195197}
   - component: {fileID: 6554656823070843496}
   m_Layer: 9
   m_Name: HitInflictor
@@ -439,8 +439,8 @@ Transform:
   m_Father: {fileID: 4473910350010878316}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3158593724339358698
-BoxCollider:
+--- !u!135 &4745246865651195197
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -450,7 +450,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 1.35
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6554656823070843496
 MonoBehaviour:
@@ -469,7 +469,8 @@ MonoBehaviour:
   isActive: 0
   initiatorNetId: 0
   knockbackPower: 30
-  damage: 15
+  isStunning: 1
+  damage: 30
   singularDmgInstance: 1
 --- !u!1 &9214029714054354397
 GameObject:

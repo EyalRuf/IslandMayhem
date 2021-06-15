@@ -830,7 +830,7 @@ MonoBehaviour:
   baseMoveSpeed: 16
   isSprinting: 0
   sprintSpeedMultiplyer: 1.65
-  moveSpeedWithItemMultiplyer: 0.8
+  moveSpeedWithItemMultiplyer: 0.85
   currMoveSpeed: 0
   isGrounded: 0
   groundCheck: {fileID: 8297925719936001042}
@@ -976,6 +976,7 @@ MonoBehaviour:
   pItems: {fileID: 7020920123134806745}
   pAnims: {fileID: 8396054065383248002}
   cm: {fileID: 0}
+  matchManager: {fileID: 0}
   punchObj: {fileID: 3341770071569695048}
   punchCD: 0.5
   maxHp: 100
@@ -984,7 +985,7 @@ MonoBehaviour:
   hpBarRemote: {fileID: 9074098414892542040}
   isInvulnerable: 0
   invulnerabilityDuration: 1
-  miniStunDuration: 0.25
+  miniStunDuration: 0.35
   crippleDuration: 3
   knockDownDuration: 7.5
   knockDownChance: 0.25
