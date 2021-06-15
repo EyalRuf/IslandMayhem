@@ -28,6 +28,12 @@ public class CampManager : NetworkBehaviour
 
     private void Update()
     {
+        //toggle visuals for all camps
+        for (int c = 0; c < camps.Length; c++)
+        {
+            camps[c].totemDispenserVisual.SetActive(c == currentMainCamp && !camps[c].isCoolingDown);
+        }
+
         if (!isServer)
             return;
 
@@ -35,12 +41,6 @@ public class CampManager : NetworkBehaviour
         if(swapTimer > swapDelay)
         {
             camps[currentMainCamp].isTotemDispenser = true;
-        }
-
-        //toggle visuals for all camps
-        for (int c = 0; c < camps.Length; c++)
-        {
-            camps[c].totemDispenserVisual.SetActive(c == currentMainCamp && !camps[c].isCoolingDown);
         }
 
         if (camps[currentMainCamp].isCoolingDown)
