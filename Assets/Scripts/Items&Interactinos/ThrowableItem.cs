@@ -20,6 +20,7 @@ public class ThrowableItem : PickupableItem
     public Vector3 aimMultiplyerVec;
     public Vector3 aimAdditionVec;
     public GameObject trajectoryEndSphere;
+    public GameObject trail;
 
     [Header("HitInflictor")]
     public HitInflictor hitInflictor;
@@ -36,6 +37,7 @@ public class ThrowableItem : PickupableItem
         drawTrajectory = currUsingPlayer != null ? currUsingPlayer.lpInput.itemSecondaryUsage : false;
         lineRenderer.enabled = drawTrajectory;
         trajectoryEndSphere.SetActive(drawTrajectory);
+        trail.SetActive(rb.velocity.magnitude > 8f);
 
         if (isGrounded) // after hit ground can't hit players anymore
         {
