@@ -56,8 +56,7 @@ public class Camp : NetworkBehaviour
     {
         if(campManager != null)
         {
-            totemDispenserVisual.SetActive(isTotemDispenser && !isCoolingDown);
-            totemDispenserText.text = isTotemDispenser ? Mathf.CeilToInt(campManager.swapDelay - campManager.swapTimer).ToString() : "";
+            totemDispenserText.text = isTotemDispenser ? "" : Mathf.CeilToInt(campManager.swapDelay - campManager.swapTimer).ToString();
         }
         else
         {

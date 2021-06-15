@@ -65,8 +65,8 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
-    - _CameraDistanceFadeClose: 25
-    - _CameraDistanceFadeFar: 50
+    - _CameraDistanceFadeClose: 50
+    - _CameraDistanceFadeFar: 100
     - _Cull: 2
     - _Cutoff: 0.5
     - _Depth: 1
@@ -90,6 +90,6 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 0.20000002, b: 0.31764707, a: 1}
-    - _Color: {r: 0.84564, g: 0.8352, b: 0.87, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
