@@ -2050,7 +2050,7 @@ MonoBehaviour:
   startingGame: 0
   gameOver: 0
   endingGame: 0
-  numberOfPlayersNeededToStart: 3
+  numberOfPlayersNeededToStart: 2
   numberOfTeams: 2
   teamColors:
   - {r: 1, g: 0, b: 0, a: 1}

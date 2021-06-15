@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &262040989009504242
 Transform:
   m_ObjectHideFlags: 0
@@ -476,5 +476,6 @@ MonoBehaviour:
   isActive: 0
   initiatorNetId: 0
   knockbackPower: 30
-  damage: 15
+  isStunning: 1
+  damage: 30
   singularDmgInstance: 1

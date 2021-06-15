@@ -12,6 +12,7 @@ public class HitInflictor : NetworkBehaviour
     [SyncVar]
     public uint initiatorNetId;
     public float knockbackPower;
+    public bool isStunning;
     public int damage = 1;
     public bool singularDmgInstance;
 
