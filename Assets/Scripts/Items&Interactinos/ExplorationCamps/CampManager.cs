@@ -9,11 +9,11 @@ public class CampManager : NetworkBehaviour
     public float swapDelay = 30f;
     [SyncVar] public float swapTimer;
 
-    [HideInInspector] public Camp[] camps;
+    public Camp[] camps;
 
     private void Start()
     {
-        camps = GetComponentsInChildren<Camp>();
+        camps = GetComponentsInChildren<Camp>(true);
 
         foreach (Camp camp in camps)
         {
@@ -28,6 +28,12 @@ public class CampManager : NetworkBehaviour
 
     private void Update()
     {
+        //toggle visuals for all camps
+        for (int c = 0; c < camps.Length; c++)
+        {
+            camps[c].totemDispenserVisual.SetActive(c == currentMainCamp && !camps[c].isCoolingDown);
+        }
+
         if (!isServer)
             return;
 
@@ -35,12 +41,6 @@ public class CampManager : NetworkBehaviour
         if(swapTimer > swapDelay)
         {
             camps[currentMainCamp].isTotemDispenser = true;
-        }
-
-        //toggle visuals for all camps
-        for (int c = 0; c < camps.Length; c++)
-        {
-            camps[c].totemDispenserVisual.SetActive(c == currentMainCamp && !camps[c].isCoolingDown);
         }
 
         if (camps[currentMainCamp].isCoolingDown)
