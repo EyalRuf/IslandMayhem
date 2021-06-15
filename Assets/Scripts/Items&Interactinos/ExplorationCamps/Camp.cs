@@ -82,14 +82,17 @@ public class Camp : NetworkBehaviour
             }
         } else
         {
-            if (currStepsCompleted == campSteps.Count)
+            if (!totemDispenserVisual.activeInHierarchy || isTotemDispenser)
             {
-                CampDone();
-
-                if (isServer)
+                if (currStepsCompleted == campSteps.Count)
                 {
-                    //for clients
-                    RpcCampDone();
+                    CampDone();
+
+                    if (isServer)
+                    {
+                        //for clients
+                        RpcCampDone();
+                    }
                 }
             }
         }

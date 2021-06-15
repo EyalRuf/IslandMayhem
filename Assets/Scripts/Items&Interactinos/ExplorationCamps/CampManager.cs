@@ -9,11 +9,11 @@ public class CampManager : NetworkBehaviour
     public float swapDelay = 30f;
     [SyncVar] public float swapTimer;
 
-    [HideInInspector] public Camp[] camps;
+    public Camp[] camps;
 
     private void Start()
     {
-        camps = GetComponentsInChildren<Camp>();
+        camps = GetComponentsInChildren<Camp>(true);
 
         foreach (Camp camp in camps)
         {
