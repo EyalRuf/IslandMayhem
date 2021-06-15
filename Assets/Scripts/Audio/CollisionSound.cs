@@ -11,13 +11,13 @@ public class CollisionSound : MonoBehaviour
 
     private AudioSource source;
 
-    private void Start()
-    {
-        source = GetComponent<AudioSource>();
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
+        if(source == null)
+        {
+            source = GetComponent<AudioSource>();
+        }
+
         if (collision.impulse.magnitude > collisionThreshold && !source.isPlaying)
         {
             source.pitch = Random.Range(pitchRange.x, pitchRange.y);

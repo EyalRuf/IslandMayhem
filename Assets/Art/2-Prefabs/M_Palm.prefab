@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 656775806198840045}
+  - component: {fileID: 140127258616609084}
+  - component: {fileID: 5224407302485554298}
   m_Layer: 0
   m_Name: M_Palm
   m_TagString: Tree
@@ -32,6 +34,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -44.079002, z: 0}
+--- !u!114 &140127258616609084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168470131565731927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &5224407302485554298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168470131565731927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 456ef69fbb31e3f4faa0968bb8af5af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  punchBoxSize: {x: 15, y: 30, z: 15}
+  punchBoxOffset: {x: 0, y: 15, z: -2.5}
+  spawnOffset: {x: 0, y: 30, z: 0}
+  spawnRandomness: 5
+  spawnCooldown: 1
+  overlapMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  coconut: {fileID: 4473910350010878306, guid: d2796a08b4f73f64f84503d050330f16, type: 3}
 --- !u!64 &624760317804303240
 MeshCollider:
   m_ObjectHideFlags: 0
