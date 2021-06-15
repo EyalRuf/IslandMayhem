@@ -131,16 +131,14 @@ public class PlayerCombat : NetworkBehaviour
         Instantiate(hitParticles, transform.position + hitParticlesOffset, hitParticles.transform.rotation);
         cController.rb.AddForce(hitVector, ForceMode.Impulse);
         pItems.DropItemIfHeld();
-        
-        if (!isStun)
-            pAnims.GetHitAnim();
+        pAnims.GetHitAnim();
 
         isInvulnerable = true;
         StartCoroutine(InvulnerabilityTime());
 
+
         if (matchManager.gameStarted)
         {
-            Debug.Log("ApplyHitOnSelf");
             stunnedParticles.SetActive(true);
 
             currRegenInterval = regenMinMax.y;
@@ -252,8 +250,6 @@ public class PlayerCombat : NetworkBehaviour
     {
         reviveTimer = crippleDuration;
         cController.isCrippled = true;
-        pAnims.GetHitAnim();
-        Debug.Log("Cripple");
     }
 
     void Knockdown ()
@@ -268,7 +264,6 @@ public class PlayerCombat : NetworkBehaviour
         cController.isKnockedDown = false;
         cController.isCrippled = false;
         stunnedParticles.SetActive(false);
-        Debug.Log("Revive");
     }
 
     [ClientRpc]
