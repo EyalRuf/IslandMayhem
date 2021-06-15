@@ -4765,6 +4765,7 @@ GameObject:
   - component: {fileID: 1708089498094967617}
   - component: {fileID: 1708089498094967618}
   - component: {fileID: 1708089498094967619}
+  - component: {fileID: 7340195857921441417}
   m_Layer: 0
   m_Name: FrostEnchant
   m_TagString: Untagged
@@ -9577,6 +9578,19 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &7340195857921441417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708089498094967644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 215662adffbb6574399f2c77c276fdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 1
 --- !u!1 &2895160642596294414
 GameObject:
   m_ObjectHideFlags: 0

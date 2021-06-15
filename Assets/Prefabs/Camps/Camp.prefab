@@ -363,6 +363,11 @@ MonoBehaviour:
   - {fileID: 2713881321149852766}
   - {fileID: 7689059205452777932}
   - {fileID: 7141123957972396586}
+  mm: {fileID: 0}
+  overlapRadius: 25
+  overlapMask:
+    serializedVersion: 2
+    m_Bits: 256
   campManager: {fileID: 0}
 --- !u!82 &7226703053664581080
 AudioSource:

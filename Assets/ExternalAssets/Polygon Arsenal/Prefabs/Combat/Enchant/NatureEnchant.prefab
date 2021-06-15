@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6033639086024806025}
   - component: {fileID: 6033639086024806026}
   - component: {fileID: 6033639086024806027}
+  - component: {fileID: -3274427369208007385}
   m_Layer: 0
   m_Name: NatureEnchant
   m_TagString: Untagged
@@ -4824,6 +4825,19 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-3274427369208007385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033639086024806036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 215662adffbb6574399f2c77c276fdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 1
 --- !u!1 &6649353794292148923
 GameObject:
   m_ObjectHideFlags: 0
