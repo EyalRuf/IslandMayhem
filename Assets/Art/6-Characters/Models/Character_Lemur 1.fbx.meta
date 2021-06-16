@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: 47289104016c6d641bf6a77351fa8f9f
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      74: -3685304296622436915
+    second: Skeleton|00-TPose(Electrecuted)
+  - first:
+      74: -405862150659489161
+    second: Skeleton|01-Idle
+  - first:
+      74: 5053580007073628732
+    second: Skeleton|02-Walk
+  - first:
+      74: -7350470887997796880
+    second: Skeleton|03-Sprint(Rotated)
+  - first:
+      74: 8821140411666746129
+    second: Skeleton|04-Aim(BigArc)
+  - first:
+      74: -7123803020114314458
+    second: Skeleton|04-Aim(PushAway)
+  - first:
+      74: 7799705749554506055
+    second: Skeleton|04-Aim(SmallerArc)
+  - first:
+      74: 1129833978798293778
+    second: Skeleton|05-Throw(BigArc)
+  - first:
+      74: -5117933098837146848
+    second: Skeleton|05-Throw(PushAway)
+  - first:
+      74: 4015391327365684321
+    second: Skeleton|05-Throw(SmallerArc)
+  - first:
+      74: -3940070788446720653
+    second: Skeleton|06-JumpUp
+  - first:
+      74: -8928871426640871952
+    second: Skeleton|07-FallDown(Flailing Arms)
+  - first:
+      74: -1896248848868724784
+    second: Skeleton|08-Landing
+  - first:
+      74: -6517807998844727678
+    second: Skeleton|09-PickUp
+  - first:
+      74: -3640246546163993210
+    second: Skeleton|10-Hold
+  - first:
+      74: -1569766884220106799
+    second: Skeleton|11-PutDown
+  - first:
+      74: 9014504842080101667
+    second: Skeleton|12-Punch
+  - first:
+      74: 2460939166556597899
+    second: Skeleton|13-Hit(UpperBody)
+  - first:
+      74: -1486563377856991392
+    second: Skeleton|14-Crippled
+  - first:
+      74: 2906226429384851420
+    second: Skeleton|15-DEATH
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 92e0dc7473c13ba4883aa32001472e2a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes
+    second: {fileID: 2100000, guid: 7f26e849c65a0cb4a8a802978a02f643, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Head
+    second: {fileID: 2100000, guid: 9b6c7c2c08c94ee478bfc90d22c51c83, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tail
+    second: {fileID: 2100000, guid: b1ad11dd1f6c1e040b1a88bd7d4dce17, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
