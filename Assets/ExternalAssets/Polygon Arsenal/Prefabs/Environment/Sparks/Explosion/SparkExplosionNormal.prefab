@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9524151239874219}
   - component: {fileID: 210778617987184213}
   - component: {fileID: 209444293310135941}
+  - component: {fileID: 5649050172243741082}
   m_Layer: 0
   m_Name: SparkExplosionNormal
   m_TagString: Untagged
@@ -4813,6 +4814,19 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &5649050172243741082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12146140294241523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 215662adffbb6574399f2c77c276fdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 0.75
 --- !u!1 &8101792759948752318
 GameObject:
   m_ObjectHideFlags: 0

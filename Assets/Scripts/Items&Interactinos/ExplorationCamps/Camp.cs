@@ -38,6 +38,7 @@ public class Camp : NetworkBehaviour
     [Header("Buffs")]
     public float overlapRadius;
     public LayerMask overlapMask;
+    public GameObject buffParticles;
 
     private AudioSource source;
     [HideInInspector] public CampManager campManager;
@@ -158,6 +159,7 @@ public class Camp : NetworkBehaviour
     private void RpcCampDone()
     {
         source.PlayOneShot(campDoneSound);
+        Instantiate(buffParticles, transform);
     }
 
     void ResetCamp ()

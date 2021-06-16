@@ -281,7 +281,7 @@ MonoBehaviour:
   netRot: {x: 0, y: 0, z: 0, w: 0}
   netVel: {x: 0, y: 0, z: 0}
   lerpFactor: 0.15
-  throwForce: 7000
+  throwForce: 8000
   movementDirectionForceMultiplyer: 25
   throwTarget: {fileID: 0}
   drawTrajectory: 0

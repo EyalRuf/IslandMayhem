@@ -4832,6 +4832,7 @@ GameObject:
   - component: {fileID: 4259340669405964}
   - component: {fileID: 198052119433049416}
   - component: {fileID: 199424990211283546}
+  - component: {fileID: -2259351024858137962}
   m_Layer: 0
   m_Name: GroundSlamYellow
   m_TagString: Untagged
@@ -9647,6 +9648,19 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-2259351024858137962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387999993237446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 215662adffbb6574399f2c77c276fdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 1
 --- !u!1 &1556540776578104
 GameObject:
   m_ObjectHideFlags: 0

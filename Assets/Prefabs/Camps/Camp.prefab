@@ -368,6 +368,8 @@ MonoBehaviour:
   overlapMask:
     serializedVersion: 2
     m_Bits: 256
+  buffParticles: {fileID: 6588991444718087214, guid: 66d1ce2acc88c6d47ad16de99ac24a75,
+    type: 3}
   campManager: {fileID: 0}
 --- !u!82 &7226703053664581080
 AudioSource:
