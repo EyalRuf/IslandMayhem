@@ -9,6 +9,10 @@ public class CampStep : NetworkBehaviour
     [SyncVar]
     public bool isEnabled;
 
+    [Header("Particles")]
+    public GameObject idleParticles;
+    public GameObject finishStepParticles;
+
     // Use this for initialization
     public virtual void Start()
     {
@@ -18,7 +22,7 @@ public class CampStep : NetworkBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-
+        idleParticles.SetActive(!isCompleted && isEnabled);
     }
 
     public virtual void FixedUpdate()
@@ -29,6 +33,14 @@ public class CampStep : NetworkBehaviour
     public virtual void CompleteStep ()
     {
         isCompleted = true;
+        StartCoroutine(finishStepParticle());
+    }
+
+    IEnumerator finishStepParticle()
+    {
+        finishStepParticles.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        finishStepParticles.SetActive(true);
     }
 
     public virtual void ResetStep ()

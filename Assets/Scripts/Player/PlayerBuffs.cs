@@ -2,6 +2,7 @@
 using System.Collections;
 using Mirror;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PlayerBuffs : NetworkBehaviour
 {
@@ -27,6 +28,7 @@ public class PlayerBuffs : NetworkBehaviour
     Coroutine hpCR;
 
     public float punchPowerMultiplyer = 1.75f;
+    public float punchKBMultiplyer = 1.45f;
     Coroutine ppCR;
 
     public float buffDecayTime = 30;
@@ -49,7 +51,8 @@ public class PlayerBuffs : NetworkBehaviour
     public Color hpBuffColor;
     public Image hpBar;
 
-    public void GiveBuff(Buff buff)
+    [ClientRpc]
+    public void RpcGiveBuff(Buff buff)
     {
         Coroutine c = StartCoroutine(BuffDecay(buff));
 
@@ -117,6 +120,8 @@ public class PlayerBuffs : NetworkBehaviour
             case Buff.PunchPower:
             {
                     pp.damage = (int) (pp.punchBaseDmg * punchPowerMultiplyer);
+                    pp.knockbackPower = pp.punchBaseKP * punchKBMultiplyer;
+
                     Instantiate(punchBuffParticle, buffTransform);
                     punchBuffIcon.SetActive(true);
 
@@ -172,6 +177,7 @@ public class PlayerBuffs : NetworkBehaviour
             case Buff.PunchPower:
                 {
                     pp.damage = pp.punchBaseDmg;
+                    pp.knockbackPower = pp.punchBaseKP;
                     punchBuffIcon.SetActive(false);
 
                     break;
