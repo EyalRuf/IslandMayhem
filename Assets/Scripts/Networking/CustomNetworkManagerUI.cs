@@ -33,6 +33,7 @@ public class CustomNetworkManagerUI : MonoBehaviour
             //disable everything
             startUI.SetActive(false);
             friendsUI.SetActive(false);
+            processingUI.SetActive(false);
             return;
         }
 
