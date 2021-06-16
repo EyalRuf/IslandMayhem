@@ -16,7 +16,7 @@ public class PlayerAnimations : NetworkBehaviour
     private const string anim_param_b_aiming = "isAiming";
     private const string anim_param_b_crippled = "isCrippled";
     private const string anim_param_b_interacting = "isInteracting";
-    private const string anim_param_b_dead = "isDead";
+    private const string anim_param_t_dead = "isDeadTrigger";
     private const string anim_param_t_beingHit = "beingHitTrigger";
     private const string anim_param_t_jump = "jumpTrigger";
     private const string anim_param_t_throw = "throwTrigger";
@@ -86,7 +86,6 @@ public class PlayerAnimations : NetworkBehaviour
             animator.SetBool(anim_param_b_holding_item, isThrowing || cController.playerItems.heldItem != null);
             animator.SetBool(anim_param_b_throwing, isThrowing);
             animator.SetBool(anim_param_b_crippled, cController.isCrippled);
-            animator.SetBool(anim_param_b_dead, cController.isDead);
         }
     }
 
@@ -183,6 +182,17 @@ public class PlayerAnimations : NetworkBehaviour
     public void ResetBeingHitTrigger()
     {
         animator.ResetTrigger(anim_param_t_beingHit);
+    }
+
+    public void DeathAnim()
+    {
+        animator.SetTrigger(anim_param_t_dead);
+        StartCoroutine(ResetTriggerCR(ResetDeathTrigger, triggerResetTime));
+    }
+
+    public void ResetDeathTrigger()
+    {
+        animator.ResetTrigger(anim_param_t_dead);
     }
 }
 

@@ -167,9 +167,9 @@ public class PlayerCombat : NetworkBehaviour
     {
         // Turn off behaviors + Death animation
         cController.isDead = true;
-        cController.isCrippled = true;
         cController.isLookingAround = true;
         deathParticles.SetActive(true);
+        pAnims.DeathAnim();
 
         yield return new WaitForSeconds(deathAnimTime);
 
