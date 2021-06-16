@@ -274603,6 +274603,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5298312335214532044, guid: b2cf5d884df470141b1e00227a18851d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298312335214532044, guid: b2cf5d884df470141b1e00227a18851d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5298312335214532044, guid: b2cf5d884df470141b1e00227a18851d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2cf5d884df470141b1e00227a18851d, type: 3}
 --- !u!1001 &1813338279
@@ -325176,6 +325191,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4566153514414097960, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578660675190847085, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578660675190847085, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578660675190847085, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578660675190847085, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578660675190847085, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578660675190847085, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0

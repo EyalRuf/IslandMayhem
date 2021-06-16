@@ -6,7 +6,7 @@ public class CursorEnabler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown((Application.isEditor ? KeyCode.C : KeyCode.Escape)))
+        if (Input.GetKeyDown((Application.isEditor ? KeyCode.Tab : KeyCode.Tab)))
         {
             Cursor.visible = !Cursor.visible;
             Cursor.lockState = Cursor.visible ? CursorLockMode.None : CursorLockMode.Locked;
