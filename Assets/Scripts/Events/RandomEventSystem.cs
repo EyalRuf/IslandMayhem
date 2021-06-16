@@ -15,6 +15,7 @@ public class RandomEventSystem : NetworkBehaviour
     [Header("Misc")]
     public float eventParticleDuration;
     public ParticleSystem[] eventParticles;
+    public AudioSource eventSound;
 
     private void Start()
     {
@@ -91,6 +92,8 @@ public class RandomEventSystem : NetworkBehaviour
 
     private IEnumerator EventRoutine()
     {
+        eventSound.Play();
+
         foreach(ParticleSystem particle in eventParticles)
         {
             ParticleSystem.EmissionModule emission = particle.emission;
