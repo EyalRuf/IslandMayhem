@@ -8,6 +8,13 @@ public class PlayerPunch : HitInflictor
     public float lifespan;
     private float lifespanTimer;
     public int punchBaseDmg;
+    public float punchBaseKP;
+
+    void Start()
+    {
+        punchBaseDmg = damage;
+        punchBaseKP = knockbackPower;
+    }
 
     void OnEnable()
     {

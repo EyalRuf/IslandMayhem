@@ -69,8 +69,8 @@ public class Camp : NetworkBehaviour
             campManager = FindObjectOfType<CampManager>();
         }
 
-        campOverheadText.text = spawnsLeft <= 0 ? "Totem pieces out of stock" : isCoolingDown ? (cooldownDuration - cooldownTimer < 3f ? "Take the piece to your totem!" : "Restocking totem piece") : "Solve to get a totem piece";
-        campSignText.text = "Totem Pieces\nleft: " + spawnsLeft;
+        campOverheadText.text = spawnsLeft <= 0 ? "Out of stock" : isCoolingDown ? (cooldownDuration - cooldownTimer < 3f ? "Camp complete!" : "Cooling down") : "Solve to get a buff/totem piece";
+        campSignText.text = "Charges\nleft: " + spawnsLeft;
         timerAndExesText.text = spawnsLeft <= 0 ? "Come back another day" : isCoolingDown ? TimeFormatter.Format(cooldownTimer) : GetStepsText();
         
         if (!isServer || spawnsLeft <= 0)
@@ -121,7 +121,7 @@ public class Camp : NetworkBehaviour
 
             // randomize buff
             Buff randomBuff = (Buff)UnityEngine.Random.Range(0, (int)Buff.PunchPower + 1);
-            players.ForEach(p => p.GiveBuff(randomBuff));
+            players.ForEach(p => p.RpcGiveBuff(randomBuff));
         }
 
         campSteps.ForEach(step => step.isEnabled = false);
