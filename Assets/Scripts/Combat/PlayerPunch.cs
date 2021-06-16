@@ -4,8 +4,10 @@ using Mirror;
 
 public class PlayerPunch : HitInflictor
 {
+    [Header("PlayerPunch")]
     public float lifespan;
     private float lifespanTimer;
+    public int punchBaseDmg;
 
     void OnEnable()
     {

@@ -12,6 +12,7 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     public LocalPlayerInput lpInput;
     public PlayerAnimations playerAnims;
     public PlayerItemInteractions playerItems;
+    public PlayerBuffs pBuffs;
 
     [Header("Movement")]
     public bool isMoving;
@@ -78,7 +79,7 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         // Jump if not crip & on floor & not currently jumping & pressing jump input
         applyJump = !isKnockedDown && !isCrippled && isGrounded && lpInput.jumpInput && !jumpCDFlag;
 
-        float moveSpeedBasedOnItem = isHoldingItem ? baseMoveSpeed * moveSpeedWithItemMultiplyer : baseMoveSpeed;
+        float moveSpeedBasedOnItem = (isHoldingItem ? baseMoveSpeed * moveSpeedWithItemMultiplyer : baseMoveSpeed) * (pBuffs.msBuffActive ? pBuffs.moveSpeedMultiplyer : 1);
         currMoveSpeed = isKnockedDown ? 0 : (isCrippled ? baseMoveSpeed / 2 : isSprinting ? moveSpeedBasedOnItem * sprintSpeedMultiplyer : moveSpeedBasedOnItem);
     }
 
@@ -143,7 +144,7 @@ public class ThirdPersonCharacterController : NetworkBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         }
 
-        rb.velocity += Vector3.up * jumpForce;
+        rb.velocity += Vector3.up * jumpForce * (pBuffs.jumpBuffActive ? pBuffs.jumpForceMultiplyer : 1);
     }
 
     [ClientRpc]
