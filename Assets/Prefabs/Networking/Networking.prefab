@@ -4632,7 +4632,7 @@ MonoBehaviour:
     type: 3}
   limits:
   - name: DisposableProp
-    limit: 100
+    limit: 25
     currentlyInScene: 0
 --- !u!114 &5552412104907174469
 MonoBehaviour:
