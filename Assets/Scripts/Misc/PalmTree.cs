@@ -32,10 +32,16 @@ public class PalmTree : NetworkBehaviour
             if (colliders.Length > 0)
             {
                 NetworkServer.Spawn(Instantiate(coconut, transform.position + spawnOffset + Random.insideUnitSphere * spawnRandomness, Quaternion.identity));
-                Instantiate(punchImpact, colliders[0].transform.position, Quaternion.identity);
+                RpcPunchImpact(colliders[0].transform.position);
                 spawnTimer = 0;
             }
         }
+    }
+
+    [ClientRpc]
+    private void RpcPunchImpact(Vector3 pos)
+    {
+        Instantiate(punchImpact, pos, Quaternion.identity);
     }
 
     private void OnDrawGizmosSelected()
