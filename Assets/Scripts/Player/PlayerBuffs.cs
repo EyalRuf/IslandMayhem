@@ -2,6 +2,7 @@
 using System.Collections;
 using Mirror;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PlayerBuffs : NetworkBehaviour
 {
@@ -49,7 +50,8 @@ public class PlayerBuffs : NetworkBehaviour
     public Color hpBuffColor;
     public Image hpBar;
 
-    public void GiveBuff(Buff buff)
+    [ClientRpc]
+    public void RpcGiveBuff(Buff buff)
     {
         Coroutine c = StartCoroutine(BuffDecay(buff));
 

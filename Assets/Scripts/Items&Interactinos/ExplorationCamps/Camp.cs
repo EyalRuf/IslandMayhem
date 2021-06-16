@@ -121,7 +121,7 @@ public class Camp : NetworkBehaviour
 
             // randomize buff
             Buff randomBuff = (Buff)UnityEngine.Random.Range(0, (int)Buff.PunchPower + 1);
-            players.ForEach(p => p.GiveBuff(randomBuff));
+            players.ForEach(p => p.RpcGiveBuff(randomBuff));
         }
 
         campSteps.ForEach(step => step.isEnabled = false);
