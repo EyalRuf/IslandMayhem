@@ -166,6 +166,7 @@ public class PlayerCombat : NetworkBehaviour
     IEnumerator DeathSequence()
     {
         // Turn off behaviors + Death animation
+        stunnedParticles.SetActive(false);
         cController.isDead = true;
         cController.isLookingAround = true;
         deathParticles.SetActive(true);
@@ -193,15 +194,16 @@ public class PlayerCombat : NetworkBehaviour
 
         // Fadein
         deathFade.FadeIn(fadeTime);
-
-        yield return new WaitForSeconds(fadeTime);
-
+        
         // Turn behaviors on
         cController.isDead = false;
         cController.isCrippled = false;
         cController.isLookingAround = false;
-        stunnedParticles.SetActive(false);
         currHp = maxHp;
+
+        yield return new WaitForSeconds(fadeTime);
+
+        // after finishing revive
     }
 
     IEnumerator InvulnerabilityTime()
