@@ -40,6 +40,8 @@ public class NetworkPlayer : NetworkBehaviour
     public Quaternion netPlayerRot;
     [SyncVar]
     public Vector3 netPlayerVel;
+    [SyncVar]
+    public Vector3 netPlayerSize;
     public float lerpFactor;
 
     void Start()
@@ -48,6 +50,7 @@ public class NetworkPlayer : NetworkBehaviour
         netPlayerPos = transform.position;
         netPlayerRot = transform.rotation;
         netPlayerVel = rb.velocity;
+        netPlayerSize = transform.localScale;
         localPlayerUI.SetActive(isLocalPlayer);
         remotePlayerUI.SetActive(!isLocalPlayer);
 
@@ -110,6 +113,8 @@ public class NetworkPlayer : NetworkBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, netPlayerRot, lerpFactor);
             if (Vector3.Distance(rb.velocity, netPlayerVel) > 0.01f)
                 rb.velocity = Vector3.Lerp(rb.velocity, netPlayerVel, lerpFactor);
+            if(Vector3.Distance(transform.localScale, netPlayerSize) > 0.01f)
+                transform.localScale = Vector3.Lerp(transform.localScale, netPlayerSize, lerpFactor);
         }
     }
 
@@ -121,7 +126,7 @@ public class NetworkPlayer : NetworkBehaviour
         np.netPlayerPos = pos;
         np.netPlayerRot = rot;
         np.netPlayerVel = vel;
-        np.transform.localScale = size;
+        np.netPlayerSize = size;
     }
 
     public override void OnStartClient()

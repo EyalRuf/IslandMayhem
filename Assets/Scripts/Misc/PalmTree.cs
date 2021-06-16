@@ -14,6 +14,7 @@ public class PalmTree : NetworkBehaviour
 
     [Header("References")]
     public GameObject coconut;
+    public GameObject punchImpact;
 
     private float spawnTimer;
 
@@ -31,6 +32,7 @@ public class PalmTree : NetworkBehaviour
             if (colliders.Length > 0)
             {
                 NetworkServer.Spawn(Instantiate(coconut, transform.position + spawnOffset + Random.insideUnitSphere * spawnRandomness, Quaternion.identity));
+                Instantiate(punchImpact, colliders[0].transform.position, Quaternion.identity);
                 spawnTimer = 0;
             }
         }

@@ -12,6 +12,10 @@ public class RandomEventSystem : NetworkBehaviour
     public MatchManager matchManager;
     public RandomEvent[] events;
 
+    [Header("Misc")]
+    public float eventParticleDuration;
+    public ParticleSystem[] eventParticles;
+
     private void Start()
     {
         if (!isServer) //server only behaviour
@@ -81,5 +85,26 @@ public class RandomEventSystem : NetworkBehaviour
                 randomEvent.ClientEvent();
             }
         }
+
+        StartCoroutine(EventRoutine());
+    }
+
+    private IEnumerator EventRoutine()
+    {
+        foreach(ParticleSystem particle in eventParticles)
+        {
+            ParticleSystem.EmissionModule emission = particle.emission;
+            emission.enabled = true;
+        }
+
+        yield return new WaitForSeconds(eventParticleDuration);
+
+        foreach (ParticleSystem particle in eventParticles)
+        {
+            ParticleSystem.EmissionModule emission = particle.emission;
+            emission.enabled = false;
+        }
+
+        yield return null;
     }
 }

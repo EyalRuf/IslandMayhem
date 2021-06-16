@@ -74,13 +74,16 @@ public class MatchManager : NetworkBehaviour
                 {
                     gameStatus = "Waiting for players... " + CustomNetworkManager.GetAllPlayers().Count + "/" + numberOfPlayersNeededToStart;
 
+                    statusText.text = gameStatus + "\n(Press 'Enter' to start)";
+
                     // Starting the game
                     // Has to come from customnetworkmanager
-                    if (CustomNetworkManager.GetAllPlayers().Count >= numberOfPlayersNeededToStart && numberOfPlayersNeededToStart > 0)
+                    if ((CustomNetworkManager.GetAllPlayers().Count >= numberOfPlayersNeededToStart && numberOfPlayersNeededToStart > 0) || Input.GetKeyDown(KeyCode.Return))
                     {
                         startingGame = true;
 
                         gameStatus = "Starting game.";
+                        statusText.text = gameStatus;
                         CalculateAndAssignTeams();
 
                         //sync info
