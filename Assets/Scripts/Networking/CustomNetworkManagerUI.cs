@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Steamworks;
 using Mirror;
 
@@ -20,6 +21,13 @@ public class CustomNetworkManagerUI : MonoBehaviour
     private MenuState menuState;
     private string status;
     private Dictionary<int, string> friendsInGame = new Dictionary<int, string>();
+    private bool lockedCursor;
+
+    private void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
     private void Update()
     {
@@ -28,12 +36,28 @@ public class CustomNetworkManagerUI : MonoBehaviour
             networkManager = FindObjectOfType<CustomNetworkManager>();
         }
 
+        //return to menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GoBackToStart();
+            networkManager.ResetManager();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         if (NetworkServer.active || NetworkClient.isConnected)
         {
             //disable everything
             startUI.SetActive(false);
             friendsUI.SetActive(false);
             processingUI.SetActive(false);
+
+            if (!lockedCursor)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                lockedCursor = true;
+            }
+
             return;
         }
 
@@ -50,6 +74,7 @@ public class CustomNetworkManagerUI : MonoBehaviour
     {
         menuState = MenuState.Start;
         networkManager.StopClient();
+        networkManager.StopHost();
     }
 
     public void Host()
@@ -77,6 +102,14 @@ public class CustomNetworkManagerUI : MonoBehaviour
             menuState = MenuState.Processing;
             status = "Joining " + friendsInGame.ElementAt(index).Value + "...";
         }
+    }
+
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
     }
 
     private void GetFriendsInGame()
