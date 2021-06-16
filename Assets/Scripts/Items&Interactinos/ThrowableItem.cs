@@ -37,7 +37,7 @@ public class ThrowableItem : PickupableItem
         drawTrajectory = currUsingPlayer != null ? currUsingPlayer.lpInput.itemSecondaryUsage : false;
         lineRenderer.enabled = drawTrajectory;
         trajectoryEndSphere.SetActive(drawTrajectory);
-        trail.SetActive(rb.velocity.magnitude > 8f);
+        trail.SetActive(rb.velocity.magnitude > 10f);
 
         if (isGrounded) // after hit ground can't hit players anymore
         {

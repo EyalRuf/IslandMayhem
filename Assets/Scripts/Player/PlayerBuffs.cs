@@ -188,4 +188,25 @@ public class PlayerBuffs : NetworkBehaviour
                 }
         }
     }
+
+    public void PurgeBuffs ()
+    {
+        msBuffActive = false;
+        msBuffIcon.SetActive(false);
+
+        transform.localScale = Vector3.one;
+        scaleBuffIcon.SetActive(false);
+
+        jumpBuffActive = false;
+        jumpBuffIcon.SetActive(false);
+
+        pCombat.maxHp = pCombat.baseMaxHp;
+        pCombat.currHp = pCombat.currHp > pCombat.maxHp ? pCombat.maxHp : pCombat.currHp;
+        hpBuffIcon.SetActive(false);
+        hpBar.color = hpBaseColor;
+
+        pp.damage = pp.punchBaseDmg;
+        pp.knockbackPower = pp.punchBaseKP;
+        punchBuffIcon.SetActive(false);
+    }
 }

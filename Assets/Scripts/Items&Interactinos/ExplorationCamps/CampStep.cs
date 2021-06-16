@@ -12,6 +12,7 @@ public class CampStep : NetworkBehaviour
     [Header("Particles")]
     public GameObject idleParticles;
     public GameObject finishStepParticles;
+    public Transform finishParticlesTransform;
 
     // Use this for initialization
     public virtual void Start()
@@ -33,14 +34,13 @@ public class CampStep : NetworkBehaviour
     public virtual void CompleteStep ()
     {
         isCompleted = true;
-        StartCoroutine(finishStepParticle());
+        RpcCompleteStep();
     }
 
-    IEnumerator finishStepParticle()
+    [ClientRpc]
+    public void RpcCompleteStep()
     {
-        finishStepParticles.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        finishStepParticles.SetActive(true);
+        Instantiate(finishStepParticles, finishParticlesTransform);
     }
 
     public virtual void ResetStep ()

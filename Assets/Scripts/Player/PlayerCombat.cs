@@ -14,6 +14,7 @@ public class PlayerCombat : NetworkBehaviour
     public PlayerAnimations pAnims;
     public CampManager cm;
     public MatchManager matchManager;
+    public PlayerBuffs pBuffs;
 
     [Header("Combat")]
     public PlayerPunch punchObj;
@@ -181,6 +182,7 @@ public class PlayerCombat : NetworkBehaviour
         yield return new WaitForSeconds(fadeTime);
 
         deathParticles.SetActive(false);
+        pBuffs.PurgeBuffs();
 
         // Teleport player
         int randomCamp = UnityEngine.Random.Range(0, cm.camps.Length);

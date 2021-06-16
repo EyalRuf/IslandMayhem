@@ -19,45 +19,37 @@ public class CampManager : NetworkBehaviour
         {
             camp.campManager = this;
         }
-
-        if (isServer)
-        {
-            SwapMainCamp();
-        }
     }
 
     private void Update()
     {
-        //toggle visuals for all camps
-        for (int c = 0; c < camps.Length; c++)
-        {
-            camps[c].totemDispenserVisual.SetActive(c == currentMainCamp && !camps[c].isCoolingDown);
-        }
-
         if (!isServer)
             return;
 
-        swapTimer += Time.deltaTime;
-        if(swapTimer > swapDelay)
-        {
-            camps[currentMainCamp].isTotemDispenser = true;
-        }
-
-        if (camps[currentMainCamp].isCoolingDown)
-        {
-            swapTimer = 0;
-
-            SwapMainCamp();
-        }
+        //swapTimer += Time.deltaTime;
+        //if(swapTimer > swapDelay)
+        //{
+        //    camps[currentMainCamp].isTotemDispenser = true;
+        //    camps[currentMainCamp].isCoolingDown = false;
+        //}
     }
 
-    private void SwapMainCamp()
+    public void SwapMainCamp()
     {
-        currentMainCamp = Random.Range(0, camps.Length);
+        swapTimer = 0;
 
-        for(int c = 0; c < camps.Length; c++)
+        int newMainCamp = currentMainCamp;
+        while (newMainCamp == currentMainCamp)
+        {
+            newMainCamp = Random.Range(0, camps.Length);
+        }
+
+        for (int c = 0; c < camps.Length; c++)
         {
             camps[c].isTotemDispenser = false;
         }
+
+        camps[newMainCamp].SetMainCamp(swapDelay);
+        currentMainCamp = newMainCamp;
     }
 }

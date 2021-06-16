@@ -281,7 +281,7 @@ MonoBehaviour:
   netRot: {x: 0, y: 0, z: 0, w: 0}
   netVel: {x: 0, y: 0, z: 0}
   lerpFactor: 0.15
-  throwForce: 7000
+  throwForce: 8000
   movementDirectionForceMultiplyer: 25
   throwTarget: {fileID: 0}
   drawTrajectory: 0
@@ -452,7 +452,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.35
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6554656823070843496
 MonoBehaviour:
