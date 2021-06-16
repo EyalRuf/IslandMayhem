@@ -49,6 +49,7 @@ public class PlayerCombat : NetworkBehaviour
     public Vector3 hitParticlesOffset;
     public GameObject stunnedParticles;
     public GameObject deathParticles;
+    public GameObject spawnParticles;
 
     [Header("Death&Respawn")]
     public List<Behaviour> turnOffWhenDead;
@@ -200,10 +201,12 @@ public class PlayerCombat : NetworkBehaviour
         cController.isCrippled = false;
         cController.isLookingAround = false;
         currHp = maxHp;
+        spawnParticles.SetActive(true);
 
         yield return new WaitForSeconds(fadeTime);
 
         // after finishing revive
+        spawnParticles.SetActive(false);
     }
 
     IEnumerator InvulnerabilityTime()
