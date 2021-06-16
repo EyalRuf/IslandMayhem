@@ -73,6 +73,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   coconut: {fileID: 4473910350010878306, guid: d2796a08b4f73f64f84503d050330f16, type: 3}
+  punchImpact: {fileID: 1838810860747614094, guid: 0f6975e2edb83e141bd36c0a3422b584,
+    type: 3}
 --- !u!64 &624760317804303240
 MeshCollider:
   m_ObjectHideFlags: 0

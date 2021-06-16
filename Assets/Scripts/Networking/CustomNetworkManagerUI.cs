@@ -73,6 +73,8 @@ public class CustomNetworkManagerUI : MonoBehaviour
         {
             networkManager.networkAddress = SteamFriends.GetFriendRichPresence(SteamFriends.GetFriendByIndex(friendsInGame.ElementAt(index).Key, EFriendFlags.k_EFriendFlagAll), "room");
             networkManager.StartClient();
+            menuState = MenuState.Processing;
+            status = "Joining " + friendsInGame.ElementAt(index).Value + "...";
         }
     }
 
