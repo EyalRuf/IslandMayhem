@@ -4887,7 +4887,7 @@ MonoBehaviour:
   - {fileID: 1322323852098428062}
   - {fileID: 828920448136953145}
   - {fileID: 215314056680304073}
-  eventParticleDuration: 0
+  eventParticleDuration: 5
   eventParticles:
   - {fileID: 5503659086473957700}
   - {fileID: 5504427332642589368}
@@ -5332,6 +5332,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5659088784634397051, guid: 331112423ef363d449931466a775e3dd,
+        type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5659176931723408927, guid: 331112423ef363d449931466a775e3dd,
+        type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5659429329373403783, guid: 331112423ef363d449931466a775e3dd,
         type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
@@ -5345,7 +5355,7 @@ PrefabInstance:
     - target: {fileID: 5659429329373403783, guid: 331112423ef363d449931466a775e3dd,
         type: 3}
       propertyPath: EmissionModule.enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 331112423ef363d449931466a775e3dd, type: 3}
