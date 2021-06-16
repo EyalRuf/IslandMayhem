@@ -12,7 +12,8 @@ public class Camp : NetworkBehaviour
     public List<CampStep> campSteps;
     [SyncVar] public int currStepsCompleted;
     [SyncVar] public bool isCoolingDown;
-    [SyncVar] private float cooldownTimer;
+    [SyncVar] public bool isUnlocking;
+    [SyncVar] public float cooldownTimer;
     public float cooldownDuration;
     [SyncVar] public int spawnsLeft;
     public Vector2Int spawnLimitRange;
@@ -25,7 +26,6 @@ public class Camp : NetworkBehaviour
 
     [Header("UI")]
     public Text campOverheadText;
-    public Text campSignText;
     public Text timerAndExesText;
     public Text totemDispenserText;
 
@@ -41,7 +41,7 @@ public class Camp : NetworkBehaviour
     public GameObject buffParticles;
 
     private AudioSource source;
-    [HideInInspector] public CampManager campManager;
+    public CampManager campManager;
 
     // Use this for initialization
     void Start()
@@ -61,18 +61,16 @@ public class Camp : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(campManager != null)
-        {
-            totemDispenserText.text = isTotemDispenser ? "" : Mathf.CeilToInt(campManager.swapDelay - campManager.swapTimer).ToString();
-        }
-        else
+        if(campManager == null)
         {
             campManager = FindObjectOfType<CampManager>();
         }
 
-        campOverheadText.text = spawnsLeft <= 0 ? "Out of stock" : isCoolingDown ? (cooldownDuration - cooldownTimer < 3f ? "Camp complete!" : "Cooling down") : "Solve to get a buff/totem piece";
-        campSignText.text = "Charges\nleft: " + spawnsLeft;
-        timerAndExesText.text = spawnsLeft <= 0 ? "Come back another day" : isCoolingDown ? TimeFormatter.Format(cooldownTimer) : GetStepsText();
+        totemDispenserText.text = isUnlocking ? TimeFormatter.Format(cooldownTimer) : "";
+        totemDispenserVisual.SetActive(isUnlocking || isTotemDispenser);
+
+        campOverheadText.text = isUnlocking ? "Camp unlocking in" : spawnsLeft <= 0 ? "Out of stock" : isCoolingDown ? (cooldownDuration - cooldownTimer < 3f ? "Camp complete!" : "Cooling down") : "Solve to get a buff/totem piece";
+        timerAndExesText.text = isUnlocking ? TimeFormatter.Format(cooldownTimer) : spawnsLeft <= 0 ? "Come back another day" : isCoolingDown ? TimeFormatter.Format(cooldownTimer) : GetStepsText();
         
         if (!isServer || spawnsLeft <= 0)
             return;
@@ -84,7 +82,6 @@ public class Camp : NetworkBehaviour
             cooldownTimer -= Time.deltaTime;
             if (cooldownTimer <= 0)
             {
-                isCoolingDown = false;
                 ResetCamp();
             }
         } else
@@ -114,6 +111,8 @@ public class Camp : NetworkBehaviour
         {
             GameObject spawned = Instantiate(totemPrefab, pedestalTransform.position + (Vector3.up * 3), Quaternion.identity);
             NetworkServer.Spawn(spawned);
+
+            campManager.SwapMainCamp();
         } else
         {
             // Get players in area
@@ -165,7 +164,23 @@ public class Camp : NetworkBehaviour
     void ResetCamp ()
     {
         isCoolingDown = false;
+        isUnlocking = false;
         campSteps.ForEach(step => step.ResetStep());
+    }
+
+    public void SetMainCamp(float time)
+    {
+        isUnlocking = true;
+        isCoolingDown = true;
+        cooldownTimer = time;
+        isTotemDispenser = true;
+
+        if (campSteps.Count == 0)
+        {
+            campSteps = new List<CampStep>(GetComponentsInChildren<CampStep>()).FindAll(step => step.transform.parent == transform);
+        }
+
+        campSteps.ForEach(step => step.isEnabled = false);
     }
 }
 

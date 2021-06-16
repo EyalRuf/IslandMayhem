@@ -776,6 +776,7 @@ MonoBehaviour:
   netPlayerPos: {x: 0, y: 0, z: 0}
   netPlayerRot: {x: 0, y: 0, z: 0, w: 0}
   netPlayerVel: {x: 0, y: 0, z: 0}
+  netPlayerSize: {x: 0, y: 0, z: 0}
   lerpFactor: 0.15
 --- !u!114 &8297925720422174604
 MonoBehaviour:
@@ -836,6 +837,9 @@ MonoBehaviour:
     m_Bits: 1543
   jumpForce: 25
   jumpCD: 0.75
+  jumpParticles: {fileID: 1387999993237446, guid: 429ff48304d4db946bd190220bdd0ffd,
+    type: 3}
+  jumpParticlesTransform: {fileID: 1966868137288499591}
   isDead: 0
   isHoldingItem: 0
   isAiming: 0

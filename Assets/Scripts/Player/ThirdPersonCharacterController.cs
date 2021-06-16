@@ -35,6 +35,8 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     public float jumpCD;
     private bool applyJump;
     private bool jumpCDFlag;
+    public GameObject jumpParticles;
+    public Transform jumpParticlesTransform;
 
     [Header("OtherCharacterActions")]
     public bool isDead;
@@ -148,6 +150,7 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     void Jump()
     {
         playerAnims.JumpAnim();
+        Instantiate(jumpParticles, jumpParticlesTransform.position, Quaternion.identity);
 
         if (rb.velocity.y < 0)
         {
