@@ -331,7 +331,7 @@ MonoBehaviour:
   - {fileID: 7689059205452777932}
   - {fileID: 7141123957972396586}
   mm: {fileID: 0}
-  overlapRadius: 35
+  overlapRadius: 40
   overlapMask:
     serializedVersion: 2
     m_Bits: 256
