@@ -2297,6 +2297,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1553423163}
     m_Modifications:
+    - target: {fileID: 5010886228330848764, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
+        type: 3}
+      propertyPath: punchBaseDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5951003220492102780, guid: 65bb0bcdbdbb8f049aa1813588a0f193,
         type: 3}
       propertyPath: m_Name
