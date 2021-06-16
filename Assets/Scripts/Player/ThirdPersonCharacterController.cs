@@ -150,7 +150,7 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     void Jump()
     {
         playerAnims.JumpAnim();
-        Instantiate(jumpParticles, jumpParticlesTransform.position, Quaternion.identity);
+        Instantiate(jumpParticles, jumpParticlesTransform.position, Quaternion.Euler(-90, 0, 0));
 
         if (rb.velocity.y < 0)
         {
