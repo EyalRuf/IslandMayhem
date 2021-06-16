@@ -63,8 +63,8 @@ public class SingelTotemMatchManager : TTTMatchManager
             players.RemoveAt(0);
 
             //give team color
-            np.teamColor = teamColors[teamIndex];
             np.playerTeam = teamIndex;
+            np.teamColor = teamColors[teamIndex];
 
             //assign to team
             teams[teamIndex].playersInTeam.Add(np);
