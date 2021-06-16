@@ -582,7 +582,7 @@ MonoBehaviour:
   cameraYClampMax: 70
   cameraCollisionLayers:
     serializedVersion: 2
-    m_Bits: 1559
+    m_Bits: 23
   minDistance: 5
   maxDistance: 12
   smooth: 10
