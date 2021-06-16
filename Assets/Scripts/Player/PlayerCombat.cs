@@ -48,6 +48,7 @@ public class PlayerCombat : NetworkBehaviour
     public GameObject hitParticles;
     public Vector3 hitParticlesOffset;
     public GameObject stunnedParticles;
+    public GameObject deathParticles;
 
     [Header("Death&Respawn")]
     public List<Behaviour> turnOffWhenDead;
@@ -168,6 +169,7 @@ public class PlayerCombat : NetworkBehaviour
         cController.isDead = true;
         cController.isCrippled = true;
         cController.isLookingAround = true;
+        deathParticles.SetActive(true);
 
         yield return new WaitForSeconds(deathAnimTime);
 
@@ -175,6 +177,8 @@ public class PlayerCombat : NetworkBehaviour
         deathFade.FadeOut(fadeTime);
 
         yield return new WaitForSeconds(fadeTime);
+
+        deathParticles.SetActive(false);
 
         // Teleport player
         int randomCamp = UnityEngine.Random.Range(0, cm.camps.Length);

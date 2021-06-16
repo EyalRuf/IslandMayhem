@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.ParticleSystem;
 
 public class ThirdPersonCharacterController : NetworkBehaviour
 {
@@ -63,10 +64,18 @@ public class ThirdPersonCharacterController : NetworkBehaviour
     public float groundedDrag;
     public PhysicMaterial groundedMaterial;
     public PhysicMaterial airBorneMaterial;
+    public GameObject sprintParticles;
+    public ParticleSystem sprintParticleSys;
+    EmissionModule emission;
+    public ParticleSystem sprintParticleSys2;
+    EmissionModule emission2;
+    public float sprintParticleMagnitude;
 
     private void Start()
     {
         lastFootstep = transform.position;
+        emission = sprintParticleSys.emission;
+        emission2 = sprintParticleSys2.emission;
     }
 
     void Update()
@@ -119,6 +128,10 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         playerCollider.material = isGrounded ? groundedMaterial : airBorneMaterial;
 
         playerVelocity = (rb.position - playerLastPos) / Time.fixedDeltaTime;
+        //sprintParticles.SetActive(Mathf.Abs(playerVelocity.x) >= sprintParticleMagnitude || Mathf.Abs(playerVelocity.z) >= sprintParticleMagnitude);
+        emission.enabled = Mathf.Abs(playerVelocity.x) >= sprintParticleMagnitude || Mathf.Abs(playerVelocity.z) >= sprintParticleMagnitude;
+        emission2.enabled = Mathf.Abs(playerVelocity.x) >= sprintParticleMagnitude || Mathf.Abs(playerVelocity.z) >= sprintParticleMagnitude;
+
         var posOffset = rb.position - playerLastPos;
         playerLastPos = rb.position;
         var minMovementMagnitude = isCrippled ? 0.05f : 0.15f;
