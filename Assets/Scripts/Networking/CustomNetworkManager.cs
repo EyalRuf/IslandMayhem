@@ -532,9 +532,12 @@ public class CustomNetworkManager : NetworkManager
 
         ResetManager();
 
-        foreach (OnClientStartStop onClientStartStop in onClientStartStops)
+        if(onClientStartStops != null)
         {
-            onClientStartStop.OnClientStart();
+            foreach (OnClientStartStop onClientStartStop in onClientStartStops)
+            {
+                onClientStartStop.OnClientStop();
+            }
         }
     }
 
