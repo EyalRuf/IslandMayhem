@@ -8,6 +8,16 @@ public class SingelTotemMatchManager : TTTMatchManager
 {
     [Header("SingelTotemMatchManager")]
     public MatchTimer matchTimer;
+    public CampManager cm;
+
+    protected override void Start()
+    {
+        base.Start();
+        if (cm == null)
+        {
+            cm = FindObjectOfType<CampManager>();
+        }
+    }
 
     protected override void Update()
     {
@@ -63,8 +73,8 @@ public class SingelTotemMatchManager : TTTMatchManager
             players.RemoveAt(0);
 
             //give team color
-            np.teamColor = teamColors[teamIndex];
             np.playerTeam = teamIndex;
+            np.teamColor = teamColors[teamIndex];
 
             //assign to team
             teams[teamIndex].playersInTeam.Add(np);
@@ -77,6 +87,7 @@ public class SingelTotemMatchManager : TTTMatchManager
         yield return base.StartGame();
 
         matchTimer.MatchStarted();
+        cm.SwapMainCamp();
 
         yield return null;
     }

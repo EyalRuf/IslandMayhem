@@ -767,7 +767,6 @@ MonoBehaviour:
   - {fileID: 8297925720197497102}
   - {fileID: 5986363217830031937}
   localPlayer_TNO_UI: {fileID: 0}
-  pBuffs: {fileID: 0}
   localPlayerUI: {fileID: 4330638078649712738}
   remotePlayerUI: {fileID: 6997139203818428391}
   nameTag: {fileID: 6212725011227106644}
@@ -777,6 +776,7 @@ MonoBehaviour:
   netPlayerPos: {x: 0, y: 0, z: 0}
   netPlayerRot: {x: 0, y: 0, z: 0, w: 0}
   netPlayerVel: {x: 0, y: 0, z: 0}
+  netPlayerSize: {x: 0, y: 0, z: 0}
   lerpFactor: 0.15
 --- !u!114 &8297925720422174604
 MonoBehaviour:
@@ -837,6 +837,9 @@ MonoBehaviour:
     m_Bits: 1543
   jumpForce: 25
   jumpCD: 0.75
+  jumpParticles: {fileID: 1387999993237446, guid: 429ff48304d4db946bd190220bdd0ffd,
+    type: 3}
+  jumpParticlesTransform: {fileID: 1966868137288499591}
   isDead: 0
   isHoldingItem: 0
   isAiming: 0
@@ -974,11 +977,12 @@ MonoBehaviour:
   pAnims: {fileID: 8396054065383248002}
   cm: {fileID: 0}
   matchManager: {fileID: 0}
+  pBuffs: {fileID: 8423227301705367423}
   punchObj: {fileID: 3341770071569695048}
   punchCD: 0.5
-  baseMaxHp: 100
-  maxHp: 100
-  currHp: 100
+  baseMaxHp: 75
+  maxHp: 75
+  currHp: 75
   hpBarLocal: {fileID: 3866529522566697131}
   hpBarRemote: {fileID: 9074098414892542040}
   isInvulnerable: 0
@@ -987,11 +991,11 @@ MonoBehaviour:
   crippleDuration: 3
   knockDownDuration: 7.5
   knockDownChance: 0.25
-  regenAmount: 8
+  regenAmount: 3
   regenMinMax: {x: 0.085, y: 0.65}
   currRegenInterval: 0.65
   regenIntervalInc: 0.1
-  timeBeforeRegen: 3.5
+  timeBeforeRegen: 4.5
   hitParticles: {fileID: 1838810860747614094, guid: 0f6975e2edb83e141bd36c0a3422b584,
     type: 3}
   hitParticlesOffset: {x: 0, y: 4, z: 0}
@@ -1042,14 +1046,14 @@ MonoBehaviour:
   pCombat: {fileID: 7223162290677117676}
   pp: {fileID: 3341770071569695048}
   msBuffActive: 0
-  moveSpeedMultiplyer: 1.5
-  scaleMultiplyer: 1.5
+  moveSpeedMultiplyer: 1.65
+  scaleMultiplyer: 1.75
   jumpBuffActive: 0
-  jumpForceMultiplyer: 1.75
-  hpMultiplyer: 1.45
-  punchPowerMultiplyer: 1.75
-  punchKBMultiplyer: 1.45
-  buffDecayTime: 30
+  jumpForceMultiplyer: 1.85
+  hpMultiplyer: 2
+  punchPowerMultiplyer: 2
+  punchKBMultiplyer: 2
+  buffDecayTime: 90
   buffTransform: {fileID: 7193483893752343283}
   moveSpeedBuffParticle: {fileID: 5613849648559366675, guid: b316e6b34ed242f4b8cf34d5ef5140ff,
     type: 3}

@@ -19,7 +19,6 @@ public class NetworkPlayer : NetworkBehaviour
     [HideInInspector]
     public TeamAndObjectivesUI localPlayer_TNO_UI;
     MatchManager matchManager;
-    public PlayerBuffs pBuffs;
 
     [Header("UI")]
     public GameObject localPlayerUI;
@@ -83,20 +82,8 @@ public class NetworkPlayer : NetworkBehaviour
     private void Update()
     {
         nameTag.text = userName;
-        if (isLocalPlayer && hideLocalNametag)
-        {
-            nameTag.text = "";
-        }
-
-        if (!isLocalPlayer)
-        {
-            NetworkPlayer localPlayer = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>();
-
-            if (localPlayer.playerTeam != -1 && matchManager.hideColorsForTeam[localPlayer.playerTeam])
-                nameTag.color = teamColor;
-            else
-                nameTag.color = matchManager.neutralTeamColor;
-        }
+        nameTag.text = (isLocalPlayer && hideLocalNametag) ? "" : userName;
+        nameTag.color = teamColor;
     }
 
     void FixedUpdate()
