@@ -7,43 +7,39 @@ public class CampManager : NetworkBehaviour
 {
     [SyncVar] public int currentMainCamp;
     public float swapDelay = 30f;
-    [SyncVar] public float swapTimer;
 
     public Camp[] camps;
 
     private void Start()
     {
-        camps = GetComponentsInChildren<Camp>(true);
-
-        foreach (Camp camp in camps)
+        if (camps == null || camps.Length == 0)
         {
-            camp.campManager = this;
+            camps = GetComponentsInChildren<Camp>(true);
+
+            foreach (Camp camp in camps)
+            {
+                camp.campManager = this;
+            }
         }
-    }
-
-    private void Update()
-    {
-        if (!isServer)
-            return;
-
-        //swapTimer += Time.deltaTime;
-        //if(swapTimer > swapDelay)
-        //{
-        //    camps[currentMainCamp].isTotemDispenser = true;
-        //    camps[currentMainCamp].isCoolingDown = false;
-        //}
     }
 
     public void SwapMainCamp()
     {
-        swapTimer = 0;
-
-        int newMainCamp = currentMainCamp;
-        while (newMainCamp == currentMainCamp)
+        if (isServer)
         {
-            newMainCamp = Random.Range(0, camps.Length);
-        }
+            int newMainCamp = currentMainCamp;
+            while (newMainCamp == currentMainCamp)
+            {
+                newMainCamp = Random.Range(0, camps.Length);
+            }
 
+            RpcSwapMainCamp(newMainCamp);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcSwapMainCamp(int newMainCamp)
+    {
         for (int c = 0; c < camps.Length; c++)
         {
             camps[c].isTotemDispenser = false;

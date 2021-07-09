@@ -28,7 +28,10 @@ public class SingelTotemMatchManager : TTTMatchManager
 
         if (matchTimer.IsTimeOver)
         {
-            RpcEndGame(-1);
+            int team0Pieces = team0Objectives[0].MultiObjCurrIndex;
+            int team1Pieces = team1Objectives[0].MultiObjCurrIndex;
+
+            RpcEndGame(team0Pieces > team1Pieces ? 0 : team1Pieces > team0Pieces ? 1 : -1);
         }
     }
 
