@@ -161898,6 +161898,11 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: c710a445d7048f34595a64095c348853
       objectReference: {fileID: 0}
+    - target: {fileID: 1449149538088343142, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.35
+      objectReference: {fileID: 0}
     - target: {fileID: 1449149538793796310, guid: c710a445d7048f34595a64095c348853,
         type: 3}
       propertyPath: sceneId
@@ -162287,6 +162292,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AssetId
       value: c710a445d7048f34595a64095c348853
+      objectReference: {fileID: 0}
+    - target: {fileID: 3857648162302953961, guid: c710a445d7048f34595a64095c348853,
+        type: 3}
+      propertyPath: overlapRadius
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3857648162306217844, guid: c710a445d7048f34595a64095c348853,
         type: 3}
@@ -368597,6 +368607,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5552412104907174469, guid: 0ee19bd16fe06344c96c32ba3805126f,
+        type: 3}
+      propertyPath: matchLength
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5741423654947660473, guid: 0ee19bd16fe06344c96c32ba3805126f,
         type: 3}
