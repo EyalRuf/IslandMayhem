@@ -209,7 +209,7 @@ namespace Steamworks {
 		}
 	}
 
-	public sealed class CallResult<T> : IDisposable {
+	public sealed class CCallResult<T> : IDisposable {
 		private CCallbackBaseVTable m_CallbackBaseVTable;
 		private IntPtr m_pVTable = IntPtr.Zero;
 		private CCallbackBase m_CCallbackBase;
@@ -230,16 +230,16 @@ namespace Steamworks {
 		/// <para>Returns a handle to the CallResult.</para>
 		/// <para>This MUST be assigned to a member variable to prevent the GC from cleaning it up.</para>
 		/// </summary>
-		public static CallResult<T> Create(APIDispatchDelegate func = null) {
-			return new CallResult<T>(func);
+		public static CCallResult<T> Create(APIDispatchDelegate func = null) {
+			return new CCallResult<T>(func);
 		}
 
-		public CallResult(APIDispatchDelegate func = null) {
+		public CCallResult(APIDispatchDelegate func = null) {
 			m_Func = func;
 			BuildCCallbackBase();
 		}
 
-		~CallResult() {
+		~CCallResult() {
 			Dispose();
 		}
 

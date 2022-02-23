@@ -78,139 +78,6 @@ public class CustomNetworkManager : NetworkManager
         return playersDic[id];
     }
 
-    #region Matchmaking and Steamworks
-
-    [Header("Matchmaking")]
-    public float lobbysearchInterval = 1f;
-    public List<CSteamID> lobbies = new List<CSteamID>();
-    [HideInInspector]
-    public bool matchmakingSearching = false;
-
-    private bool updatedLobbies = false;
-
-    private protected Callback<LobbyMatchList_t> Callback_lobbyList;
-    private protected Callback<LobbyCreated_t> Callback_lobbyCreated;
-    private protected Callback<LobbyDataUpdate_t> Callback_lobbyDataUpdate;
-    private CSteamID lobby = CSteamID.Nil;
-
-    public void StartLobby()
-    {
-        Callback_lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, matchManager.numberOfPlayersNeededToStart);
-        SteamAPI.RunCallbacks();
-    }
-
-    public void StopLobby()
-    {
-        Debug.Log("Left lobby with the following ID: " + lobby);
-
-        lobby = CSteamID.Nil;
-        SteamMatchmaking.LeaveLobby(lobby);
-    }
-
-    public void StartMatchmaking()
-    {
-        StartCoroutine(FindMatchProcess());
-    }
-
-    public void StopMatchmaking()
-    {
-        matchmakingSearching = false;
-    }
-
-    private IEnumerator FindMatchProcess()
-    {
-        matchmakingSearching = true;
-
-        //run until found
-        while (matchmakingSearching)
-        {
-            //wait a lil bit
-            yield return new WaitForSeconds(lobbysearchInterval);
-
-            //request lobbies
-            updatedLobbies = false;
-            Callback_lobbyList = Callback<LobbyMatchList_t>.Create(OnGetLobbiesList);
-            Callback_lobbyDataUpdate = Callback<LobbyDataUpdate_t>.Create(OnLobbyDataUpdate);
-            SteamAPICall_t lobbyRequest = SteamMatchmaking.RequestLobbyList();
-
-            //wait until we have lobbies
-            //yield return new WaitUntil(() => updatedLobbies);
-
-            if (matchmakingSearching)
-            {
-                if(lobbies.Count > 0)
-                {
-                    bool request = SteamMatchmaking.RequestLobbyData(lobbies[0]);
-                    SteamAPI.RunCallbacks();
-                    Debug.Log("Requested lobby data for lobby " + lobby.ToString() + " with result:" + request.ToString());
-                }
-            }
-            else
-            {
-                //stop searching
-                yield return null;
-            }
-        }
-    }
-
-    private void OnGetLobbiesList(LobbyMatchList_t result)
-    {
-        lobbies.Clear();
-
-        string lobbyResults = "Found " + result.m_nLobbiesMatching + " lobbies with the following IDs:\n";
-        for (int i = 0; i < result.m_nLobbiesMatching; i++)
-        {
-            CSteamID lobbyID = SteamMatchmaking.GetLobbyByIndex(i);
-            lobbies.Add(lobbyID);
-            lobbyResults += lobbyID.ToString() + "\n";
-        }
-
-        if (result.m_nLobbiesMatching != 0)
-        {
-            Debug.Log(lobbyResults);
-        }
-        updatedLobbies = true;
-    }
-
-    private void OnLobbyCreated(LobbyCreated_t result)
-    {
-        if(result.m_eResult == EResult.k_EResultOK)
-        {
-            lobby = (CSteamID)result.m_ulSteamIDLobby;
-            SteamMatchmaking.SetLobbyOwner(lobby, SteamUser.GetSteamID());
-            SteamMatchmaking.SetLobbyData(lobby, "owner", SteamUser.GetSteamID().ToString());
-
-            Debug.Log(SteamUser.GetSteamID().ToString());
-
-            Debug.Log("Created a lobby with the following ID: " + (CSteamID)result.m_ulSteamIDLobby);
-        }
-    }
-
-    private void OnLobbyDataUpdate(LobbyDataUpdate_t result)
-    {
-        try
-        {
-            ulong lobbyOwnerAsInt = 0;
-
-            Debug.Log(SteamMatchmaking.GetLobbyData((CSteamID)result.m_ulSteamIDLobby, "owner"));
-
-
-            if (ulong.TryParse(SteamMatchmaking.GetLobbyData((CSteamID)result.m_ulSteamIDLobby, "owner"), out lobbyOwnerAsInt))
-            {
-                CSteamID lobbyOwner = (CSteamID)lobbyOwnerAsInt;
-                networkAddress = lobbyOwner.ToString();
-                StartClient();
-            }
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogError(ex);
-        }
-    }
-
-    #endregion
-
     #region Unity Callbacks
 
     public override void OnValidate()
@@ -236,13 +103,7 @@ public class CustomNetworkManager : NetworkManager
         base.Start();
         SteamAPI.Init();
         SteamFriends.SetRichPresence("status", "In Menu");
-        StartCoroutine(VivoxLogin());
-    }
-
-    IEnumerator VivoxLogin ()
-    {
-        yield return new WaitForSeconds(3);
-        //_vivoxVoiceManager.Login(Time.deltaTime.ToString());
+        //StartCoroutine(VivoxLogin());
     }
 
     /// <summary>
@@ -456,9 +317,9 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     public override void OnStartHost() 
     {
-        StartLobby();
-
         base.OnStartHost();
+
+        //StartLobby();
     }
 
     /// <summary>
@@ -479,9 +340,6 @@ public class CustomNetworkManager : NetworkManager
     public override void OnStartClient() 
     {
         base.OnStartClient();
-
-        matchmakingSearching = false;
-        StopCoroutine(FindMatchProcess());
 
         SteamFriends.SetRichPresence("status", "In Game");
 
@@ -507,7 +365,7 @@ public class CustomNetworkManager : NetworkManager
     /// </summary>
     public override void OnStopHost() 
     {
-        StopLobby();
+        //StopLobby();
 
         base.OnStopHost();
         ResetManager();

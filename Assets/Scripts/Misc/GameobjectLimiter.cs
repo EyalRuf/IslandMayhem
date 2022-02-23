@@ -34,6 +34,14 @@ public class GameobjectLimiter : NetworkBehaviour
             {
                 for(int o = 0; o < overLimit; o++)
                 {
+                    GameObject go = objectsInScene[o];
+                    PickupableItem pi = go.GetComponent<PickupableItem>();
+                    if (pi != null)
+                    {
+                        if (pi.isBeingHeld)
+                            continue;
+                    }
+
                     RpcSpawnSmokePoof(objectsInScene[o].transform.position, Quaternion.identity);
                     NetworkServer.Destroy(objectsInScene[o]);
                 }

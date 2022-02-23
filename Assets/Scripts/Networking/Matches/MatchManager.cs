@@ -152,7 +152,7 @@ public class MatchManager : NetworkBehaviour
     [ClientRpc]
     public virtual void RpcStartGame()
     {
-        networkManager.StopLobby();
+        //networkManager.StopLobby();
 
         StartCoroutine(StartGame());
     }
