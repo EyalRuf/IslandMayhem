@@ -1,5 +1,7 @@
-﻿using Mirror;
+﻿using Assets.Scripts.UI;
+using Mirror;
 using Steamworks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +12,7 @@ namespace Assets.Scripts.Networking
     {
         public NetworkManager networkManager;
 
-        private string HostAdressKey = "HostAddress";
+        private string HostAddressKey = "HostAddress";
 
         #region Steam Callbacks
         protected Callback<LobbyCreated_t> lobbyCreated;
@@ -19,8 +21,12 @@ namespace Assets.Scripts.Networking
         protected Callback<LobbyMatchList_t> lobbyMatchList;
         #endregion
 
+        private CSteamID currLobby;
         public List<CSteamID> lobbyIds = new List<CSteamID>();
-        public List<int> lobbyMemberCounts = new List<int>();
+
+        [Header("UI")]
+        [SerializeField] private Transform LobbyListTransform;
+        [SerializeField] private GameObject LobbyListItem;
 
         private void Start()
         {
@@ -47,7 +53,7 @@ namespace Assets.Scripts.Networking
 
             if (Input.GetKeyDown(KeyCode.H))
             {
-                SteamMatchmaking.RequestLobbyList();
+                GetLobbies();
             }
         }
 
@@ -63,14 +69,15 @@ namespace Assets.Scripts.Networking
                 Debug.LogError("LobbyFailed");
                 return;
             }
+
             CSteamID lobby = new CSteamID(callback.m_ulSteamIDLobby);
-            SteamMatchmaking.SetLobbyData(lobby, "owner", SteamUser.GetSteamID().ToString());
-            SteamMatchmaking.SetLobbyData(lobby, "ownerName", SteamFriends.GetPersonaName().ToString());
-            SteamMatchmaking.SetLobbyData(lobby, "plrAmount", "1");
+            SteamMatchmaking.SetLobbyData(lobby, "host", SteamUser.GetSteamID().ToString());
+            SteamMatchmaking.SetLobbyData(lobby, "hostName", SteamFriends.GetPersonaName().ToString());
+            SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().ToString());
+
+            currLobby = lobby;
             networkManager.StartHost();
             Debug.Log("started host");
-
-            SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAdressKey, SteamUser.GetSteamID().ToString());
         }
 
         public void OnGameLobbyJoinRequested (GameLobbyJoinRequested_t callback)
@@ -80,29 +87,63 @@ namespace Assets.Scripts.Networking
 
         public void OnLobbyEntered (LobbyEnter_t callback)
         {
-            if (NetworkServer.active) return;
+            CSteamID lobbyId = new CSteamID(callback.m_ulSteamIDLobby);
 
-            string hostAddress = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAdressKey);
+            if (NetworkServer.active)
+            {
+                int playerCount = SteamMatchmaking.GetNumLobbyMembers(lobbyId);
+                return;
+            }
+
+            string hostAddress = SteamMatchmaking.GetLobbyData(lobbyId, HostAddressKey);
 
             networkManager.networkAddress = hostAddress;
             networkManager.StartClient();
+            currLobby = lobbyId;
 
             Debug.Log("started client");
         }
 
+        public void GetLobbies ()
+        {
+            ClearLobbyList();
+            SteamMatchmaking.RequestLobbyList();
+        }
+
+        public void LeaveLobby()
+        {
+            SteamMatchmaking.LeaveLobby(currLobby);
+        }
+
         public void OnLobbyMatchList (LobbyMatchList_t callback)
         {
-            string lobbyResults = "Found " + callback.m_nLobbiesMatching + " lobbies with the following Names:\n";
+
             for (int i = 0; i < callback.m_nLobbiesMatching; i++)
             {
                 CSteamID lobbyID = SteamMatchmaking.GetLobbyByIndex(i);
-                //int players = SteamMatchmaking.GetLobbyData(lobbyID, "plrAmount");
-                lobbyResults += SteamMatchmaking.GetLobbyData(lobbyID, "ownerName") + "\n";
                 lobbyIds.Add(lobbyID);
-                lobbyMemberCounts.Add(SteamMatchmaking.GetNumLobbyMembers(lobbyID));
+
+                string hostName = SteamMatchmaking.GetLobbyData(lobbyID, "hostName");
+                int playerCount = SteamMatchmaking.GetNumLobbyMembers(lobbyID);
+
+                GameObject instance = Instantiate(LobbyListItem, LobbyListTransform);
+                instance.GetComponent<LobbyListItem>().updateLobbyUI(hostName, playerCount, i, JoinLobby);
+            }
+        }
+
+        private void ClearLobbyList()
+        {
+            for (int i = 0; i < LobbyListTransform.childCount; i++)
+            {
+                Destroy(LobbyListTransform.GetChild(i).gameObject);
             }
 
-            Debug.Log(lobbyResults);
+            lobbyIds.Clear();
+        }
+
+        private void JoinLobby(int lobbyIndex)
+        {
+            SteamMatchmaking.JoinLobby(lobbyIds[lobbyIndex]);
         }
     }
 }

@@ -6,6 +6,7 @@ using Steamworks;
 using System.Linq;
 using VivoxUnity;
 using System.Collections;
+using Assets.Scripts.UI;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkManager.html
@@ -24,6 +25,8 @@ public class CustomNetworkManager : NetworkManager
 
     [Header("References")]
     public MatchManager matchManager;
+    public MenuUIManager menuUI;
+
 
     void OnLevelWasLoaded(int level)
     {
@@ -36,9 +39,10 @@ public class CustomNetworkManager : NetworkManager
         playersDic = new Dictionary<string, NetworkIdentity>();
         localPlayerId = null;
         localPlayerInitialized = false;
+        menuUI.ClickedBackToMain();
     }
 
-    public static void RegisterPlayer(uint netId, NetworkIdentity go)
+public static void RegisterPlayer(uint netId, NetworkIdentity go)
     {
         string id = PLAYER_ID_PREFIX + netId;
         playersDic.Add(id, go);
@@ -102,7 +106,7 @@ public class CustomNetworkManager : NetworkManager
     {
         base.Start();
         SteamAPI.Init();
-        SteamFriends.SetRichPresence("status", "In Menu");
+        //SteamFriends.SetRichPresence("status", "In Menu");
         //StartCoroutine(VivoxLogin());
     }
 
@@ -142,6 +146,7 @@ public class CustomNetworkManager : NetworkManager
     public override void OnApplicationQuit()
     {
         base.OnApplicationQuit();
+        SteamFriends.ClearRichPresence();
     }
 
     #endregion
@@ -368,6 +373,7 @@ public class CustomNetworkManager : NetworkManager
         //StopLobby();
 
         base.OnStopHost();
+        Debug.Log("Stopped host");
         ResetManager();
     }
 
@@ -385,8 +391,8 @@ public class CustomNetworkManager : NetworkManager
     public override void OnStopClient() 
     {
         base.OnStopClient();
-        SteamFriends.SetRichPresence("status", "In Menu");
-        SteamFriends.SetRichPresence("room", "");
+        //SteamFriends.SetRichPresence("status", "In Menu");
+        //SteamFriends.SetRichPresence("room", "");
 
         ResetManager();
 
