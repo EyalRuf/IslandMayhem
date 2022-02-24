@@ -12,6 +12,7 @@ namespace Assets.Scripts.Networking
     {
         public NetworkManager networkManager;
         public MatchManager matchManager;
+        public MenuUIManager menuUIManager;
 
         private string HostAddressKey = "HostAddress";
 
@@ -102,6 +103,8 @@ namespace Assets.Scripts.Networking
             networkManager.StartClient();
             currLobby = lobbyId;
 
+            menuUIManager.JoinedGame();
+
             Debug.Log("started client");
         }
 
@@ -150,6 +153,7 @@ namespace Assets.Scripts.Networking
         {
             if (lobbyIds.Contains(lobbyId))
             {
+                menuUIManager.ClickedLobby();
                 SteamMatchmaking.JoinLobby(lobbyId);
             }
             else

@@ -15,6 +15,7 @@ namespace Assets.Scripts.UI
         [SerializeField] private GameObject MenuParent;
         [SerializeField] private GameObject MainPage;
         [SerializeField] private GameObject LobbyPage;
+        [SerializeField] private GameObject LoadPage;
 
         public void Update()
         {
@@ -41,7 +42,18 @@ namespace Assets.Scripts.UI
             MenuParent.gameObject.SetActive(true);
 
             MainPage.gameObject.SetActive(false);
+            LoadPage.gameObject.SetActive(false);
             LobbyPage.gameObject.SetActive(true);
+        }
+
+        public void ClickedLobby()
+        {
+            MenuParent.gameObject.SetActive(true);
+
+
+            MainPage.gameObject.SetActive(false);
+            LobbyPage.gameObject.SetActive(false);
+            LoadPage.gameObject.SetActive(true);
         }
 
         public void ClickedBackToMain()
@@ -49,9 +61,20 @@ namespace Assets.Scripts.UI
             MenuParent.gameObject.SetActive(true);
 
             LobbyPage.gameObject.SetActive(false);
+            LoadPage.gameObject.SetActive(false);
             MainPage.gameObject.SetActive(true);
         }
-        
+
+        public void JoinedGame ()
+        {
+            MenuParent.gameObject.SetActive(false);
+
+            LobbyPage.gameObject.SetActive(false);
+            LoadPage.gameObject.SetActive(false);
+            MainPage.gameObject.SetActive(true);
+        }
+
+
         public void ClickedQuit()
         {
 #if UNITY_EDITOR

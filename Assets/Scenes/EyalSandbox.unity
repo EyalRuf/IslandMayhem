@@ -5761,6 +5761,7 @@ MonoBehaviour:
   MenuParent: {fileID: 1382449662}
   MainPage: {fileID: 1422250909}
   LobbyPage: {fileID: 718907910}
+  LoadPage: {fileID: 0}
 --- !u!114 &540461665996841896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5774,6 +5775,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkManager: {fileID: 540461665996841892}
+  matchManager: {fileID: 354956807649824673}
+  menuUIManager: {fileID: 540461665996841895}
   lobbyIds: []
   LobbyListTransform: {fileID: 1164380241}
   LobbyListItem: {fileID: 6053338895973421239, guid: f8c0ca9a42b0be347b5e800282e8a542,
