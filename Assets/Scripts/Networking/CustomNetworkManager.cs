@@ -4,7 +4,6 @@ using Mirror;
 using System.Collections.Generic;
 using Steamworks;
 using System.Linq;
-using VivoxUnity;
 using System.Collections;
 using Assets.Scripts.UI;
 

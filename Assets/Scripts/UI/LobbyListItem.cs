@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Steamworks;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,21 +12,21 @@ namespace Assets.Scripts.UI
         [SerializeField] private Text playerCountText;
         [SerializeField] private Button joinLobbyBtn;
 
-        private int lobbyIndex;
-        private Action<int> onLobbyClicked; 
+        private CSteamID lobbyId;
+        private Action<CSteamID> onLobbyClicked; 
 
-        public void updateLobbyUI (string ownerTxt, int playerCount, int lobbyIndex, Action<int> onLobbyClicked)
+        public void updateLobbyUI (string ownerTxt, string playerCountTxt, CSteamID lobbyId, Action<CSteamID> onLobbyClicked)
         {
             ownerNameText.text = ownerTxt;
-            playerCountText.text = playerCount + "/8";
-            this.lobbyIndex = lobbyIndex;
+            playerCountText.text = playerCountTxt;
+            this.lobbyId = lobbyId;
             this.onLobbyClicked = onLobbyClicked;
             joinLobbyBtn.onClick.AddListener(ClickedLobby);
         }
 
         public void ClickedLobby()
         {
-            onLobbyClicked(lobbyIndex);
+            onLobbyClicked(lobbyId);
         }
     }
 }

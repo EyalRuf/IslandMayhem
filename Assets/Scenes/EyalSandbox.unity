@@ -1878,7 +1878,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 10
   m_Viewport: {fileID: 1108841205}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 950014454}
@@ -5775,7 +5775,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkManager: {fileID: 540461665996841892}
   lobbyIds: []
-  lobbyMemberCounts: 
   LobbyListTransform: {fileID: 1164380241}
   LobbyListItem: {fileID: 6053338895973421239, guid: f8c0ca9a42b0be347b5e800282e8a542,
     type: 3}
