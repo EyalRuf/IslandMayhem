@@ -335,7 +335,6 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
         base.OnStartServer();
     }
 
-
     private OnClientStartStop[] onClientStartStops;
 
     /// <summary>
@@ -390,8 +389,8 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     public override void OnStopClient() 
     {
         base.OnStopClient();
-        //SteamFriends.SetRichPresence("status", "In Menu");
-        //SteamFriends.SetRichPresence("room", "");
+        SteamFriends.SetRichPresence("status", "In Menu");
+        SteamFriends.SetRichPresence("room", "");
 
         ResetManager();
 

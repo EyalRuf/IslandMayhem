@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 using Assets.Scripts.UI;
+using Assets.Scripts.Networking;
 
 public class MatchManager : NetworkBehaviour
 {
@@ -41,8 +42,8 @@ public class MatchManager : NetworkBehaviour
     public Camera overviewCam;
     public Text overviewText;
 
-    [HideInInspector]
     public CustomNetworkManager networkManager;
+    public SteamLobby steamLobby;
 
     protected OnMatchStartStop[] onMatchStartStops;
 
@@ -154,8 +155,8 @@ public class MatchManager : NetworkBehaviour
     public virtual void RpcStartGame()
     {
         //networkManager.StopLobby();
-
         StartCoroutine(StartGame());
+        steamLobby.LeaveLobby();
     }
 
     protected virtual IEnumerator StartGame()
@@ -196,7 +197,9 @@ public class MatchManager : NetworkBehaviour
             }
         }
 
-        yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
+        // What?...
+        //yield return new WaitUntil(() => true); //required because we may not want to end coroutine.
+        yield return null;
     }
 
     [ClientRpc]

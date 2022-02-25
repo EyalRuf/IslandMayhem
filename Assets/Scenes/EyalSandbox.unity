@@ -5572,6 +5572,7 @@ MonoBehaviour:
   overviewCam: {fileID: 540461666005377326}
   overviewText: {fileID: 2801313}
   networkManager: {fileID: 0}
+  steamLobby: {fileID: 0}
   matchTimer: {fileID: 354956807649824672}
   cm: {fileID: 1738908858}
 --- !u!4 &540461665891697058
@@ -5667,6 +5668,7 @@ GameObject:
   - component: {fileID: 540461665996841893}
   - component: {fileID: 540461665996841896}
   - component: {fileID: 540461665996841895}
+  - component: {fileID: 540461665996841891}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -5674,6 +5676,46 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &540461665996841891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540461665996841890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85653f7d38ea84f4fadb52ac7b5bc966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStop:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 540461665996841896}
+        m_MethodName: LeaveLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 540461665996841895}
+        m_MethodName: ClickedBackToMain
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &540461665996841892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5761,7 +5803,8 @@ MonoBehaviour:
   MenuParent: {fileID: 1382449662}
   MainPage: {fileID: 1422250909}
   LobbyPage: {fileID: 718907910}
-  LoadPage: {fileID: 0}
+  LoadPage: {fileID: 1722926956}
+  loadingTxt: {fileID: 1707918787}
 --- !u!114 &540461665996841896
 MonoBehaviour:
   m_ObjectHideFlags: 0

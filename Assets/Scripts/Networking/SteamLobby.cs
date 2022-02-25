@@ -90,22 +90,29 @@ namespace Assets.Scripts.Networking
         public void OnLobbyEntered (LobbyEnter_t callback)
         {
             CSteamID lobbyId = new CSteamID(callback.m_ulSteamIDLobby);
-
-            if (NetworkServer.active)
+        
+            if (NetworkServer.active) // I'm hosting and someone joined my lobby
             {
                 int playerCount = SteamMatchmaking.GetNumLobbyMembers(lobbyId);
+                if (playerCount >= matchManager.numberOfPlayersNeededToStart)
+                {
+                    SteamMatchmaking.SetLobbyJoinable(lobbyId, false);
+                }
+
                 return;
             }
+            else // I joined the lobby
+            {
+                string hostAddress = SteamMatchmaking.GetLobbyData(lobbyId, HostAddressKey);
 
-            string hostAddress = SteamMatchmaking.GetLobbyData(lobbyId, HostAddressKey);
+                networkManager.networkAddress = hostAddress;
+                networkManager.StartClient();
+                currLobby = lobbyId;
 
-            networkManager.networkAddress = hostAddress;
-            networkManager.StartClient();
-            currLobby = lobbyId;
+                menuUIManager.JoinedGame();
 
-            menuUIManager.JoinedGame();
-
-            Debug.Log("started client");
+                Debug.Log("started client");
+            }
         }
 
         public void GetLobbies ()
@@ -117,8 +124,10 @@ namespace Assets.Scripts.Networking
         public void LeaveLobby()
         {
             SteamMatchmaking.LeaveLobby(currLobby);
+            currLobby = new CSteamID();
         }
 
+        // Lobbies fetched
         public void OnLobbyMatchList(LobbyMatchList_t callback)
         {
             for (int i = 0; i < callback.m_nLobbiesMatching; i++)

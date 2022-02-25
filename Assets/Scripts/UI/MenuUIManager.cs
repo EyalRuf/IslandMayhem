@@ -3,6 +3,7 @@ using Steamworks;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
@@ -16,6 +17,7 @@ namespace Assets.Scripts.UI
         [SerializeField] private GameObject MainPage;
         [SerializeField] private GameObject LobbyPage;
         [SerializeField] private GameObject LoadPage;
+        [SerializeField] private Text loadingTxt;
 
         public void Update()
         {
@@ -48,8 +50,9 @@ namespace Assets.Scripts.UI
 
         public void ClickedLobby()
         {
-            MenuParent.gameObject.SetActive(true);
+            loadingTxt.text = "Joining Lobby...";
 
+            MenuParent.gameObject.SetActive(true);
 
             MainPage.gameObject.SetActive(false);
             LobbyPage.gameObject.SetActive(false);
@@ -67,6 +70,8 @@ namespace Assets.Scripts.UI
 
         public void JoinedGame ()
         {
+            loadingTxt.text = "Loading...";
+
             MenuParent.gameObject.SetActive(false);
 
             LobbyPage.gameObject.SetActive(false);
