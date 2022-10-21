@@ -112,11 +112,11 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     /// <summary>
     /// Runs on both Server and Client
     /// </summary>
-    public override void LateUpdate()
-    {
-        base.LateUpdate();
-        SteamAPI.RunCallbacks();
-    }
+    //public override void LateUpdate()
+    //{
+    //    base.LateUpdate();
+    //    SteamAPI.RunCallbacks();
+    //}
 
     /// <summary>
     /// Runs on both Server and Client

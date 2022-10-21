@@ -64,7 +64,7 @@ public class TTTMatchManager : MatchManager
 
         PopulateTeamObjectives();
         StartCoroutine(StartGame());
-        steamLobby.LeaveLobby();
+        //steamLobby.LeaveLobby();
     }
 
     protected override IEnumerator StartGame()
