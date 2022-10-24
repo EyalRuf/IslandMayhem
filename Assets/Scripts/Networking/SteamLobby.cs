@@ -150,7 +150,7 @@ namespace Assets.Scripts.Networking
 
                 // Don't need empty or local player's own lobbies
                 // only need the game when using the 480 appid
-                if (/*game.Equals("eyalgame") && */playerCount > 0/* && !hostId.Equals(SteamUser.GetSteamID().ToString())*/)
+                if (game.Equals("eyalgame") && playerCount > 0 && !hostId.Equals(SteamUser.GetSteamID().ToString()))
                 {
                     hostNames.Add(hostName);
                     playercounts.Add(playerCount);
@@ -163,11 +163,7 @@ namespace Assets.Scripts.Networking
                 GameObject instance = Instantiate(LobbyListItem, LobbyListTransform);
                 instance.GetComponent<LobbyListItem>().updateLobbyUI(hostNames[i], playercounts[i] + "/" + matchManager.numberOfPlayersNeededToStart, tempLobbyIds[i], JoinLobby);
                 lobbyIds.Add(tempLobbyIds[i]);
-                
-            }
-
-            ScrollRect.Rebuild(CanvasUpdate.Prelayout);
-            ScrollRect.scr
+                            }
         }
 
         private void ClearLobbyList()
