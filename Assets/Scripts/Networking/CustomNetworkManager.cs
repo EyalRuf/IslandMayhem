@@ -105,18 +105,18 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     {
         base.Start();
         SteamAPI.Init();
-        //SteamFriends.SetRichPresence("status", "In Menu");
+        //SteamFriends.SetRichPresence("satus", "In Menu");
         //StartCoroutine(VivoxLogin());
     }
 
     /// <summary>
     /// Runs on both Server and Client
     /// </summary>
-    //public override void LateUpdate()
-    //{
-    //    base.LateUpdate();
-    //    SteamAPI.RunCallbacks();
-    //}
+    public override void LateUpdate()
+    {
+        base.LateUpdate();
+        SteamAPI.RunCallbacks();
+    }
 
     /// <summary>
     /// Runs on both Server and Client

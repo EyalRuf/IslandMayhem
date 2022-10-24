@@ -1878,7 +1878,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 10
+  m_ScrollSensitivity: 15
   m_Viewport: {fileID: 1108841205}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 950014454}
@@ -2909,8 +2909,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1400376994}
   m_HandleRect: {fileID: 1400376993}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.7499999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3515,6 +3515,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1164380241}
+  - component: {fileID: 1164380242}
+  - component: {fileID: 1164380243}
   m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
@@ -3536,11 +3538,50 @@ RectTransform:
   m_Father: {fileID: 1108841205}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 300}
+  m_SizeDelta: {x: -395.1374, y: -200}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &1164380242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164380240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 25
+  m_ChildAlignment: 1
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+--- !u!114 &1164380243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164380240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &1280049752
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,7 +4068,7 @@ RectTransform:
   m_Father: {fileID: 1345722691}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.25000012}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -5822,6 +5863,7 @@ MonoBehaviour:
   menuUIManager: {fileID: 540461665996841895}
   lobbyIds: []
   LobbyListTransform: {fileID: 1164380241}
+  ScrollRect: {fileID: 559738635}
   LobbyListItem: {fileID: 6053338895973421239, guid: f8c0ca9a42b0be347b5e800282e8a542,
     type: 3}
 --- !u!4 &540461666005377322
