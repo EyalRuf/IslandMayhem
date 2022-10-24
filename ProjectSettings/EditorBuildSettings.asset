@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/IslnadCasperEyal.unity
+    path: Assets/Scenes/OLD SCENES/IslnadCasperEyal.unity
     guid: 4c28def679c73704da05e2b9b6cb6e67
   m_configObjects: {}
