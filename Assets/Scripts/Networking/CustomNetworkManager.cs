@@ -239,6 +239,8 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     public override void OnServerDisconnect(NetworkConnection conn)
     {
         base.OnServerDisconnect(conn);
+
+        ResetManager();
     }
 
     /// <summary>
