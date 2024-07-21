@@ -19,7 +19,7 @@ namespace Assets.Scripts.Networking
 
         #region Steam Callbacks
         protected Callback<LobbyCreated_t> lobbyCreated;
-        protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
+        //protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
         protected Callback<LobbyEnter_t> lobbyEntered;
         protected Callback<LobbyMatchList_t> lobbyMatchList;
         #endregion
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Networking
 
             #region Steam Callbacks Initialization
             lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
-            gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
+            //gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
             lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
             lobbyMatchList = Callback<LobbyMatchList_t>.Create(OnLobbyMatchList);
             #endregion
@@ -89,7 +89,7 @@ namespace Assets.Scripts.Networking
 
         public void OnGameLobbyJoinRequested (GameLobbyJoinRequested_t callback)
         {
-            SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
+            //SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
         }
 
         public void OnLobbyEntered (LobbyEnter_t callback)
