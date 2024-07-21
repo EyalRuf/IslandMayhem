@@ -123,6 +123,7 @@ namespace Assets.Scripts.Networking
         public void GetLobbies ()
         {
             ClearLobbyList();
+            SteamMatchmaking.AddRequestLobbyListStringFilter("game", "eyalgame", ELobbyComparison.k_ELobbyComparisonEqual);
             SteamMatchmaking.RequestLobbyList();
         }
 
@@ -150,7 +151,7 @@ namespace Assets.Scripts.Networking
 
                 // Don't need empty or local player's own lobbies
                 // only need the game when using the 480 appid
-                if (game.Equals("eyalgame") && playerCount > 0 && !hostId.Equals(SteamUser.GetSteamID().ToString()))
+                if (game.Equals("eyalgame"))
                 {
                     hostNames.Add(hostName);
                     playercounts.Add(playerCount);
@@ -163,7 +164,7 @@ namespace Assets.Scripts.Networking
                 GameObject instance = Instantiate(LobbyListItem, LobbyListTransform);
                 instance.GetComponent<LobbyListItem>().updateLobbyUI(hostNames[i], playercounts[i] + "/" + matchManager.numberOfPlayersNeededToStart, tempLobbyIds[i], JoinLobby);
                 lobbyIds.Add(tempLobbyIds[i]);
-                            }
+            }
         }
 
         private void ClearLobbyList()
@@ -178,15 +179,8 @@ namespace Assets.Scripts.Networking
 
         private void JoinLobby(CSteamID lobbyId)
         {
-            if (lobbyIds.Contains(lobbyId))
-            {
-                menuUIManager.ClickedLobby();
-                SteamMatchmaking.JoinLobby(lobbyId);
-            }
-            else
-            {
-                Debug.Log("Tried to join lobby that does not exist");
-            }
+            menuUIManager.ClickedLobby();
+            SteamMatchmaking.JoinLobby(lobbyId);
         }
     }
 }
