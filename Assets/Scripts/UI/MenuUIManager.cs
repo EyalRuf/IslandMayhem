@@ -24,28 +24,44 @@ namespace Assets.Scripts.UI
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 networkManager.ResetManager();
-                ClickedBackToMain();
                 steamLobby.LeaveLobby();
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                ClickedBackToMain();
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
 
         public void ClickedHost()
         {
-            steamLobby.HostLobby();
+            if (networkManager.isSteam)
+            {
+                steamLobby.HostLobby();
+            } 
+            else
+            {
+                networkManager.StartHost();
+            }
+
             
             MenuParent.gameObject.SetActive(false);
         }
 
         public void ClickedLobbies()
         {
-            steamLobby.GetLobbies();
+            if (networkManager.isSteam) 
+            {
+                steamLobby.GetLobbies();
 
-            MenuParent.gameObject.SetActive(true);
+                MenuParent.gameObject.SetActive(true);
 
-            MainPage.gameObject.SetActive(false);
-            LoadPage.gameObject.SetActive(false);
-            LobbyPage.gameObject.SetActive(true);
+                MainPage.gameObject.SetActive(false);
+                LoadPage.gameObject.SetActive(false);
+                LobbyPage.gameObject.SetActive(true);
+            }
+            else {
+                JoinedGame();
+                networkManager.networkAddress = "localhost";
+                networkManager.StartClient();
+            }
         }
 
         public void ClickedLobby()
