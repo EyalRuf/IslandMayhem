@@ -23,7 +23,7 @@ TagManager:
   - PickupableItem
   - InteractionArea
   - PlayerPunch
-  - 
+  - PlayerAimTarget
   - 
   - 
   - 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
+using Assets.Scripts.Player;
 
 public class ThrowableItem : PickupableItem
 {
@@ -9,6 +10,8 @@ public class ThrowableItem : PickupableItem
     public float throwForce;
     public float movementDirectionForceMultiplyer;
     public Transform throwTarget;
+    public PlayerThrowTargetController targetedPlayer;
+
 
     [Header("Trajectory")]
     public bool drawTrajectory;
@@ -34,6 +37,7 @@ public class ThrowableItem : PickupableItem
     public override void Update()
     {
         base.Update();
+
         drawTrajectory = currUsingPlayer != null ? currUsingPlayer.lpInput.itemSecondaryUsage : false;
         lineRenderer.enabled = drawTrajectory;
         trajectoryEndSphere.SetActive(drawTrajectory);
@@ -52,6 +56,10 @@ public class ThrowableItem : PickupableItem
             if (drawTrajectory)
             {
                 DrawThrowTrajectory();
+            }
+            else
+            {
+                Untarget();
             }
         }
     }
@@ -80,6 +88,7 @@ public class ThrowableItem : PickupableItem
 
         Drop();
         rb.AddForce(throwVec);
+        Untarget();
     }
 
     public override void Drop()
@@ -132,6 +141,27 @@ public class ThrowableItem : PickupableItem
         if (hit.transform)
         {
             linePoints.Add(hit.point);
+
+            PlayerThrowTargetController player = hit.collider.GetComponent<PlayerThrowTargetController>();
+            if (player != null)
+            {
+                if (targetedPlayer == null)
+                {
+                    Target(player);
+                }
+                else if (targetedPlayer.GetInstanceID() != player.GetInstanceID())
+                {
+                    Untarget();
+                    Target(player);
+                }
+            }
+            else
+            {
+                Untarget();
+            }
+        } else
+        {
+            Untarget();
         }
 
         lineRenderer.positionCount = linePoints.Count;
@@ -154,5 +184,20 @@ public class ThrowableItem : PickupableItem
             throwTarget.forward.z * aimMultiplyerVec.z);
 
         return (adjustedThrowVec * throwForce) + (currObjectVelocity * movementMultiplyer) + aimAdditionVec;
+    }
+
+    public void Target (PlayerThrowTargetController targetPlayer)
+    {
+        targetPlayer.ShowTarget();
+        targetedPlayer = targetPlayer;
+    }
+
+    public void Untarget ()
+    {
+        if (targetedPlayer != null)
+        {
+            targetedPlayer.HideTarget();
+            targetedPlayer = null;
+        }
     }
 }
