@@ -2,6 +2,7 @@
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+#if !UNITY_6000_0_OR_NEWER
 public class FlatKitDepthNormals : ScriptableRendererFeature {
     class DepthNormalsPass : ScriptableRenderPass {
         private RenderTargetHandle _depthAttachmentHandle;
@@ -90,3 +91,10 @@ public class FlatKitDepthNormals : ScriptableRendererFeature {
         renderer.EnqueuePass(_depthNormalsPass);
     }
 }
+#else
+// Stub — RenderTargetHandle removed in URP 17. Port to RTHandle pending.
+public class FlatKitDepthNormals : ScriptableRendererFeature {
+    public override void Create() { }
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData) { }
+}
+#endif

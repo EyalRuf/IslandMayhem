@@ -39,7 +39,7 @@ public class PlayerItemInteractions : NetworkBehaviour
                 Vector3 throwVec = (heldItem as ThrowableItem).CalcThrowVector();
                 if (lpInput.itemMainUseDown)
                 {
-                    CmdUseItem(netId, heldItem.transform.position, heldItem.transform.rotation, heldItem.rb.velocity, throwVec, true);
+                    CmdUseItem(netId, heldItem.transform.position, heldItem.transform.rotation, heldItem.rb.linearVelocity, throwVec, true);
                 }
                 if (lpInput.itemSecondaryUsageDown)
                 {

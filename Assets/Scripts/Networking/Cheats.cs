@@ -75,7 +75,7 @@ public class Cheats : NetworkBehaviour
                         throwTarget.y * coconut.aimMultiplyerVec.y,
                         throwTarget.z * coconut.aimMultiplyerVec.z);
 
-                    coconut.UseMain(coconut.transform.position, coconut.transform.rotation, coconut.rb.velocity, (adjustedThrowVec * coconut.throwForce) + coconut.aimAdditionVec);
+                    coconut.UseMain(coconut.transform.position, coconut.transform.rotation, coconut.rb.linearVelocity, (adjustedThrowVec * coconut.throwForce) + coconut.aimAdditionVec);
                 }
             }
         }

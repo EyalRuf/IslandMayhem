@@ -10,8 +10,15 @@ public class ThrowableItem : PickupableItem
     public float throwForce;
     public float movementDirectionForceMultiplyer;
     public Transform throwTarget;
-    public PlayerThrowTargetController targetedPlayer;
 
+    [Header("Targeting")]
+    public float targetedThrowSpeed = 1.0f;
+    public float targetShotDuration = 2f;
+    public PlayerThrowTargetController targetedPlayer;
+    private Transform targetedTransform;
+    private bool executingAutoAim;
+    private float timeTargeted;
+    private Vector3 posWhenThrown;
 
     [Header("Trajectory")]
     public bool drawTrajectory;
@@ -41,25 +48,40 @@ public class ThrowableItem : PickupableItem
         drawTrajectory = currUsingPlayer != null ? currUsingPlayer.lpInput.itemSecondaryUsage : false;
         lineRenderer.enabled = drawTrajectory;
         trajectoryEndSphere.SetActive(drawTrajectory);
-        trail.SetActive(rb.velocity.magnitude > 10f);
+        trail.SetActive((targetedPlayer != null && targetedPlayer.isAutoAim) || rb.linearVelocity.magnitude > 10f);
 
-        if (isGrounded) // after hit ground can't hit players anymore
+        if (executingAutoAim)
         {
-            hitInflictor.isActive = false;
-        }
-
-        if (isBeingHeld)
-        {
-            currObjectVelocity = transform.position - lastPosition;
-            lastPosition = transform.position;
-
-            if (drawTrajectory)
+            float timeElapsed = Time.time - timeTargeted;
+            if (!hitInflictor.isActive || targetShotDuration < timeElapsed)
             {
-                DrawThrowTrajectory();
+                StopAutoAim();
             }
             else
             {
-                Untarget();
+                rb.position = Vector3.Lerp(posWhenThrown, targetedTransform.position, timeElapsed * targetedThrowSpeed);
+            }
+        }
+        else
+        {
+            if (isGrounded) // after hit ground can't hit players anymore
+            {
+                hitInflictor.isActive = false;
+            }
+
+            if (isBeingHeld)
+            {
+                currObjectVelocity = transform.position - lastPosition;
+                lastPosition = transform.position;
+
+                if (drawTrajectory)
+                {
+                    DrawThrowTrajectory();
+                }
+                else
+                {
+                    Untarget();
+                }
             }
         }
     }
@@ -69,6 +91,8 @@ public class ThrowableItem : PickupableItem
         base.Pickup(player);
         throwTarget = player.cameraController.targetTransform;
         hitInflictor.Deactivate();
+
+        Untarget();
     }
 
     public override void UseMain(Vector3 pos, Quaternion rot, Vector3 vel, Vector3 throwVec)
@@ -87,8 +111,26 @@ public class ThrowableItem : PickupableItem
         }
 
         Drop();
-        rb.AddForce(throwVec);
+
+        if (targetedPlayer == null || !targetedPlayer.isAutoAim)
+        {
+            rb.AddForce(throwVec);
+            Untarget();
+        }
+        else
+        {
+            executingAutoAim = true;
+            posWhenThrown = rb.position;
+            targetedTransform = targetedPlayer.relatedPlayerTransform;
+            rb.isKinematic = true;
+            timeTargeted = Time.time;
+        }
+    }
+
+    public void StopAutoAim ()
+    {
         Untarget();
+        rb.isKinematic = false;
     }
 
     public override void Drop()
@@ -199,5 +241,7 @@ public class ThrowableItem : PickupableItem
             targetedPlayer.HideTarget();
             targetedPlayer = null;
         }
+
+        executingAutoAim = false;
     }
 }

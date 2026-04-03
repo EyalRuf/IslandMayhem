@@ -27,32 +27,32 @@ public class RandomEventSystem : NetworkBehaviour
 
     private void Update()
     {
-        if (matchManager == null)
-        {
-            matchManager = FindObjectOfType<MatchManager>();
-        } else
-        {
-            if (matchManager.gameStarted && !started)
-            {
-                //DO THIS IN EDITOR
-                //get all events
-                //events = FindObjectsOfType<RandomEvent>().OrderBy(e => e.name).ToArray();
-            }
+        //if (matchManager == null)
+        //{
+        //    matchManager = FindObjectOfType<MatchManager>();
+        //} else
+        //{
+        //    if (matchManager.gameStarted && !started)
+        //    {
+        //        //DO THIS IN EDITOR
+        //        //get all events
+        //        //events = FindObjectsOfType<RandomEvent>().OrderBy(e => e.name).ToArray();
+        //    }
 
-            if (!isServer) //server only behaviour
-                return;
+        //    if (!isServer) //server only behaviour
+        //        return;
 
-            if (matchManager.gameStarted && !started)
-            {
-                //get all events
-                events = FindObjectsOfType<RandomEvent>();
+        //    if (matchManager.gameStarted && !started)
+        //    {
+        //        //get all events
+        //        events = FindObjectsOfType<RandomEvent>();
 
-                //start coroutine
-                StartCoroutine(EventLoop());
+        //        //start coroutine
+        //        StartCoroutine(EventLoop());
 
-                started = true;
-            }
-        }
+        //        started = true;
+        //    }
+        //}
     }
 
     private IEnumerator EventLoop()

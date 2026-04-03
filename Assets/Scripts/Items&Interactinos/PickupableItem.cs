@@ -35,7 +35,7 @@ public class PickupableItem : NetworkBehaviour
     {
         netPos = transform.position;
         netRot = transform.rotation;
-        netVel = rb.velocity;
+        netVel = rb.linearVelocity;
     }
 
     public virtual void Update()
@@ -58,14 +58,14 @@ public class PickupableItem : NetworkBehaviour
         if (!isGrounded && rb.useGravity)
         {
             Vector3 vec = Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
-            rb.velocity += vec;
+            rb.linearVelocity += vec;
         }
 
         if (isServer)
         {
             netPos = transform.position;
             netRot = transform.rotation;
-            netVel = rb.velocity;
+            netVel = rb.linearVelocity;
         } else if (!isBeingHeld)
         {
             UpdateTransform(netPos, netRot, netVel);
@@ -79,16 +79,16 @@ public class PickupableItem : NetworkBehaviour
             transform.position = pos;
         if (Quaternion.Angle(transform.rotation, rot) > 10f)
             transform.rotation = rot;
-        if (Vector3.Distance(rb.velocity, vel) > 5f)
-            rb.velocity = vel;
+        if (Vector3.Distance(rb.linearVelocity, vel) > 5f)
+            rb.linearVelocity = vel;
 
         // smooth closer if not very very close already
         if (Vector3.Distance(transform.position, pos) > 0.01f)
             transform.position = Vector3.Lerp(transform.position, pos, lerpFactor);
         if (Quaternion.Angle(transform.rotation, rot) > 0.1f)
             transform.rotation = Quaternion.Lerp(transform.rotation, rot, lerpFactor);
-        if (Vector3.Distance(rb.velocity, vel) > 0.01f)
-            rb.velocity = Vector3.Lerp(rb.velocity, vel, lerpFactor);
+        if (Vector3.Distance(rb.linearVelocity, vel) > 0.01f)
+            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, vel, lerpFactor);
     }
 
     //[Command]
@@ -134,14 +134,14 @@ public class PickupableItem : NetworkBehaviour
     {
         transform.position = pos;
         transform.rotation = rot;
-        rb.velocity = vel;
+        rb.linearVelocity = vel;
     }
 
     public virtual void UseSecondary(Vector3 pos, Quaternion rot, Vector3 vel)
     {
         transform.position = pos;
         transform.rotation = rot;
-        rb.velocity = vel;
+        rb.linearVelocity = vel;
     }
 
     public void Outline(bool flag)

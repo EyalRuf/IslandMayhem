@@ -96,7 +96,7 @@ public class FlatKitReadme : ScriptableObject {
             return;
         }
 
-        GraphicsSettings.renderPipelineAsset = pipelineAsset;
+        GraphicsSettings.defaultRenderPipeline = pipelineAsset;
         QualitySettings.renderPipeline = pipelineAsset;
 
         Debug.Log(
@@ -106,7 +106,7 @@ public class FlatKitReadme : ScriptableObject {
 
     [Button("Configure project for Built-in RP")]
     private void ConfigureBuiltIn() {
-        GraphicsSettings.renderPipelineAsset = null;
+        GraphicsSettings.defaultRenderPipeline = null;
         QualitySettings.renderPipeline = null;
         Debug.Log("<b>[Flat Kit]</b> Cleared the render pipeline asset in the Graphics and Quality settings.");
     }

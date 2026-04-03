@@ -25,11 +25,11 @@ namespace StylizedWater2
         /// </summary>
         /// <param name="assetName"></param>
         /// <returns></returns>
-        public static ForwardRendererData GetRenderer(string GUID)
+        public static UniversalRendererData GetRenderer(string GUID)
         {
 #if UNITY_EDITOR
             string assetPath = AssetDatabase.GUIDToAssetPath(GUID);
-            ForwardRendererData renderer = (ForwardRendererData)AssetDatabase.LoadAssetAtPath(assetPath, typeof(ForwardRendererData));
+            UniversalRendererData renderer = (UniversalRendererData)AssetDatabase.LoadAssetAtPath(assetPath, typeof(UniversalRendererData));
 
             return renderer;
 #else
@@ -346,7 +346,7 @@ namespace StylizedWater2
         {
             if (!UniversalRenderPipeline.asset) return false;
 
-            ForwardRendererData main = (ForwardRendererData)GetDefaultRenderer();
+            UniversalRendererData main = (UniversalRendererData)GetDefaultRenderer();
 
             return main ? main.shadowTransparentReceive : false;
         }

@@ -64,7 +64,7 @@ namespace StylizedWater2
             System.Reflection.BindingFlags bindings = System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance;
             ScriptableRendererData[] m_rendererDataList = (ScriptableRendererData[])typeof(UniversalRenderPipelineAsset).GetField("m_RendererDataList", bindings).GetValue(UniversalRenderPipeline.asset);
 
-            ForwardRendererData main = m_rendererDataList[0] as ForwardRendererData;
+            UniversalRendererData main = m_rendererDataList[0] as UniversalRendererData;
             Selection.activeObject = main;
 			#endif
         }

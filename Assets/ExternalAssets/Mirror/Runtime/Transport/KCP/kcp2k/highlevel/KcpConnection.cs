@@ -242,6 +242,7 @@ namespace kcp2k
             }
 
             header = KcpHeader.Disconnect;
+            message = default;
             return false;
         }
 

@@ -284,6 +284,9 @@ MonoBehaviour:
   throwForce: 8000
   movementDirectionForceMultiplyer: 25
   throwTarget: {fileID: 0}
+  targetedThrowSpeed: 2
+  targetShotDuration: 2
+  targetedPlayer: {fileID: 0}
   drawTrajectory: 0
   lineRenderer: {fileID: 7323708414163492903}
   lineMaxLength: 50

@@ -157,12 +157,12 @@ public class StylizedSurfaceEditor : ShaderGUI {
             }
 
             if (!skipProperty &&
-                property.type == MaterialProperty.PropType.Color &&
+                property.propertyType == UnityEngine.Rendering.ShaderPropertyType.Color &&
                 property.colorValue == HashColor) {
                 property.colorValue = _target.GetColor(ColorPropertyName);
             }
 
-            bool hideInInspector = (property.flags & MaterialProperty.PropFlags.HideInInspector) != 0;
+            bool hideInInspector = (property.propertyFlags & UnityEngine.Rendering.ShaderPropertyFlags.HideInInspector) != 0;
             if (!hideInInspector && !skipProperty) {
                 DrawStandard(property);
             }

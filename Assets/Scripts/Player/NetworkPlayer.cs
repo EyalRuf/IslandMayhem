@@ -48,7 +48,7 @@ public class NetworkPlayer : NetworkBehaviour
         matchManager = FindObjectOfType<MatchManager>();
         netPlayerPos = transform.position;
         netPlayerRot = transform.rotation;
-        netPlayerVel = rb.velocity;
+        netPlayerVel = rb.linearVelocity;
         netPlayerSize = transform.localScale;
         localPlayerUI.SetActive(isLocalPlayer);
         remotePlayerUI.SetActive(!isLocalPlayer);
@@ -90,7 +90,7 @@ public class NetworkPlayer : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            CmdUpdatePlayerTransform(netId, transform.position, transform.rotation, rb.velocity, transform.localScale);
+            CmdUpdatePlayerTransform(netId, transform.position, transform.rotation, rb.linearVelocity, transform.localScale);
         }
         else 
         {
@@ -98,8 +98,8 @@ public class NetworkPlayer : NetworkBehaviour
                 transform.position = Vector3.Lerp(transform.position, netPlayerPos, lerpFactor);
             if (Quaternion.Angle(transform.rotation, netPlayerRot) > 0.1f)
                 transform.rotation = Quaternion.Lerp(transform.rotation, netPlayerRot, lerpFactor);
-            if (Vector3.Distance(rb.velocity, netPlayerVel) > 0.01f)
-                rb.velocity = Vector3.Lerp(rb.velocity, netPlayerVel, lerpFactor);
+            if (Vector3.Distance(rb.linearVelocity, netPlayerVel) > 0.01f)
+                rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, netPlayerVel, lerpFactor);
             if(Vector3.Distance(transform.localScale, netPlayerSize) > 0.01f)
                 transform.localScale = Vector3.Lerp(transform.localScale, netPlayerSize, lerpFactor);
         }

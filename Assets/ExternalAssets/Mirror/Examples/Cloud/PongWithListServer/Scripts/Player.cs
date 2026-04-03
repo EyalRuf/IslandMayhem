@@ -15,7 +15,7 @@ namespace Mirror.Cloud.Examples.Pong
             if (!isLocalPlayer)
                 return;
 
-            rigidbody2d.velocity = new Vector2(0, Input.GetAxisRaw("Vertical")) * speed * Time.fixedDeltaTime;
+            rigidbody2d.linearVelocity = new Vector2(0, Input.GetAxisRaw("Vertical")) * speed * Time.fixedDeltaTime;
         }
     }
 }

@@ -553,7 +553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2760383758412917327}
   - component: {fileID: 8980708154849632921}
-  - component: {fileID: 3717086136195289632}
+  - component: {fileID: 3517663939499650237}
   m_Layer: 12
   m_Name: TargetAimCollider
   m_TagString: Player
@@ -589,7 +589,7 @@ CapsuleCollider:
   m_Height: 8.32
   m_Direction: 1
   m_Center: {x: 0, y: 3, z: 0}
---- !u!114 &3717086136195289632
+--- !u!114 &3517663939499650237
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -606,6 +606,8 @@ MonoBehaviour:
   aim1: {fileID: 21300000, guid: d5ec5385ced34414e963f38b851b625e, type: 3}
   aim2: {fileID: 21300000, guid: a20d4f16e61a67a40b72bd1732a6b1e8, type: 3}
   aim3: {fileID: 21300000, guid: e94d1421fb7c19543857485d857305cc, type: 3}
+  relatedPlayerTransform: {fileID: 8297925720422174603}
+  isAutoAim: 0
 --- !u!1 &8297925719936001043
 GameObject:
   m_ObjectHideFlags: 0

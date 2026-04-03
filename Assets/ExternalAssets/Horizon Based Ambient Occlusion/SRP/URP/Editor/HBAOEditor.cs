@@ -31,8 +31,6 @@ namespace HorizonBasedAmbientOcclusion.Universal
             { 5, HBAO.Preset.HighestQuality }
         };
 
-        public override bool hasAdvancedMode => false;
-
         public override void OnEnable()
         {
             base.OnEnable();
@@ -239,7 +237,7 @@ namespace HorizonBasedAmbientOcclusion.Universal
         {
             bool vrIsRunning = false;
             displays.Clear();
-            SubsystemManager.GetInstances(displays);
+            SubsystemManager.GetSubsystems(displays);
             foreach (var displaySubsystem in displays)
             {
                 if (displaySubsystem.running)

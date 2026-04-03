@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ namespace Assets.Scripts.Player
         public Sprite aim1;
         public Sprite aim2;
         public Sprite aim3;
+        public Transform relatedPlayerTransform;
 
         public bool isAutoAim;
 

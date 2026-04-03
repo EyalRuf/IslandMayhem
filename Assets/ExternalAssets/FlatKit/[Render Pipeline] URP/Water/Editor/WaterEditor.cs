@@ -54,13 +54,13 @@ public class FlatKitWaterEditor : ShaderGUI {
                 }
             }
 
-            bool hideInInspector = (property.flags & MaterialProperty.PropFlags.HideInInspector) != 0;
+            bool hideInInspector = (property.propertyFlags & ShaderPropertyFlags.HideInInspector) != 0;
             if (!skipProperty && !hideInInspector) {
                 DrawStandard(materialEditor, property);
             }
 
             if (targetMaterial.IsKeywordEnabled("_COLORMODE_GRADIENT_TEXTURE") &&
-                property.type == MaterialProperty.PropType.Texture &&
+                property.propertyType == ShaderPropertyType.Texture &&
                 property.displayName.StartsWith("[_COLORMODE_GRADIENT_TEXTURE]") &&
                 property.textureValue != null) {
                 GUILayout.Space(-50);
@@ -106,7 +106,7 @@ public class FlatKitWaterEditor : ShaderGUI {
     }
 
     private bool ShowColorGradientExportBox(MaterialEditor materialEditor, MaterialProperty property) {
-        bool isGradientTexture = property.type == MaterialProperty.PropType.Texture &&
+        bool isGradientTexture = property.propertyType == ShaderPropertyType.Texture &&
                                  property.displayName.StartsWith("[_COLORMODE_GRADIENT_TEXTURE]");
         if (isGradientTexture) {
             if (property.textureValue != null) {

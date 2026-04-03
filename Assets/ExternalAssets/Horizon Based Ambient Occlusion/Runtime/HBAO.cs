@@ -101,7 +101,6 @@ namespace HorizonBasedAmbientOcclusion
         {
             public Preset preset;
 
-            [SerializeField]
             public static Presets defaults
             {
                 get
@@ -139,7 +138,6 @@ namespace HorizonBasedAmbientOcclusion
             [Space(10)]
             public DebugMode debugMode;
 
-            [SerializeField]
             public static GeneralSettings defaults
             {
                 get
@@ -205,7 +203,6 @@ namespace HorizonBasedAmbientOcclusion
             [Space(10)]
             public Color baseColor;
 
-            [SerializeField]
             public static AOSettings defaults
             {
                 get
@@ -237,7 +234,6 @@ namespace HorizonBasedAmbientOcclusion
             [Tooltip("The type of variance clipping to use.")]
             public VarianceClipping varianceClipping;
 
-            [SerializeField]
             public static TemporalFilterSettings defaults
             {
                 get
@@ -265,7 +261,6 @@ namespace HorizonBasedAmbientOcclusion
             [Space(10), Range(0, 16)]
             public float sharpness;
 
-            [SerializeField]
             public static BlurSettings defaults
             {
                 get
@@ -301,7 +296,6 @@ namespace HorizonBasedAmbientOcclusion
             [MinMaxSlider(0, 2)]
             public Vector2 brightnessMaskRange;
 
-            [SerializeField]
             public static ColorBleedingSettings defaults
             {
                 get

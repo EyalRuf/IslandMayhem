@@ -64,8 +64,8 @@ public class ThirdPersonCharacterController : NetworkBehaviour
 
     [Header("Misc")]
     public float groundedDrag;
-    public PhysicMaterial groundedMaterial;
-    public PhysicMaterial airBorneMaterial;
+    public PhysicsMaterial groundedMaterial;
+    public PhysicsMaterial airBorneMaterial;
 
 
     private void Start()
@@ -115,13 +115,13 @@ public class ThirdPersonCharacterController : NetworkBehaviour
             //if we're grounded, apply drag horizontally.
             if (isGrounded)
             {
-                Vector3 newVelocity = rb.velocity * (1 - groundedDrag * Time.fixedDeltaTime);
-                rb.velocity = new Vector3(newVelocity.x, rb.velocity.y, newVelocity.z);
+                Vector3 newVelocity = rb.linearVelocity * (1 - groundedDrag * Time.fixedDeltaTime);
+                rb.linearVelocity = new Vector3(newVelocity.x, rb.linearVelocity.y, newVelocity.z);
 
             } else if (rb.useGravity) // Whenever we're not grounded apply gravity forces
             {
                 Vector3 vec2 = Vector3.up * Physics2D.gravity.y * rb.mass * Time.fixedDeltaTime;
-                rb.velocity += vec2;
+                rb.linearVelocity += vec2;
             }
 
             // Set physics material
@@ -152,12 +152,12 @@ public class ThirdPersonCharacterController : NetworkBehaviour
         playerAnims.JumpAnim();
         Instantiate(jumpParticles, jumpParticlesTransform.position, Quaternion.Euler(-90, 0, 0));
 
-        if (rb.velocity.y < 0)
+        if (rb.linearVelocity.y < 0)
         {
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         }
 
-        rb.velocity += Vector3.up * jumpForce * (pBuffs.jumpBuffActive ? pBuffs.jumpForceMultiplyer : 1);
+        rb.linearVelocity += Vector3.up * jumpForce * (pBuffs.jumpBuffActive ? pBuffs.jumpForceMultiplyer : 1);
     }
 
     [ClientRpc]

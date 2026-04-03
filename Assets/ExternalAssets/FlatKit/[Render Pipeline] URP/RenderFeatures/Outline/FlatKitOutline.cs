@@ -3,6 +3,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 namespace FlatKit {
+#if !UNITY_6000_0_OR_NEWER
 public class FlatKitOutline : ScriptableRendererFeature {
     class OutlinePass : ScriptableRenderPass {
         private ScriptableRenderer _renderer;
@@ -157,4 +158,11 @@ public class FlatKitOutline : ScriptableRendererFeature {
         _material.SetFloat(ColorThresholdMax, settings.maxColorThreshold);
     }
 }
+#else
+// Stub — RenderTargetHandle removed in URP 17. Port to RTHandle pending.
+public class FlatKitOutline : ScriptableRendererFeature {
+    public override void Create() { }
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData) { }
+}
+#endif
 }

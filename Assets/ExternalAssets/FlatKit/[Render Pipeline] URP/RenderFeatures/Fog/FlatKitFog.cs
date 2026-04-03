@@ -3,6 +3,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 namespace FlatKit {
+#if !UNITY_6000_0_OR_NEWER
 public class FlatKitFog : ScriptableRendererFeature {
     class EffectPass : ScriptableRenderPass {
         private ScriptableRenderer _renderer;
@@ -194,4 +195,11 @@ public class FlatKitFog : ScriptableRendererFeature {
         _lutHeight.Apply();
     }
 }
+#else
+// Stub — RenderTargetHandle removed in URP 17. Port to RTHandle pending.
+public class FlatKitFog : ScriptableRendererFeature {
+    public override void Create() { }
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData) { }
+}
+#endif
 }

@@ -369,7 +369,7 @@ namespace HorizonBasedAmbientOcclusion.Universal
 #endif
             }
 
-#if URP_10_0_0_OR_NEWER
+#if URP_10_0_0_OR_NEWER && !UNITY_6000_0_OR_NEWER
             public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
             {
                 source = new RenderTargetIdentifier("_CameraColorTexture");
@@ -388,6 +388,7 @@ namespace HorizonBasedAmbientOcclusion.Universal
             }
 #endif
 
+#if !UNITY_6000_0_OR_NEWER
             // This method is called before executing the render pass.
             // It can be used to configure render targets and their clear state. Also to create temporary render target textures.
             // When empty this render pass will render to the active camera render target.
@@ -461,6 +462,7 @@ namespace HorizonBasedAmbientOcclusion.Universal
 
                 frameCount++;
             }
+#endif // !UNITY_6000_0_OR_NEWER
 
             /// Cleanup any allocated resources that were created during the execution of this render pass.
             public override void FrameCleanup(CommandBuffer cmd) { }
@@ -542,6 +544,7 @@ namespace HorizonBasedAmbientOcclusion.Universal
                     colorBleedingHistoryBuffer.Release();
             }
 
+#if !UNITY_6000_0_OR_NEWER
             private void CopySource(CommandBuffer cmd)
             {
                 //Blit(cmd, source, ShaderProperties.inputTex);
@@ -675,6 +678,7 @@ namespace HorizonBasedAmbientOcclusion.Universal
             {
                 Blit(cmd, ShaderProperties.inputTex, source, material, hbao.debugMode.value == HBAO.DebugMode.ViewNormals ? Pass.Debug_ViewNormals : Pass.Composite);
             }
+#endif // !UNITY_6000_0_OR_NEWER
 
             private void UpdateMaterialProperties()
             {

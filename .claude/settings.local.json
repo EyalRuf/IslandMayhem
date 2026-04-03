@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__unity-coplay__read_console",
+      "mcp__unity-coplay__batch_execute"
+    ]
+  }
+}
