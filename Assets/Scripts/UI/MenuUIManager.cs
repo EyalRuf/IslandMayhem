@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Networking;
+using CardboardCore.DI;
 using Steamworks;
 using System.Collections;
 using UnityEngine;
@@ -7,10 +8,12 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
+    [Injectable]
     public class MenuUIManager : MonoBehaviour
     {
         public CustomNetworkManager networkManager;
         [SerializeField] private SteamLobby steamLobby;
+        [SerializeField] private AppManager appManager;
 
         [Header("UI")]
         [SerializeField] private GameObject MenuParent;
@@ -35,14 +38,13 @@ namespace Assets.Scripts.UI
             if (networkManager.isSteam)
             {
                 steamLobby.HostLobby();
-            } 
+                MenuParent.gameObject.SetActive(false);
+            }
             else
             {
-                networkManager.StartHost();
+                appManager.RequestHostLocal(networkManager);
+                // UI hidden by state machine (Chunk 4)
             }
-
-            
-            MenuParent.gameObject.SetActive(false);
         }
 
         public void ClickedLobbies()
@@ -57,10 +59,10 @@ namespace Assets.Scripts.UI
                 LoadPage.gameObject.SetActive(false);
                 LobbyPage.gameObject.SetActive(true);
             }
-            else {
-                JoinedGame();
-                networkManager.networkAddress = "localhost";
-                networkManager.StartClient();
+            else
+            {
+                appManager.RequestJoinLocal(networkManager, "localhost");
+                // UI hidden by state machine (Chunk 4)
             }
         }
 
@@ -75,14 +77,29 @@ namespace Assets.Scripts.UI
             LoadPage.gameObject.SetActive(true);
         }
 
-        public void ClickedBackToMain()
+        public void ShowMainScreen()
         {
-            MenuParent.gameObject.SetActive(true);
-
-            LobbyPage.gameObject.SetActive(false);
-            LoadPage.gameObject.SetActive(false);
-            MainPage.gameObject.SetActive(true);
+            MenuParent.SetActive(true);
+            LobbyPage.SetActive(false);
+            LoadPage.SetActive(false);
+            MainPage.SetActive(true);
         }
+
+        public void ShowLoadingScreen(string message = "Connecting...")
+        {
+            loadingTxt.text = message;
+            MenuParent.SetActive(true);
+            MainPage.SetActive(false);
+            LobbyPage.SetActive(false);
+            LoadPage.SetActive(true);
+        }
+
+        public void HideAll()
+        {
+            MenuParent.SetActive(false);
+        }
+
+        public void ClickedBackToMain() => ShowMainScreen();
 
         public void JoinedGame ()
         {

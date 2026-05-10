@@ -27,13 +27,22 @@ Deep-read all Steam + Mirror related scripts.
 - Fragile patterns identified
 → See [networking.md](networking.md)
 
-### Phase 3 — State Machine Design (Next)
-Design a proper explicit state machine for the lobby/connection flow before touching code.
-- Define states and transitions together
-- Agree on design before implementation
-→ See [state-machine.md](state-machine.md)
+### Phase 2.5 — Codebase Walkthrough ✅ DONE
+All 5 layers complete. Full codebase understood. Issues logged in architecture.md throughout.
 
-### Phase 4 — Architecture & General Cleanup
+### Phase 3 — State Machine Design ✅ DONE
+- ✅ Three state machines designed: AppStateMachine + LobbyStateMachine + MatchLifecycleStateMachine + PlayerStateMachine
+- ✅ All states, transitions, architecture, and design decisions agreed
+- ✅ Reconnect architecture: keep lobby alive, set non-joinable on game start, save lobby ID to PlayerPrefs
+- ✅ Implementation chunked into 8 gradual, testable steps
+→ See [state-machine.md](state-machine.md)
+→ See [implementation-plan.md](implementation-plan.md) for chunk-by-chunk implementation guide
+
+### Phase 4 — State Machine Implementation (Next)
+Implement the state machines chunk by chunk. Each chunk is self-contained and leaves the game playable.
+→ See [implementation-plan.md](implementation-plan.md)
+
+### Phase 5 — Architecture & General Cleanup
 Broader codebase analysis and improvement planning.
 → See [architecture.md](architecture.md)
 
@@ -44,3 +53,7 @@ Broader codebase analysis and improvement planning.
 | [networking.md](networking.md) | Steam P2P + Mirror analysis |
 | [state-machine.md](state-machine.md) | Lobby/connection state machine design |
 | [architecture.md](architecture.md) | Overall codebase map |
+| [scripts.md](scripts.md) | Full script index — every file, its base class, and its purpose |
+| [walkthrough.md](walkthrough.md) | Layered codebase walkthrough plan (Layers 1–5) |
+| [session-handoff.md](session-handoff.md) | Instructions for the next Claude session — read this if starting a walkthrough |
+| [implementation-plan.md](implementation-plan.md) | Chunk-by-chunk state machine implementation guide |

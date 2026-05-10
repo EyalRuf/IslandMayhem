@@ -1,19 +1,28 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
+using System;
 using System.Collections.Generic;
 using Steamworks;
 using System.Linq;
 using System.Collections;
 using Assets.Scripts.UI;
+using CardboardCore.DI;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkManager.html
 	API Reference: https://mirror-networking.com/docs/api/Mirror.NetworkManager.html
 */
 
+[Injectable]
 public class CustomNetworkManager : NetworkManager
 {
+    public event Action HostStartedEvent;
+    public event Action HostStoppedEvent;
+    public event Action ClientStartedEvent;
+    public event Action ClientStoppedEvent;
+    public event Action<NetworkConnection> PlayerDisconnectedEvent;
+
     private const string PLAYER_ID_PREFIX = "Player_";
     private static Dictionary<string, NetworkIdentity> playersDic = new Dictionary<string, NetworkIdentity>();
     private static string localPlayerId;
@@ -104,7 +113,6 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     public override void Start()
     {
         base.Start();
-        SteamAPI.Init();
         //SteamFriends.SetRichPresence("satus", "In Menu");
         //StartCoroutine(VivoxLogin());
     }
@@ -115,7 +123,6 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     public override void LateUpdate()
     {
         base.LateUpdate();
-        SteamAPI.RunCallbacks();
     }
 
     /// <summary>
@@ -238,6 +245,7 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     /// <param name="conn">Connection from client.</param>
     public override void OnServerDisconnect(NetworkConnection conn)
     {
+        PlayerDisconnectedEvent?.Invoke(conn);
         base.OnServerDisconnect(conn);
 
         ResetManager();
@@ -321,8 +329,9 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     /// This is invoked when a host is started.
     /// <para>StartHost has multiple signatures, but they all cause this hook to be called.</para>
     /// </summary>
-    public override void OnStartHost() 
+    public override void OnStartHost()
     {
+        HostStartedEvent?.Invoke();
         base.OnStartHost();
 
         //StartLobby();
@@ -342,8 +351,9 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     /// <summary>
     /// This is invoked when the client is started.
     /// </summary>
-    public override void OnStartClient() 
+    public override void OnStartClient()
     {
+        ClientStartedEvent?.Invoke();
         base.OnStartClient();
 
         SteamFriends.SetRichPresence("status", "In Game");
@@ -368,8 +378,9 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     /// <summary>
     /// This is called when a host is stopped.
     /// </summary>
-    public override void OnStopHost() 
+    public override void OnStopHost()
     {
+        HostStoppedEvent?.Invoke();
         //StopLobby();
 
         base.OnStopHost();
@@ -388,8 +399,9 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     /// <summary>
     /// This is called when a client is stopped.
     /// </summary>
-    public override void OnStopClient() 
+    public override void OnStopClient()
     {
+        ClientStoppedEvent?.Invoke();
         base.OnStopClient();
         SteamFriends.SetRichPresence("status", "In Menu");
         SteamFriends.SetRichPresence("room", "");

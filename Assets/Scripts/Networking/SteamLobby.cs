@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.UI;
+using CardboardCore.DI;
 using Mirror;
 using Steamworks;
 using System;
@@ -9,8 +10,15 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Networking
 {
+    [Injectable]
     public class SteamLobby : MonoBehaviour
     {
+        public event Action LobbyCreatedEvent;
+        public event Action LobbyCreateFailedEvent;
+        public event Action LobbyEnteredEvent;
+        public event Action LobbyListReadyEvent;
+        public event Action LobbyLeftEvent;
+
         public NetworkManager networkManager;
         public MatchManager matchManager;
         public MenuUIManager menuUIManager;
@@ -71,6 +79,7 @@ namespace Assets.Scripts.Networking
             if (callback.m_eResult != EResult.k_EResultOK)
             {
                 Debug.LogError("LobbyFailed");
+                LobbyCreateFailedEvent?.Invoke();
                 return;
             }
 
@@ -85,6 +94,7 @@ namespace Assets.Scripts.Networking
             currLobby = lobbyId;
             networkManager.StartHost();
             Debug.Log("started host");
+            LobbyCreatedEvent?.Invoke();
         }
 
         public void OnGameLobbyJoinRequested (GameLobbyJoinRequested_t callback)
@@ -117,6 +127,7 @@ namespace Assets.Scripts.Networking
                 menuUIManager.JoinedGame();
 
                 Debug.Log("started client");
+                LobbyEnteredEvent?.Invoke();
             }
         }
 
@@ -131,6 +142,7 @@ namespace Assets.Scripts.Networking
         {
             SteamMatchmaking.LeaveLobby(currLobby);
             currLobby = new CSteamID();
+            LobbyLeftEvent?.Invoke();
         }
 
         // Lobbies fetched
@@ -165,6 +177,8 @@ namespace Assets.Scripts.Networking
                 instance.GetComponent<LobbyListItem>().updateLobbyUI(hostNames[i], playercounts[i] + "/" + matchManager.numberOfPlayersNeededToStart, tempLobbyIds[i], JoinLobby);
                 lobbyIds.Add(tempLobbyIds[i]);
             }
+
+            LobbyListReadyEvent?.Invoke();
         }
 
         private void ClearLobbyList()
