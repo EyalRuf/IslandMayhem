@@ -13,7 +13,7 @@ public class PlayerCombat : NetworkBehaviour
     public PlayerItemInteractions pItems;
     public PlayerAnimations pAnims;
     public CampManager cm;
-    public MatchManager matchManager;
+    public MatchService matchService;
     public PlayerBuffs pBuffs;
 
     [Header("Combat")]
@@ -63,7 +63,7 @@ public class PlayerCombat : NetworkBehaviour
     {
         punchObj.initiatorNetId = netId;
         cm = FindObjectOfType<CampManager>();
-        matchManager = FindObjectOfType<MatchManager>();
+        matchService = FindObjectOfType<MatchService>();
     }
 
     // Update is called once per frame
@@ -141,7 +141,7 @@ public class PlayerCombat : NetworkBehaviour
         isInvulnerable = true;
         StartCoroutine(InvulnerabilityTime());
 
-        if (matchManager.gameStarted)
+        if (matchService != null && matchService.gameStarted)
         {
             stunnedParticles.SetActive(true);
 

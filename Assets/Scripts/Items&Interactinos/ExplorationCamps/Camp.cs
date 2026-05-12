@@ -33,7 +33,7 @@ public class Camp : NetworkBehaviour
     public Transform pedestalTransform;
     public AudioClip campDoneSound;
     public Transform[] spawnPositions;
-    public MatchManager mm;
+    public MatchService mm;
 
     [Header("Buffs")]
     public float overlapRadius;
@@ -49,7 +49,7 @@ public class Camp : NetworkBehaviour
         source = GetComponent<AudioSource>();
 
         campSteps = new List<CampStep>(GetComponentsInChildren<CampStep>()).FindAll(step => step.transform.parent == transform);
-        mm = FindObjectOfType<MatchManager>();
+        mm = FindObjectOfType<MatchService>();
 
         if (!isServer)
             return;

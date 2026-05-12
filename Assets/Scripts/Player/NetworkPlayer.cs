@@ -18,7 +18,6 @@ public class NetworkPlayer : NetworkBehaviour
     public GameObject[] gameObjectsToDisableForNotLocal;
     [HideInInspector]
     public TeamAndObjectivesUI localPlayer_TNO_UI;
-    MatchManager matchManager;
 
     [Header("UI")]
     public GameObject localPlayerUI;
@@ -45,7 +44,6 @@ public class NetworkPlayer : NetworkBehaviour
 
     void Start()
     {
-        matchManager = FindObjectOfType<MatchManager>();
         netPlayerPos = transform.position;
         netPlayerRot = transform.rotation;
         netPlayerVel = rb.linearVelocity;
@@ -74,7 +72,7 @@ public class NetworkPlayer : NetworkBehaviour
                 CmdSetUserName(SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()));
             }
 
-            FindObjectOfType<MatchManager>().overviewCam.gameObject.SetActive(false);
+            FindObjectOfType<MatchNetworkSync>()?.overviewCam.gameObject.SetActive(false);
             localPlayer_TNO_UI = FindObjectOfType<TeamAndObjectivesUI>();
         }
     }

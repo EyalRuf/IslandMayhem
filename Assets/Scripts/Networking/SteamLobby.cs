@@ -20,8 +20,9 @@ namespace Assets.Scripts.Networking
         public event Action LobbyLeftEvent;
 
         public NetworkManager networkManager;
-        public MatchManager matchManager;
         public MenuUIManager menuUIManager;
+
+        private MatchService matchService;
 
         private string HostAddressKey = "HostAddress";
 
@@ -43,6 +44,7 @@ namespace Assets.Scripts.Networking
         private void Start()
         {
             networkManager = GetComponent<NetworkManager>();
+            matchService = GetComponent<MatchService>();
 
             if (!SteamManager.Initialized) 
                 return;
@@ -109,7 +111,7 @@ namespace Assets.Scripts.Networking
             if (NetworkServer.active) // I'm hosting and someone joined my lobby
             {
                 int playerCount = SteamMatchmaking.GetNumLobbyMembers(lobbyId);
-                if (playerCount >= matchManager.numberOfPlayersNeededToStart)
+                if (playerCount >= matchService.numberOfPlayersNeededToStart)
                 {
                     SteamMatchmaking.SetLobbyJoinable(lobbyId, false);
                 }
@@ -174,7 +176,7 @@ namespace Assets.Scripts.Networking
             for (var i = 0; i < hostNames.Count; i++)
             {
                 GameObject instance = Instantiate(LobbyListItem, LobbyListTransform);
-                instance.GetComponent<LobbyListItem>().updateLobbyUI(hostNames[i], playercounts[i] + "/" + matchManager.numberOfPlayersNeededToStart, tempLobbyIds[i], JoinLobby);
+                instance.GetComponent<LobbyListItem>().updateLobbyUI(hostNames[i], playercounts[i] + "/" + matchService.numberOfPlayersNeededToStart, tempLobbyIds[i], JoinLobby);
                 lobbyIds.Add(tempLobbyIds[i]);
             }
 

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -7,7 +7,7 @@ using TMPro;
 public class TeamAndObjectivesUI : MonoBehaviour
 {
     [Header("References")]
-    public TTTMatchManager matchManager;
+    public MatchService matchService;
     public NetworkPlayer localPlayer;
 
     [Header("TeamUI")]
@@ -26,26 +26,20 @@ public class TeamAndObjectivesUI : MonoBehaviour
 
     private bool initialRefresh;
 
-    // Use this for initialization
     void Start()
     {
-        if (matchManager == null)
-        {
-            matchManager = FindObjectOfType<TTTMatchManager>();
-        }
+        if (matchService == null)
+            matchService = FindObjectOfType<MatchService>();
 
         currObjectivesListed = new List<GameObject>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (localPlayer == null && CustomNetworkManager.localPlayerInitialized)
-        {
             localPlayer = CustomNetworkManager.GetLocalPlayer().GetComponent<NetworkPlayer>();
-        }
 
-        if (localPlayer != null )
+        if (localPlayer != null)
         {
             if (!localPlayer.isLocalPlayer)
                 return;
@@ -57,18 +51,15 @@ public class TeamAndObjectivesUI : MonoBehaviour
             }
         }
 
-        if (matchManager is SingelTotemMatchManager)
-        {
-            timerText.text = (matchManager as SingelTotemMatchManager).matchTimer.GetMatchTimeString;
-        }
+        if (matchService != null)
+            timerText.text = matchService.GetTimerString();
     }
 
-    void RecreateObjectiveList (List<MatchObjective> playerObjectives)
+    void RecreateObjectiveList(List<MatchObjective> playerObjectives)
     {
         currObjectivesListed.ForEach(objGameObject => Destroy(objGameObject));
         currObjectivesListed = new List<GameObject>();
 
-        // Setting container height and pos
         container.rect.Set(container.rect.x, objListContainerBasePosY - (objectiveListItemHeight / 2 * playerObjectives.Count),
             container.rect.width, objListContainerBaseHeight + objectiveListItemHeight * playerObjectives.Count);
 
@@ -80,12 +71,11 @@ public class TeamAndObjectivesUI : MonoBehaviour
             objectiveUI.objective = currObjective;
             objectiveUI.objectiveItemHeight = objectiveListItemHeight;
             objectiveUI.objectiveIndex = i + 1;
-
             currObjectivesListed.Add(objectiveGO);
         }
     }
 
-    public void RefreshUI ()
+    public void RefreshUI()
     {
         if (localPlayer != null && localPlayer.playerTeam != -1)
         {
@@ -94,16 +84,18 @@ public class TeamAndObjectivesUI : MonoBehaviour
         }
     }
 
-    public void RefreshTeamUI ()
+    public void RefreshTeamUI()
     {
-        Color teamColor = matchManager.teamColors[localPlayer.playerTeam];
-        background.color = new Color(teamColor.r, teamColor.g, teamColor.b, 55f/255f);
-        teamNameText.text = matchManager.teamNames[localPlayer.playerTeam];
+        Color teamColor = matchService.teamColors[localPlayer.playerTeam];
+        background.color = new Color(teamColor.r, teamColor.g, teamColor.b, 55f / 255f);
+        teamNameText.text = matchService.teamNames[localPlayer.playerTeam];
     }
 
-    public void RefreshObjectiveUI ()
+    public void RefreshObjectiveUI()
     {
-        List<MatchObjective> newPlayerObjectives = localPlayer.playerTeam == 0 ? matchManager.team0Objectives : matchManager.team1Objectives;
+        List<MatchObjective> newPlayerObjectives = localPlayer.playerTeam == 0
+            ? matchService.team0Objectives
+            : matchService.team1Objectives;
 
         RecreateObjectiveList(newPlayerObjectives);
     }

@@ -9,7 +9,7 @@ public class RandomEventSystem : NetworkBehaviour
     public Vector2 eventDelayRange = new Vector2(30f, 120f);
 
     private bool started = false;
-    public MatchManager matchManager;
+    public MatchService matchManager;
     public RandomEvent[] events;
 
     [Header("Misc")]

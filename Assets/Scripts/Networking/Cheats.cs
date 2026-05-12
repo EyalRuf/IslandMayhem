@@ -17,7 +17,8 @@ public class Cheats : NetworkBehaviour
     private Texture2D pepega;
     private string username;
 
-    private MatchManager matchManager;
+    private MatchService matchService;
+    private MatchNetworkSync matchNetworkSync;
     private RandomEventSystem eventSystem;
 
     private ThirdPersonCharacterController player;
@@ -29,7 +30,8 @@ public class Cheats : NetworkBehaviour
 
     private void Start()
     {
-        matchManager = FindObjectOfType<MatchManager>();
+        matchService = FindObjectOfType<MatchService>();
+        matchNetworkSync = FindObjectOfType<MatchNetworkSync>();
         eventSystem = FindObjectOfType<RandomEventSystem>();
         windowRect = new Rect(Screen.width - 250, 0, 250, 250);
         pepega = (Texture2D)Resources.Load("pepega");
@@ -100,16 +102,13 @@ public class Cheats : NetworkBehaviour
 
             if (isServer)
             {
-                if (GUILayout.Button("Start Game") && matchManager != null)
+                if (GUILayout.Button("Start Game") && matchService != null && matchNetworkSync != null)
                 {
-                    matchManager.startingGame = true;
-
-                    matchManager.gameStatus = "Starting game.";
-                    matchManager.CalculateAndAssignTeams();
-
-                    //sync info
-                    matchManager.RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(matchManager.teams)));
-                    matchManager.RpcStartGame(); //invoke sychronized start game sequence
+                    matchService.startingGame = true;
+                    matchService.gameStatus = "Starting game.";
+                    matchService.CalculateAndAssignTeams();
+                    matchNetworkSync.RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(matchService.teams)));
+                    matchNetworkSync.RpcStartGame();
                 }
 
                 if (GUILayout.Button("Random event") && eventSystem != null)
@@ -153,12 +152,12 @@ public class Cheats : NetworkBehaviour
                 coconutMachineGun = GUILayout.Toggle(coconutMachineGun, "Coconut machine gun:");
             }
 
-            if (matchManager.networkManager != null && isServer)
+            if (matchService?.networkManager != null && isServer)
             {
                 GUILayout.Label("Spawn items:");
 
                 itemScroll = GUILayout.BeginScrollView(itemScroll, GUILayout.Height(100));
-                foreach (GameObject prefab in matchManager.networkManager.spawnPrefabs)
+                foreach (GameObject prefab in matchService.networkManager.spawnPrefabs)
                 {
                     if (GUILayout.Button("Spawn " + prefab.name))
                     {

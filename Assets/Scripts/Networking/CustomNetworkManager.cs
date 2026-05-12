@@ -22,6 +22,7 @@ public class CustomNetworkManager : NetworkManager
     public event Action ClientStartedEvent;
     public event Action ClientStoppedEvent;
     public event Action<NetworkConnection> PlayerDisconnectedEvent;
+    public event Action GameSceneReadyEvent;
 
     private const string PLAYER_ID_PREFIX = "Player_";
     private static Dictionary<string, NetworkIdentity> playersDic = new Dictionary<string, NetworkIdentity>();
@@ -32,22 +33,26 @@ public class CustomNetworkManager : NetworkManager
     public bool isSteam;
 
     [Header("References")]
-    public MatchManager matchManager;
+    public MatchNetworkSync matchNetworkSync;
     public MenuUIManager menuUI;
 
+    private MatchService matchService;
 
-    void OnLevelWasLoaded(int level)
+    private void GetMatchService()
     {
-        ResetManager();
+        if (matchService == null)
+            matchService = GetComponent<MatchService>();
     }
 
     public void ResetManager()
     {
-        matchManager.ResetMatch();
+        GetMatchService();
+        matchService?.ResetMatch();
+        matchNetworkSync?.ResetMatchSync();
         playersDic = new Dictionary<string, NetworkIdentity>();
         localPlayerId = null;
         localPlayerInitialized = false;
-        menuUI.ClickedBackToMain();
+        menuUI?.ClickedBackToMain();
     }
 
 public static void RegisterPlayer(uint netId, NetworkIdentity go)
@@ -180,7 +185,11 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     /// Called on the server when a scene is completed loaded, when the scene load was initiated by the server with ServerChangeScene().
     /// </summary>
     /// <param name="sceneName">The name of the new scene.</param>
-    public override void OnServerSceneChanged(string sceneName) { base.OnServerSceneChanged(sceneName); }
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        base.OnServerSceneChanged(sceneName);
+        GameSceneReadyEvent?.Invoke();
+    }
 
     /// <summary>
     /// Called from ClientChangeScene immediately before SceneManager.LoadSceneAsync is executed
@@ -199,6 +208,7 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
         base.OnClientSceneChanged(conn);
+        GameSceneReadyEvent?.Invoke();
     }
 
     #endregion
@@ -222,8 +232,7 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     /// <param name="conn">Connection from client.</param>
     public override void OnServerReady(NetworkConnection conn)
     {
-        //sync info when player is ready
-        matchManager.RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(matchManager.teams)));
+        matchNetworkSync?.RpcSyncTeamInfo(JsonUtility.ToJson(new TeamInfo(matchService?.teams ?? new System.Collections.Generic.List<Team>())));
 
         base.OnServerReady(conn);
     }

@@ -7,7 +7,7 @@ using Mirror;
 public class Totem : NetworkBehaviour
 {
     [Header("References")]
-    public MatchManager matchManager;
+    public MatchService matchService;
 
     [Header("Totem")]
     public TotemPieceGroup group = TotemPieceGroup.Any;
@@ -27,10 +27,8 @@ public class Totem : NetworkBehaviour
             visual.SetActive(false);
         }
 
-        if (matchManager == null)
-        {
-            matchManager = FindObjectOfType<MatchManager>();
-        }
+        if (matchService == null)
+            matchService = FindObjectOfType<MatchService>();
     }
 
     private void Update()
@@ -88,7 +86,7 @@ public class Totem : NetworkBehaviour
 
         if (stage >= visuals.Length)
         {
-            matchManager.UpdateTeamAndObjectiveUI();
+            matchService?.UpdateTeamAndObjectiveUI();
         }
     }
 

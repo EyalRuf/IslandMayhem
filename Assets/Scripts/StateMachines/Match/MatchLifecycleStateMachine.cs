@@ -2,6 +2,9 @@ using CardboardCore.StateMachines;
 
 public class MatchLifecycleStateMachine : StateMachine
 {
+    public MatchService MatchService { get; set; }
+    public MatchNetworkSync MatchNetworkSync { get; set; }
+
     public MatchLifecycleStateMachine() : base(enableDebugging: true)
     {
         SetInitialState<SetupPhaseState>();
