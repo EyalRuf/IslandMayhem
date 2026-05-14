@@ -1,7 +1,7 @@
 using CardboardCore.StateMachines;
 
-public class InLobbyState : State
+public class InLobbyState : State<LobbyStateMachine>
 {
-    protected override void OnEnter() { }
+    protected override void OnEnter() => owningStateMachine.ToNextState(); // static → LobbyLoadingState
     protected override void OnExit() { }
 }

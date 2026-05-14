@@ -9,7 +9,8 @@ public class AppStateMachine : StateMachine
         // Happy path flow
         AddStaticTransition<BootingState, MainMenuState>();
         AddStaticTransition<MainMenuState, InGameState>();
-        AddStaticTransition<InGameState, MainMenuState>();
+        AddStaticTransition<InGameState, ReturningToMenuState>();
+        AddStaticTransition<ReturningToMenuState, MainMenuState>();
 
         // Exceptional exits
         AddFreeFlowTransition<BootingState, BootFailedState>();

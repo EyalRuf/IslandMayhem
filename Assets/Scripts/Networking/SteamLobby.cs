@@ -1,9 +1,8 @@
-﻿using Assets.Scripts.UI;
+using Assets.Scripts.UI;
 using CardboardCore.DI;
 using Mirror;
 using Steamworks;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,17 +17,16 @@ namespace Assets.Scripts.Networking
         public event Action LobbyEnteredEvent;
         public event Action LobbyListReadyEvent;
         public event Action LobbyLeftEvent;
+        public event Action<CSteamID> LobbySelectedEvent;
 
         public NetworkManager networkManager;
-        public MenuUIManager menuUIManager;
+
+        public const string HostAddressKey = "HostAddress";
 
         private MatchService matchService;
 
-        private string HostAddressKey = "HostAddress";
-
         #region Steam Callbacks
         protected Callback<LobbyCreated_t> lobbyCreated;
-        //protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
         protected Callback<LobbyEnter_t> lobbyEntered;
         protected Callback<LobbyMatchList_t> lobbyMatchList;
         #endregion
@@ -46,29 +44,12 @@ namespace Assets.Scripts.Networking
             networkManager = GetComponent<NetworkManager>();
             matchService = GetComponent<MatchService>();
 
-            if (!SteamManager.Initialized) 
+            if (!SteamManager.Initialized)
                 return;
 
-            #region Steam Callbacks Initialization
             lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
-            //gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
             lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
             lobbyMatchList = Callback<LobbyMatchList_t>.Create(OnLobbyMatchList);
-            #endregion
-
-        }
-
-        public void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                HostLobby();
-            }
-
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                GetLobbies();
-            }
         }
 
         public void HostLobby()
@@ -76,7 +57,7 @@ namespace Assets.Scripts.Networking
             SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, networkManager.maxConnections);
         }
 
-        public void OnLobbyCreated (LobbyCreated_t callback)
+        public void OnLobbyCreated(LobbyCreated_t callback)
         {
             if (callback.m_eResult != EResult.k_EResultOK)
             {
@@ -86,28 +67,24 @@ namespace Assets.Scripts.Networking
             }
 
             CSteamID lobbyId = new CSteamID(callback.m_ulSteamIDLobby);
-            var x = SteamUser.GetSteamID().ToString();
-            var y = SteamFriends.GetPersonaName().ToString();
-            SteamMatchmaking.SetLobbyData(lobbyId, "host", x);
-            SteamMatchmaking.SetLobbyData(lobbyId, "hostName", y);
-            SteamMatchmaking.SetLobbyData(lobbyId, HostAddressKey, x);
+            SteamMatchmaking.SetLobbyData(lobbyId, "host", SteamUser.GetSteamID().ToString());
+            SteamMatchmaking.SetLobbyData(lobbyId, "hostName", SteamFriends.GetPersonaName().ToString());
+            SteamMatchmaking.SetLobbyData(lobbyId, HostAddressKey, SteamUser.GetSteamID().ToString());
             SteamMatchmaking.SetLobbyData(lobbyId, "game", "eyalgame");
 
             currLobby = lobbyId;
-            networkManager.StartHost();
-            Debug.Log("started host");
             LobbyCreatedEvent?.Invoke();
         }
 
-        public void OnGameLobbyJoinRequested (GameLobbyJoinRequested_t callback)
+        public void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
         {
             //SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
         }
 
-        public void OnLobbyEntered (LobbyEnter_t callback)
+        public void OnLobbyEntered(LobbyEnter_t callback)
         {
             CSteamID lobbyId = new CSteamID(callback.m_ulSteamIDLobby);
-        
+
             if (NetworkServer.active) // I'm hosting and someone joined my lobby
             {
                 int playerCount = SteamMatchmaking.GetNumLobbyMembers(lobbyId);
@@ -120,20 +97,12 @@ namespace Assets.Scripts.Networking
             }
             else // I joined the lobby
             {
-                string hostAddress = SteamMatchmaking.GetLobbyData(lobbyId, HostAddressKey);
-
-                networkManager.networkAddress = hostAddress;
-                networkManager.StartClient();
                 currLobby = lobbyId;
-
-                menuUIManager.JoinedGame();
-
-                Debug.Log("started client");
                 LobbyEnteredEvent?.Invoke();
             }
         }
 
-        public void GetLobbies ()
+        public void GetLobbies()
         {
             ClearLobbyList();
             SteamMatchmaking.AddRequestLobbyListStringFilter("game", "eyalgame", ELobbyComparison.k_ELobbyComparisonEqual);
@@ -147,7 +116,6 @@ namespace Assets.Scripts.Networking
             LobbyLeftEvent?.Invoke();
         }
 
-        // Lobbies fetched
         public void OnLobbyMatchList(LobbyMatchList_t callback)
         {
             List<string> hostNames = new List<string>();
@@ -163,8 +131,6 @@ namespace Assets.Scripts.Networking
                 string game = SteamMatchmaking.GetLobbyData(lobbyId, "game");
                 int playerCount = SteamMatchmaking.GetNumLobbyMembers(lobbyId);
 
-                // Don't need empty or local player's own lobbies
-                // only need the game when using the 480 appid
                 if (game.Equals("eyalgame"))
                 {
                     hostNames.Add(hostName);
@@ -195,8 +161,7 @@ namespace Assets.Scripts.Networking
 
         private void JoinLobby(CSteamID lobbyId)
         {
-            menuUIManager.ClickedLobby();
-            SteamMatchmaking.JoinLobby(lobbyId);
+            LobbySelectedEvent?.Invoke(lobbyId);
         }
     }
 }

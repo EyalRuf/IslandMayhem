@@ -1,6 +1,7 @@
-﻿using Assets.Scripts.Networking;
+using Assets.Scripts.Networking;
 using CardboardCore.DI;
 using Steamworks;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,11 +9,12 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
-    [Injectable]
     public class MenuUIManager : MonoBehaviour
     {
-        public CustomNetworkManager networkManager;
-        [SerializeField] private SteamLobby steamLobby;
+        private MenuManager menuManager;
+
+        // TODO: remove networkManager when isSteam flag is centralized to AppManager
+        [SerializeField] private CustomNetworkManager networkManager;
         [SerializeField] private AppManager appManager;
 
         [Header("UI")]
@@ -22,14 +24,21 @@ namespace Assets.Scripts.UI
         [SerializeField] private GameObject LoadPage;
         [SerializeField] private Text loadingTxt;
 
-        public void Update()
+        private void Awake()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            menuManager = FindAnyObjectByType<MenuManager>();
+            menuManager.RegisterUI(this);
+        }
+
+        private void OnDestroy()
+        {
+            if (menuManager != null)
             {
-                networkManager.ResetManager();
-                steamLobby.LeaveLobby();
-                ClickedBackToMain();
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                menuManager.ClearUI();
+            }
+            else if (Application.isPlaying) // Only log if we're in play mode, to avoid noisy logs during scene editing
+            {
+                Debug.LogError("MenuUIManager destroyed but MenuManager reference was null. This should not happen, investigate.");
             }
         }
 
@@ -37,32 +46,29 @@ namespace Assets.Scripts.UI
         {
             if (networkManager.isSteam)
             {
-                steamLobby.HostLobby();
-                MenuParent.gameObject.SetActive(false);
+                appManager.RequestHostSteam();
             }
             else
             {
-                appManager.RequestHostLocal(networkManager);
-                // UI hidden by state machine (Chunk 4)
+                appManager.RequestHostLocal();
             }
         }
 
         public void ClickedLobbies()
         {
-            if (networkManager.isSteam) 
+            if (networkManager.isSteam)
             {
-                steamLobby.GetLobbies();
+                appManager.RequestBrowseLobbies();
 
+                // Panel switch kept here until BrowsingLobbiesState UI is fully wired
                 MenuParent.gameObject.SetActive(true);
-
                 MainPage.gameObject.SetActive(false);
                 LoadPage.gameObject.SetActive(false);
                 LobbyPage.gameObject.SetActive(true);
             }
             else
             {
-                appManager.RequestJoinLocal(networkManager, "localhost");
-                // UI hidden by state machine (Chunk 4)
+                appManager.RequestJoinLocal("localhost");
             }
         }
 
@@ -101,7 +107,7 @@ namespace Assets.Scripts.UI
 
         public void ClickedBackToMain() => ShowMainScreen();
 
-        public void JoinedGame ()
+        public void JoinedGame()
         {
             loadingTxt.text = "Loading...";
 
@@ -111,7 +117,6 @@ namespace Assets.Scripts.UI
             LoadPage.gameObject.SetActive(false);
             MainPage.gameObject.SetActive(true);
         }
-
 
         public void ClickedQuit()
         {

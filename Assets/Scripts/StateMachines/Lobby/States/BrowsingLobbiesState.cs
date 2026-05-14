@@ -10,6 +10,7 @@ public class BrowsingLobbiesState : State<LobbyStateMachine>
     protected override void OnEnter()
     {
         steamLobby.LobbyListReadyEvent += OnLobbyListReady;
+        steamLobby.LobbySelectedEvent += OnLobbySelected;
         SteamMatchmaking.AddRequestLobbyListStringFilter("game", "eyalgame", ELobbyComparison.k_ELobbyComparisonEqual);
         SteamMatchmaking.RequestLobbyList();
     }
@@ -17,13 +18,14 @@ public class BrowsingLobbiesState : State<LobbyStateMachine>
     protected override void OnExit()
     {
         steamLobby.LobbyListReadyEvent -= OnLobbyListReady;
+        steamLobby.LobbySelectedEvent -= OnLobbySelected;
     }
 
-    private void OnLobbyListReady() { } // UI wired in Chunk 4
+    private void OnLobbyListReady() { } // UI items created by SteamLobby.OnLobbyMatchList
 
-    public void SelectLobby(CSteamID id)
+    private void OnLobbySelected(CSteamID id)
     {
         owningStateMachine.SelectedLobbyId = id;
-        owningStateMachine.ToNextState();
+        owningStateMachine.ToNextState(); // static → JoiningLobbyState
     }
 }

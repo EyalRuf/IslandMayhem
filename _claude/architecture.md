@@ -6,6 +6,74 @@
 ## Game Summary
 3rd-person multiplayer island brawler. Two teams (Natives vs Explorers) fight, collect totem pieces, and complete objectives. Steam P2P lobbies, Mirror networking. One scene contains everything — menu, game, and lobby state all coexist.
 
+---
+
+## Principle: Scene Readiness Must Gate State Transitions
+
+**Rule:** A state machine must never transition to a state that depends on scene-local objects until the target scene is fully loaded.
+
+**Why this matters — the failure mode we hit:**
+`InGameState` subscribed to `HostStoppedEvent` / `ClientStoppedEvent` and called `ToNextState()` → `MainMenuState` immediately when Mirror fired those events. But Mirror fires `OnStopHost` *before* unloading the match scene and loading the offline scene. `MainMenuState.OnEnter()` therefore ran while the match scene was still active — `MenuUIManager` (a scene-local object) was destroyed, causing a `MissingReferenceException`.
+
+The band-aid instinct (null-check or scene-check in `OnEnter`) masks the symptom but leaves the flow semantically broken: the state thinks it's in the menu, but the scene disagrees.
+
+**The correct pattern for leaving a networked scene:**
+1. Transition to an intermediate "leaving" state (e.g. `ReturningToMenuState`) *before* stopping the network.
+2. In that state's `OnEnter`: explicitly load the destination scene (`SceneManager.LoadScene`) and subscribe to `SceneManager.sceneLoaded`. The state machine *owns* the scene transition — do not rely on Mirror's StopHost as a side effect to trigger it.
+3. Transition to the destination state only *inside* the scene-loaded callback, once confirmed. This triggers `OnExit`.
+4. In `OnExit`: call `StopHost`/`StopClient` to clean up Mirror. By this point the destination scene exists, so Mirror's cleanup happens in the right context.
+5. The destination state's `OnEnter` can now safely access scene-local objects — the scene is guaranteed to exist.
+
+**Why not call `StopHost` in `OnEnter`:** Mirror fires `HostStoppedEvent` synchronously inside `StopHost`. If any downstream code (state transitions, event handlers) touches scene-local objects after that point, they will fail — the match scene may still be active. Calling `StopHost` in `OnExit` instead means it runs *after* the scene is loaded and *after* the new state has already taken over, so nothing in the old scene is touched at the wrong time.
+
+**Applied in AppStateMachine:**
+```
+InGameState → ReturningToMenuState → MainMenuState
+```
+`ReturningToMenuState` owns the network-stop + scene-load-wait logic. `MainMenuState.OnEnter()` is unconditionally safe.
+
+**General rule to remember:** If a state's `OnEnter` touches scene-local objects, there must be a state *before* it whose sole job is to wait for that scene to be ready. Never let a network event (e.g. `HostStopped`) drive a direct transition into a UI-dependent state.
+
+---
+
+---
+
+## Pattern: DDOL Bridge for Scene-Local Managers
+
+**Problem this solves:** The state machine lives in DDOL-land and needs to talk to scene-local objects (e.g. `MenuUIManager`). Injecting scene-local objects directly into states causes stale reference bugs after scene reloads — the DI system caches the first resolved instance, which becomes a destroyed fake-null on the next scene load.
+
+**The pattern — two-layer manager split:**
+
+1. **DDOL bridge** (`MenuManager`) — `[Injectable]`, lives on a DDOL GameObject (e.g. AppManager's GO). States inject this. It exposes the same public API as the scene-local manager (`ShowMainScreen`, `HideAll`, etc.) but delegates internally to whoever has registered. Fires `UIReady` when the scene-local layer is available.
+
+2. **Scene-local manager** (`MenuUIManager`) — owns all Unity UI references (panels, buttons, text). In `Awake()`, calls `FindObjectOfType<MenuManager>().RegisterUI(this)`. This is the only `FindObjectOfType` in the pattern, and it's acceptable: it's a one-time call in Awake, searching for a DDOL object that's guaranteed to exist.
+
+**Why this works across scene reloads:**
+- DDOL bridge persists — states keep a valid injection forever
+- Each scene reload creates a fresh `MenuUIManager` → `Awake()` re-registers → DDOL bridge updates its internal reference and fires `UIReady`
+- States that need to wait for the UI (e.g. `ReturningToMenuState`) subscribe to `menuManager.UIReady` as their scene-readiness gate — cleaner and more semantic than `SceneManager.sceneLoaded`
+
+**Key insight about `FindObjectOfType` direction:**
+The acceptable use is scene-local → DDOL (upward). The wrong direction is DDOL → scene-local (downward). A DDOL object searching for a scene-local object is fragile (may not exist yet, stale after reload). A scene-local object finding a DDOL object in `Awake()` is always safe — DDOL objects exist before any scene loads.
+
+**Applied to:**
+- `MenuManager` ↔ `MenuUIManager` — menu scene UI
+- The same pattern should be applied to any future scene-local manager that needs to be visible to the state machine layer
+
+---
+
+## Design Gap: CardboardCore DI Does Not Support Scene-Scoped Objects
+
+**Problem:** CardboardCore's `[Inject]` / `[Injectable]` system resolves instances once and caches them. It assumes all injectable objects are DDOL singletons. Scene-local MonoBehaviours cause stale reference bugs after scene reloads.
+
+**Current workaround:** The DDOL bridge pattern above. Scene-local managers register themselves with a DDOL counterpart on `Awake()`. States inject the DDOL counterpart — always valid.
+
+**The real fix:** A DI system with scene-scoped containers — where the scene container is rebuilt on each load and DDOL containers persist. Zenject and VContainer handle this natively.
+
+**Ask coder friend about:** how to extend CardboardCore's Injector to support scene-scoped registration, or whether swapping to Zenject/VContainer is worth the migration cost at this stage. The DDOL bridge pattern is a solid interim solution and maps cleanly onto whatever scoped DI replaces it.
+
+---
+
 ## Folder Structure (`Assets/Scripts/`)
 
 ```

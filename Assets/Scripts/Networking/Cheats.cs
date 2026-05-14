@@ -20,6 +20,7 @@ public class Cheats : NetworkBehaviour
     private MatchService matchService;
     private MatchNetworkSync matchNetworkSync;
     private RandomEventSystem eventSystem;
+    private CustomNetworkManager networkManager;
 
     private ThirdPersonCharacterController player;
     private ThirdPersonCameraController playerCamera;
@@ -33,6 +34,7 @@ public class Cheats : NetworkBehaviour
         matchService = FindObjectOfType<MatchService>();
         matchNetworkSync = FindObjectOfType<MatchNetworkSync>();
         eventSystem = FindObjectOfType<RandomEventSystem>();
+        networkManager = FindObjectOfType<CustomNetworkManager>();
         windowRect = new Rect(Screen.width - 250, 0, 250, 250);
         pepega = (Texture2D)Resources.Load("pepega");
         username = System.Environment.UserName;
@@ -111,16 +113,22 @@ public class Cheats : NetworkBehaviour
                     matchNetworkSync.RpcStartGame();
                 }
 
+                if (networkManager != null && GUILayout.Button("Return to Menu"))
+                    networkManager.StopHost();
+
                 if (GUILayout.Button("Random event") && eventSystem != null)
                 {
                     eventSystem.StartEvent(Random.Range(0, eventSystem.events.Length));
                 }
 
-                for (int e = 0; e < eventSystem.events.Length; e++)
+                if (eventSystem != null)
                 {
-                    if (GUILayout.Button("Start " + eventSystem.events[e].name))
+                    for (int e = 0; e < eventSystem.events.Length; e++)
                     {
-                        eventSystem.StartEvent(e);
+                        if (GUILayout.Button("Start " + eventSystem.events[e].name))
+                        {
+                            eventSystem.StartEvent(e);
+                        }
                     }
                 }
             }
@@ -146,6 +154,9 @@ public class Cheats : NetworkBehaviour
                 GUILayout.Label("Player jump force:");
                 player.jumpForce = GUILayout.HorizontalSlider(player.jumpForce, 0f, 100f);
             }
+
+            if (!isServer && NetworkClient.active && networkManager != null && GUILayout.Button("Return to Menu"))
+                networkManager.StopClient();
 
             if (isServer)
             {

@@ -3,11 +3,13 @@
 ## What It Is
 A 3rd-person multiplayer brawler. Two teams (Natives vs Explorers) fight, collect totem pieces, and complete objectives on an island map. Peer-to-peer multiplayer via Steam lobbies (Steamworks). Networking layer built on Mirror.
 
-## Current State (as of 2026-04-03)
+## Current State (as of 2026-05-13)
 - **Phase 1 (Migration) COMPLETE** — project compiles clean in Unity 6.4 (6000.4.1f1)
+- **Phase 2 / 2.5 COMPLETE** — networking analysis + full codebase walkthrough done
+- **Phase 3 COMPLETE** — state machine design agreed and chunked
+- **Phase 4 Chunks 1–6 COMPLETE** — full lobby/connection state machine live, old coupling triangle removed
 - External assets stubbed for Unity 6 (HBAO, FlatKit fog/outline/depth normals — URP API break)
 - MCP connected and operational
-- Codebase analysis complete — docs filled out below
 
 ## What We're Doing Together
 Working in phases:
@@ -38,9 +40,26 @@ All 5 layers complete. Full codebase understood. Issues logged in architecture.m
 → See [state-machine.md](state-machine.md)
 → See [implementation-plan.md](implementation-plan.md) for chunk-by-chunk implementation guide
 
-### Phase 4 — State Machine Implementation (Next)
+### Phase 4 — State Machine Implementation 🔄 IN PROGRESS
 Implement the state machines chunk by chunk. Each chunk is self-contained and leaves the game playable.
 → See [implementation-plan.md](implementation-plan.md)
+
+| Chunk | Description | Status |
+|---|---|---|
+| 1 | CardboardCore shells | ✅ Done |
+| 2 | AppManager + boot sequence | ✅ Done |
+| 3 | Managers injectable, LobbyStateMachine wired | ✅ Done |
+| 4 | UI wired through states | ✅ Done |
+| 5 | Mirror/Steam calls moved into states | ✅ Done |
+| 6 | Old coupling triangle removed, ResetManager fixed | ✅ Done |
+| 6.9 | Eliminate FindObjectOfType — Registration Pattern + MatchSceneManager | 🔲 Next |
+| 7 | MatchLifecycleStateMachine | 🔲 Pending |
+| 8 | PlayerStateMachine | 🔲 Pending |
+
+**Post-Chunk 6 fixes applied:**
+- Double-stop re-entrancy bug fixed (`ReturningToMenuState` no longer calls `StopHost`)
+- Boot-time race condition fixed (`BootingState` now waits for `UIReady` before transitioning)
+- Loading screen hang on return-from-game fixed (`ReturningToMenuState` calls `NotifyIfReady()`)
 
 ### Phase 5 — Architecture & General Cleanup
 Broader codebase analysis and improvement planning.

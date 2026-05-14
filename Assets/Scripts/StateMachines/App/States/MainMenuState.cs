@@ -1,15 +1,16 @@
-using Assets.Scripts.UI;
 using CardboardCore.DI;
 using CardboardCore.StateMachines;
+using System.IO;
+using UnityEngine.SceneManagement;
 
 public class MainMenuState : State
 {
+    [Inject] private MenuManager menuManager;
     [Inject] private CustomNetworkManager networkManager;
-    [Inject] private MenuUIManager menuUIManager;
 
     protected override void OnEnter()
     {
-        menuUIManager.ShowMainScreen();
+        menuManager.ShowMainScreen();
         networkManager.GameSceneReadyEvent += OnGameSceneReady;
     }
 
@@ -20,7 +21,10 @@ public class MainMenuState : State
 
     private void OnGameSceneReady()
     {
-        networkManager.GameSceneReadyEvent -= OnGameSceneReady;
-        owningStateMachine.ToNextState();
+        if (SceneManager.GetActiveScene().name == Path.GetFileNameWithoutExtension(networkManager.onlineScene))
+        {
+            networkManager.GameSceneReadyEvent -= OnGameSceneReady;
+            owningStateMachine.ToNextState();
+        }
     }
 }

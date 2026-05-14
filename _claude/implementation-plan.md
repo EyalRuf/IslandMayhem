@@ -462,6 +462,72 @@ Fix: Remove all four calls. `IdleState.OnEnter()` is now the single reset point 
 
 ---
 
+## Chunk 6.9 — Eliminate FindObjectOfType: Registration Pattern + MatchSceneManager
+**Status: 🔲 NEEDS PLANNING — do not implement until a full plan is written and approved.**
+
+### Assignment
+This chunk must be fully planned (files to create, files to modify, step-by-step order, verification) before any code is written. Read this section and the context below, then produce a plan for user approval.
+
+### Problem
+There are 15 `FindObjectOfType` / `FindAnyObjectByType` call sites across 11 files. These are implicit hidden dependencies — each class hunts for what it needs at runtime rather than being handed it explicitly. This must be eliminated.
+
+### The Two Categories
+
+**Category A — DDOL managers that are already `[Injectable]` but being found manually:**
+- `CustomNetworkManager` — found in `MatchNetworkSync`, `Cheats`
+- `MatchService` — found in `TeamAndObjectivesUI`, `Cheats`, `SingelTotemMatchService`, `PlayerCombat`, `Totem`, `Camp`
+- `MenuManager` — found in `MenuUIManager`
+
+Fix: states inject these managers via `[Inject]` and push the reference into the MonoBehaviour via a public setter when appropriate. MonoBehaviours cannot be injected into (they are not CardboardBehaviour), so states are the wiring layer.
+
+**Category B — Scene-local objects (no `[Injectable]`, many are `NetworkBehaviour`) found by other scene-local objects:**
+- `MatchNetworkSync` — found by `NetworkPlayer`, `Cheats`
+- `CampManager` — found by `SingelTotemMatchService`, `PlayerCombat`, `Camp`
+- `MatchTimer` — found by `SingelTotemMatchService`
+- `RandomEventSystem` — found by `Cheats`
+- `TeamAndObjectivesUI` — found by `NetworkPlayer`
+
+Fix: the Registration Pattern (see below).
+
+### The Registration Pattern
+Already demonstrated in the codebase: `MenuUIManager` (scene-local) registers itself to `MenuManager` (DDOL injectable) on `Awake`. States inject `MenuManager` and receive the scene-local reference through it. This pattern must be generalised to the match scene.
+
+**Three roles:**
+1. **DDOL bridge manager** — injectable, always alive across scenes. Holds events (`OnXReady`) and exposes registered instances as properties once they arrive. A new `MatchSceneManager` must be created for this purpose.
+2. **Scene-local object** — knows about the DDOL bridge (injects or finds it once on `Awake`, since it's guaranteed to exist). Calls `bridge.RegisterX(this)` on startup.
+3. **State** — injects the DDOL bridge, subscribes to its ready events in `OnEnter`, maintains a checklist, and transitions forward only when all expected objects have registered.
+
+**Multi-instance objects (NetworkPlayer, Camp):**
+`MatchSceneManager` holds a `List<NetworkPlayer>` and `List<Camp>` etc. — not single references. Each instance registers itself on spawn. States that need to respond to individual player/camp readiness subscribe to a `OnPlayerRegistered(NetworkPlayer)` style event rather than waiting for a fixed count.
+
+### New State: InGameLoadingState
+The `AppStateMachine` is currently missing a state between "Mirror has loaded the match scene" and "game is running." Add `InGameLoadingState` between `MainMenuState` and `InGameState`:
+
+```
+MainMenuState → InGameLoadingState → InGameState → MainMenuState
+```
+
+`InGameLoadingState` subscribes to `MatchSceneManager` ready events and only transitions to `InGameState` once all expected match-scene objects have registered. This is the guarantee that everything is wired before gameplay begins.
+
+### Scope of Files to Audit During Planning
+Before writing the plan, read the current state of:
+- All 11 files with `FindObjectOfType` calls (listed above)
+- `Assets/Scripts/StateMachines/MenuManager.cs` — reference implementation of the DDOL bridge pattern
+- `Assets/Scripts/UI/MenuUIManager.cs` — reference implementation of the scene-local registration side
+- `Assets/Scripts/StateMachines/App/AppStateMachine.cs` — to understand current transition graph before adding `InGameLoadingState`
+- `Assets/Scripts/StateMachines/App/States/InGameState.cs` — to understand what it currently does
+- `Assets/Scripts/StateMachines/App/States/MainMenuState.cs` — to understand what triggers the `InGame` transition
+
+### What the Plan Must Cover
+1. `MatchSceneManager` — full design: what it holds, what events it exposes, which objects register to it
+2. `AppStateMachine` transition graph change — adding `InGameLoadingState`, what it waits for
+3. Category A fixes — for each call site, which state injects the manager and assigns it, and when
+4. Category B fixes — for each call site, does it move to `MatchSceneManager` registration or can it be wired via `GetComponent` (same-GameObject refs like `PlayerCombat` → components on `NetworkPlayer` don't need a global find at all)
+5. `Cheats.cs` — special case: it's a dev tool that finds 4 things. Decide whether to wire it properly or accept a single `Awake` find as a known exception
+6. Order of operations — which files to touch in which order so the game stays playable throughout
+
+---
+
 ## Chunk 7 — MatchLifecycleStateMachine
 **Risk: Medium. Match flow changes but lobby/connection flow is now stable.**
 

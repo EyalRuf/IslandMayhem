@@ -1,7 +1,7 @@
 using CardboardCore.DI;
 using CardboardCore.StateMachines;
 
-public class ReconnectingState : State
+public class LobbyReconnectingState : State
 {
     [Inject] private SessionData sessionData;
     [Inject] private CustomNetworkManager networkManager;
@@ -9,7 +9,7 @@ public class ReconnectingState : State
     protected override void OnEnter()
     {
         networkManager.ClientStartedEvent += OnClientStarted;
-        // Full reconnect attempt logic comes in Chunk 5
+        // Full reconnect attempt logic — Chunk 7
     }
 
     protected override void OnExit()

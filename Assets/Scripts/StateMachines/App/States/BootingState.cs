@@ -4,13 +4,15 @@ using CardboardCore.StateMachines;
 public class BootingState : State
 {
     [Inject] private SessionData sessionData;
+    [Inject] private MenuManager menuManager;
 
     protected override void OnEnter()
     {
         if (SteamManager.Initialized)
         {
             sessionData.Load();
-            owningStateMachine.ToNextState();
+            menuManager.UIReady += OnUIReady;
+            menuManager.NotifyIfReady();
         }
         else
         {
@@ -18,5 +20,13 @@ public class BootingState : State
         }
     }
 
-    protected override void OnExit() { }
+    protected override void OnExit()
+    {
+        menuManager.UIReady -= OnUIReady;
+    }
+
+    private void OnUIReady()
+    {
+        owningStateMachine.ToNextState();
+    }
 }

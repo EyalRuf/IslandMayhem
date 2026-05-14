@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Steamworks;
 using System.Linq;
 using System.Collections;
-using Assets.Scripts.UI;
 using CardboardCore.DI;
 
 /*
@@ -34,7 +33,6 @@ public class CustomNetworkManager : NetworkManager
 
     [Header("References")]
     public MatchNetworkSync matchNetworkSync;
-    public MenuUIManager menuUI;
 
     private MatchService matchService;
 
@@ -52,7 +50,6 @@ public class CustomNetworkManager : NetworkManager
         playersDic = new Dictionary<string, NetworkIdentity>();
         localPlayerId = null;
         localPlayerInitialized = false;
-        menuUI?.ClickedBackToMain();
     }
 
 public static void RegisterPlayer(uint netId, NetworkIdentity go)
@@ -256,8 +253,6 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     {
         PlayerDisconnectedEvent?.Invoke(conn);
         base.OnServerDisconnect(conn);
-
-        ResetManager();
     }
 
     /// <summary>
@@ -279,27 +274,6 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     public override void OnClientConnect(NetworkConnection conn)
     {
         base.OnClientConnect(conn);
-
-        //var lobbychannel = _vivoxVoiceManager.ActiveChannels.FirstOrDefault(ac => ac.Channel.Name == "A");
-        //if ((_vivoxVoiceManager && _vivoxVoiceManager.ActiveChannels.Count == 0)
-        //    || lobbychannel == null)
-        //{
-        //    _vivoxVoiceManager.JoinChannel("A", ChannelType.Positional, VivoxVoiceManager.ChatCapability.AudioOnly);
-        //}
-        //else
-        //{
-        //    if (lobbychannel.AudioState == ConnectionState.Disconnected)
-        //    {
-        //        // Ask for hosts since we're already in the channel and part added won't be triggered.
-
-        //        lobbychannel.BeginSetAudioConnected(true, true, ar =>
-        //        {
-        //            Debug.Log("Now transmitting into lobby channel");
-        //        });
-        //    }
-
-        //}
-
     }
 
     /// <summary>
@@ -390,11 +364,8 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
     public override void OnStopHost()
     {
         HostStoppedEvent?.Invoke();
-        //StopLobby();
-
         base.OnStopHost();
         Debug.Log("Stopped host");
-        ResetManager();
     }
 
     /// <summary>
@@ -414,8 +385,6 @@ public static void RegisterPlayer(uint netId, NetworkIdentity go)
         base.OnStopClient();
         SteamFriends.SetRichPresence("status", "In Menu");
         SteamFriends.SetRichPresence("room", "");
-
-        ResetManager();
 
         if(onClientStartStops != null)
         {

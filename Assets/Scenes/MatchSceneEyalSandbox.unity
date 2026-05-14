@@ -1417,6 +1417,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ecffe2f3d4c57b45abde328dbde2995, type: 3}
+--- !u!1 &884182395 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8396723648921297697, guid: 5ecffe2f3d4c57b45abde328dbde2995,
+    type: 3}
+  m_PrefabInstance: {fileID: 884182394}
+  m_PrefabAsset: {fileID: 0}
 --- !u!21 &920118835
 Material:
   serializedVersion: 8
@@ -2799,6 +2805,7 @@ GameObject:
   - component: {fileID: 6370951919915018759}
   - component: {fileID: 6370951919915018758}
   - component: {fileID: 354956807649824672}
+  - component: {fileID: 6370951919915018760}
   m_Layer: 0
   m_Name: MatchManager
   m_TagString: Untagged
@@ -2895,6 +2902,23 @@ MonoBehaviour:
   gameStarted: 0
   gameOver: 0
   gameStatus: 
+--- !u!114 &6370951919915018760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354956807649824671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceffadd4a147e494f851374f1c0a135a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cheats
+  syncMode: 0
+  syncInterval: 0.1
+  showCheats: 0
+  cmgCooldown: 0
+  coconut: {fileID: 884182395}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

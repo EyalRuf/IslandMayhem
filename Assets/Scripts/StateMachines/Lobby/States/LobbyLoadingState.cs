@@ -1,15 +1,16 @@
-using Assets.Scripts.UI;
+using Assets.Scripts.Networking;
 using CardboardCore.DI;
 using CardboardCore.StateMachines;
+using Steamworks;
 using System.Collections;
 using UnityEngine;
 
-public class LoadingGameState : State<LobbyStateMachine>
+public class LobbyLoadingState : State<LobbyStateMachine>
 {
     private const float MinLoadingDuration = 1.5f;
 
     [Inject] private CustomNetworkManager networkManager;
-    [Inject] private MenuUIManager menuUIManager;
+    [Inject] private MenuManager menuManager;
     [Inject] private AppManager appManager;
 
     private float enterTime;
@@ -17,11 +18,24 @@ public class LoadingGameState : State<LobbyStateMachine>
     protected override void OnEnter()
     {
         enterTime = Time.time;
-        menuUIManager.ShowLoadingScreen();
+        menuManager.ShowLoadingScreen();
+
         if (owningStateMachine.IsHosting)
+        {
             networkManager.HostStartedEvent += OnSessionReady;
+            networkManager.StartHost();
+        }
         else
+        {
             networkManager.ClientStartedEvent += OnSessionReady;
+            if (networkManager.isSteam && owningStateMachine.SelectedLobbyId.IsValid())
+            {
+                string hostAddress = SteamMatchmaking.GetLobbyData(
+                    owningStateMachine.SelectedLobbyId, SteamLobby.HostAddressKey);
+                networkManager.networkAddress = hostAddress;
+            }
+            networkManager.StartClient();
+        }
     }
 
     protected override void OnExit()

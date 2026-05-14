@@ -21,5 +21,5 @@ public class CreatingLobbyState : State
     }
 
     private void OnLobbyCreated() => owningStateMachine.ToNextState();
-    private void OnFailed() => owningStateMachine.ToState<IdleState>();
+    private void OnFailed() => owningStateMachine.ToState<LobbyIdleState>();
 }
